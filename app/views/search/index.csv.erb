@@ -1,0 +1,13 @@
+<% csv_params = params[:csv_params].split(',') 
+  csv_a_data = @items.inject([]) do |csv_data, object|
+      adata = csv_params.inject([]) do |data, field|
+        data << Gx.to_csv(FormField.evaluate_field(object, field))
+        data
+      end
+      csv_data << adata.join(',')
+      csv_data
+    end
+%>"<%= csv_params.map{|param| FormField.new(@klass,param).translated_field_name.gsub('"', '“') }.join('","').html_safe %>"
+<%= csv_a_data.join("\n").html_safe %>
+
+

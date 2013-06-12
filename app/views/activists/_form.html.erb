@@ -1,0 +1,307 @@
+<% section ||=  params[:section] || 'all' %>
+
+<table id="<%= params[:action] %>_activist_form" class="table_form">
+
+<% if section == 'leave' %>
+  <% if form.object.leave_at.present? %>
+    <p> <b> <%= t("activist.clear_label") %> </b>
+      <ul>
+        <li><%= link_to( t("activist.rejoin"), rejoin_activist_path(activist.id) ) %></li>
+        <li><%= link_to( t("activist.clear"), clear_activist_path(activist.id) )   if form.object.authorize?(:clear, :to => current_agent) %></li> 
+        <li><%= link_to( t("activist.delete"), delete_activist_path(activist.id) ) if form.object.authorize?(:destroy, :to => current_agent)%></li>
+
+      </ul>
+    </p>
+
+  <% else %>
+    <tr class="form_section">
+      <td><%= form.label "sections.leave" %></td>
+      <td></td>
+    </tr>
+
+    <input type="hidden" name="activist_leave" value="true"></input>
+
+  <% if form.object.authorize?(:clear, :to => current_agent) %>
+    <tr class="list_style_0">
+      <td><%= form.label 'clear' %></td>
+      <td><%= check_box_tag 'clear_activist' %> <%= t('activist.clear_checkbox') %></td>
+    </tr>
+  <% end %>
+
+  <tr class="list_style_1">
+    <td><%= form.label_required 'leave_at' %></td>
+    <td><%= form.date_select :leave_at, { :include_blank => true } %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label 'leave_reason_id' %></td>
+    <td><%= form.select :leave_reason_id, LeaveReason.all.collect{ |x| [x.name, x.id] }, { :include_blank => true } %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :leave_more_info %></td>
+    <td><%= form.text_area :leave_more_info %></td>
+  </tr>
+  <% end %>
+<% end %>
+
+
+<% if [ 'all', 'section_data','leave' ].include?(section) %>
+
+
+  <tr class="form_section">
+    <td><%= form.label "sections.data" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label_required :first_name %></td>
+    <td><%= form.text_field :first_name %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label_required :last_name %></td>
+    <td><%= form.text_field :last_name %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :last_name2 %></td>
+    <td><%= form.text_field :last_name2 %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :sex_id %></td>
+    <td><%= form.select :sex_id, Sex.all.collect { |s| [s.name, s.id] }, { :include_blank => true } %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label_required :birth_day %></td>
+    <td><%= form.date_select :birth_day, { :start_year => 1900, :end_year => Date.today.year, :include_blank => true } %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label_required :document_type %></td>
+    <td><%= form.select :document_type, Activist.document_types %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label_required :nif %></td>
+    <td><%= form.text_field :nif %></td>
+  </tr>
+
+
+  <tr class="list_style_0">
+    <td><%= form.label :different_residence_country %></td>
+    <td><%= form.check_box :different_residence_country, {
+    :onchange => "if (this.checked) { $('tr.location_not_spain').show(); $('tr.location_spain').hide() } else { $('tr.location_not_spain').hide(); $('tr.location_spain').show() } ;"} %></td>
+  </tr>
+
+
+  <tr class="list_style_1">
+    <td><%= form.label :address %> <%= link_to_function 'eliminar dirección', "$('activist_address').value = ''; $('activist_cp').value = ''; $('activist_province_id').options.length = 0; $('activist_province_id').options[0]= new Option('', '', true, false);  $('activist_city').options.length = 0; $('activist_city').options[0]= new Option('', '', true, false);", :class => 'blue block with_icon'  %></td>
+    <td><%= form.text_field :address %></td>
+  </tr>
+
+  <tr class="list_style_0 location_not_spain">
+    <td><%= form.label :cp %></td>
+    <td><%= text_field_tag "cp_different_country", form.object.cp %></td>
+  </tr>
+
+  <tr class="list_style_0 location_not_spain">
+    <td><%= form.label :city %></td>
+    <td><%= text_field_tag "city_different_country", form.object.city %></td>
+  </tr>
+
+
+  <tr class="list_style_0 location_spain">
+    <td><%= form.label :cp %></td>
+    <td><%= form.cp_field :cp %></td>
+  </tr>
+
+  <tr class="list_style_1 location_spain">
+    <td><%= form.label :province_id %></td>
+    <td><%= form.select_province :province_id %></td>
+  </tr>
+
+  <tr class="list_style_0 location_spain">
+    <td><%= form.label :city %></td>
+    <td><%= form.select_city :city %></td>
+  </tr>
+
+
+
+  <tr class="list_style_1">
+    <td><%= form.label_required :phone %></td>
+    <td><%= form.text_field :phone, :maxlength => 12 %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :mobile_phone %></td>
+    <td><%= form.text_field :mobile_phone, :maxlength => 12 %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :email %></td>
+    <td><%= form.text_field :email %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label_required :join_at  %></td>
+    <td><%= form.date_select :join_at, { :include_blank => true } %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :other_information %></td>
+    <td><%= form.text_area :other_information %></td>
+  </tr>
+
+  <tr class="form_section">
+    <td><%= form.label "sections.studies" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :labour_situation_id %></td>
+    <td><%= form.select :labour_situation_id, LabourSituation.all.collect { |p| [p.name, p.id] }, { :include_blank => true } %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :occupation_id %></td>
+    <td><%= form.select :occupation_id, Occupation.orderby_name.collect { |p| [p.name, p.id] }, { :include_blank => true }  %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :student_previous_degrees %></td>
+    <td><%= form.text_area :student_previous_degrees %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :student %></td>
+    <td><%= form.check_box :student, :onchange => "if (this.checked) { $('tr.student_section').show() } else { $('tr.student_section').hide() } ;" %></td>
+  </tr>
+
+  <tr class="list_style_1 student_section" <%= 'style="display: none;"' unless form.object.student %>>
+    <td><%= form.label :student_place %></td>
+    <td><%= form.text_field :student_place %></td>
+  </tr>
+
+  <tr class="list_style_0 student_section" <%= 'style="display: none;"' unless form.object.student %>>
+    <td><%= form.label :student_level_id %></td>
+    <td><%= form.select :student_level_id, StudentLevel.all.collect { |p| [p.name, p.id] }, { :include_blank => true } %></td>
+  </tr>
+
+  <tr class="list_style_1 student_section" <%= 'style="display: none;"' unless form.object.student %>>
+    <td><%= form.label :student_degree %></td>
+    <td><%= form.text_field :student_degree %></td>
+  </tr>
+
+  <tr class="list_style_0 student_section" <%= 'style="display: none;"' unless form.object.student %>>
+    <td><%= form.label :student_year_id %></td>
+    <td><%= form.select :student_year_id, StudentYear.all.collect { |p| [p.name, p.id] }, { :include_blank => true } %></td>
+  </tr>
+
+  <tr class="list_style_1 student_section" <%= 'style="display: none;"' unless form.object.student %>>
+    <td><%= form.label :student_more_info %></td>
+    <td><%= form.text_area :student_more_info %></td>
+  </tr>
+
+
+  <tr class="form_section">
+    <td><%= form.label "sections.data_protection_agreement" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :data_protection_agreement %></td>
+    <td><%= form.check_box :data_protection_agreement %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :informed_through_id %><i class="help"><%= raw t("form.multiple_select_help") %></i></td>
+    <td><%= form.select :informed_through_id, InformedThrough.orderby_name.collect { |p| [p.name, p.id] }, { :include_blank => true } %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :informed_through_other %></td>
+    <td><%= form.text_area :informed_through_other %></td>
+  </tr>
+
+<% end %>
+
+<% if [ 'all', 'section_skills_hobbies' ].include?(section) %>
+
+  <tr class="form_section">
+    <td><%= form.label "sections.skills_hobbies" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :collabtopic_ids %><i class="help"><%= raw t("form.multiple_select_help") %></i></td>
+    <td><%= form.select :collabtopic_ids, Collabtopic.orderby_name.collect { |p| [p.name, p.id] }, {}, {"multiple" => true } %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :language_ids %><i class="help"><%= raw t("form.multiple_select_help") %></i></td>
+    <td><%= form.select :language_ids, Language.orderby_name.collect { |p| [p.name, p.id] }, {}, {"multiple" => true } %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :skill_ids %><i class="help"><%= raw t("form.multiple_select_help") %></i></td>
+    <td><%= form.select :skill_ids, Skill.orderby_name.collect { |p| [p.name, p.id] }, {}, {"multiple" => true } %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :other_skills %></td>
+    <td><%= form.text_area :other_skills %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :hobby_ids %><i class="help"><%= raw t("form.multiple_select_help") %></i></td>
+    <td><%= form.select :hobby_ids, Hobby.orderby_name.collect { |p| [p.name, p.id] }, {}, {"multiple" => true,
+                        :onchange => "checkBloggerSelection(this);" } %>  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :other_hobbies %></td>
+    <td><%= form.text_area :other_hobbies %></td>
+  </tr>
+
+  <tr class="list_style_1 blogger">
+    <td><%= form.label :blogger %></td>
+    <td><%= form.text_area :blogger %></td>
+  </tr>
+
+
+<% end %>
+
+
+
+<script>
+  var residence = document.getElementById('activist_different_residence_country');
+  if( residence && residence.checked) {
+    $('tr.location_spain').hide();
+    $('tr.location_not_spain').show();
+  } else {
+    $('tr.location_not_spain').hide();
+    $('tr.location_spain').show();
+  }
+
+    function checkBloggerSelection(selectInput) {
+      var o = new Array(); 
+      $(selectInput).find("option:selected").map(function(){ o.push(this.value) });
+      if(o.indexOf('<%= Hobby.blogger.id %>') != -1){ 
+        $('tr.blogger').show(); 
+      } else { 
+        $('tr.blogger').hide() 
+      };
+    }
+
+  var blogger_id = <%= Hobby.blogger.id %>;
+  var blogger = document.getElementById('activist_hobby_ids');
+  if (blogger != null ) {
+    if( blogger.value != blogger_id ) {
+      $('tr.blogger').hide();
+    }
+  }
+</script>
+
+</table>

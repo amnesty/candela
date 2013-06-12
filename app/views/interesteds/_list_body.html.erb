@@ -1,0 +1,39 @@
+<% embedded ||= false %>
+<% unless embedded %>
+  <%= raw hidden_inputs_for(interested, count, { :hide => [ 'notes' ], :more => [ :to_activist  => to_activist_interested_path(interested),
+                                                                              :prepare_mail => prepare_mail_interested_path(interested),
+                                                                              :prepare_pdf  => prepare_pdf_interested_path(interested) ]}) %>
+<% end %>
+
+<td>
+  <ul>
+  <% if interested.is_minor?  %>
+    <% if interested.minor_checked.nil? || !interested.minor_checked %>
+      <li class="red"><%= Gx.t_attr('interested.is_minor') %></li>
+      <li class="red"><%= t('interested.cant_be_activist_due_age') %></li>
+    <% else %>
+      <li><%= Gx.t_attr('interested.is_minor') %></li>
+      <li><%= Gx.t_attr('interested.minor_checked') %></li>
+    <% end %>
+  <% end %>
+
+    <%= interested.activist.present? ?  raw("<li>#{ link_to(t('interested.migrated'), interested.activist) }</li>") : ''  %>
+
+    <% if interested.present? and interested.email != ''  %>
+      <li><%= interested.email_sent?       ?  t('interested.email_sent')                             : t('interested.email_not_sent') %></li>
+    <% else %>
+      <li><%= interested.letter_sent?      ?  t('interested.letter_sent')                            : t('interested.letter_not_sent') %></li>
+    <% end %>
+
+  </ul>
+</td>
+<td><%= link_to h(interested.full_name), interested %></td>
+<td><%= link_to( h(interested.email), "mailto:#{interested.email}") %></td>
+
+<td><%= h interested.phone %></td>
+
+<% if interested.local_organization %>
+  <td><%= link_to( h(interested.local_organization.full_name), local_organization_path(interested.local_organization) ) %></td>
+<% else %>
+  <td><%= "#{interested.local_organization_id }"%></td>
+<% end %>

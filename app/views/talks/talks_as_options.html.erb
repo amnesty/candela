@@ -1,0 +1,10 @@
+<% if !@local_organization %>
+    <option value="" class="cursive"><%= t('talk.select_a_group') %></option>
+<% elsif @talks.any? %>
+  <option value="" class="bold"><%= t("talk.select_talk") %></option>
+  <% @talks.each do |talk| %>
+    <option title="<%= talk.h %>" value="<%= talk.id %>"><%=  I18n.localize(talk.date.to_date) %>: <%= talk.hours %></option>
+  <% end %>
+<% else %>
+    <option value="" class="cursive"><%= t("talk.empty_for_group") %></option>
+<% end %>

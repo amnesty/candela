@@ -1,0 +1,29 @@
+<table id="<%= params[:action] %>_campaign_form" class="table_form">
+
+  <tr class="list_style_1">
+    <td><%= form.label_required :name %></td>
+    <td><%= form.text_field :name %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label_required :campaigntopic_id %></td>
+    <td><%= form.select :campaigntopic_id, Campaigntopic.orderby_name.collect { |p| [p.name, p.id] }, {:include_blank => true } %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label_required :country_id %></td>
+    <td><%= form.select :country_id, Country.orderby_name.collect { |p| [p.name, p.id] }, {:include_blank => true } %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label_required :starting_at %></td>
+    <td><%= form.date_select :starting_at, { :include_blank => true, :end_year => Time.now.year + 5 } %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label_required :ending_at %></td>
+    <td><%= form.date_select :ending_at, { :include_blank => true, :end_year => Time.now.year + 5 } %></td>
+  </tr>
+
+</table>
+

@@ -1,0 +1,11 @@
+<%= hidden_inputs_for(hr_school, count) %>
+
+<td><%= link_to h(hr_school.name), hr_school %></td>
+
+<td><%=h hr_school.h_work_throughs %></td>
+<td><%=h hr_school.email%></td>
+<td><%=h hr_school.phone%></td>
+<td><%= link_to( I18n.t("form.buttons.notes"), hr_school_path(hr_school, :anchor => 'hr_school_section_notes') )%>
+
+
+

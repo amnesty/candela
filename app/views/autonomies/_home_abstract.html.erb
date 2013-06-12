@@ -1,0 +1,8 @@
+<% if current_agent.organizations_trackings.map(&:organization).include?(performance.stage) %>
+  <tr>
+    <td class="nice_summary_section" id="summary_autonomy_notes">
+      <h5><%= t("home.sections.autonomy_notes") %></h5>
+      <%= render :partial => 'shared/collection', :locals => { :embedded => true, :klass => Note, :collection => performance.stage.notes.can_see(current_agent) } %>
+    </td>
+  </tr>
+<% end %>

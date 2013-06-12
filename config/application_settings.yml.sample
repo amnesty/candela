@@ -1,0 +1,31 @@
+# Sample application settings file. Rename to application_settings.yml and set your own configuration.
+
+defaults: &defaults
+
+  interested_mailer:
+    from: "Example sender <example-sender@example.com>"
+    bcc: [ "bcc-recipient1@example.com","bcc-recipient2@example.com" ]
+    template_folder: app/mail_templates
+
+# Namespace-specific values (namespace is usually Rails.env)
+development:
+
+  exception_notification:
+
+  <<: *defaults
+
+test:
+
+  exception_notification:
+
+  <<: *defaults
+
+production:
+
+  exception_notification:
+    email_prefix: "[ERROR in activismo_production]"
+    sender_address: "Activismo App <example-sender@example.com>"
+    exception_recipients: ["app_administrator@example.com"]
+
+  <<: *defaults
+

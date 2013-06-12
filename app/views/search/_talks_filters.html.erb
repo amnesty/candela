@@ -1,0 +1,42 @@
+<table class="table_list" >
+  <tr class="important_row">
+    <td colspan="2"><%= t('talk.search.search_params') %></td>
+  </tr>
+
+  <tbody class="unhideable">
+    <% Talk.unhideable_fields.each do |field_name| %>
+      <%= render :partial => 'filters_field', :locals => { :klass => 'talk', :field_name => field_name } %>
+    <% end %>
+  </tbody>
+
+  <%= render :partial => 'show_more_row' %>
+
+  <tbody id="interested_extra_fields" class="hideable" style="display: none;">
+    <% Talk.hideable_fields.each do |field_name| %>
+      <%= render :partial => 'filters_field', :locals => { :klass => 'talk', :field_name => field_name } %>
+    <% end %>
+
+  <tr class="list_style_0">
+    <td>
+      <label><%= Gx.t_attr('talk.organization_type') %>:</label>
+    </td>
+    <% organization_type_param  = params[:talk] and params[:talk][:organization_type_equals] ? sanitize(params[:talk][:organization_type_equals]) : '' %>
+    <% organization_type_values = [ [ Gx.t_attr("performance.choose_one_organization_type"), ""],
+                                    [ Gx.t_attr('activists_collaboration.localorganization'), 'LocalOrganization'], 
+                                    [ Gx.t_attr('activists_collaboration.autonomy'), 'Autonomy'] ] %>
+
+    <td><%= select 'talk', 'organization_type_eq', organization_type_values, { :default_value => organization_type_param } %>
+      <% content_for(:head){ javascript_tag "addAutocompleteInputCallback('talk_organization_type_eq', '#{organizations_for_search_path}', 'organization_type', 'talk_organization_id_eq');" } %>
+    </td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td>
+      <label><%= Gx.t_attr('talk.organization_id') %>:</label>
+    </td>
+    <td>
+      <%= select( 'talk', 'organization_id_eq', [], { :include_blank => true }) %>
+    </td>
+  </tr>
+  </tbody>
+</table>

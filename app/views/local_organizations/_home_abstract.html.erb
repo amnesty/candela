@@ -1,0 +1,25 @@
+<tr>
+  <td class="nice_summary_section" id="summary_interesteds">
+    <h5><%= t("home.sections.interesteds") %></h5>
+    <%= render :partial => 'shared/collection', :locals => { :embedded => true, :klass => Interested, :collection =>  Interested.last_ones.can_see(current_agent).limited(home_limit_rows) } %>
+  </td>
+</tr>
+
+
+
+<% if current_agent.organizations_trackings.map(&:organization).include?(performance.stage) %>
+  <tr>
+    <td class="nice_summary_section" id="summary_local_organization_notes">
+      <h5><%= t("home.sections.local_organization_notes") %></h5>
+      <%= render :partial => 'shared/collection', :locals => { :embedded => true, :klass => Note, :collection =>  performance.stage.notes.can_see(current_agent) } %>
+    </td>
+  </tr>
+<% end %>
+
+
+<tr>
+  <td class="nice_summary_section" id="summary_talks">
+    <h5><%= t("home.sections.talks") %></h5>
+    <%= render :partial => 'shared/collection', :locals => { :embedded => true, :klass => Talk, :collection =>  performance.stage.talks.can_see(current_agent) } %>
+  </td>
+</tr>

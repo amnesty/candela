@@ -1,0 +1,9 @@
+<% if @provinces.empty? %>
+  <option class="empty" value=""><%= t('province.none') %></option>
+<% else %>
+  <option value=""></option>
+  <% @provinces.each do |province| %>
+    <option value="<%= province.id %>"><%= province.name %></option>
+  <% end %>
+<% end %>
+

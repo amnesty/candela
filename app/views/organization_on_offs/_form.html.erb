@@ -1,0 +1,47 @@
+<table id="<%= params[:action] %>_on_off_form" class="table_form">
+
+<% if @organization_on_off.organization %>
+  <tr class="<%= Gx.list_style %>">
+    <%= form.hidden_field :organization_id %>
+    <%= form.hidden_field :organization_type %>
+    <td><%= form.label_required :organization_id %></td>
+    <td><%= form.text_field nil, { :value => @organization_on_off.organization.full_name, :disabled => true } %></td>
+  </tr>
+<% else %>
+  <tr class="<%= Gx.list_style %>">
+    <%= form.hidden_field :organization_id, :value => @container.id %>
+    <%= form.hidden_field :organization_type, :value => @container.class.name.classify %>
+    <td><%= form.label_required :organization_id %></td>
+    <td><%= form.text_field nil, { :value => @container.full_name, :disabled => true } %></td>
+  </tr>
+<% end %>
+
+    <tr class="<%= Gx.list_style %>">
+        <td><%= form.label :on_or_off %></td>
+
+        <% unless params[:action] == 'show' %>
+          <td>
+            <% if params[:disable] && params[:disable] == 'true' %>
+              <%= form.hidden_field :on_or_off, :value => 'off' %> <b class="red font_plus_one"><%= t('organization_on_off.disabling', :organization => @organization_on_off.organization.full_name) %></b>
+            <% else %>
+              <%= form.hidden_field :on_or_off, :value => 'on' %> <b class="green font_plus_one"><%= t('organization_on_off.enabling', :organization => @organization_on_off.organization.full_name) %></b>
+            <% end %>
+          </td>
+        <% else %>
+          <td><b class="font_plus_one"><%= t('organization_on_off.current_state', :state => t("organization_on_off.state_#{ @organization_on_off.on_or_off }")) %></b></td>
+        <% end %>
+      </tr>
+      
+        
+  <tr class="<%= Gx.list_style %>">
+    <td><%= form.label_required :date %></td>
+    <td><%= form.date_field :date %></td>
+  </tr>
+
+  <tr class="<%= Gx.list_style %>">
+    <td><%= form.label :more_info %></td>
+    <td><%= form.text_area :more_info %></td>
+  </tr>
+
+</table>
+

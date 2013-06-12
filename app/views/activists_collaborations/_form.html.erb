@@ -1,0 +1,172 @@
+<% disabled ||= false %>
+<table id="<%= params[:action] %>_activists_collaboration_form" class="table_form">
+
+  <% if params[:step].nil? and (params[:action] != 'edit' and params[:action] != 'update' and params[:action] != 'show') %>
+    <%= hidden_field_tag "dont_show_errors", true %>
+    <%= hidden_field_tag "step", "create" %>
+    <tr class="<%= Gx.list_style %>">
+      <td><%= form.label_required :collaboration_type %></td>
+      <td>
+        <% if @container.is_a?(Activist) %>
+          <%= form.select :collaboration_type, ActivistsCollaboration.collaboration_types.collect { |c|[t("activists_collaboration." + c ), c ] } %>
+        <% else %>
+          <%= form.select :collaboration_type, ActivistsCollaboration.send("#{ @container.class.name.underscore.singularize }_collaboration_types").collect { |c|[t("activists_collaboration." + c ), c ] } %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+
+  <% if params[:step] == "create" or params[:action] == 'update' or params[:action] == 'edit' or params[:action] == 'show' %>
+    <%= hidden_field_tag "step", "create" %>
+
+    <% if @container.is_a?(Activist) %>
+
+      <tr class="<%= Gx.list_style %>">
+        <%= form.hidden_field :activist_id %>
+        <td><%= form.label_required :activist_id %></td>
+        <td><%= form.text_field nil, { :value => @container.full_name, :disabled => true } %></td>
+      </tr>
+
+      <tr class="<%= Gx.list_style %>">
+        <%= form.hidden_field :collaboration_type %>
+        <td><%= form.label_required :collaboration_type %></td>
+        <td><%= form.text_field nil, { :value => @activists_collaboration.kind, :disabled => true }  %></td>
+      </tr>
+
+
+      <tr class="<%= Gx.list_style %>">
+        <%= form.hidden_field :organization_type, :value => @activists_collaboration.guess_organization_type %>
+        <td><%= form.label_required @activists_collaboration.guess_organization_type.downcase %></td>
+        <% valid_new_collaboration  = @activists_collaboration.collaboration_type_list.can_choose(current_user).inject([]) do |valid_organizations, organization| 
+                                          valid_organizations << organization if current_user.has_any_permission_to(:create, :activists_collaboration, :on => organization) or current_user.has_any_permission_to(:create, :activists_collaboration, :on => Site.current)
+                                         valid_organizations
+                                       end %>
+
+
+        <td><%= form.select :organization_id, valid_new_collaboration.collect { |x| [x.name, x.id] }, { :include_blank => true } %></td>
+      </tr>
+
+    <% else %>
+
+    <% activist_save = params["activist"] ? params["activist"]["search"] : @activists_collaboration.activist ? @activists_collaboration.activist.full_name : ""  %>
+
+    <script>
+      function setActivistIdValue(text, li) {
+        li_id = li.id.split('_')
+        $('activists_collaboration_activist_id').value = li_id[1]
+      }
+    </script>
+
+    <%= form.hidden_field :activist_id %>
+    <%= form.hidden_field :collaboration_type %>
+
+    <tr class="<%= Gx.list_style %>">
+      <%= form.hidden_field :organization_id, :value => @container.id %>
+      <%= form.hidden_field :organization_type, :value => @container.class.name.classify %>
+      <td><%= form.label_required :organization_id %></td>
+      <td><%= form.text_field nil, { :value => @container.full_name, :disabled => true } %></td>
+    </tr>
+
+    <tr class="<%= Gx.list_style %>">
+      <td><%= form.label_required :activist_id %></td>
+      <td>
+        <span class="loading" id="activist_search_loading_indicator" style="display: none;"></span>
+        <%= form.autocomplete_field :activist, url_for([:autocomplete_activist_search, @container.class.name.underscore.to_sym, :activists_collaborations]), :update_elements => {:id => '#activists_collaboration_activist_id'} %>
+        <%= "" || (form.autocomplete_field :activist, autocomplete_activist_search_local_organization_activists_collaborations_path, :update_elements => {:id => '#activists_collaboration_activist_id'}) %>
+
+        <%= "" || "TODO: remove this field" || text_field_with_auto_complete( :activist,
+            :search, { :size => 30, :value => activist_save, :disabled => disabled },
+            { :after_update_element => "setActivistIdValue",
+              :indicator => "activist_search_loading_indicator",
+              :method => :get,
+              :with => "'search_query=' + $('activist_search').value + '&authenticity_token=' + encodeURIComponent(#{ form_authenticity_token.inspect })" }) %>
+      </td>
+    </tr>
+
+    <tr class="<%= Gx.list_style %>">
+      <td><%= form.label_required :collaboration_type %></td>
+      <td><%= form.text_field nil, { :value =>  t("activists_collaboration.#{@activists_collaboration.collaboration_type}"), :disabled => true }
+    %></td>
+    </tr>
+
+    <% end %>
+
+
+
+  <% if @activists_collaboration.must_have_extra_autonomy_fields %>
+    <tr class="<%= Gx.list_style %> section_autonomy">
+      <td><%= form.label_required :autonomy_type %></td>
+      <td><%= form.select :autonomy_type, ActivistsCollaboration.autonomy_types %></td>
+    </tr>
+  <% end %>
+
+  <% if @activists_collaboration.is_expertise %>
+    <tr class="<%= Gx.list_style %>">
+      <td><%= form.label :expertise_ids %><i class="help"><%= t("form.multiple_select_help") %></i></td>
+      <td><%= form.select :expertise_ids, Expertise.orderby_name.collect { |e| ["#{e.category}: #{e.name}", e.id] }, {}, {"multiple" => true } %></td>
+    </tr>
+  <% end %>
+
+
+  <tr class="<%= Gx.list_style %>">
+    <td><%= form.label_required :join_at %></td>
+    <td><%= form.date_select :join_at, { :include_blank => true } %></td>
+  </tr>
+
+  <% if @activists_collaboration.must_have_responsability
+      if @activists_collaboration.is_member
+        responsibilities = Responsibility.for_member.orderby_name
+      elsif @activists_collaboration.must_have_extra_autonomy_fields
+        responsibilities = Responsibility.for_autonomy.orderby_name
+      else
+        responsibilities = Responsibility.orderby_name
+      end %>
+      <tr class="<%= Gx.list_style %>">
+        <td><%= form.label 'responsibility_id' %></td>
+        <td>
+          <%= check_box_tag("activists_collaboration[responsibility_ids][]", "", true, {:style => 'display: none', :disabled => true }) %>
+          <% responsibilities.all.each do |responsibility| %>
+          <div class="left small_margin small">
+            <%= check_box_tag("activists_collaboration[responsibility_ids][]",
+                              responsibility.id,
+                              (form.object.responsibility_ids.any? and form.object.responsibility_ids.include?(responsibility.id)), {:style => 'width: 20px' }) %> <%= responsibility.name %>
+          </div>
+        <% end %>
+        </td>
+
+        
+      </tr>
+  <% end %>
+
+  <tr class="<%= Gx.list_style %>">
+    <td><%= form.label :availability_id %></td>
+    <td><%= form.select :availability_id, Availability.all.collect { |c| [c.name, c.id] }, { :include_blank => true } %></td>
+  </tr>
+
+  <tr class="<%= Gx.list_style %>">
+    <td><%= form.label :more_info %></td>
+    <td><%= form.text_area :more_info %></td>
+  </tr>
+
+  <tr class="form_section section_status">
+    <td><%= form.label "sections.status" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="<%= Gx.list_style %>">
+    <td><%= form.label :activist_status_id %></td>
+    <td><%= form.select :activist_status_id, ActivistStatus.all.collect { |c| [c.name, c.id] }, { :include_blank => true } %></td>
+  </tr>
+
+  <tr class="<%= Gx.list_style %>">
+    <td><%= form.label :activist_status_changed_at %></td>
+    <td><%= form.date_select :activist_status_changed_at, { :include_blank => true } %></td>
+  </tr>
+
+
+
+  <% end %>
+
+
+</table>
+

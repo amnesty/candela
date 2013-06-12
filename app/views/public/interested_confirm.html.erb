@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>Formulario de adhesión de activistas de Amnistía Internacional</title>
+  <%= stylesheet_link_tag 'layout' %>
+  <%= javascript_include_tag :all %>
+</head>
+<body>
+<div id="">
+  <div id="">
+    <div id="">
+    </div><!-- navBar -->
+  </div><!-- header -->
+  <div id="">
+    <div id="">
+      <h2>Gracias por interesarte en AI. En breve nos pondremos en contacto contigo.</h2>
+      <% if @interested.talks.any? %>
+
+        <p><b>Recuerda que estas apuntado en las siguientes charlas</b></p>
+        <ul>
+          <% @interested.talks.each do |talk| %>
+            <li><%= t('talk.texts.complete',
+                              :name => h(talk.name),
+                              :address => h(talk.address),
+                              :date => I18n.localize(talk.date.to_date),
+                              :hours => h(talk.hours),
+                              :seats => h(talk.seats),
+                              :organization => h(talk.organization.name)) %></li>
+          <% end %>
+        </ul>
+
+      <% end %>
+    </div>
+  </div>
+
+  <div>
+    <!-- Piwik -->
+    <script type="text/javascript">
+    var pkBaseURL = (("https:" == document.location.protocol) ? "https://estadisticas.es.amnesty.org/piwik/" : "http://estadisticas.es.amnesty.org/piwik/");
+    document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+    </script><script type="text/javascript">
+    try {
+    var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
+    piwikTracker.trackPageView();
+    piwikTracker.enableLinkTracking();
+    } catch( err ) {}
+    </script><noscript><p><img src="http://estadisticas.es.amnesty.org/piwik/piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>
+    <!-- End Piwik Tracking Code -->
+  </div><!-- footer -->
+
+</div><!-- container -->
+
+</body>
+</html>

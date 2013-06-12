@@ -1,0 +1,25 @@
+<%= round_div_box do %>
+  <h1>Generando carta en PDF para <%= @resource.full_name %></h1>
+<% end %>
+
+<%= javascript_include_tag 'nicEdit' %>
+
+<%= form_tag( send_pdf_interested_path, :method => 'put' ) do -%>
+
+  <%= round_div_box do %>
+  <TABLE>
+  <TR>
+    <TD><%= label_tag( "body", Gx.t_attr("interested.mail.body") ); %></TD>
+    <TD><%= text_area_tag("body", InterestedMailer.contact_email(@resource, :message_type => :pdf).body, :style => 'width: 700px;') %></TD>
+    <%= javascript_tag "new nicEditor({iconsPath : '/assets/nicEditorIcons.gif', buttonList: []}).panelInstance('body');" %>
+  </TR>
+  </TABLE>
+  <% end %>
+
+  <%= round_div_box do %>
+  <div class='center form_actions'>
+     <%= submit_tag( Gx.t("form.buttons.send") ); %>
+  </div>
+  <% end %>
+
+<% end -%>

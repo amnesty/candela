@@ -1,0 +1,65 @@
+div.rounded-box {
+background:#FBFBFB none repeat scroll 0 0;
+margin-top: 8px;
+margin-bottom:8px;
+}
+
+div.m, h1 {
+margin: 0 0px;
+/*padding: 10px;*/
+border-bottom: none;
+}
+
+
+
+/* Rounded */
+div.rounded-box div.t {
+background:transparent url(/assets/css/j_border.png) repeat-x scroll 0 0;
+}
+div.rounded-box div.t div.t {
+background:transparent url(/assets/css/j_crn_tr_med.png) no-repeat scroll 100% 0;
+}
+div.rounded-box div.t div.t div.t {
+background:transparent url(/assets/css/j_crn_tl_med.png) no-repeat scroll 0 0;
+}
+div.rounded-box div.b {
+background:transparent url(/assets/css/j_border.png) repeat-x scroll 0 100%;
+}
+div.rounded-box div.b div.b {
+background:transparent url(/assets/css/j_crn_br_med.png) no-repeat scroll 100% 0;
+}
+div.rounded-box div.b div.b div.b {
+background:transparent url(/assets/css/j_crn_bl_med.png) no-repeat scroll 0 0;
+}
+div.rounded-box div.m_pad {
+padding:10px 20px;
+}
+
+
+div.t, div.b {
+height:6px;
+margin:0;
+overflow:hidden;
+padding:0;
+}
+div.t, div.b {
+height:6px;
+margin:0;
+overflow:hidden;
+padding:0;
+}
+div.m, div.m_pad {
+border-left:1px solid #CCCCCC;
+border-right:1px solid #CCCCCC;
+/*padding:0 8px;*/
+}
+
+div.fast_search {
+  padding: 0px 10px;
+}
+
+div.m div.tabular_list { padding: 0px 0px; margin: 0px 0px; }
+div.m h4.empty { background-position: 6px 2px; background-repeat: no-repeat; background-color: #e7e3e3;  font-weight: normal; text-align: center; margin: 0px 0px;
+           color: #595959; font-style: italic; }
+
+table.home table.table_list td { padding: 2px 1px; }

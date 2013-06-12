@@ -1,0 +1,28 @@
+<% if params[:section] %>
+
+  <%= gx_form_for(committee, { :disabled => true }) do |f| %>
+    <%= render :partial => "form",  :object => f, :locals => { :section => params[:section] } %>
+  <% end %>
+
+<% else %>
+  <%= summary_view do %>
+
+    <%= summary_organization_header(committee) %>
+    
+    <% if current_agent.has_any_permission_to(:read, :activists_collaborations, :on => committee) or 
+          current_agent.has_any_permission_to(:read, :activists_collaborations, :on => current_site) %>
+      <%= summary_collaborations_for_section_for(committee) %>
+    <% end %>
+
+    <% if committee.authorize?(:read, :to => current_agent) %>
+
+      <% if current_agent.can_track?(committee) %>
+        <%= summary_notes_section_for(committee) %>
+      <% end %>
+      <tr>
+        <%= summary_organizations_onoffs_for(committee, { :colspan => 2 }) %>
+
+      </tr>
+    <% end %>
+  <% end %>
+<% end %>

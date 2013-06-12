@@ -1,0 +1,8 @@
+<% if @provinces.any? %>
+  <option value=""><%= t('province.select_province') %></option>
+  <% @provinces.each do |province| %>
+    <option value="<%= province.id %>" <%= 'selected="selected"' if @provinces.length == 1 %> ><%= province.name %></option>
+  <% end %>
+<% else %>
+    <option value="" class="cursive"><%= t("country.provinces_not_found") %></option>
+<% end %>

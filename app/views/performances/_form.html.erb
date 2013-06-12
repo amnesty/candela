@@ -1,0 +1,62 @@
+<table id="<%= self.controller.action_name %>_talk_form" class="table_form">
+
+  <tr class="list_style_1">
+    <td><%= form.label_required :agent_id %></td>    
+    <td><%= form.text_field :agent_id, { :value => @user.login, :disabled => 'disabled'} %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td>
+      <%= form.label_required :stage_type %>
+    </td>
+
+    <td>
+      <%= form.select :stage_type,
+                      Performance.stage_types.collect{ |s| [Gx.t_attr("performance.#{s.underscore}"), s ] },
+                      { :promt    => Gx.t_attr("performance.choose_one_organization_type"),
+                        :include_blank => true },
+                      { :disabled => (['edit','update'].include?(params[:action]) ? "disabled" : false)}
+      %>
+      <% content_for(:head){ javascript_tag "addAutocompleteInputCallback('performance_stage_type', '#{stages_for_performances_path}', 'stage_type', 'cell_performance_stage_id');" } %>
+
+  </tr>
+  <tr class="list_style_1">
+    <td>
+      <%= form.label_required :stage_id_s %>
+    </td>
+    <td id="cell_performance_stage_id">
+      <% if form.object.stage_type.present? and form.object.stage_type.present? %>
+        
+        <%= link_to_function t('form.actions.check_all_permissions_checkbox'), "toggleCheckedOf(true, 'ALL')" %> | 
+        <%= link_to_function t('form.actions.uncheck_all_permissions_checkbox'), "toggleCheckedOf(false, 'ALL')" %>
+
+        <% sorted_stages = Performance.organizations_for_stage(form.object.stage_type) %>
+      
+        <% sorted_stages.each do |stage| %>
+
+          <p class="smaller left big_padding">
+            <%= check_box_tag("performance[stage_ids][]",
+                  stage.id,
+                  (form.object.agent.performances.any? and form.object.agent.performances.select{ |p| (p.stage_type == stage.class.name and p.stage_id == stage.id)  }.any?),
+                  { :class => "check_box_permission check_box_permission_#{ stage.class.name }" }) %>
+            <i><%= stage.to_title %></i>
+          </p>
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label_required :role_id %></td>
+    <td>
+      <%= form.select :role_id,
+                      Role.orderby_name.collect{ |r| [ r.name, r.id ] },
+                      { :promt    => Gx.t_attr("performance.choose_one_role"), :include_blank => true },
+                      {} %>
+    </td>
+  </tr>
+
+  <%= form.hidden_field :agent_type, :value => "User" %>
+
+</table>
+

@@ -1,0 +1,43 @@
+<% show_container ||= false %>
+<% embedded       ||= nil %>
+<% singular_name_klass = klass.name.underscore %>
+<% plural_name_klass   = singular_name_klass.pluralize %>
+
+<% if embedded.nil? %>
+  <form name="indexForm" action=''>
+    <input type="hidden" name="boxchecked" value="-1" />
+<% end %>
+
+  <table class="table_list">
+
+  <tr><%= render :partial => "#{ plural_name_klass }/list_header", :locals => { :embedded => embedded } %></tr>
+
+  <% if collection.empty?%>
+    <tr>
+      <td colspan="20">
+        <h4 class="empty"><%= t("navigation.paginate.none", :model => Gx.t_model(plural_name_klass)) %></h4>
+      </td>
+    </tr>
+  <% else %>
+    <% count = 0 %>
+
+    <% collection.each do |object| %>
+      <tr class="list_style_<%= cycle(0,1) %>">
+        <% if embedded.nil? %>
+          <td>
+            <input type="checkbox" onclick="setChecked(this, <%= count %>);" value="<%= object.id %>" name="cid[]" id="cb<%= count %>"/>
+          </td>
+        <% end %>
+
+        <%= render :partial => "#{ plural_name_klass }/list_body", :locals => { singular_name_klass.to_sym  => object, :count => count, :embedded => embedded, :show_container => show_container } %>
+      </tr>
+      <% count += 1 %>
+    <% end %>
+  <% end %>
+
+</table>
+
+<% if embedded.nil? %>
+  </form>
+<% end %>
+

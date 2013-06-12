@@ -1,0 +1,37 @@
+<% show_section = params[:section] || 'all' %>
+
+<table id="<%= params[:action] %>_activist_form" class="table_form">
+
+<% if show_section == 'all' || show_section == 'section_data' %>
+  <tr class="form_section">
+    <td><%= form.label "sections.data" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :name %></td>
+    <td><%= form.text_field nil, { :value => @alert.h_alert_definition, :disabled => true } %></td>
+  </tr>
+
+<% if show_section == 'all' || show_section == 'leave' %>
+  <tr class="form_section">
+    <td><%= form.label "sections.leave" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :closed %></td>
+    <td><%= form.check_box :closed %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label 'closed_at' %></td>
+    <td><%= form.date_select :closed_at, { :include_blank => true } %></td>
+  </tr>
+
+<% end %>
+
+<% end %>
+
+
+</table>

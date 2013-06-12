@@ -1,0 +1,10 @@
+<table id="<%= params[:action] %>_local_organization_form" class="table_form">
+
+  <tr class="list_style_1">
+    <td><%= form.label_required :number %></td>
+    <td><%= form.text_field :number  %></td>
+  </tr>
+
+  <%= render :partial => "form_common", :locals => { :organization_type => 'local_organization', :form => form } %>
+
+</table>

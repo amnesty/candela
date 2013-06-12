@@ -1,0 +1,11 @@
+<%= hidden_inputs_for(performance, count, { :hide => ['notes'] }) %>
+
+
+<% if current_site.create_permissions_as_roles %>
+    <td><%= link_to h(performance.h_role_name), user_performance_path(@user, performance) %></td>
+    <td><%= performance.organization_name %></td>
+<% else %>
+    <td><%= link_to h(performance.organization_name), user_performance_path(@user, performance) %></td>
+    <td><%= performance.role ? link_to(h(performance.role.name), performance.role) : '----' %></td>
+<% end %>  
+<td><%= link_to performance.h_agent, user_path(performance.agent) %></td>

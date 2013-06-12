@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>Gestión de voluntarios de Amnistía Internacional | Dabne</title>
+  <%= stylesheet_link_tag 'layout' %>
+</head>
+<body>
+<div id="container">
+  <div id="header">
+    <img src="/assets/css/header-logo-<%= I18n::default_locale %>.gif" alt="Amnistía Internacional | Dabne" width="260" height="95" class="copy" /></a>
+    <div id="header_menu">
+    </div><!-- navBar -->
+  </div><!-- header -->
+  <div id="main">
+    <div id="content">
+      <%= notification_area %>
+      <%= yield %>
+    </div>
+  </div>
+    <div id="footer">
+      <%= link_to t('navigation.go_up'), '#container' %>. 
+      <span>Aplicación de Gestión de Activistas. Desarrollada por <a href="http://dabne.net">Dabne Tecnologías de la Información</a> y <a href="http://gnoxys.net">Gnoxys</a>.</span>
+    </div>
+
+</div><!-- container -->
+
+</body>
+</html>

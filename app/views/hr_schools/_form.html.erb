@@ -1,0 +1,313 @@
+<% disabled ||= false %>
+<% removed_in_public = [:academic_year_ids, :hr_type, :type_other, :join_at, :leave_at, :hr_work_through ] %>
+<% required_in_public = [:address, :cp, :province_id, :city, :phone, :email, :contact_name, :contact_position, :contact_email, :direction_approval] %>
+<% hidden_in_public = [:status] %>
+
+<table id="<%= params[:action] %>_hr_school_form" class="table_form">
+
+  <tr class="form_section school_data">
+    <td><%= form.label "sections.school_data" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label_required :name %></td>
+    <td><%= form.text_field :name %></td>
+  </tr>
+
+<% if params[:controller] == "public" %>
+
+  <%= form.hidden_field :status, :value => 'Pendiente actualización' %>
+
+<% else %>
+
+  <tr class="list_style_0">
+    <td><%= form.label_required :status %></td>
+    <td><%= form.select :status, HrSchool.statuses %></td>
+  </tr>
+
+<% end %>
+
+<% unless params[:controller] == "public" %>
+
+  <tr class="list_style_1">
+    <td><%= form.label :hr_type %></td>
+    <td><%= form.select :hr_type, HrSchool.hr_types, { :include_blank => true}, 
+        {:onchange => "checkHideableGroup(this, 'tr.hideable_by_hr_school_hr_type', 'Otros', 'table-row')" } %></td>
+  </tr>
+
+  <tr class="list_style_1 hideable_by_hr_school_hr_type">
+    <td><%= form.label :type_other %></td>
+    <td><%= form.text_area :type_other %></td>
+  </tr>
+
+<% end %>
+
+  <tr class="list_style_0">
+    <td><%= form.label :hr_school_level_ids %></td>
+    <td>
+      <% hr_school_levels_show_value = HrSchoolLevel.find_by_name 'Otro' %>
+      <% HrSchoolLevel.all.each do |lvl| %>
+        <% options = {:id => "hr_school_hr_school_level_ids_#{lvl.id}", :multiple => true, :style => "width:auto;"} %>
+        <% options.merge!({:onclick => "checkHideableGroupById('hr_school_hr_school_level_ids_4', 'tr.hideable_by_hr_school_hr_school_level_ids_4', true, 'table-row')"}) if lvl.id == 4 %>
+        <p><%= form.check_box(:hr_school_level_ids, options, lvl.id, nil) %> <%= lvl.name %></p>
+      <% end %>
+    </td>
+  </tr>
+
+  <tr class="list_style_0 hideable_by_hr_school_hr_school_level_ids_4">
+    <td><%= form.label_required :hr_school_level_other %></td>
+    <td><%= form.text_field :hr_school_level_other %></td>
+  </tr>
+
+<% unless params[:controller] == "public" %>
+
+  <tr class="list_style_1">
+    <td><%= form.label :join_at %></td>
+    <td><%= form.date_select :join_at, { :include_blank => true } %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :leave_at %></td>
+    <td><%= form.date_select :leave_at, { :include_blank => true } %></td>
+  </tr>
+
+<% end %>
+
+  <tr class="list_style_1">
+    <% if params[:controller] == "public" %>
+      <td><%= form.label_required :address %></td>
+    <% else %>
+    <td><%= form.label :address %></td>
+    <% end %>      
+    <td><%= form.text_field :address %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <% if params[:controller] == "public" %>
+      <td><%= form.label_required :cp %></td>
+    <% else %>
+    <td><%= form.label :cp %></td>
+    <% end %>      
+    <td><%= form.cp_field :cp %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <% if params[:controller] == "public" %>
+      <td><%= form.label_required :province_id %></td>
+    <% else %>
+    <td><%= form.label :province_id %></td>
+    <% end %>      
+    <td><%= form.select_province :province_id %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <% if params[:controller] == "public" %>
+      <td><%= form.label_required :city %></td>
+    <% else %>
+    <td><%= form.label :city %></td>
+    <% end %>      
+    <td><%= form.select_city :city %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <% if params[:controller] == "public" %>
+      <td><%= form.label_required :phone %></td>
+    <% else %>
+    <td><%= form.label :phone %></td>
+    <% end %>      
+    <td><%= form.text_field :phone, :maxlength => 12 %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :phone2 %></td>
+    <td><%= form.text_field :phone2, :maxlength => 12 %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :fax %></td>
+    <td><%= form.text_field :fax, :maxlength => 9 %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :web_page %></td>
+    <td><%= form.text_field :web_page %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <% if params[:controller] == "public" %>
+      <td><%= form.label_required :email %></td>
+    <% else %>
+    <td><%= form.label :email %></td>
+    <% end %>      
+    <td><%= form.text_field :email %></td>
+  </tr>
+
+<% unless params[:controller] == "public" %>
+
+  <tr class="list_style_0">
+    <td><%= form.label :hr_work_through %></td>
+    <td>
+      <% HrWorkThrough.orderby_name.each do |wt| %>
+        <% options = {:id => "hr_school_hr_school_hr_work_through_ids_#{wt.id}", :multiple => true, :style => "width:auto;"} %>
+        <p><%= form.check_box(:hr_work_through_ids, options, wt.id, nil) %> <%= wt.name %></p>
+      <% end %>
+
+    </td>
+  </tr>
+
+<% end %>
+
+  <tr class="form_section contact_person">
+    <td><%= form.label "sections.contact_person" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <% if params[:controller] == "public" %>
+      <td><%= form.label_required :contact_name %></td>
+    <% else %>
+      <td><%= form.label :contact_name %></td>
+    <% end %>      
+    <td><%= form.text_field :contact_name %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <% if params[:controller] == "public" %>
+      <td><%= form.label_required :contact_position %></td>
+    <% else %>
+      <td><%= form.label :contact_position %></td>
+    <% end %>      
+    <td><%= form.text_field :contact_position %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <% if params[:controller] == "public" %>
+      <td><%= form.label_required :contact_email %></td>
+    <% else %>
+      <td><%= form.label :contact_email %></td>
+    <% end %>      
+    <td><%= form.text_field :contact_email %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :contact_phone %></td>
+    <td><%= form.text_field :contact_phone %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :contact_tweeter %></td>
+    <td><%= form.text_field :contact_tweeter %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :is_partner %></td>
+    <td><%= form.check_box :is_partner %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :is_activist %></td>
+    <td><%= form.check_box :is_activist %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <% if params[:controller] == "public" %>
+      <td><%= form.label_required :direction_approval %></td>
+    <% else %>
+      <td><%= form.label :direction_approval %></td>
+    <% end %>      
+    <td><%= form.check_box :direction_approval %></td>
+  </tr>
+
+<% unless params[:controller] == "public" %>
+
+  <tr class="form_section school_management">
+    <td><%= form.label "sections.school_management" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :school_management %></td>
+    <td><%= form.check_box :school_management, {:onchange => "checkHideableGroupById('hr_school_school_management', 'tr.school_management_only', true, 'table-row')"} %></td>
+  </tr>
+
+  <tr class="list_style_0 school_management_only">
+    <td><%= form.label_required :assigned_organization_type %></td>
+    <td><%= form.select :assigned_organization_type, [
+      [ Gx.t_attr("performance.choose_one_organization_type"), ""],
+      [ Gx.t_attr('activists_collaboration.localorganization'), 'LocalOrganization'],
+      [ Gx.t_attr('activists_collaboration.autonomy'), 'Autonomy'], 
+      [ Gx.t_attr('activists_collaboration.se_team'), 'SeTeam'] ] %></td>
+      <% content_for(:head){ javascript_tag "addAutocompleteInputCallback('hr_school_assigned_organization_type', '#{organizations_for_hr_schools_path}', 'assigned_organization_type', 'hr_school_assigned_organization_id');" } %>
+
+  </tr>
+
+  <tr class="list_style_1 school_management_only">
+    <td><%= form.label_required :assigned_organization_id %></td>
+    <% organizations_for_hr_schools = [] %>
+    <% if !form.object.assigned_organization_type.nil? && !form.object.assigned_organization_type.empty? && form.object.assigned_organization %>
+      <% organizations_for_hr_schools << [ form.object.assigned_organization.full_name, form.object.assigned_organization.id ] %>
+    <% else %>
+      <% organizations_for_hr_schools << [ t("hr_school.choose_one_organization_type"), ''] %>
+    <% end %>
+    <td><%= form.select :assigned_organization_id, organizations_for_hr_schools %>
+  </tr>
+
+  <tr class="form_section school_organization_managers">
+    <td><%= form.label "sections.organization_managers" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <% if form.object.hr_school_organization_managers.empty? %>
+      <td></td><td><%= t('hr_school_organization_managers.none') %></td>
+    <% else %>
+      <td></td><td>
+      <ul>
+        <% form.object.hr_school_organization_managers.each do |hr_school_organization_manager| %>
+          <li>
+            <%= link_to hr_school_organization_manager.organization.to_title, hr_school_organization_manager.organization, :class => 'blue' %> 
+              <% unless disabled %>
+                <%= check_box_tag 'hr_school[organization_managers][delete][]', hr_school_organization_manager.id %> <%= t('form.buttons.destroy') %>
+              <% end %>
+          </li>
+        <% end %>
+      </ul>
+      </td>
+
+    <% end %>
+  </tr>
+
+  <% unless disabled %>
+    <tr class="list_style_0">
+      <td>
+        <label><%= t('hr_school_organization_managers.new') %></label>
+      </td>
+      <td>
+
+        <% options_for_select_organization = [[Gx.t_attr("performance.choose_one_organization_type"),''],
+                                              [Gx.t_attr('activists_collaboration.localorganization'), 'LocalOrganization'],
+                                              [Gx.t_attr('activists_collaboration.autonomy'), 'Autonomy'] ] %>
+
+          <%= select_tag 'hr_school[organization_managers][new][organization_type]', options_for_select(options_for_select_organization) %>
+          <% content_for(:head){ javascript_tag "addAutocompleteInputCallback('hr_school_organization_managers_new_organization_type', '#{organizations_for_hr_schools_path}', 'assigned_organization_type', 'new_hr_school_organization_manager_id');" } %>
+
+          <%= select_tag 'hr_school[organization_managers][new][organization_id]', [ t("hr_school.choose_one_organization_type"), ''], :id => 'new_hr_school_organization_manager_id' %>
+
+      </td>
+    </tr>
+  <% end %>
+
+<% end %>
+
+</table>
+
+<script>
+
+// var school_levels_other_id = <%= HrSchoolLevel.find_by_name('Otro').id %>;
+
+  checkHideableGroupById('hr_school_hr_type', 'tr.hideable_by_hr_school_hr_type', "Otros", 'table-row');
+  checkHideableGroupById('hr_school_hr_school_level_ids_4', 'tr.hideable_by_hr_school_hr_school_level_ids_4', true, 'table-row');
+  checkHideableGroupById('hr_school_school_management', 'tr.school_management_only', true, 'table-row');
+
+</script>

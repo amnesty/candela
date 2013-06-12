@@ -1,0 +1,31 @@
+<div class="container_form">
+  <%= gx_form_for([@container, @resource], {} ) do |f| %>
+
+    <%= round_div_box do %>
+      <div class="right form_actions">
+        <%= raw f.show_buttons request %>
+      </div>
+      <h1>
+          <%= Gx.t_action("#{ @resource.class.name.underscore }.new") %> 
+          <!-- FIXME -->
+          <%= raw "#{ t("words.of") } #{ link_to( @container.full_name, eval("#{@container.class.name.underscore.pluralize}_path(@container.id)")) }" if @container %>
+      </h1>
+    <% end %>
+
+    <% unless params[:dont_show_errors].present? %>
+      <%= f.errors_in_form %>
+    <% end %>
+
+    <%= round_div_box(:padding => false) do %>
+      <%= render :partial => "form",  :object => f %>
+    <% end %>
+
+    <%= round_div_box do %>
+      <div class='center form_actions'>
+        <%= raw f.show_buttons request %>
+      </div>
+    <% end %>
+
+  <% end %>
+</div>
+

@@ -1,0 +1,13 @@
+<%= hidden_inputs_for(local_organization, count) %>
+
+<td><%= link_to h(local_organization.name), local_organization, :class => (local_organization.enabled ? '' : 'strike gray' ) %></td>
+
+<td><%=h local_organization.email %></td>
+<td><%=h local_organization.phone %></td>
+<td><%=h local_organization.address %></td>
+<td><%=h local_organization.cp %></td>
+<td><%=h local_organization.city %></td>
+<td><%=h local_organization.province ? local_organization.province.name : "" %></td>
+
+<td><%= link_to( I18n.t("form.buttons.notes"), local_organization_path(local_organization, :anchor => 'local_organization_section_notes') )%>
+

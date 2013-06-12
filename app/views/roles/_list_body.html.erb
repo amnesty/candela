@@ -1,0 +1,4 @@
+<%= hidden_inputs_for(role, count, { :hide => ['notes'] }) %>
+
+<td><%= link_to h(role.name), role %></td>
+<td><%= t("role.stage_types.#{role.stage_type.nil? ? 'none' : role.stage_type}") %></td>

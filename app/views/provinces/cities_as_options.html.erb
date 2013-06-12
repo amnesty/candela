@@ -1,0 +1,8 @@
+<% if @cities.empty? %>
+    <option value="" class="cursive"><%= t("province.cities_not_found") %></option>
+<% else %>
+  <option value=""><%= t("province.select_a_city") %></option>
+  <% @cities.each do |city| %>
+    <option value="<%= city.id %>" <%= 'selected="selected"' if @cities.length == 1 %>><%= "#{ city.name } (#{ city.cp })" %></option>
+  <% end %>
+<% end %>

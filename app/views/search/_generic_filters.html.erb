@@ -1,0 +1,19 @@
+<table class="table_list" >
+  <tr class="important_row">
+    <td colspan="2"><%= t("#{klass.name.underscore}.search.search_params") %></td>
+  </tr>
+
+  <tbody class="unhideable">
+    <% klass.unhideable_fields.each do |field_name| %>
+      <%= render :partial => 'filters_field', :locals => { :klass => klass.name.underscore, :field_name => field_name } %>
+    <% end %>
+  </tbody>
+
+  <%= render :partial => 'show_more_row' %>
+
+  <tbody id="<%= klass.name %>_extra_fields" class="hideable" style="display: none;">
+    <% klass.hideable_fields.each do |field_name| %>
+      <%= render :partial => 'filters_field', :locals => { :klass => klass.name.underscore, :field_name => field_name } %>
+    <% end %>
+  </tbody>
+</table>

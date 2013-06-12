@@ -1,0 +1,21 @@
+<% if @stages.any? %>
+
+  <p>
+    <%= link_to_function t('form.actions.check_all_organizations_checkbox'), "toggleCheckedOf(true, 'ALL')" %> | 
+    <%= link_to_function t('form.actions.uncheck_all_organizations_checkbox'), "toggleCheckedOf(false, 'ALL')" %> 
+  </p>
+
+  <% @stages.each do |stage| %>
+    <p class="smaller left big_padding">
+      <%= check_box_tag("performance[stage_ids][]",
+            stage.id,
+            false,
+            { :class => "check_box_permission check_box_permission_#{ stage.class.name }" }) %>
+      <i><%= stage.full_name %></i>
+    </p>
+  <% end %>
+<% elsif !params[:stage_type] || params[:stage_type].empty? %>
+    <b><%= t("performance.select_a_stage_type") %></b>
+<% else %>
+    <b><%= t("performance.stages_of_type_are_empty") %></b>
+<% end %>

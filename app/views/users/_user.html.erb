@@ -1,0 +1,87 @@
+
+<div class="nice_summary_div">
+
+  <table class="nice_summary_table">
+  <tr>
+
+  <!-- personal data section-->
+  <td class="nice_summary_section" id="summary_login">
+
+     <h5><%= Gx.t_attr("user.sections.login") %></h5>
+
+     <div class="content clear">
+       <span class="nice_summary_label"><%= Gx.t_attr('user.login') + ": " %></span>
+       <span class="nice_summary_field"><%= @user.login %></span>
+       <br />
+       <span class="nice_summary_label"><%= Gx.t_attr('user.email') + ": " %></span>
+       <span class="nice_summary_field"><%= @user.email %></span>
+       <br />
+     </div>
+
+     <div class="actions">
+       <% if @user.authorize? :update, :to => current_agent %>
+         <%= link_to t("form.buttons.edit"),
+               edit_user_path(@user,
+                  :section => "section_data" ),
+               :class => "action_edit with_icon left" %>
+       <% end %>
+       <% if @user.authorize? :read, :to => current_agent %>
+         <%= link_to t("form.buttons.show"),
+             user_path(@user, :section => "section_data"),
+             :class => "action_view with_icon left" %>
+       <% end %>
+     </div>
+
+  </td>
+
+  <!-- collaborations in organizations -->
+  <td class="nice_summary_section" id="summary_roles" colspan='2'>
+
+    <h5><%= Gx.t_attr("user.sections.roles")%></h5>
+
+    <div class="content clear">
+      <span class="nice_summary_field">
+        <% 
+        if current_site.create_permissions_as_roles
+          permissions_set = @user.performances.group_by_role
+          permissions_text = 'user.texts.permissions_by_role'
+        else 
+          permissions_set = @user.performances.group_by_organization
+          permissions_text = 'user.texts.permissions_by_organization'
+        end  
+        permissions_set.each do |performance|
+        %>
+          <%= raw t( permissions_text,
+              :login => user.login,
+              :email => user.email,
+              :role => performance.h_role_name,
+              :roles => performance.h_all_roles_names,
+              :organization => performance.organization_name)
+
+              # WTF is this? FIXME :organizations => performance.h_all_organizations_names )
+          %>
+            <br/>
+        <% end %>
+      </span>
+    </div>
+
+    <div class="actions">
+      <% u = User.new %>
+      <% if u.authorize? :create, :to => current_agent %>
+         <%= link_to t("form.buttons.create"),
+            new_user_performance_path(@user),
+            :class => "action_add with_icon left" %>
+      <% end %>
+      <% if u.authorize? :update, :to => current_agent %>
+        <%= link_to t("form.buttons.edit"), user_performances_path(@user), :class => "action_edit with_icon left" %>
+      <% elsif u.authorize? :read, :to => current_agent %>
+        <%= link_to t("form.buttons.show"), user_performances_path(@user, :disabled => true), :class => "action_view with_icon left" %>
+      <% end %>
+    </div>
+  </td>
+  </tr><tr>
+
+ 
+  </tr></table>
+
+</div>

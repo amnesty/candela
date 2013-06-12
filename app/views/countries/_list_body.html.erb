@@ -1,0 +1,7 @@
+<%= hidden_inputs_for(country, count) %>
+
+<td><%= link_to h(country.name), country, :class => (country.enabled ? '' : 'strike gray' ) %></td>
+
+<td><%=h country.email %></td>
+<td><%= link_to( I18n.t("form.buttons.notes"), country_path(country, :anchor => 'country_section_notes') )%>
+

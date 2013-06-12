@@ -1,0 +1,41 @@
+<!-- <<<<<_INDEX_FORM_OPEN-->
+<% show_container ||= false %>
+<% embedded ||= nil %>
+<% if embedded.nil? %>
+  <form name="indexForm" action=''>
+    <input type="hidden" name="boxchecked" value="-1" />
+<% end %>
+<!-- >>>>>_INDEX_FORM_OPEN-->
+
+<!-- <<<<<_INDEX_TABLE_OPEN-->
+  <table class="table_list">
+
+  <tr><%= render :partial => 'activists_collaborations/index_header', :locals => { :embedded => embedded } %></tr>
+  <% count = 0 %>
+<!-- >>>>>_INDEX_TABLE_OPEN-->
+  <% @activists_collaborations.each do |activists_collaboration| %>
+
+  <% if activists_collaboration.authorize?(:read, { :to => current_agent } ) %>
+<!-- <<<<<_INDEX_TABLE_BODY-->
+      <tr class="list_style_<%= cycle(0,1) %>">
+        <% if embedded.nil? %>
+          <td><input type="checkbox" onclick="setChecked(this, <%=count%>);" value=<%=activists_collaboration.id%> name="cid[]" id="cb<%=count%>"/></td>
+        <%end%>
+        <%= render :partial => 'activists_collaborations/index_body', :locals => { :activists_collaboration => activists_collaboration, :count => count, :embedded => embedded, :show_container => show_container } %>
+<!-- >>>>>_INDEX_TABLE_BODY-->
+<!-- <<<<<_INDEX_TABLE_CLOSE-->
+      </tr>
+    <% count = count + 1 %>
+    <% end %>
+  <% end %>
+  <% if count == 0 %>
+    <tr><td colspan="20"><h4 class="empty"><%= t("navigation.paginate.none", :model => Gx.t_model("activists_collaborations")) %></h4></td></tr>
+  <% end %>
+  </table>
+<!-- >>>>>_INDEX_TABLE_CLOSE-->
+<!-- <<<<<_INDEX_FORM_CLOSE-->
+<% if embedded.nil? %>
+</form>
+<% end %>
+<!-- >>>>>_INDEX_FORM_CLOSE-->
+

@@ -1,0 +1,19 @@
+<% unless embedded %>
+  <%= hidden_inputs_for(campaign, count, { :hide => [ 'notes' ] }) %>
+<% end %>
+
+
+<td><%= link_to h(campaign.name), campaign %></td>
+<td><%= campaign.starting_at ? localize(campaign.starting_at) : '---' %> - <%= campaign.ending_at ? localize(campaign.ending_at) : '---'  %></td>
+<td>
+  <% if campaign.campaignactions.empty? %>
+    <b class="none"><%= t('campaignaction.none') %></b>
+  <% else %>
+    <ul>
+      <% campaign.campaignactions.each do |campaignaction| %>
+        <li><%= link_to campaignaction.organization.to_title, campaignaction.organization %> (<%= link_to t('campaignaction.view_action'), campaignaction %>, 
+                                                                                              <%= link_to t('campaignaction.edit_action'), edit_campaignaction_path(campaignaction) %>)</li>
+      <% end %>
+    </ul>
+  <% end %>
+</td>

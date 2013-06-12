@@ -1,0 +1,59 @@
+<%= round_div_box do %>
+  <h1><%= raw t('main_page.home_title', :agent => current_agent.name) %></h1>
+<% end  %>
+
+<% if current_agent.has_any_permission_to(:read, :alerts) %>
+  <table class="">
+    <thead><tr><th><h3><%= "Alertas para #{current_agent.name} " %> </h3><%= link_to t('alert.view_all'), alerts_path, :class => 'with_icon bold action_view' %></th></tr></thead>
+  <tbody>
+    <tr>
+    <td class="nice_summary_section" id="summary_alerts">
+      <h5><%= t("home.sections.alerts") %></h5>
+
+      <div class=" big_padding" style="width: 95%; height: 20px; text-align: right; ">
+        <%= button_to(Alert, 'edit')%>
+      </div>
+
+      <%= render(:partial => 'shared/collection', :object => Alert.can_see(current_agent).include_in.not_closed.last_ones.paginate(:per_page => 10, :page => params[:page]), :locals => { :embedded => false, :klass => Alert })  %>
+    </td>
+    </tr>
+  
+  </tbody>
+  </table>
+<% end %>
+
+<% if current_agent.has_any_permission_to(:read, :event_records) %>
+  <table class="">
+    <thead><tr><th><h3><%= "Eventos para #{current_agent.name} " %> </h3><%= link_to t('event_record.view_all'), event_records_path, :class => 'with_icon bold action_view' %></th></tr></thead>
+  <tbody>
+    <tr>
+    <td class="nice_summary_section" id="summary_event_records">
+      <h5><%= t("home.sections.event_records") %></h5>
+
+      <div class=" big_padding" style="width: 95%; height: 20px; text-align: right; ">
+      </div>
+
+      <%= render( :partial => 'shared/collection', :object => EventRecord.can_see(current_agent).include_in.in_past.order('timestamp DESC').paginate(:per_page => 10, :page => params[:page]), :locals => { :embedded => true, :klass => EventRecord } )  %>
+    </td>
+    </tr>
+  
+  </tbody>
+  </table>
+<% end %>
+
+<% current_agent.performances.include_in.each do |performance|  %>
+
+    <table class="home nice_summary_table list_style_<%= cycle(0,1) %>">
+      <thead>
+        <tr><th>
+          <%= link_to_function "Seguimiento de #{ current_agent.name} como #{ performance.role.name } para #{performance.organization_name}", 
+                               "updateFollowingPerformance('link_to_following_performance_#{ performance.id }','following_performance_#{ performance.id }','#{root_path(:performance => performance.id)}');", 
+                               :class => "font_plus_one with_icon action_view",
+                               :id       => "link_to_following_performance_#{ performance.id }"
+          %>
+        </th></tr>
+      </thead>
+      <tbody id="following_performance_<%= performance.id %>" class="list_style_0">
+      </tbody>
+    </table>
+<% end %>

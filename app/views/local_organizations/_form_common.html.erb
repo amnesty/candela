@@ -1,0 +1,187 @@
+<%
+  day_names = t("date.day_names").collect{ |d| [d, t("date.day_names").index(d)+1] }
+  sunday    = day_names.shift
+  day_names << sunday
+
+  meeting_hours = [
+    "09:00", "09:30",
+    "10:00", "10:30",
+    "11:00", "11:30",
+    "12:00", "12:30",
+    "13:00", "13:30",
+    "14:00", "14:30",
+    "15:00", "15:30",
+    "16:00", "16:30",
+    "17:00", "17:30",
+    "18:00", "18:30",
+    "19:00", "19:30",
+    "20:00", "20:30",
+    "21:00", "21:30",
+    "22:00", "22:30",
+    "23:00", "23:30",
+    "00:00" ]
+%>
+
+
+  <tr class="list_style_0">
+    <td><%= form.label_required :name %></td>
+    <td><%= form.text_field :name  %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :collaborations_enabled %></td>
+    <td><%= form.check_box :collaborations_enabled %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label_required :phone %></td>
+    <td><%= form.text_field :phone, :maxlength => 12  %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label_required :address  %></td>
+    <td><%= form.text_field :address  %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :cp %></td>
+    <td><%= form.cp_field :cp %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :province_id %></td>
+    <td><%= form.select_province :province_id %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :city %></td>
+    <td><%= form.select_city :city %></td>
+  </tr>
+
+  <% if form.object.is_a?(LocalOrganization) %> 
+    <tr class="list_style_1">
+      <td><%= form.label :show_to_interesteds %></td>
+      <td><%= form.check_box :show_to_interesteds %></td>
+    </tr>
+  <% end %>
+
+  <tr class="list_style_0">
+    <td><%= form.label_required :email  %></td>
+    <td><%= form.text_field :email  %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :email_2  %></td>
+    <td><%= form.text_field :email_2  %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :fax  %></td>
+    <td><%= form.text_field :fax, :maxlength => 9 %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :customer_service_time %></td>
+    <td><%= form.text_area :customer_service_time %></td>
+  </tr>
+
+  <tr class="form_section">
+    <td><%= form.label "sections.meetings" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :meeting_weekday %></td>
+    <td><%= form.select :meeting_weekday, day_names, { :include_blank => true } %></td>
+  </tr>
+  <tr class="list_style_1">
+    <td><%= form.label :meeting_frequency %></td>
+    <td><%= form.select :meeting_frequency, t("activerecord.attributes.#{ organization_type }.meeting_frequencies"), { :include_blank => true } %></td>
+  </tr>
+  <tr class="list_style_0">
+    <td><%= form.label :meeting_hours %></td>
+    <td><%= form.select :meeting_hours, meeting_hours, { :include_blank => true } %></td>
+  </tr>
+  <tr class="list_style_1">
+    <td><%= form.label :meeting_venue %></td>
+    <td><%= form.text_field :meeting_venue %></td>
+  </tr>
+
+  <tr class="form_section">
+    <td><%= form.label "sections.postal_address" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :copy_address %></td>
+    <td><%= check_box_tag "#{ organization_type }_copy_address", '0', false,
+                          { :onchange => "if (this.checked) { copy_to_postal('#{ organization_type }'); } else { clear_postal('#{ organization_type }'); } ;" } %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :postal_address  %></td>
+    <td><%= form.text_field :postal_address  %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :postal_cp %></td>
+    <td><%= form.cp_field :postal_cp, :name_prefix => '_postal' %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :postal_province_id %></td>
+    <td><%= form.select_province :postal_province_id, :name_prefix => '_postal' %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :postal_city %></td>
+    <td><%= form.select_city :postal_city, :name_prefix => '_postal' %></td>
+  </tr>
+
+
+  <tr class="form_section">
+    <td><%= form.label "sections.delivery_address" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :delivery_contact %></td>
+    <td><%= form.text_field :delivery_contact  %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :delivery_phone  %></td>
+    <td><%= form.text_field :delivery_phone, :maxlength => 12  %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :delivery_hours  %></td>
+    <td><%= form.text_field :delivery_hours  %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :copy_postal_address %></td>
+    <td><%= check_box_tag "#{organization_type}_copy_postal_address", '0', false,
+   { :onchange => "if (this.checked) { copy_to_delivery('#{ organization_type }'); } else { clear_delivery('#{ organization_type }'); } ;" } %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :delivery_address  %></td>
+    <td><%= form.text_field :delivery_address  %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :delivery_cp %></td>
+    <td><%= form.cp_field :delivery_cp, { :name_prefix => '_delivery' } %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :delivery_province_id %></td>
+    <td><%= form.select_province :delivery_province_id, { :name_prefix => '_delivery' } %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :delivery_city %></td>
+    <td><%= form.select_city :delivery_city, :name_prefix => '_delivery' %></td>
+  </tr>
+

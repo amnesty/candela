@@ -1,0 +1,6 @@
+<%= hidden_inputs_for(se_team, count) %>
+
+<td><%= link_to h(se_team.name), se_team, :class => (se_team.enabled ? '' : 'strike gray' ) %></td>
+<td><%=h se_team.email %></td>
+<td><%= link_to( I18n.t("form.buttons.notes"), se_team_path(se_team, :anchor => 'se_team_section_notes') )%>
+

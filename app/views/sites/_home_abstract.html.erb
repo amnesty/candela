@@ -1,0 +1,20 @@
+<tr>
+  <td class="nice_summary_section" id="summary_local_organizations">
+    <h5><%= t("home.sections.local_organizations") %></h5>
+    <%= render :partial => 'shared/collection', :locals => { :embedded => true, :klass => LocalOrganization, :collection =>  LocalOrganization.orderby_name.can_see(current_agent).limited(home_limit_rows) } %>
+  </td>
+</tr>
+
+<tr>
+  <td class="nice_summary_section" id="summary_last_campaignactions">
+    <h5><%= t("home.sections.last_campaignactions") %></h5>
+    <%= render :partial => 'shared/collection', :locals => { :embedded => true, :klass => Campaignaction, :collection =>  Campaignaction.can_see(current_agent).all } %>
+  </td>
+</tr>
+
+<tr>
+  <td class="nice_summary_section" id="summary_hr_schools">
+    <h5><%= t("home.sections.hr_schools") %></h5>
+    <%= render :partial => 'shared/collection', :locals => { :embedded => true, :klass => HrSchool, :collection =>  HrSchool.can_see(current_agent).all } %>
+  </td>
+</tr>

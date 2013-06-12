@@ -1,0 +1,52 @@
+<table class="table_list" >
+  <tr class="important_row">
+    <td colspan="2"><%= t('hr_school.search.search_params') %></td>
+  </tr>
+
+  <tbody class="unhideable">
+    <% HrSchool.unhideable_fields.each do |field_name| %>
+      <%= render :partial => 'filters_field', :locals => { :klass => 'hr_school', :field_name => field_name } %>
+    <% end %>
+  </tbody>
+
+  <%= render :partial => 'show_more_row', :locals => { :onclick => "$('#hr_school_extra_fields').toggle()" } %>
+
+  <tbody id="hr_school_extra_fields" class="hideable" style="display: none;">
+    <% HrSchool.hideable_fields.each do |field_name| %>
+      <%= render :partial => 'filters_field', :locals => { :klass => 'hr_school', :field_name => field_name } %>
+    <% end %>
+
+  <tr class="important_row">
+    <td colspan="2"><%= Gx.t_attr('hr_school.sections.organization_managers') %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td>
+      <label><%= Gx.t_attr('hr_school_organization_manager.organization_type') %>:</label>
+    </td>
+    <% organization_type_param  = params[:hr_school] and params[:hr_school][:assigned_organization_type_equals] ? sanitize(params[:hr_school][:assigned_organization_type_equals]) : '' %>
+    <% organization_type_values = [ [ Gx.t_attr("performance.choose_one_organization_type"), ""],
+                                    [ Gx.t_attr('activists_collaboration.localorganization'), 'LocalOrganization'], 
+                                    [ Gx.t_attr('activists_collaboration.autonomy'), 'Autonomy'] ] %>
+    <td>
+      <%= select "hr_school", "hr_school_organization_managers_organization_type_eq", organization_type_values,
+                 { :default_value => organization_type_param }
+      %>
+      <% content_for(:head){ javascript_tag "addAutocompleteInputCallback('hr_school_hr_school_organization_managers_organization_type_eq', '#{organizations_for_search_path}', 'organization_type', 'hr_school_hr_school_organization_managers_organization_id_eq');" } %>
+
+    </td>
+  </tr>
+  <tr class="list_style_1">
+    <td>
+      <label><%= Gx.t_attr('hr_school_organization_manager.organization_id') %>:</label>
+    </td>
+    <td>
+      <%= select( 'hr_school', 'hr_school_organization_managers_organization_id_eq', [], { :include_blank => true }) %>
+    </td>
+  </tr>
+
+  </tbody>
+
+</table>
+
+

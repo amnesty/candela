@@ -1,0 +1,150 @@
+<table class="table_list" >
+  <tr class="important_row">
+    <td colspan="2"><%= t('activist.search.search_params') %></td>
+  </tr>
+
+  <tbody class="unhideable">
+    <% Activist.unhideable_fields.each do |field_name| %>
+      <%= render :partial => 'filters_field', :locals => { :klass => 'activist', :field_name => field_name } %>
+    <% end %>
+
+    <tr class="list_style_0">
+      <td>
+        <label><%= t('activerecord.attributes.activists_collaboration.activist_status_id') %>:</label>
+      </td>
+      <td>
+        <%= select("activist", "activists_collaborations_activist_status_id_eq",
+                    ActivistStatus.all.collect {|as| [as.name,as.id] },
+                    { :selected => (( params[:activist] && params[:activist]['activist_status_id']) ? params[:activist]['activist_status_id'].to_i : ''),
+                                  :include_blank => true }) %>
+      </td>
+    </tr>
+
+    <tr class="list_style_1">
+      <td>
+        <label><%= Gx.t_attr('activist.with_active_collaborations') %></label>
+      </td>
+      <td>
+        <%= select("activist", "with_active_collaborations", [["", ""],["Si","1"],["No","0"] ]) %>
+      </td>    
+    </tr>
+
+    <tr class="list_style_0">
+      <td>
+        <label><%= Gx.t_attr('activist.is_partner') %></label>
+      </td>
+      <td>
+        <%= select("activist", "is_partner", [["", ""],["Si","1"],["No","0"] ]) %>
+      </td>    
+    </tr>
+
+  </tbody>
+
+  <%= render :partial => 'show_more_row' %>
+
+  <tbody id="activist_extra_fields" class="hideable" style="display: none;">
+    <% Activist.hideable_fields.each do |field_name| %>
+      <%= render :partial => 'filters_field', :locals => { :klass => 'activist', :field_name => field_name } %>
+    <% end %>
+  </tbody>
+
+  <tr class="important_row hideable" style="display: none;">
+    <td colspan="2"><%= t('activist.search.collaborations_params') %></td>
+  </tr>
+  <tr class="list_style_0 hideable" style="display: none;">
+    <td>
+      <label><%= t('role.stage_type') %>:</label>
+    </td>
+    <td>
+      <%= select( "activist", "activists_collaborations_organization_type_eq", 
+                  ActivistsCollaboration.organization_types.collect{ |o| [ Gx.t_attr("activists_collaboration.#{ o.underscore }"), o ] }, 
+                  { :include_blank => true })  
+      %>
+      <% content_for(:head){ javascript_tag "addAutocompleteInputCallback('activist_activists_collaborations_organization_type_eq', '#{organizations_for_search_path}', 'organization_type', 'activist_activists_collaborations_organization_id_eq');" } %>
+    </td>
+  </tr>
+  <tr class="list_style_1 hideable" style="display: none;">
+    <td>
+      <label><%= t('activerecord.attributes.activists_collaboration.organization_id') %>:</label>
+    </td>
+    <td>
+      <%= select( 'activist', 'activists_collaborations_organization_id_eq', [], { :include_blank => true }) %>
+    </td>
+  </tr>
+
+  <tr class="list_style_1 hideable" style="display: none;">
+    <td>
+      <label><%= t('activerecord.attributes.activists_collaboration.collaboration_type') %>:</label><i class="help"><%= t("form.multiple_select_help") %></i>
+    </td>
+    <td>
+      <%= select( 'activist', 'activists_collaborations_collaboration_type_in', 
+                   ActivistsCollaboration.collaboration_types.collect { |x| [t("activists_collaboration." + x),x] }, {}, { :multiple => true } ) %>
+    </td>
+  </tr>
+
+  <tr class="list_style_1 hideable" style="display: none;">
+    <td>
+      <label><%= t('activerecord.attributes.activists_collaboration.join_at') %></label>
+    </td>
+    <td>
+      Entre <%= date_select("activist", "activists_collaborations_join_at_gteq", { :start_year => 1990, :include_blank => true }, {:class => ''}) %>
+      y     <%= date_select("activist", "activists_collaborations_join_at_lteq",    { :start_year => 1990, :include_blank => true }, {:class => ''}) %>
+    </td>
+  </tr>
+
+  <tr class="list_style_1 hideable" style="display: none;">
+    <td>
+      <label><%= t('activerecord.attributes.activists_collaboration.leave_at') %></label>
+    </td>
+    <td>
+      Entre <%= date_select("activist", "activists_collaborations_leave_at_gteq", { :start_year => 1990, :include_blank => true }, {:class => ''}) %>
+      y     <%= date_select("activist", "activists_collaborations_leave_at_lteq",    { :start_year => 1990, :include_blank => true }, {:class => ''}) %>
+    </td>
+  </tr>
+
+  <tr class="list_style_0 hideable" style="display: none;">
+    <td><label><%= t('activerecord.attributes.activists_collaboration.responsibilities') %></label><i class="help"><%= t("form.multiple_checkbox_or_help") %></i></td>
+    <td><% Responsibility.all.each do |responsibility| %>
+      <div class="left small_margin small">
+	<%= check_box_tag("activist[activists_collaborations_responsibilities_id_eq_all][]",
+			  responsibility.id,
+			  (params[:activist] && params[:activist]['activists_collaborations_responsibilities_id_eq_all'] && params[:activist]['activists_collaborations_responsibilities_id_eq_all'].include?(responsibility.id.to_s)),
+        {:style => 'width: 20px' }) %> <%= responsibility.name %>
+        
+      </div>
+    <% end %></td>
+  </tr>
+
+  <tr class="list_style_1 hideable" style="display: none;">
+    <td><label><%= t('activerecord.attributes.activists_collaboration.expertise_ids') %></label><i class="help"><%= t("form.multiple_checkbox_or_help") %></i></td>
+    <td><% Expertise.all.sort_by{|e|[e.category, e.name]}.each do |expertise| %>
+      <p class="left small_margin small">
+	<%= check_box_tag("activist[activists_collaborations_expertises_id_eq_all][]",
+			  expertise.id,
+			  (params[:activist] && params[:activist]['activists_collaborations_expertises_id_eq_all'] && params[:activist]['activists_collaborations_expertises_id_eq_all'].include?(expertise.id.to_s))) %> <%= "#{expertise.category}: #{expertise.name}" %>
+      </p>
+    <% end %></td>
+  </tr>
+
+  <tr class="list_style_1 hideable" style="display: none;">
+    <td>
+      <label><%= t('activerecord.attributes.activists_collaboration.availability_id') %>:</label>
+    </td>
+    <td>
+      <%= select("activist", "activists_collaborations_availability_id_eq",
+                 Availability.all.collect {|a| [a.name,a.id] },
+                 { :selected => (( params[:activist] && params[:activist]['activists_collaborations_availability_id_eq']) ? params[:activist]['activists_collaborations_availability_id_eq'].to_i : ''),
+                                        :include_blank => true }) %>
+    </td>
+  </tr>
+
+  <tr class="list_style_1 hideable" style="display: none;">
+    <td>
+      <label><%= t('activerecord.attributes.activists_collaboration.more_info') %>:</label>
+    </td>
+    <td>
+      <%= text_area_tag("activist[activists_collaborations_more_info_eq]", ((params[:activist] && params[:activist]["activists_collaborations_more_info_eq"]) ? params[:activist]["activists_collaborations_more_info_eq"] : '')) %>
+
+    </td>
+  </tr>
+</table>

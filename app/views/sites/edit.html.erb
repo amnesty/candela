@@ -1,0 +1,35 @@
+<h1><%= t(:"site.editing") %></h1>
+
+<%= gx_form_for(@site, :url => site_path, :html => { :method => :put, :multipart => true }) do |f| %>
+
+  <%= f.errors_in_form %>
+
+  <table class="table_form" id="<%= params[:action] %>_site_form">
+
+    <tr><td>
+      <%= f.label :name, t('site.name') %></td><td>
+      <%= f.text_field :name %>
+    </td></tr>
+
+    <tr><td>
+      <%= f.label :description, t('site.description') %></td><td>
+      <%= f.text_area :description %>
+    </td></tr>
+
+    <tr><td>
+      <%= f.label :create_permissions_as_roles, t('site.create_permissions_as_roles') %></td><td>
+      <%= f.check_box :create_permissions_as_roles %>
+    </td></tr>
+    
+    <tr><td>
+      <%= f.label :email, t('site.email') %></td><td>
+      <%= f.text_field :email %>
+    </td></tr>
+
+    <tr><td colspan="2">
+      <%= f.submit t(:update) %>
+    </td></tr>
+
+  </table>
+
+<% end %>

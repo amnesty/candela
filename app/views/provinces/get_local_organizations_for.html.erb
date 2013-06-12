@@ -1,0 +1,7 @@
+<% if @local_organizations.empty? %>
+  <option class="empty" value=""><%= t('activist.local_organizations.none') %></option>
+<% else %>
+  <% @local_organizations.each do |local_organization| %>
+    <option value="<%= local_organization.id %>"><%= local_organization.name %></option>
+  <% end %>
+<% end %>

@@ -1,0 +1,7 @@
+<% if @organizations.any? %>
+  <% @organizations.each do |organization| %>
+    <option value="<%= organization.id %>"><%= organization.full_name %></option>
+  <% end %>
+<% else %>
+    <option value="" class="cursive"><%= t("hr_school.choose_one_organization_type") %></option>
+<% end %>

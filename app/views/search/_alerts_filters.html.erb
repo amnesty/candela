@@ -1,0 +1,31 @@
+<table class="table_list" >
+  <tr class="important_row">
+    <td colspan="2"><%= t('alert.search.search_params') %></td>
+  </tr>
+
+  <tbody class="unhideable">
+    <tr class="list_style_0">
+      <td>
+        <label><%= t('activerecord.attributes.alert_definition.name') %>:</label>
+      </td>
+      <td>
+        <%= select("alert", "alert_definition_id_eq",
+                    AlertDefinition.all.collect {|ad| [ad.name,ad.id] },
+                    { :selected => (( params[:alert] && params[:alert]['alert_definition_id']) ? params[:alert]['alert_definition_id'].to_i : ''),
+                                  :include_blank => true }) %>
+      </td>
+    </tr>
+
+    <% Alert.unhideable_fields.each do |field_name| %>
+      <%= render :partial => 'filters_field', :locals => { :klass => 'alert', :field_name => field_name } %>
+    <% end %>
+  </tbody>
+
+  <%= render :partial => 'show_more_row' if !Alert.hideable_fields.empty? %>
+
+  <tbody id="alert_extra_fields" class="hideable" style="display: none;">
+    <% Alert.hideable_fields.each do |field_name| %>
+      <%= render :partial => 'filters_field', :locals => { :klass => 'alert', :field_name => field_name } %>
+    <% end %>
+  </tbody>
+</table>

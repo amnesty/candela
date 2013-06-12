@@ -1,0 +1,7 @@
+<ul>
+  <li><%= t('activerecord.attributes.campaign.campaigntopic_id') %>: <b><%= info_campaign.campaigntopic_id ? info_campaign.campaigntopic.name : t('activerecord.attributes.campaign.campaigntopic_none') %></b></li>
+  <li><%= t('activerecord.attributes.campaign.country_id') %>: <b><%= info_campaign.country_id ? info_campaign.country.name : t('activerecord.attributes.campaign.country_none') %></b></li>
+  <li><%= t('activerecord.attributes.campaign.starting_at') %>: <b><%= info_campaign.starting_at ? localize(info_campaign.starting_at) : '--' %></b></li>
+  <li><%= t('activerecord.attributes.campaign.ending_at') %>: <b><%= info_campaign.ending_at ? localize(info_campaign.ending_at) : '--' %></b></li>
+
+</ul>

@@ -1,0 +1,18 @@
+
+<%= hidden_inputs_for(alert, count) %>
+
+<td><%= link_to h(alert.h_alert_definition), alert %></td>
+
+<td><%= localize(alert.created_at, :format => :short) %></td>
+
+<td><%= alert.h_record %></td>
+
+<td>
+<% if alert.alert_object.is_a?(ActivistsCollaboration) %>
+  <%= link_to(I18n.t("form.buttons.notes"), activist_path(alert.alert_object.activist, :anchor => 'activist_section_notes')) %>
+<% elsif alert.alert_object %>
+  <%= link_to(I18n.t("form.buttons.notes"), alert.alert_object.authorize?(:update, :to => current_user) ? edit_polymorphic_path(alert.alert_object) : polymorphic_path(alert.alert_object)) %>
+<% else %>
+  <% t('alert.alert_object_not_found') %>
+<% end %>
+</td>

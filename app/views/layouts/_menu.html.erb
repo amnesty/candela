@@ -1,0 +1,103 @@
+
+<div id="shortcuts">
+
+  <%= link_to          t('main_page.home'),   root_path, :id => "home" %>
+  <%= link_to          t('main_page.monitoring'), root_path, :id => "home" %>
+  <%= link_to          t('main_page.logout'), logout_path, :id => "logout" %>
+  <%= link_to          t('main_page.admin'),    admin_path, :id => 'admin' if current_agent.has_any_permission_to(:config, :site, :on => Site.current) %>
+
+</div>
+
+<div id="main_nav_menu_container">
+<ul id="main_nav_menu" class="nav_menu">
+
+  <li class="nav_menu_item_lvl1">
+    <%= t('main_page.menu_activists') %>
+    <ul class="nav_menu_group">
+      <li>
+        <%= link_to t('main_page.menu_activists'), activists_path if current_agent.has_any_permission_to(:read, :activists) %>
+      </li>
+      <li>
+        <%= link_to t('main_page.menu_interesteds'), interesteds_path if current_agent.has_any_permission_to(:read, :interesteds)  %>
+      </li>
+    </ul>
+  </li>
+
+  <li class="nav_menu_item_lvl1">
+    <%= t('main_page.menu_collaboration_types') %>
+    <ul class="nav_menu_group">
+      <li>
+        <%= link_to t('main_page.menu_local_organizations'), local_organizations_path %>
+      </li>
+      <li>
+        <%= link_to t('main_page.menu_se_teams'), se_teams_path %>
+      </li>
+      <li>
+        <%= link_to t('main_page.menu_countries'), countries_path %>
+      </li>
+      <li>
+        <%= link_to t('main_page.menu_autonomies'), autonomies_path %>
+      </li>
+      <li>
+        <%= link_to t('main_page.menu_committees'), committees_path, :class => 'last' %>
+      </li>
+    </ul>
+  </li>
+
+  <li class="nav_menu_item_lvl1">
+    <%= "Formación" %>
+    <ul class="nav_menu_group">
+      <li>
+        <%= link_to t('main_page.menu_talks'), talks_path if current_agent.has_any_permission_to(:read, :talks) %>
+      </li>
+      <li>
+        <%= link_to t('main_page.menu_hr_schools'), hr_schools_path, :class => "last" if current_agent.has_any_permission_to(:read, :hr_schools) %>
+      </li>
+    </ul>
+  </li>
+
+  <li class="nav_menu_item_lvl1">
+    <%= "Acciones" %>
+    <ul class="nav_menu_group">
+      <li>
+        <%= link_to t('main_page.menu_campaigns'), campaigns_path if current_agent.has_any_permission_to(:read, :campaigns) %>
+      </li>
+      <li>
+        <%= link_to t('main_page.menu_campaignactions'), campaignactions_path if current_agent.has_any_permission_to(:read, :campaignactions) %>
+      </li>
+    </ul>
+  </li>
+
+  <li class="nav_menu_item_lvl1">
+    <%= t('main_page.search') %>
+    <ul class="nav_menu_group">
+      <li>
+         <%= link_to t('main_page.search_activists'), search_path(:what => :activists) if current_agent.has_any_permission_to(:read, :activists) %>         
+      </li>
+      <li>
+         <%= link_to t('main_page.search_hr_schools'), search_path(:what => :hr_schools) if current_agent.has_any_permission_to(:read, :hr_schools) %>         
+      </li>
+      <li>
+         <%= link_to t('main_page.search_campaignactions'), search_path(:what => :campaignactions) if current_agent.has_any_permission_to(:read, :campaignactions) %>         
+      </li>
+      <li>
+         <%= link_to t('main_page.search_interesteds'), search_path(:what => :interesteds) if current_agent.has_any_permission_to(:read, :interesteds) %>         
+      </li>
+      <li>
+         <%= link_to t('main_page.search_talks'), search_path(:what => :talks) if current_agent.has_any_permission_to(:read, :talks) %>         
+      </li>
+      <li>
+         <%= link_to t('main_page.search_alerts'), search_path(:what => :alerts) if current_agent.has_any_permission_to(:read, :alerts) %>         
+      </li>
+      <li>
+         <%=  link_to t('main_page.menu_collaboration_types'), '' %>         
+        <ul class="nav_menu_group">
+          <% [:local_organizations, :se_teams, :countries, :autonomies, :committees].each do |org| %>
+            <li><%= link_to t("main_page.search_#{org.to_s}"), search_path(:what => org) if current_agent.has_any_permission_to(:read, org) %></li>         
+          <% end %>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>

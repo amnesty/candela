@@ -1,0 +1,17 @@
+<% 
+  singular_klass_name = @resource.class.model_name.underscore
+  plural_klass_name   = singular_klass_name.pluralize 
+%>
+
+<%= round_div_box do %>
+
+  <div class="right"> 
+    <%= link_to( t("form.buttons.index"), polymorphic_url([ @container, plural_klass_name ]) , :class => 'action_index with_icon') %>
+  </div>
+
+  <h1><%= @resource.to_title %></h1>
+
+<% end %>
+
+<%= render :partial => "#{ plural_klass_name }/#{ singular_klass_name}", :object => @resource %>
+

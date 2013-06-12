@@ -1,0 +1,73 @@
+<table id="<%= params[:action] %>_talk_form" class="table_form">
+
+<% unless form.object.organization_type  %>
+
+  <tr class="<%= Gx.list_style %>">
+
+    <%= hidden_field_tag "dont_show_errors", true %>
+    <td><%= form.label_required :organization_type %></td>
+    <td>
+      <%= form.select :organization_type, [ [ t('local_organization.abrev'), "LocalOrganization" ], [ t('autonomy.title'), "Autonomy" ] ],
+                      { :include_blank => true } %>
+    </td>
+  </tr>
+
+
+<% else %>
+
+  <tr class="<%= Gx.list_style %>">
+    <% if form.object.organization_id and form.object.organization_type %>
+      <%= form.hidden_field :organization_id,   :value => form.object.organization_id %>
+      <%= form.hidden_field :organization_type, :value => form.object.organization_type %>
+      <td><label class="required"><%= t("talk.#{ form.object.organization_type }") %></td>
+      <td><%= text_field_tag 'organization_full_name', form.object.organization.full_name, { :disabled => true } %></td>
+    <% else %>
+      <%= form.hidden_field :organization_type %>
+      <td><label class="required"><%= t("talk.#{ form.object.organization_type }") %></td>
+      <% performance_organizations = form.object.organization_type.constantize.can_choose(current_agent).orderby_name %>
+      <% valid_organizations       = performance_organizations.inject([]) do |valids, organization|
+                                       valids << organization if current_agent.has_any_permission_to(:create, :talk, :on => organization) or current_agent.has_any_permission_to(:create, :talk, :on => Site.current)
+                                       valids
+                                     end %>
+
+      <td><%= form.select :organization_id, valid_organizations.collect { |x| [x.name, x.id] } %></td>
+    <% end %>
+  </tr>
+
+  <tr class="<%= Gx.list_style %>">
+    <td><%= form.label_required :name %></td>
+    <td><%= form.text_field     :name %></td>
+  </tr>
+
+  <tr class="<%= Gx.list_style %>">
+    <td><%= form.label_required :date %></td>
+    <td><%= form.date_select :date, { :include_blank => true } %></td>
+  </tr>
+
+  <tr class="<%= Gx.list_style %>">
+    <td><%= form.label :address %></td>
+    <td><%= form.text_field :address %></td>
+  </tr>
+
+  <tr class="<%= Gx.list_style %>">
+    <td><%= form.label :hours %></td>
+    <td><%= form.text_field :hours %></td>
+  </tr>
+
+  <tr class="<%= Gx.list_style %>">
+    <td><%= form.label :seats %></td>
+    <td><%= form.text_field :seats %></td>
+  </tr>
+
+  <tr class="form_section">
+    <td><%= form.label "sections.interesteds" %></td>
+    <td></td>
+  </tr>
+
+  <%= render :partial => 'shared/collection', :locals => { :collection => @talk.interesteds,
+                                                           :klass => Interested, :embedded => true } %>
+
+<% end %>
+
+</table>
+

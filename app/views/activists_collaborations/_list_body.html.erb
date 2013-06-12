@@ -1,0 +1,8 @@
+<%= hidden_inputs_for(activists_collaboration, count, { :hide => [ 'notes' ] }) %>
+
+
+<td><%=link_to( h(activists_collaboration.kind), eval("#{@container.class.name.underscore}_activists_collaboration_path(@container.id, activists_collaboration.id)") ) %></td>
+<td><%= link_to( h(activists_collaboration.organization_name), collaboration_organization_path(activists_collaboration) ) %></td>
+<td><%= link_to( h(activists_collaboration.activist.second_first_name), activist_path(activists_collaboration.activist.id) ) %></td>
+<td><%= activists_collaboration.h_responsibilities_and_expertises %>
+<td><%= activists_collaboration.activist_status.name %></td>

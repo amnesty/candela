@@ -1,0 +1,7 @@
+<%= hidden_inputs_for(talk, count, { :hide => [ 'notes' ] }) %>
+
+<td><%= link_to h(talk.name), polymorphic_path([ talk.organization, talk]) %></td>
+<td><%=talk.date.nil? ? "" : localize(talk.date, :format => t("date.formats.long") )%></td>
+<td><%=h talk.address%></td>
+<td><%=h talk.hours%></td>
+<td><%=link_to(talk.h_organization, talk.organization) %></td>

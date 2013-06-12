@@ -1,0 +1,321 @@
+<% show_section = params[:section] || 'all' %>
+
+<table id="<%= params[:action] %>_interested_form" class="table_form">
+
+  <tr class="form_section">
+    <td><%= form.label "sections.data" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label_required :first_name %></td>
+    <td><%= form.text_field :first_name %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label_required :last_name %></td>
+    <td><%= form.text_field :last_name %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :last_name2 %></td>
+    <td><%= form.text_field :last_name2 %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :sex_id %></td>
+    <td><%= form.select :sex_id, Sex.all.collect { |s| [s.name, s.id] }, { :include_blank => true } %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label_required :birth_day %></td>
+    <td>
+      <% unless form.object.new_record? %>
+        <% if form.object.is_minor? %>
+          <p class="important red">El activista es menor de edad</p>
+          <% if current_user.has_any_permission_to(:update, :interesteds, :on => Site.current) %>
+            <p><%= form.check_box :minor_checked %> <%= form.label :minor_checked, nil, :class => 'inline' %></p>
+          <% end %>
+        <% end %>
+      <% end %>
+      <%= form.date_select :birth_day, { :start_year => 1900, :end_year => Date.today.year, :include_blank => true } %>
+
+    </td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td>
+      <% if params[:controller] == "public" %>
+        <%= form.label_required :document_type%>
+      <% else %>
+        <%= form.label :document_type%>
+      <% end %>
+    </td>
+    <td><%= form.select :document_type, Interested.document_types %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td>
+      <% if params[:controller] == "public" %>
+        <%= form.label_required :nif %>
+      <% else %>
+        <%= form.label :nif%>
+      <% end %>
+    </td>
+    <td><%= form.text_field :nif %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :different_residence_country %></td>
+    <td><%= form.check_box :different_residence_country, {
+                            :onchange => "if (this.checked) { $('tr.location_not_spain').show(); $('tr.location_spain').hide(); } else { $('tr.location_not_spain').hide(); $('tr.location_spain').show(); } ;"
+                            } %>
+    </td>
+  </tr>
+
+
+  <tr class="list_style_0 location_spain">
+    <td>
+      <% if params[:controller] == "public" %>
+        <%= form.label_required :cp %>
+      <% else %>
+        <%= form.label :cp %>
+      <% end %>
+    </td>
+    <td><%= form.cp_field :cp %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td>
+      <% if params[:controller] == "public" %>
+        <%= form.label_required :address %>
+      <% else %>
+        <%= form.label :address %>
+      <% end %>
+    <% unless params[:controller] == 'public' %>
+      <%= link_to_function 'eliminar dirección', "$('#interested_address').value = ''; $('#interested_cp').value = ''; $('#interested_province_id').options.length = 0; $('#interested_province_id').options[0]= new Option('', '', true, false);  $('#interested_city').options.length = 0; $('#interested_city').options[0]= new Option('', '', true, false);", :class => 'blue block with_icon'  %>
+    <% end %>
+
+    </td>
+    <td><%= form.text_field :address %></td>
+  </tr>
+
+
+  <tr class="list_style_1 location_spain">
+
+    <td>
+      <% if params[:controller] == "public" %>
+        <%= form.label_required :province_id %>
+      <% else %>
+        <%= form.label :province_id %>
+      <% end %>
+    </td>
+    <td><%= form.select_province :province_id %></td>
+  </tr>
+
+  <tr class="list_style_0 location_spain">
+    <td>
+      <% if params[:controller] == "public" %>
+        <%= form.label_required :city %>
+      <% else %>
+        <%= form.label :city %>
+      <% end %>
+    </td>
+    <td><%= form.select_city :city %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label_required :phone %></td>
+    <td><%= form.text_field :phone, :maxlength => 12 %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :mobile_phone %></td>
+    <td><%= form.text_field :mobile_phone, :maxlength => 12 %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :email %></td>
+    <td><%= form.text_field :email %></td>
+  </tr>
+
+  <% if params[:controller] != 'public' and !form.object.new_record?%>
+    <td><%= form.label :created_at %></td>
+    <td><%= form.date_select :created_at, :readony => true %></td>
+  <% end %>
+
+
+  <tr class="form_section">
+    <td><%= form.label "sections.collaboration_organization" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_0">
+      <td><%= form.label_required :local_organization_id %></td>
+      <td><%= form.select :local_organization_id, LocalOrganization.orderby_name.only_to_interesteds.scoping_with_agent(current_agent).collect { |x| [x.name, x.id] }, { :include_blank => true } %>
+      <% content_for(:head){ javascript_tag "addAutocompleteInputCallback('interested_local_organization_id', '#{talks_as_options_for_interesteds_talks_path}', 'local_organization_id', 'interested_talk_ids');" } %>
+
+      </td>
+  </tr>
+
+  <tr class="list_style_1" >
+    <td><%= form.label :talk_ids %></td>
+    <% options_for_talks = [] %>
+    <% if form.object.local_organization %>
+      <% if form.object.local_organization.talks.any? %>
+        <% form.object.local_organization.talks.each do |talk| %>
+          <% if(talk.has_place? and talk.date > Date.today) or form.object.talks.include?(talk) %>
+            <% options_for_talks << [ "#{ I18n.localize(talk.date.to_date) }: #{ talk.hours }", talk.id ] %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <% options_for_talks << [ t("talk.empty_for_group"), '']  %>
+      <% end %>
+    <% else %>
+      <% options_for_talks << [ t("talk.select_a_group"), ''] %>
+    <% end %>
+    <td><%= form.select :talk_ids, options_for_talks, { :include_blank => true }, {  } %></td>
+  </tr>
+
+
+<% if @with_more_information or params[:controller] != 'public' %>
+
+  <tr class="form_section">
+    <td><%= form.label "sections.studies" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :labour_situation_id %></td>
+    <td><%= form.select :labour_situation_id, LabourSituation.all.collect { |p| [p.name, p.id] }, { :include_blank => true } %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :occupation_id %></td>
+    <td><%= form.select :occupation_id, Occupation.orderby_name.collect { |p| [p.name, p.id] }, { :include_blank => true }  %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :student_previous_degrees %></td>
+    <td><%= form.text_area :student_previous_degrees %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :student %></td>
+    <% onchange_for_student = params[:controller] == 'public' ? '' : "if (this.checked) { $('tr.student_section').show() } else { $('tr.student_section').hide() }" %>
+    <td><%= form.check_box :student, :onchange => onchange_for_student %></td>
+  </tr>
+
+  <tr class="list_style_1 student_section" <%= 'style="display: none;"' unless form.object.student or params[:controller] == 'public' %>>
+    <td><%= form.label :student_place %></td>
+    <td><%= form.text_field :student_place %></td>
+  </tr>
+
+  <tr class="list_style_0 student_section" <%= 'style="display: none;"' unless form.object.student or params[:controller] == 'public'  %>>
+    <td><%= form.label :student_level_id %></td>
+    <td><%= form.select :student_level_id, StudentLevel.all.collect { |p| [p.name, p.id] }, { :include_blank => true } %></td>
+  </tr>
+
+  <tr class="list_style_1 student_section" <%= 'style="display: none;"' unless form.object.student or params[:controller] == 'public'  %>>
+    <td><%= form.label :student_degree %></td>
+    <td><%= form.text_field :student_degree %></td>
+  </tr>
+
+  <tr class="list_style_0 student_section" <%= 'style="display: none;"' unless form.object.student or params[:controller] == 'public'  %>>
+    <td><%= form.label :student_year_id %></td>
+    <td><%= form.select :student_year_id, StudentYear.all.collect { |p| [p.name, p.id] }, { :include_blank => true } %></td>
+  </tr>
+
+  <tr class="list_style_1 student_section" <%= 'style="display: none;"' unless form.object.student or params[:controller] == 'public'  %>>
+    <td><%= form.label :student_more_info %></td>
+    <td><%= form.text_area :student_more_info %></td>
+  </tr>
+
+  <tr class="form_section">
+    <td><%= form.label "sections.skills_hobbies" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :collabtopic_ids %><i class="help"><%= raw t("form.multiple_select_help") %></i></td>
+    <td><%= form.select :collabtopic_ids, Collabtopic.orderby_name.collect { |p| [p.name, p.id] }, {}, {"multiple" => true } %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :language_ids %><i class="help"><%= raw t("form.multiple_select_help") %></i></td>
+    <td><%= form.select :language_ids, Language.orderby_name.collect { |p| [p.name, p.id] }, {}, {"multiple" => true } %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :skill_ids %><i class="help"><%= raw t("form.multiple_select_help") %></i></td>
+    <td><%= form.select :skill_ids, Skill.orderby_name.collect { |p| [p.name, p.id] }, {}, {"multiple" => true } %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :other_skills %></td>
+    <td><%= form.text_area :other_skills %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :hobby_ids %><i class="help"><%= raw t("form.multiple_select_help") %></i></td>
+    <% onchange_for_bloggers = params[:controller] == 'public' ? '' : "checkBloggerSelection(this);" %>
+    <td><%= form.select :hobby_ids, Hobby.orderby_name.collect { |p| [p.name, p.id] }, {}, { "multiple" => true, :onchange => onchange_for_bloggers } %></td>
+  </tr>
+
+  <tr class="list_style_1 blogger">
+    <td><%= form.label :blogger %></td>
+    <td><%= form.text_area :blogger %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :other_hobbies %></td>
+    <td><%= form.text_area :other_hobbies %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :wants_todo %></td>
+    <td><%= form.text_area :wants_todo %></td>
+  </tr>
+
+
+<% end %>
+
+<% if params[:controller] != 'public' %>
+
+  <tr class="list_style_0">
+    <td><%= form.label :informed_through_id %><i class="help"><%= raw t("form.multiple_select_help") %></i></td>
+    <td><%= form.select :informed_through_id, InformedThrough.orderby_name.collect { |p| [p.name, p.id] }, { :include_blank => true } %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :informed_through_other %></td>
+    <td><%= form.text_area :informed_through_other %></td>
+  </tr>
+<% end %>
+
+<% unless params[:controller] == 'public' %>
+
+  <script>
+    var blogger_id = <%= Hobby.blogger.id %>;
+    var blogger = document.getElementById('interested_hobby_ids');
+    if (blogger != null ) {
+      if( blogger.value != blogger_id ) {
+        $('tr.blogger').hide();
+      }
+    }
+
+    function checkBloggerSelection(selectInput) {
+      var o = new Array(); 
+      $(selectInput).find("option:selected").map(function(){ o.push(this.value) });
+      if(o.indexOf('<%= Hobby.blogger.id %>') != -1){ 
+        $('tr.blogger').show(); 
+      } else { 
+        $('tr.blogger').hide() 
+      };
+    }
+
+  </script>
+
+<% end %>
+
+</table>

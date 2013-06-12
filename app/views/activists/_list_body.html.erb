@@ -1,0 +1,38 @@
+  <%= raw hidden_inputs_for(activist, count, {:more => [ :leave => leave_activist_url(activist)] }) %>
+
+  <td>
+    <%= raw '<strike>' if activist.leave_at.present? %>
+    <%= link_to h(activist.second_first_name), activist %>
+    <%= raw '</strike>' if activist.leave_at.present? %>
+  </td>
+
+  <td>
+    <% last_collaboration_type = nil %>
+    <ul>
+    <% activist.activists_collaborations_by_type.each do |collaboration_type, collaborations| %>
+      <% collaboration_type ||= 'none' %>
+
+      <% unless last_collaboration_type.eql?(collaboration_type) %>
+          <%= t("activists_collaboration.#{ collaboration_type }") %>: 
+      <% end %>
+      <% last_collaboration_type = collaboration_type %>
+
+      <% collaborations.each do |collaboration| %>
+        <% unless collaboration.is_leave %>
+          <li style="list-style-type: none;">
+            <%= raw display_activist_collaborations_marks(collaboration) %>
+            <%= link_to(h(collaboration.organization_name), polymorphic_path(collaboration.organization)) %>
+          </li> 
+        <% end %>
+      <% end %>
+    <% end %>
+    </ul>
+  </td>
+
+  <td><%= mail_to(h(activist.email), activist.email) %></td>
+
+  <td><%= h activist.phone %></td>
+
+  <td><%= link_to( I18n.t("form.buttons.notes"), activist_path(activist, :anchor => 'activist_section_notes') )%>
+
+

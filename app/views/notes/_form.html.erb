@@ -1,0 +1,31 @@
+<table id="<%= params[:action] %>_note_form" class="table_form">
+
+  <tr class="list_style_1">
+    <td><%= form.label_required :title %></td>
+    <td><%= form.text_field :title %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :body %></td>
+    <td><%= form.text_area :body %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :monitoring_person %></td>
+    <td><%= form.text_field :monitoring_person %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :monitoring_topic %></td>
+    <td><%= form.text_field :monitoring_topic %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :monitoring_date %></td>
+    <td><%= form.date_select :monitoring_date, { :include_blank => true } %></td>
+  </tr>
+
+  <%= form.hidden_field :parents %>
+
+
+</table>

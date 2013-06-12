@@ -1,0 +1,104 @@
+<% if params[:section] %>
+
+  <%= gx_form_for(activist, { :disabled => true }) do |f| %>
+    <%= render :partial => "form",  :object => f, :locals => { :section => params[:section] } %>
+  <% end %>
+
+<% else %>
+
+  <% if activist.has_no_active_collaborations and activist.leave_at.nil? %>
+    <div class="background_soft_red big_padding font_plus_three">
+      <%= raw t('activist.leave_status_text', :time_to_remove => activist.time_to_leave) %>
+    </div>
+  <% end %>
+
+
+  <%= summary_view do %>
+
+    <tr>
+      <%= summary_section(:id => 'personal_data', :title => Gx.t_attr("activist.sections.data"))  do  %>
+  
+      <div class="actions">
+          <%= summary_action(:update, edit_activist_path(activist, :section => "section_data"), { :to     => :edit, :object => activist }) %>
+          <%= summary_action(:read,   activist_path(activist,      :section => "section_data"), { :to     => :show, :object => activist }) %>
+        </div>
+
+        <% if activist.nif.present? %>
+          <p><%= summary_label activist.document_type %>: <%= summary_field activist.nif %></p>
+        <% end %>
+
+        <% [ 'address', 'email', 'phone', 'mobile_phone' ].each do |field| %>
+          <p><%= summary_label Gx.t_attr("activist.#{ field }") %>: <%= summary_field activist.send(field) %></p>
+
+        <% end %>
+      <% end %>
+
+      <%= summary_section(:id => 'skills_hobbies', :title => Gx.t_attr("activist.sections.skills_hobbies"))  do  %>
+
+        <div class="actions">
+          <%= summary_action(:update, edit_activist_path(activist, :section => "section_skills_hobbies"), { :to     => :edit, :object => activist }) %>
+          <%= summary_action(:read,   activist_path(activist,      :section => "section_skills_hobbies"), { :to     => :show, :object => activist }) %>
+        </div>
+
+        <% [ 'languages', 'skills', 'hobbies' ].each do |relation| %>
+          <% relation_ids = "#{ relation.singularize }_ids" %>
+          <p><%= summary_label Gx.t_attr("activist.#{ relation_ids }") %>: <%= summary_field activist.send(relation).collect{ |o| o.name }.join(", ") %></p>
+        <% end %>
+
+      <% end %>
+    </tr>
+
+
+    <tr>
+
+      <%= summary_section(:id => 'organizations_collab', :colspan => 2, :title => Gx.t_attr("activist.sections.collab_organizations"))  do  %>
+
+        <div class="actions">
+          <% new_collaboration = activist.activists_collaborations.new %>
+          <% activist.activists_collaborations.delete new_collaboration %>
+          <%= summary_action(:create, new_activist_activists_collaboration_path(activist), { :object => new_collaboration }) %>
+          <%= summary_action(:read, activist_activists_collaborations_path(activist),    { :to => :edit, :object => new_collaboration }) %>
+          <%= summary_action(:read, activist_activists_collaborations_path(activist),    { :to => :show, :object => new_collaboration }) %>
+        </div>
+
+        <% activist_collaborations = activist.activists_collaborations %>
+        <% if activist_collaborations.empty? %>
+          <h4 class="none">FIXME</h4>
+        <% else %>
+
+          <ul>
+            <% activist_collaborations.each do |collaboration| %>
+              <li><%= collaboration_row(activist, collaboration) %></li>
+            <% end %>
+          </ul>
+
+
+        <% end %>
+      <% end %>
+    </tr>
+
+    <tr>
+
+      <%= summary_section(:id => 'activist_status_changes', :colspan => 2, :title => "#{Gx.t_attr("activist.sections.status_changes")}")  do  %>
+
+        <% activist.activist_status_changes.each do |change| %>
+          <% if  change.authorize?(:read, :to => current_agent) %>
+            <p>
+              <%= raw t "activist_status_change.texts.for_activist",
+                    :date               => localize(change.date.to_date),
+                    :status_change_name => change.activist_status.name,
+                    :collaboration_type => link_to( h(change.activists_collaboration.kind), polymorphic_path(change.activists_collaboration)),
+                    :organization       => link_to( h(change.activists_collaboration.organization_name), polymorphic_path(change.activists_collaboration.organization)) %>
+            </p>
+
+          <% end %>
+        <% end %>
+      <% end %>
+    </tr>
+
+    <% if activist.authorize?(:update, :to => current_user) %>
+      <%= summary_notes_section_for(activist) %>
+    <% end %>
+
+  <% end %>
+<% end %>

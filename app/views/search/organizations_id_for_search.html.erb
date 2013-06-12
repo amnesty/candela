@@ -1,0 +1,4 @@
+<option value=""></option>
+<% @organizations.each do |organization| %>
+  <option value="<%= organization.id %>"><%= organization.name %></option>
+<% end %>

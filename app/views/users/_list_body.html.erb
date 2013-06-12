@@ -1,0 +1,10 @@
+<%= hidden_inputs_for(user, count, { :hide => ['notes'] }) %>
+
+<td><%= link_to h(user.login), user %></td>
+<td><%= user.email %></td>
+<td>
+  <%= link_to t('organizations_tracking.manage'), user_organizations_trackings_path(user) %>
+  <%= raw ("| " + link_to(t('organizations_tracking.destroy_all'), destroy_all_user_organizations_trackings_path(user), :confirm => t('organizations_tracking.destroy_all_confirm'))) if user.organizations_trackings.any? %> 
+
+</td>
+<td><%= localize(user.created_at) %></td>

@@ -1,0 +1,19 @@
+
+<%= hidden_inputs_for(event_record, count, :hide => []) %>
+
+<td><%= link_to h(event_record.event_definition.name), event_record %></td>
+
+<td><%= localize(event_record.timestamp, :format => :short) %></td>
+
+<td><%= event_record.h_record %></td>
+
+<td>
+<% event_object = event_record.event_object
+  if event_object.is_a?(ActivistsCollaboration) %>
+  <%= link_to(I18n.t("form.buttons.notes"), activist_path(event_object.activist, :anchor => 'activist_section_notes')) %>
+<% elsif event_object %>
+  <%= link_to(I18n.t("form.buttons.notes"), event_object.authorize?(:update, :to => current_user) ? edit_polymorphic_path(event_object) : polymorphic_path(event_object)) %>
+<% else %>
+  <% t('event_record.event_object_not_found') %>
+<% end %>
+</td>

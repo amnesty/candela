@@ -1,0 +1,34 @@
+<% if params[:section] %>
+  <%= gx_form_for(local_organization, { :disabled => true }) do |f| %>
+    <%= render :partial => "form",  :object => f, :locals => { :section => params[:section] } %>
+  <% end %>
+
+<% else %>
+  <%= summary_view do %>
+
+    <%= summary_organization_header(local_organization) %>
+
+    <% if current_agent.has_any_permission_to(:read, :activists_collaborations, :on => local_organization) or 
+          current_agent.has_any_permission_to(:read, :activists_collaborations, :on => current_site) %>
+      <%= summary_collaborations_for_section_for(local_organization) %>
+    <% end %>
+
+    <% if local_organization.authorize?(:read, :to => current_agent) %>
+
+      <tr>
+        <%= summary_campaignactions_section_for(local_organization) %>
+        <%= summary_talks_section_for(local_organization) %>
+      </tr>
+
+      <% if current_agent.can_track?(local_organization) %>
+        <%= summary_notes_section_for(local_organization) %>
+      <% end %>
+
+      <tr>
+        <%= summary_organizations_onoffs_for(local_organization, { :colspan => 2 }) %>
+      </tr>
+    <% end %>
+
+
+  <% end %>
+<% end %>

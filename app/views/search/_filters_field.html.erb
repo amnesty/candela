@@ -1,0 +1,167 @@
+<% ff = FormField.new(klass.camelize.constantize,field_name) %>  
+
+<%  if ff.nil? || ff.field.nil? %>
+
+      <tr class="list_style_<%= cycle(0,1) %>">
+        <td colspan="2">
+          Especificación de campo incorrecta: '<%= "#{klass.camelize}.#{field_name}" %>' -> No se puedo obtener el campo         
+        </td>
+      </tr>
+
+<% elsif ff.is_phrase_translation? %>
+    <tr class="important_row">
+      <td colspan="2"><%= ff.field %></td>
+    </tr>
+
+<% elsif ff.is_cascaded_association? %>
+  <tr class="list_style_<%= cycle(0,1) %>">
+      <% relation_klass = ff.field[0] %>
+      <% relation_field = ff.field[1] %>
+        <td>
+          <label><%= Gx.t_attr("#{relation_klass}.#{ relation_field.field.name }") %> </label>
+        </td>
+        <td>
+<%= "ToDO: cascaded association #{relation_klass}.#{relation_klass}.#{relation_field.field.name} not implemented yet!" %>
+
+        </td>
+  </tr>
+
+<% elsif ff.is_direct_association? %>
+  <tr class="list_style_<%= cycle(0,1) %>">
+  <% if ff.field.macro == :has_and_belongs_to_many %>
+      <% relation_model = ff.field_name %>
+      <% relation_model_klass = relation_model.camelize.singularize.constantize %>
+        <td>
+          <label><%= Gx.t_attr("#{klass}.#{ relation_model }") %> </label><i class="help"><%= t("form.multiple_checkbox_or_help") %></i>
+        </td>
+        <td>
+            <% relation_model_klass.all.each do |s| %>
+              <p class="left small_margin small">
+                <%= check_box_tag("#{klass}[#{ relation_model }_id_eq_all][]",
+                                  "#{s.id}",
+                                  (params[klass.to_sym] && params[klass.to_sym]["#{ relation_model }_id_eq_all"] && params[klass.to_sym]["#{ relation_model }_id_eq_all"].include?(s.id.to_s))) %> <%= s.name %>
+              </p>
+            <% end %>
+        </td>
+  <% elsif ff.field.macro == :belongs_to %>
+        <td>
+          <label><%= Gx.t_attr("#{klass}.#{ ff.field.name }_id") %></label>
+        </td>
+        <td>
+            <% field_name_id = "#{ ff.field.name }_id" %>
+            <% foreign_class_name = ff.field.options[:class_name] || ff.field.name.to_s.camelize  %>
+            <% search_logic_field_name = "#{ field_name_id }_#{ klass.camelize.constantize.condition_type_for_column(field_name_id) }" %>
+            <%= select(klass, 
+                      search_logic_field_name,
+                      foreign_class_name.constantize.all.sort_by(&:name).collect {|o| [o.name,o.id] },
+                      { :selected => (( params[klass.to_sym] && params[klass.to_sym]["#{ search_logic_field_name  }"]) ? params[klass.to_sym]["#{ search_logic_field_name  }"].to_i : ''),
+                        :include_blank => true }) %>
+        </td>
+
+  <% else %>
+        <td colspan="2">
+          Field '<%= ff.field_name %>' can't be rendered: Association '<%= ff.field.macro.to_s %>' not yet implemented.
+        </td>
+  <% end %>
+  </tr>
+
+<% elsif ff.is_column? %>
+
+  <tr class="list_style_<%= cycle(0,1) %>">
+      <td>
+        <label><%= Gx.t_attr("#{klass}.#{ ff.field.name }") %></label>
+        <% if ff.field.type == :text %>
+          <i class="help"><%= t("search.warn_at_text_fields") %></i>
+        <% end %>
+      </td>
+      <td>
+        <% search_logic_field_name = "#{ ff.field.name }_#{ klass.camelize.constantize.condition_type_for_column(ff.field.name) }" %>
+        <% if ff.field.name == 'document_type' #Activist field %>
+          <%= select(klass, 
+                    search_logic_field_name,
+                    klass.camelize.constantize.document_types,
+                    { :selected => (( params[klass.to_sym] && params[klass.to_sym]["#{ search_logic_field_name  }"]) ? params[klass.to_sym]["#{ search_logic_field_name  }"].to_i : ''),
+                      :include_blank => true }) %>
+
+        <% elsif ff.field.name == 'status' #HrSchools field %>
+          <%= select(klass, 
+                    search_logic_field_name,
+                    klass.camelize.constantize.statuses.collect {|o| [o ,o] },
+                    { :selected => (( params[klass.to_sym] && params[klass.to_sym]["#{ search_logic_field_name  }"]) ? params[klass.to_sym]["#{ search_logic_field_name  }"] : ''),
+                      :include_blank => true }) %>
+
+        <% elsif ff.field.name == 'hr_type' #HrSchools field  %>
+          <%= select(klass, 
+                    search_logic_field_name,
+                    klass.camelize.constantize.hr_types.collect {|o| [o ,o] },
+                    { :selected => (( params[klass.to_sym] && params[klass.to_sym]["#{ search_logic_field_name  }"]) ? params[klass.to_sym]["#{ search_logic_field_name  }"] : ''),
+                      :include_blank => true }) %>
+
+        <% elsif ff.field.type == :integer and ff.field.name.last(3) == '_id'  %>
+          <% relation_class = ff.field.name[0..-4] %>
+          <%= select(klass, 
+                    search_logic_field_name,
+                    relation_class.camelize.constantize.all.collect {|o| [o.name,o.id] },
+                    { :selected => (( params[klass.to_sym] && params[klass.to_sym]["#{ search_logic_field_name  }"]) ? params[klass.to_sym]["#{ search_logic_field_name  }"].to_i : ''),
+                      :include_blank => true }) %>
+
+        <% elsif ff.field.type == :string || ff.field.type == :integer %>
+          <%= text_field_tag("#{klass}[#{ search_logic_field_name }]", ((params[klass.to_sym] && params[klass.to_sym]["#{ search_logic_field_name }"]) ? params[klass.to_sym]["#{ search_logic_field_name }"] : '')) %>
+
+        <% elsif ff.field.type == :text %>
+            <%= text_area_tag("#{klass}[#{ search_logic_field_name }]", ((params[klass.to_sym] && params[klass.to_sym]["#{ search_logic_field_name }"]) ? params[klass.to_sym]["#{ search_logic_field_name }"] : '')) %>
+
+        <% elsif ff.field.type == :boolean %>
+          <% boolean_search_eq_name = "#{klass}[#{ ff.field.name }_eq]" %>
+          <% boolean_search_null_name = "#{klass}[#{ ff.field.name }_null]" %>
+          <%= select_tag(boolean_search_eq_name, options_for_select([["", ""],["Si","true"],["No","false"],["Sin valor","1"] ]),
+                :onchange => "if (this.value == 1) 
+                                this.name = '#{boolean_search_null_name}'; 
+                              else
+                                this.name = '#{boolean_search_eq_name}'; 
+                              ".html_safe
+              ) 
+          %>
+          
+        <% elsif ff.field.type == :datetime || ff.field.type == :date %>
+
+          <% if ff.field.name == 'leave_at' %>
+            <p>
+              <%= check_box_tag("#{klass}[#{ ff.field.name }_null]","1", (params[klass.to_sym] && params[klass.to_sym]["#{ ff.field.name }_null"])) %> 
+              La Fecha esta en blanco
+            </p>
+          <% end %>
+
+          <% if klass.camelize.constantize == Activist and ff.field_name == 'birth_day' 
+                minimun_search_year = 1900
+              else
+                minimun_search_year = Date.today.year - 100
+              end %>
+
+
+          Entre <%= date_select(klass, "#{ ff.field.name }_gteq", { :default    => (params[klass.to_sym] and params[klass.to_sym]["#{ ff.field.name }_greater_than"] ?  
+                                                                                                params[klass.to_sym]["#{ ff.field.name }_greater_than"] : ''),
+                                                                              :start_year => minimun_search_year,
+                                                                              :end_year   => Date.today.year, :include_blank => true }) %>
+
+          y     <%= date_select(klass, "#{ ff.field.name }_lteq",   { :default    => (params[klass.to_sym] and params[klass.to_sym]["#{ ff.field.name }_less_than"] ?
+                                                                                                 params[klass.to_sym]["#{ ff.field.name }_less_than"] : ''),
+                                                                              :start_year => minimun_search_year,
+                                                                              :end_year   => Date.today.year + 5, :include_blank => true }) %>
+
+        <% else %>
+          <%= ff.field.name %>, <%= ff.field.type %>
+        <% end %>
+      </td>
+    </tr>
+
+<%  else %>
+
+    <tr class="list_style_<%= cycle(0,1) %>">
+      <td colspan="2">
+        Especificación de campo incorrecta: '<%= "#{klass.camelize}.#{field_name}" %>' -> Tipo de campo desconocido         
+      </td>
+    </tr>
+
+<% end %>
+

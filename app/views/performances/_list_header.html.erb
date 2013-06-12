@@ -1,0 +1,13 @@
+<!-- <<<<<HIDE_CHECK_BOX-->
+<% if embedded.nil? %>
+  <th></th>
+<% end %>
+<!-- >>>>>HIDE_CHECK_BOX-->
+<% if current_site.create_permissions_as_roles %>
+    <th><%= Gx.t_attr("performance.role_id") %></th>
+    <th><%= Gx.t_attr("performance.stage_id") %></th>
+<% else %>
+    <th><%= Gx.t_attr("performance.stage_id") %></th>
+    <th><%= Gx.t_attr("performance.role_id") %></th>
+<% end %>  
+<th><%= Gx.t_attr("performance.agent_id") %></th>

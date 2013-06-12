@@ -1,0 +1,24 @@
+development:
+  raise_delivery_errors: false
+  default_url_options:
+    host: localhost:3000
+
+test:
+  raise_delivery_errors: true
+  default_url_options:
+    host: localhost:3000
+  delivery_method: :test
+
+staging:
+  raise_delivery_errors: true
+  default_url_options:
+    host: localhost:3000
+  delivery_method: :test
+
+production:
+  raise_delivery_errors: true
+  default_url_options:
+    host: localhost:3000
+  delivery_method: :test
+
+

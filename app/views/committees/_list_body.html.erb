@@ -1,0 +1,7 @@
+<%= hidden_inputs_for(committee, count) %>
+
+<td><%= link_to h(committee.name), committee, :class => (committee.enabled ? '' : 'strike gray' ) %></td>
+
+<td><%=h committee.email %></td>
+<td><%= link_to( I18n.t("form.buttons.notes"), committee_path(committee, :anchor => 'committee_section_notes') )%>
+

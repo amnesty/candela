@@ -1,0 +1,29 @@
+<table class="table_form">
+
+  <tr class="form_section">
+    <td><%= Gx.t_attr 'event_record.sections.data' %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= Gx.t_attr 'event_record.name' %></td>
+    <td><%= @event_record.h_event_definition %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= Gx.t_attr 'event_record.timestamp' %></td>
+    <td><%= l(@event_record.timestamp) %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= Gx.t_attr 'event_record.extra_info' %></td>
+    <td><%= raw extra_info_for_event(@event_record) %></td>
+  </tr>
+</table>
+
+<% if event_record.authorize?(:read, :to => current_user) %>
+  <table>
+  <% summary_notes_section_for(event_record.becomes(EventRecord)) %>
+  </table>
+<% end %>
+

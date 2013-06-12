@@ -1,0 +1,64 @@
+<table class="table_list" >
+  <tr class="important_row">
+    <td colspan="2"><%= t('interested.search.search_params') %></td>
+  </tr>
+
+  <tbody class="unhideable">
+    <% Interested.unhideable_fields.each do |field_name| %>
+      <%= render :partial => 'filters_field', :locals => { :klass => 'interested', :field_name => field_name } %>
+    <% end %>
+
+  <tr class="list_style_0">
+    <td>
+      <label><%= Gx.t_attr('interested.is_minor') %></label>
+    </td>
+    <td>
+      <%= select("interested", "is_minor", [["", ""],["Si","1"],["No","0"] ]) %>
+    </td>   
+  </tr> 
+
+  <tr class="list_style_1">
+    <td>
+      <label><%= Gx.t_attr('interested.is_activist') %></label>
+    </td>
+    <td>
+      <%= select("interested", "is_activist", [["", ""],["Si","1"],["No","0"] ]) %>
+    </td>    
+  </tr> 
+
+  <tr class="list_style_0">
+    <td>
+      <label><%= Gx.t_attr('interested.local_organization_id') %></label>
+    </td>
+    <td>
+      <%= select "interested", "local_organization_id_eq", 
+                 LocalOrganization.orderby_name.only_to_interesteds.scoping_with_agent(current_agent).collect { |o| [o.name, o.id] },
+                 { :include_blank => true }
+      %>
+      <% content_for(:head){ javascript_tag "addAutocompleteInputCallback('interested_local_organization_id_eq', '#{talks_as_options_for_search_talks_path}', 'local_organization_id', 'interested_talks_id_eq_any', function(){fitListSizeToContents('interested_talks_id_eq_any',5)});" } %>
+
+    </td>
+  </tr> 
+
+  <tr class="list_style_1">
+    <td>
+      <label><%= Gx.t_attr('interested.talks') %>:</label><i class="help"><%= raw t("form.multiple_select_help") %></i>
+    </td>
+    <td>
+      <%= select 'interested', 'talks_id_eq_any', [t('talk.select_a_group')], {  }, 
+                 {:multiple => true, :size => "1",
+                  :onchange => "''"} 
+      %>
+    </td>
+  </tr> 
+
+  </tbody>
+
+  <%= render :partial => 'show_more_row' %>
+
+  <tbody id="interested_extra_fields" class="hideable" style="display: none;">
+    <% Interested.hideable_fields.each do |field_name| %>
+      <%= render :partial => 'filters_field', :locals => { :klass => 'interested', :field_name => field_name } %>
+    <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,8 @@
+<% embedded ||= false %>
+<% unless embedded %>
+  <%= hidden_inputs_for(organization_on_off, count, { :hide => [ 'notes' ] }) %>
+<% end %>
+
+
+<td><%= link_to localize(organization_on_off.date), organization_on_off %></td>
+<td><%= h organization_on_off.more_info %></td>

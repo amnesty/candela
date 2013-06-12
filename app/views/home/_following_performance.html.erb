@@ -1,0 +1,4 @@
+<% home_limit_rows = 10 %>
+<% view_for_model  = following_performance.stage_type.camelize.pluralize %>
+<%= render :partial => "#{ following_performance.stage_type.underscore.pluralize }/home_abstract", :locals => { :home_limit_rows => home_limit_rows, :performance=> following_performance } %>
+

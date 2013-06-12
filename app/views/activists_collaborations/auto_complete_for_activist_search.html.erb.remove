@@ -1,0 +1,5 @@
+<ul>
+  <% @activists.each do |activist| %>
+    <li id="<%= dom_id activist %>"><%= activist.full_name %></li>
+  <% end %>
+</ul>

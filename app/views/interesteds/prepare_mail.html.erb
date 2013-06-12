@@ -1,0 +1,33 @@
+<%= round_div_box do %>
+  <h1>Enviando correo electrónico a <%= @resource.full_name %></h1>
+<% end %>
+
+
+
+<%= form_tag( send_mail_interested_path, :method => 'put' ) do  %>
+
+  <%= round_div_box do %>
+    <table>
+    <tr>
+      <td><%= label_tag( "mailto", Gx.t_attr("interested.mail.mailto") ) %></td>
+      <td><%= text_field_tag( "mailto", @resource.email, :class => 'big' ) %></td>
+    </tr>
+    <tr>
+      <td><%= label_tag( "subject", Gx.t_attr("interested.mail.subject") ) %></td>
+      <td><%= text_field_tag( "subject", "Contacto desde Amnistía Internacional", :class => 'big' ) %></td>
+    </tr>
+    <tr>
+      <td><%= label_tag( "body_mail", Gx.t_attr("interested.mail.body") ) %></td>
+      <td><%= text_area_tag( "body_mail", InterestedMailer.contact_email(@resource, :message_type => :email).body, :class => 'big' ) %></td>
+      <script>new nicEditor({iconsPath : '/assets/nicEditorIcons.gif'}).panelInstance('body_mail');</script>
+    </tr>
+    </table>
+  <% end %>
+
+  <%= round_div_box do %>
+    <div class='center form_actions'>
+      <%= submit_tag( Gx.t("form.buttons.send") ) %>
+    </div>
+  <% end %>
+
+<% end %>

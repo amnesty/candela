@@ -1,0 +1,9 @@
+<%= gx_form_for([@container, @resource], {} ) do |f| %>
+  <%= render :partial => 'form', :object => f, :locals => { :disabled => "disabled" } %>
+<% end %>
+
+<% if @resource.notes.new.authorize?(:read, :to => current_agent) and @resource.authorize?(:update, :to => current_agent) %>
+  <%= summary_view do %>
+    <%= summary_notes_section_for(@resource) %>
+  <% end %>
+<% end %>

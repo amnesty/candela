@@ -1,0 +1,9 @@
+<% if @collaborations == nil || @collaborations.empty? %>
+  <option class="empty" value=""><%= t('activists_collaboration.none') %></option>
+<% elsif @collaborations.class.name == "Hash" %>
+    <option value="<%= @collaborations[:id] %>"><%= @collaborations[:name] %></option>
+<% else %>
+  <% @collaborations.each do |collaboration| %>
+    <option value="<%= collaboration.id %>"><%= collaboration.name %></option>
+  <% end %>
+<% end %>

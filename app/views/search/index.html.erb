@@ -1,0 +1,81 @@
+<% klass_params_name = @klass.name.underscore.pluralize %>
+
+<%= round_div_box do %>
+    <h1><%= t("search.#{ klass_params_name }") %></h1>
+<% end  %>
+
+<div id="search_<%= klass_params_name %>" class="biggest container_list">
+
+  <%= link_to_function t("search.show_hide_filters"), "$('#filters_for_search').toggle()", :class => "with_icon action_reports" %>
+
+  <div id="filters_for_search" class="border" style="display: <%= params[:commit] ? "none" : "block" %>">
+
+      <%= form_tag search_path, :method => :get do %>
+        <%= hidden_field_tag 'what', klass_params_name %>
+
+        <p class="form_actions">
+          <%= button_to_function t('form.buttons.back'),  "document.location = '#{ request.referer }';", :class => 'action_cancel' %>
+          <%= submit_tag t('form.buttons.launch_query'), :class => 'action_apply' %>
+        </p>
+
+        <% begin %>
+          <%= render :partial => "#{ klass_params_name }_filters" %>
+        <% rescue ActionView::MissingTemplate %>
+          <%= render :partial => "generic_filters", :locals => {:klass => @klass} %>
+        <% end %>
+
+        <p class="form_actions">
+          <%= button_to_function t('form.buttons.back'),  "document.location = '#{ request.referer }';", :class => 'action_cancel' %>
+          <%= submit_tag t('form.buttons.launch_query'), :class => 'action_apply' %>
+        </p>
+      <% end %>
+   </div>
+
+  <% if params[:commit] %>
+    <% if @items.empty? %>
+      <h2 class="empty"><%= t('search.none_found') %></h2>
+    <% else %>
+      <h2 class="big_margin"><%= t('search.some_found') %> (<%= @search_results_count %>)</h2>
+
+      <%= link_to_function(t('search.to_csv'), "$('#csv_export_fields').toggle()", :class => 'with_icon action_download') %>
+
+      <div class="big_padding big_margin list_style_1" id="csv_export_fields" style="display: none;">
+
+        <div class="big_margin">
+          <%= link_to_function t('search.active_all_csv_params'), "csvParamToggleAll('active')", :class => "big_margin" %>
+          <%= link_to_function t('search.inactive_all_csv_params'), "csvParamToggleAll('inactive')", :class => "big_margin" %>
+        </div>
+
+        <% FormField.removePhraseTranslations(@klass.searcheable_fields).each do |field_name| %>
+          <% field = FormField.new(@klass,field_name) %>
+          <span class="smallest small_margin block left">
+            <%= check_box_tag "csv_params_#{ field_name }", field_name, false, :class => 'search_csv_param', :style => 'width: 20px' %>
+            <%= field.translated_field_name %>
+          </span>
+        <% end %>
+
+        <div class="clear text_center big_margin big_padding">
+          <br />
+          <%= link_to t('search.to_csv_submit'), search_path(params.merge(:format => :csv)),
+                :id => 'csv_export_button',
+                :class => 'big_padding font_plus_two', :style => 'background-color: white; color: #4284B0; font-weight: bold; border: 1px solid #CCCCCC;',
+                :onclick => 'performCSVSearch(this); return false;'
+          %>
+        </div>
+
+      </div>
+
+      <%= render :partial => "shared/collection", :object => @items, :locals => { :embebed => true, :klass => @klass } %>
+
+    <% end %>
+  <% end %>
+
+    <% if !@items.empty? && will_paginate(@items) %>
+     <div class="paginate">
+       <%= page_entries_info @items %>
+       <%= will_paginate @items, :container => false  %>
+     </div>
+   <% end %>
+
+</div>
+<% Rails.logger.info "+-+-+-+-+-+-+-+ PARAMS: #{params.inspect}" %>

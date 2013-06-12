@@ -1,0 +1,43 @@
+<div class="container_form">
+  <%= gx_form_for(@hr_school, :url => { :controller => 'public', :action => 'create_hr_school' } ) do |f| %>
+
+  <% form_errors = false %>
+  <% unless @hr_school.errors.count.zero?
+      form_errors = '"El formulario contiene los siguientes errores. Revise los campos marcados en rojo por favor:" + "\n\n"'
+      form_errors << @hr_school.errors.inject('') do |body_str, error|
+        error_field   = error.first
+        error_message = error.last 
+        body_str << "+ '  * #{ I18n.t(error_field, :scope => [ :activerecord, :attributes, 'hr_school']) }: #{ error_message }' + '#{ '\n'  }' ".html_safe
+        #body_str.html_safe
+      end.html_safe 
+    end %>
+   <% if form_errors %>
+     <%= javascript_tag "alert(#{ form_errors });" %>
+   <% end %>
+
+    <%= render :partial => 'hr_schools/form', :object => f %>
+
+    <input name="hr_school[accepted_privacity]" id="hr_school_accepted_privacity" value="checkbox" type="checkbox">
+    Acepto la <a href="http://www.es.amnesty.org/politica-de-privacidad" target="_blank" title="Política de privacidad">política de privacidad</a> (por favor léela antes de enviar tus datos)</td>
+
+    <p class="text_center big_padding font_plus_two">
+      <%= f.submit( 'Enviar el formulario', :style => 'background-color: black; color: white;' ) %>
+    </p>
+
+  <% end %>
+
+</div>
+
+<!-- Piwik -->
+    <script type="text/javascript">
+    var pkBaseURL = (("https:" == document.location.protocol) ? "https://estadisticas.es.amnesty.org/piwik/" : "http://estadisticas.es.amnesty.org/piwik/");
+    document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+    </script><script type="text/javascript">
+    try {
+    var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
+    piwikTracker.trackPageView();
+    piwikTracker.enableLinkTracking();
+    } catch( err ) {}
+    </script><noscript><p><img src="http://estadisticas.es.amnesty.org/piwik/piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>
+<!-- End Piwik Tracking Code -->
+

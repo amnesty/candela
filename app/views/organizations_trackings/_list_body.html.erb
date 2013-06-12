@@ -1,0 +1,7 @@
+<% embedded ||= false %>
+<% unless embedded %>
+  <%= hidden_inputs_for(organizations_tracking, count, { :hide => [ 'notes' ] }) %>
+<% end %>
+
+
+<td><%= h organizations_tracking.organization.full_name %></td>

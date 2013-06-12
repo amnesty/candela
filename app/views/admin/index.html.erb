@@ -1,0 +1,31 @@
+<h1><%= t("main_page.admin") %></h1>
+
+<div class="tabular_list list_style_0">
+  <span class="title"><%= t("admin.access") %></span>
+  <p class="tabular_actions">
+    <%= link_to Gx.proper(Gx.t_model("users")), users_path, :class => 'action_view with_icon left small_margin' %>
+    <%= link_to Gx.proper(Gx.t_model("roles")), roles_path, :class => 'action_add with_icon left small_margin' %>
+  </p>
+</div>
+
+<div class="tabular_list list_style_1">
+  <span class="title"><%= Gx.proper(Gx.t_model("alerts")) %></span>
+  <p class="tabular_actions">
+    <%= link_to t('alert.generate'), { :action => :generate, :controller => 'alerts'}, :class => 'action_add with_icon left small_margin' %>
+    <%= link_to t('alert.view_all'), alerts_path , :class => 'action_view with_icon left small_margin' %>
+  </p>
+</div>
+
+<div class="tabular_list list_style_1">
+  <span class="title"><%= t('admin.tables') %></span>
+  <p class="tabular_actions">
+    <%= link_to Gx.proper(Gx.t_model("campaigns")), campaigns_path , :class => 'action_view with_icon left small_margin' %>
+  </p>
+</div>
+
+<div class="tabular_list list_style_1">
+  <span class="title"><%= t("site.one") %></span>
+  <p class="tabular_actions">
+    <%= link_to t("admin.config"), site_path, :class => 'action_config with_icon left small_margin' %>
+  </p>
+</div>

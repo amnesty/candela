@@ -1,0 +1,23 @@
+<h1><%= t('site.config') %></h1>
+
+  <p>
+    <b><%= t('site.name') %></b>: 
+    <%= sanitize current_site.name %>
+  </p>
+
+  <p>
+    <b><%= t('site.description') %></b>: 
+    <%= sanitize current_site.description %>
+  </p>
+
+  <p>
+    <b><%= t('site.email') %></b>: 
+    <%= sanitize current_site.email %>
+  </p>
+
+  <p>
+    <b><%= t('site.create_permissions_as_roles') %></b>:
+    <%= current_site.create_permissions_as_roles ? t('site.create_as_roles') : t('site.create_as_organizations') %>
+  </p>
+
+  <%= link_to t(:edit), edit_site_path %>

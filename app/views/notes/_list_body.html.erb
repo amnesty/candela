@@ -1,0 +1,32 @@
+<%= hidden_inputs_for(note, count, { :hide => [ 'notes' ], :more => { :reply =>  polymorphic_url([ :new, @container, note ], :parent_id => note.id )}}) %>
+
+
+<% show_container ||= false %>
+<% deep ||= 1 %>
+
+<td>
+
+  <div style="margin-left: <%= 20 * (deep-1) %>px;" class="<%= embedded ? 'embedded_tabular_list' : 'tabular_list'%>" list_style_<%= cycle(1,0, :name => 'cycle_activist_activist_notes') %>">
+  
+    <% if show_container %>
+      <span class="title"><%=link_to( h(@container.full_name) + ": ", url_for(@container) ) %></span>
+    <% end %>
+
+    <span class="title"><%=link_to( h(note.title), note) %></span>
+
+    <span class="date">
+      <%= localize(note.monitoring_date.nil? ? note.created_at : note.monitoring_date, { :format => "long" }) %>
+    :
+      <span class="subtitle">
+        <%= note.monitoring_person ? note.monitoring_person : note.author ? note.author.login : t('note.no_creator') %>
+      </span>
+    </span>
+
+    <% if note.body.present? and !embedded %>
+      <div class="tabular_body">
+        <%= note.body %>
+      </div>
+    <% end %>
+
+  </div>
+</td>

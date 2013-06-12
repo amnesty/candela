@@ -1,0 +1,9 @@
+<% defined?(onclick) ? nil : onclick = "$('.hideable').toggle();return false;" %>
+<% Rails.logger.info "+-+-+-+-+-+ ONCLICK: #{onclick}" %>
+  <tr class="show_more_row">
+    <td colspan="2"> 
+       <%= link_to_function t("search.show_hide_hideable_fields"), onclick.html_safe %>
+       <%= "" || link_to(t("search.show_hide_hideable_fields"), '#', :onclick => onclick.html_safe) %>
+    </td>
+  </tr>
+

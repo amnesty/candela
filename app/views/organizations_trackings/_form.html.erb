@@ -1,0 +1,28 @@
+<table id="<%= params[:action] %>_tracking_form" class="table_form">
+
+  <% if @organizations_tracking.organization and not @organizations_tracking.new_record? %>
+    <tr class="<%= Gx.list_style %>">
+      <%= form.hidden_field :organization_id %>
+      <%= form.hidden_field :organization_type %>
+      <td><%= form.label_required :organization_id %></td>
+      <td><%= form.text_field nil, { :value => @organizations_tracking.organization.full_name, :disabled => true } %></td>
+    </tr>
+  <% else %>
+    <tr class="<%= Gx.list_style %>">
+      <td><%= form.label_required :organization_type %></td>
+      <td>
+        <%= select "organizations_tracking", "organization_type", 
+                    [ [t('organizations_tracking.select_all_types'), 'all_types'] ].concat(ActivistsCollaboration.organization_types.collect{ |o| [ Gx.t_attr("activists_collaboration.#{ o.underscore }"), o ] }), 
+                    { :include_blank => true }
+        %>
+        <% content_for(:head){ javascript_tag "addAutocompleteInputCallback('organizations_tracking_organization_type', '#{organizations_for_search_path}', 'organization_type', 'organizations_tracking_organization_id');" } %>
+      </td>
+    </tr>
+      <td><%= form.label_required :organization_id %></td>
+      <td><%= select( "organizations_tracking", "organization_id", [],  { :include_blank => true })  %></td>
+    </tr>
+  <% end %>
+
+
+</table>
+

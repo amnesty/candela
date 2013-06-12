@@ -1,0 +1,1449 @@
+es:
+
+  __organizations: &_organizations
+    autonomy: Entidad autonómica
+    country: País
+    committee: "Comité/Comisión"
+    local_organization: Grupo
+    localorganization: Grupo
+    se_team: Equipo del S.E.
+    seteam: Equipo del S.E.
+
+  __organization_sections: &_organization_sections
+    collaborations: Miembros y colaboradores
+    campaignactions: Acciones realizadas en campañas
+    contact: Datos de contacto
+    onoffs: Histórico de actividad
+    other_addresses: Otras direcciones
+    other_collaborations: Otras colaboraciones
+    talks: Sesiones de presentación   
+    organization_on_offs:
+
+  __organization_search: &_organization_search
+    meetings: Reuniones
+    postal_address: Dirección postal
+    delivery_address: Dirección de mensajería
+
+  __collaborations_sections: &_collaborations_sections
+    all_collaborations: Todos los miembros y colaboradores
+    expertise_collaborations: Colaboraciones como experto
+    member_collaborations: Activistas miembros
+    support_collaborations: Colaboraciones de apoyo
+    casual_collaborations: Colaboraciones puntuales
+
+  admin:
+    access: Accesos
+    config: Configuración general
+    tables: Mantenimiento de ficheros
+
+  home:
+    sections:
+      activists_notes: Seguimiento de las activistas
+      alerts: Últimas alertas
+      autonomy_notes: Seguimiento de mi entidad territorial
+      country_notes: Seguimiento de mi país
+      committee_notes: Seguimiento de mi comité/comisión
+      event_records: Últimos eventos
+      hr_schools: Escuelas por los DD.HH.
+      hr_school_notes: Seguimiento de mi Escuela de DD.HH.
+      interesteds: Personas interesadas
+      last_campaignactions: Últimas acciones realizadas
+      local_organizations: Grupos
+      local_organization_notes: Seguimiento de mi grupo
+      se_team_notes: Seguimiento de mi equipo
+      talks: Sesiones de presentación
+
+  main_page:
+    admin: Administración
+    home: Inicio
+    home_title: Página de Inicio de <i>%{agent}</i>
+    logout: Salir
+    menu_activists: Activistas
+    menu_autonomies: Entidades autonómicas
+    menu_campaigns: Campañas
+    menu_campaignactions: Acciones realizadas
+    menu_collaboration_types: Lugares de colaboración
+    menu_committees: Comités/Comisiones
+    menu_countries: Países
+    menu_hr_schools: Escuelas DD.HH.
+    menu_interesteds: Interesados
+    menu_local_organizations: Grupos
+    menu_se_teams: Equipos del SE.
+    menu_talks: Sesiones presentación
+    monitoring: Seguimiento
+    search: Búsquedas
+    search_activists: Activistas
+    search_collaborations: Colaboraciones
+    search_hr_schools: Escuelas DD.HH.
+    search_campaignactions: Acciones realizadas
+    search_interesteds: Interesados
+    search_talks: Sesiones presentación
+    search_collaboration_types: Lugares de colaboración
+    search_local_organizations: Grupos locales
+    search_se_teams: Equipos del SE
+    search_countries: Paises
+    search_committees: Comités/Comisiones
+    search_autonomies: Autonomías
+    search_alerts: Alertas
+    under_development: En desarrollo
+
+  search:
+    activists: "Búsqueda de activistas"
+    collaborations: "Búsqueda de colaboraciones"
+    hr_schools: "Búsqueda de Escuelas de DD.HH."
+    campaignactions: "Búsqueda de acciones realizadas"
+    interesteds: "Búsqueda de interesados"
+    talks: "Búsqueda de sesiones de presentación"
+    local_organizations: Búsqueda de grupos locales
+    se_teams: Búsqueda de equipos del SE
+    countries: Búsqueda de paises
+    committees: Búsqueda de comités/comisiones
+    autonomies: Búsqueda de autonomías
+    alerts: Búsqueda de alertas
+    no_params_for_search: 'Debe introducir al menos un parámetro para la busqueda'
+    none_found: "Su búsqueda no ha dado resultados"
+    some_found: "Se han encontrado los siguientes resultados según su búsqueda"
+    show_hide_filters: "Mostrar / Ocultar filtros de búsqueda"
+    show_hide_hideable_fields: "Mostrar / Ocultar campos extra"
+    select_collaboration_type: "Selecciona una forma de colaboración"
+    to_csv: "Exportar resultados de Búsqueda a CSV"
+    active_all_csv_params: "Seleccionar todos los campos"
+    inactive_all_csv_params: "Quitar todos los campos"
+    to_csv_submit: "Exportar"
+    to_email: Enviar emails
+    warn_at_text_fields: "Aseguráte de no dejar espacios o saltos de línea al final"
+    fast_searched_fields_header: "Búsqueda realizada en los campos:"
+
+  record_not_found: "Registro no encontrado"
+  session_expired: "Su sesión ha caducado. Más de %{max_time_inactive} de inactividad."
+
+  form:
+    actions:
+      actions: Acciones
+      created: "%{model} se ha creado correctamente."
+      delete: "Borrando %{model}. Pulsa el botón <i>Borrar</i><small> (esta operación no se puede deshacer)</small>"
+      deleted: "%{model} se ha borrado correctamente."
+      disable: Desactivando %{model}
+      edit: Editando %{model}
+      enable: Activando %{model}
+      index: Listando %{model}
+      new: Creando %{model}
+      not_created: "%{model} no se ha creado correctamente."
+      not_deleted: "No se ha podido borrar %{model}."
+      show: Mostrando %{model}
+      toindex: Listar %{model}
+      updated: "%{model} se ha actualizado correctamente."
+      enabled: "%{model} se ha activado correctamente."
+      disabled: "%{model} se ha desactivado correctamente."
+      check_all_permissions_checkbox: "Seleccionar todos los permisos"
+      uncheck_all_permissions_checkbox: "Quitar todos los permisos"
+      check_all_permissions_checkbox_of: "Seleccionar todos los permisos de %{model}"
+      uncheck_all_permissions_checkbox_of: "Quitar todos los permisos %{model}"
+      check_all_organizations_checkbox: "Seleccionar todos"
+      uncheck_all_organizations_checkbox: "Quitar todos"
+      send: Enviar
+
+    buttons:
+      back:   Volver
+      cancel: Cancelar
+      cancel_edit: Volver
+      create: Crear
+      delete: Borrar
+      destroy: Borrar
+      disable: Desactivar
+      edit:   Editar
+      enable: Activar
+      fast_search: Buscar
+      index:  Listado
+      join:   Unirse
+      launch_query: Lanzar consulta
+      leave: Gestionar estado
+      notes:  Seguimiento
+      reply:  Contestar anotación seleccionada
+      send:   Enviar
+      show:   Mostrar
+      to_activist: A activista
+      prepare_mail: Enviar correo
+      prepare_pdf: Crear carta
+      update: Actualizar
+      update_and_list: Actualizar y Listar
+
+    messages:
+      select_item_to_delete: "Por favor, selecciona primero %{model} que deseas borrar"
+      select_item_to_edit: "Por favor, selecciona primero %{model} que deseas editar"
+      select_item_to_leave: "Por favor, selecciona primero %{model} que deseas dar de baja"
+      select_item_to_notes: "Por favor, selecciona primero %{model} para consultar su seguimiento"
+      select_item_to_to_activist: "Por favor, selecciona primero %{model} que deseas pasar a activista"
+      select_item_to_prepare_mail: "Por favor, selecciona primero %{model} al que deseas enviar el correo"
+      select_item_to_prepare_pdf: "Por favor, selecciona primero %{model} al que deseas generar la carta"
+      select_item_to_reply: "Por favor, selecciona primero %{model} que deseas contestar"
+
+
+    permissions:
+      config: Configurar
+      create: Crear
+      destroy: Borrar
+      read: Ver
+      update: Actualizar
+      create_pdf: Crear carta a
+      create_email: Enviar email a
+      leave: Dar de alta / baja
+      clear: Limpiar información personal de
+      
+
+    confirm_delete: ¿Estas seguro/a de que quieres borrar %{model}?
+    fast_search: Búsqueda rápida
+    multiple_select_help: Seleccione varios manteniendo apretada la tecla Control <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;o un rango con la tecla Mayúsculas
+    multiple_checkbox_or_help: Se incluirán los resultados que coincidan con, al menos, uno de los elementos seleccionados.
+    multiple_checkbox_and_help: Se incluirán los resultados que coincidan con todos los elementos seleccionados.
+    required_fields: Campos obligatorios
+
+  navigation:
+    go_up: 'Ir Arriba'
+    paginate:
+#      all: Mostrando todos los resultados para %{model}
+      none: No se han encontrado %{model} en la base de datos
+#      one: Un resultado para %{model} en la base de datos
+      other: Mostrando %{min_show} a %{max_show} de %{model_count} %{model}
+      next: 'Siguientes'
+      prev: 'Anteriores'
+
+  will_paginate:
+    previous_label: "&#8592; Anteriores"
+    next_label: "Siguientes &#8594;"
+    page_gap: "&hellip;"
+    page_entries_info:
+      single_page:
+        zero:  "No se han encontrado %{model}"
+        one:   "Mostrando 1 %{model}"
+        other: "Mostrando todos %{count} %{model}"
+      single_page_html:
+        zero:  "No se han encontrado %{model}"
+        one:   "Mostrando <b>1</b> %{model}"
+        other: "Mostrando <b>todos&nbsp;%{count}</b> %{model}"
+
+      multi_page: "Mostrando %{from} a %{to} de %{count}"
+      multi_page_html: "Mostrando <b>%{from}&nbsp;-&nbsp;%{to}</b> de <b>%{count}</b>"
+
+  user:
+    texts:
+      permissions_by_organization: "<b>%{organization}</b>, roles: %{roles}"
+      permissions_by_role: "<b>%{role}</b>, en %{organizations}"
+
+  words:
+    disabled: Inactivo
+    enabled:  Activo
+    for:  " para "
+    more: Más
+    of:   " de "
+
+
+######################## ENTITIES ######################################
+
+  __notes_entity: &_notes_entity
+    no_creator: Anónimo
+    none: No hay anotaciones.
+    reply: Contestar a esta anotación
+    edit: Editar anotación
+    meta: Nota creada por %{author} el %{datetime}
+
+
+  activist:
+    cant_create_collaboration_due_status: 'No se pueden crear colaboraciones mientras el activista este de baja'
+    cant_use_activist_due_no_collaborations: 'No se puede trabajar con el activista mientras que no tenga colaboraciones en activo. Añada una colaboracion'
+    clear: Pincha aquí para borrar sus datos personales definitivamente
+    clear_checkbox: Si marca la casilla, además de la baja, los datos personales del activista serán eliminados
+    delete: Pinche aquí para borrar <b>definitivamente</b> al activista
+    clear_label: "El activista ya está dado de baja:"
+    document_types: [ "NIF", "NIE", "Otros" ]
+    leave_state: " (de baja desde el %{leave_at})"
+    none_f: Ninguna
+    none_m: Ninguno
+    nothing: Nada
+    notes:
+      none: No se han encontrado anotaciones
+    member_of: Miembro de
+    other_collaborations: Otras colaboraciones
+    rejoin: Pincha aquí para dar de alta otra vez a la activista
+    leave_status_text: 'Para ser activista debe haber, al menos, una colaboración en activo. Debe realizar una de las siguientes acciones:<ul>
+ <li>Dar de alta una colaboración.</li>
+ <li>Dar de baja al activista.</li>
+ <li>Si no se realiza ninguna acción. el activista será dado de baja el automáticamente el %{time_to_remove}</li>
+
+</ul>
+'
+    search:
+      none_found_by_collabtopic: 'No hay activistas con esos temas de colaboración'
+      none_found_by_hobby: 'No hay activistas con esos hobbies'
+      none_found_by_lang: 'No hay activistas con esos lenguajes'
+      none_found_by_skill: 'No hay activistas con esas habilidades'
+      search_params: 'Parámetros del activista'
+      collaborations_params: 'Parámetros relacionados con su actividad en grupos'
+      skills_params: 'Parámetros relacionados con las habilidades'
+
+  activists_collaboration:
+    activist: Activista
+    membership: Miembro
+    organization: Organización
+    unknown_organization: Organización inexistente
+    unknown_status: El estado no se ha encontrado
+    # collaboration_type values
+    AutonomyAutonomy: Activista autonómico en Entidad Autonómica
+    AutonomyCommittee: Activista miembro en Entidad Autonómica Comité/Comisión
+    CasualAutonomy: Activista puntual en Entidad Autonómica
+    CasualCommittee: Activista puntual en Comité/Comisión
+    CasualCountry: Activista puntual en país
+    CasualLocalOrganization: Activista puntual en Grupo
+    CasualSeTeam: Activista puntual en equipo S.E.
+    CountryCommittee: Activista miembro en País Comité/Comisión
+    CountryCountry: Activista miembro en País
+    ExpertiseAutonomy: Activista experto en Entidad Autonómica
+    ExpertiseCommittee: Activista experto en Comité/Comisión
+    ExpertiseCountry: Activista experto en país
+    ExpertiseLocalOrganization: Activista experto en Grupo
+    ExpertiseSeTeam: Activista experto en equipo S.E.
+    MemberAutonomy: Activista miembro en Entidad Autonómica
+    MemberCommittee: Activista miembro en Comité/Comisión
+    MemberCountry: Activista miembro en País
+    MemberLocalOrganization: Activista miembro en Grupo
+    MemberSeTeam: Activista miembro en equipo S.E.
+    SupportAutonomy: Activista de apoyo en Entidad Autonómica
+    SupportCommittee: Activista de apoyo en Comité/Comisión
+    SupportCountry: Activista de apoyo en país
+    SupportLocalOrganization: Activista de apoyo en Grupo
+    SupportSeTeam: Activista de apoyo en equipo S.E.
+    not_found: "La forma de colaboración no ha podido ser encontrada"
+    # Select in activists_collaboration form
+    none: Ninguna
+
+    errors:
+      already_exists: ": Ya tiene una colaboración de este tipo en esta organización"
+
+    texts:
+      casual_collaborations: '<p>%{activist}:</p>
+                               <p><span class="nice_summary_label">Responsabilidades</span>: <span class="nice_summary_field">%{responsibility}</span>,
+                                  <span class="nice_summary_label">Email</span>: <span class="nice_summary_field">%{email}</span>,
+                                  <span class="nice_summary_label">Téléfonos:</span>: <span class="nice_summary_field">%{phone}</span></p>'
+      country_collaborations: '<p>%{activist}:</p>
+                               <p><span class="nice_summary_label">Responsabilidades</span>: <span class="nice_summary_field">%{responsibility}</span>,
+                                  <span class="nice_summary_label">Email</span>: <span class="nice_summary_field">%{email}</span>,
+                                  <span class="nice_summary_label">Téléfonos:</span>: <span class="nice_summary_field">%{phone}</span></p>'
+      expertise_collaborations: '<p>%{activist}:</p>
+                               <p><span class="nice_summary_label">Responsabilidades</span>: <span class="nice_summary_field">%{responsibility}</span>,
+                                  <span class="nice_summary_label">Experto en</span>: <span class="nice_summary_field">%{expertise}</span>,
+                                  <span class="nice_summary_label">Email</span>: <span class="nice_summary_field">%{email}</span>,
+                                  <span class="nice_summary_label">Téléfonos:</span>: <span class="nice_summary_field">%{phone}</span></p>'
+      member_collaborations:  '<p>%{activist}:</p>
+                               <p><span class="nice_summary_label">Responsabilidades</span>: <span class="nice_summary_field">%{responsibility}</span>,
+                                  <span class="nice_summary_label">Email</span>: <span class="nice_summary_field">%{email}</span>,
+                                  <span class="nice_summary_label">Téléfonos:</span>: <span class="nice_summary_field">%{phone}</span></p>'
+
+      member_collaborations_for_activist: "%{collaboration_type} » %{organization}, %{responsibility}, desde el %{join_at}"
+
+
+      other_collaborations: "%{collaboration_type} %{organization}, , desde el %{join_at}, tlf: %{phone}, %{email}"
+      other_collaborations_for_activist: "%{collaboration_type} %{organization}, %{responsibility}, desde el %{join_at}"
+      support_collaborations: '<p>%{activist}:</p>
+                               <p><span class="nice_summary_label">Responsabilidades</span>: <span class="nice_summary_field">%{responsibility}</span>,
+                                  <span class="nice_summary_label">Email</span>: <span class="nice_summary_field">%{email}</span>,
+                                  <span class="nice_summary_label">Téléfonos:</span>: <span class="nice_summary_field">%{phone}</span></p>'
+#  activist_note:
+#    <<: *_notes_entity
+
+  activist_status_change:
+    texts:
+      full_description: "%{date}: Estado del activista %{activist_name} cambiado a %{status_change_name} en la colaboracion con %{organization} como %{collaboration_type}"
+      for_activist: "%{date}: Estado cambiado a %{status_change_name} en la colaboracion con %{organization} como %{collaboration_type}"
+
+  activists_statuschange:
+    texts:
+      change: "%{date}: Estado cambiado a %{status_change_name} en la colaboracion %{collaboration_type} en %{organization}"
+
+  alert:
+    generate: Generar todas las alertas pendientes
+    view_all: Mostrar todas las alertas
+    cant_be_created: Las alertas se crean automáticamente.
+    error_creating: Se ha producido un error creando las alertas. Contacta con la administradora del sistema.
+    alert_object_not_found: El objeto de la alerta no se ha encontrado
+    search:
+      search_params: 'Parámetros de la alerta'
+
+#  alert_note:
+#    <<: *_notes_entity
+
+  autonomy:
+    abrev: Auton.
+    title: Entidad autonómica
+    talks:
+      none: No se ha encontrado ninguna sesión de presentación para esta entidad autonómica
+    same_address: La misma que la postal
+    search:
+      <<: *_organization_search
+      search_params: 'Parámetros de la autonomía'
+    notes:
+      none: No se han encontrado anotaciones
+    types: [ "Junta", "Equipo", "Otras"]
+    organization_on_offs:
+      none: No se ha encontrado ningún cambio de actividad para esta Entidad Autonómica
+    sections:
+      <<: *_collaborations_sections
+      <<: *_organization_sections
+
+#  autonomy_note:
+#    <<: *_notes_entity
+
+  campaignaction:
+    none: No se han encontrado acciones realizadas
+    view_action: Ver
+    edit_action: Editar
+    LocalOrganization: Grupo local
+    Autonomy: Entidad autonómica
+    choose_one_organization_type: Elije un tipo de ET
+    search:
+      search_params: 'Parámetros de la acción'
+      contact_params: Contacto
+      performances_params: Actos de movilización
+      other_actions_params: Otras acciones
+      valuation_params: Valoración de la acción
+
+
+  committee:
+    abrev: ""
+    title: Comité/Comisión
+    same_address: La misma que la postal
+    search:
+    search:
+      <<: *_organization_search
+      search_params: 'Parámetros de la comisión'
+    notes:
+      none: No se han encontrado anotaciones
+    organization_on_offs:
+      none: No se ha encontrado ningún cambio de actividad para este Comité
+    sections:
+      <<: *_collaborations_sections
+      <<: *_organization_sections
+
+#  committee_note:
+#    <<: *_notes_entity
+
+  country:
+    abrev: País
+    title: País
+    same_address: La misma que la postal
+    search:
+    search:
+      <<: *_organization_search
+      search_params: 'Parámetros del país'
+    notes:
+      none: No se han encontrado anotaciones
+    organization_on_offs:
+      none: No se ha encontrado ningún cambio de actividad para este país
+    select_cp_or_province: "Selecciona un código postal o una provincia"
+    sections:
+      <<: *_collaborations_sections
+      <<: *_organization_sections
+
+#  country_note:
+#    <<: *_notes_entity
+
+  event_record:
+    view_all: Mostrar todos los eventos
+    cant_be_created: Los eventos se crean automáticamente.
+    error_creating: Se ha producido un error creando los eventos. Contacta con la administradora del sistema.
+    event_object_not_found: El objeto del evento no se ha encontrado.
+    no_extra_info: No hay infomación extra asociada a este evento.
+    texts:
+      full_description: 
+        default: "%{date}: Evento ocurrido sobre %{object_description}"
+        interested_to_activist: "%{date}: Interesado %{interested_description} convertido en activista %{activist_description}"
+        activist_note_created: "%{date}: Nueva nota sobre el activista %{activist_description}"
+        activist_note_updated: "%{date}: Nota sobre el activista %{activist_description} actualizada "
+    notes:
+      none: 'No se han encontrado anotaciones'
+
+  hr_school:
+    choose_one_organization_type: Elije un tipo de ET
+    statuses:
+      active: "Alta"
+      inactive: "Baja"
+      pending:  "Pendiente actualización"
+    types: ['Público', 'Concertado', 'Privado', 'Otros' ]
+    search:
+      search_params: 'Parámetros de la escuela de DD.HH.'
+      none_found_by_hr_academic_year: 'No hay escuelas con esos cursos académicos'
+      none_found_by_hr_level: 'No hay escuelas con esos niveles educativos'
+      none_found_by_hr_work_through: 'No hay escuelas que trabajen a través de esos criterios'
+    notes:
+      none: 'La Escuela no tiene ningún seguimiento'
+
+  hr_school_organization_managers:
+    new: 'Añadir otra organización'
+    none: 'No se ha asignado ninguna organización gestora'
+
+  
+
+#  hr_school_note:
+#    <<: *_notes_entity
+
+  interested:
+    status: Información del interesado
+    migrated: 'Pasado a activista'
+    still_not_migrated: 'No pasado a activista'
+
+    email_sent: Email enviado 
+    letter_sent: Carta enviada
+    email_not_sent: Email todavía no enviado
+    letter_not_sent: Carta todavía no enviada
+    no_email_for_sent: 'No se ha rellenado el campo de dirección de email'
+    email_sent_success: 'El email se ha enviado correctamente'
+    letter_sent_success: 'La carta se ha generado correctamente'
+    fail_at_updated: 'No se ha podido añadir la información de envio para el/la interesado/a. Compruebe que la ficha es correcta'
+    fail_at_send_email: 'Fallo en el envío del email.'
+    cant_be_activist_due_age: 'Falta autorización de los padres/tutores'
+    fail_to_migrate:
+      local_organization_miss: "No se puede pasar a activista. Seleccione primero una organización local para el/la interesado/a"
+    form:
+      form_send: "El formulario se ha enviado correctamente."
+    search:
+      search_params: 'Parámetros del interesado'
+      skills_params: Habilidades y aficiones
+      studies_params: Estudios y trabajo
+      communication_params: Comunicación
+
+  interested_communication:
+    texts:
+      full_description: "%{date}: Realizada comunicación con interesad@ %{interested_name}: %{communication_description}"
+      for_activist: "%{date}: Estado cambiado a %{status_change_name} en la colaboracion con %{organization} como %{collaboration_type}"
+
+  local_organization:
+    abrev: Grupo
+    one: Grupo
+    other: Grupos
+    talks:
+      none: No se ha encontrado ninguna sesión de presentación para este grupo
+    same_address: La misma que la postal
+    search:
+      <<: *_organization_search
+      search_params: 'Parámetros del grupo local'
+    notes:
+      none: No se han encontrado anotaciones
+    title: "%{full_name}, número %{number} (%{enabled})."
+    organization_on_offs:
+      none: No se ha encontrado ningún cambio de actividad para este grupo
+    sections:
+      <<: *_collaborations_sections
+      <<: *_organization_sections
+
+#  local_organization_note:
+#    <<: *_notes_entity
+
+  note:
+    <<: *_notes_entity
+    
+
+  organization_on_off:
+    enabling: "Activando %{organization}"
+    disabling: "Desactivando %{organization}"
+    current_state: "Estado actual: %{state}"
+    state_on: 'Activa'
+    state_off: 'Inactiva'
+  
+  organizations_tracking:
+    manage: Gestionar seguimientos
+    destroy_all: Borrar todos
+    destroy_all_confirm: "Esta acción borrará todos los seguimientos permitidos a este usuario. ¿estas segura de querer continuar?"
+    all_destroyed_ok: "Los seguimientos para este usuario se han borrado correctamente"
+    all_destroyed_fail: "Hubo un error borrando los seguimientos para este usuario"
+    select_all_types: Todos las organizaciones
+    select_all_ids: Todos las organizaciones de este tipo
+    show_by_user: Seguimiento de %{user}
+
+  performance:
+    site_manage: Administración del sitio
+    select_a_stage: Selecciona una organización
+    select_a_stage_type: Selecciona un tipo de organización
+    stages_of_type_are_empty: No hay organizaciones con este tipo 
+
+  province:
+    cities_not_found: "No se han encontrado ciudades"
+    select_a_city: Selecciona una ciudad
+    select_province: Selecciona una provincia
+
+  role:
+    stage_type: "Tipo de organización"
+    stage_types:
+      LocalOrganization: Grupo local
+      SeTeam: Equipo del S.E.
+      Site: Amnistía Internacional
+      Committee: Comité/Comisión
+      Autonomy: Entidad autonómica
+      Country: País
+      HrSchool: Escuela DD.HH.
+      none: Ninguna
+
+  se_team:
+    abrev: S.E.
+    full_name: "Equipo %{name} del SE"
+    title: "%{full_name}"
+    same_address: La misma que la postal
+    search:
+      <<: *_organization_search
+      search_params: 'Parámetros del equipo'
+    notes:
+      none: No se han encontrado anotaciones
+    organization_on_offs:
+      none: No se ha encontrado ningún cambio de actividad para este equipo
+    sections:
+      <<: *_collaborations_sections
+      <<: *_organization_sections
+    search:
+      <<: *_organization_search
+      search_params: 'Parámetros del equipo del SE'
+
+  site:
+    abrev: el sitio 
+    create_permissions_as_roles: "Asignar permisos a usuarias por roles? (o por organizaciones)"
+    create_as_roles: Por roles
+    create_as_organizations: Por organizaciones
+
+  permissions:
+    over_object: 'Sobre %{objective}'
+
+
+  talk:
+    choose_one_organization_type: Elije un tipo de ET
+    LocalOrganization: Grupo local
+    Autonomy: Entidad autonómica
+    empty_for_group: 'No hay sesiones de presentación para este grupo'
+    select_a_group: 'Selecciona primero un grupo'
+    select_talk: 'Selecciona una sesión de presentación'
+    errors:
+      already_exists: ": Ya existe una sesión de presentación con este título para esta organización"
+    search:
+      search_params: 'Parámetros de la sesión de presentación'
+    texts:
+      complete: "%{name} en %{address} el día %{date} %{hours}"
+
+#################### ACTIVE RECORD ########################
+
+  activerecord:
+    models:
+      activist: el activista
+      activists: los activistas
+      activists collaboration: la colaboración
+      activists_collaboration: la colaboración
+      activists collaborations: las colaboraciones
+      activist note: la anotación del activista
+      activist notes: las anotaciones del activista
+      alert: la alerta
+      alerts: las alertas
+      alert note: la anotación de la alerta
+      alert notes: las anotaciones de la alerta
+      event record: el evento
+      event records: los eventos
+      event record note: la anotación del evento
+      event record notes: las anotaciones de los eventos
+      autonomy: la entidad autonómica
+      autonomies: las entidades autonómicas
+      autonomy note: la anotación de la entidad autonómica
+      autonomy notes: las anotaciones de la entidad autonómica
+      campaign: la campaña
+      campaigns: las campañas
+      campaignaction: la acción realizada
+      campaignactions: las acciones realizadas
+      campaignactions organization: la organización adherida a la acción
+      campaignactions organizations: las organizaciones adheridas a la acción
+      committee: el comité/comisión
+      committees: los comités/comisiones
+      committee note: la anotación del comité/comisión
+      committee notes: las anotaciones del comité/comisión
+      country: el país
+      countries: los países
+      country note: la anotación del país
+      country notes: las anotaciones del país
+      hrschool: la escuela de DD.HH.
+      hr school: la escuela de DD.HH.
+      hr_school: la escuela de DD.HH.
+      hr schools: las escuelas de DD.HH.
+      hr school note: la anotación de la escuela de DD.HH.
+      hr school notes: las anotaciones de la escuela de DD.HH.
+      hr work throughs: el trabajo a través de
+      interested: el interesado
+      interesteds: los interesados
+      local organization: el grupo
+      local organizations: los grupos
+      local organization note: la anotación del grupo
+      local organization notes: las anotaciones del grupo
+      note: la anotación
+      notes: las anotaciones
+      organization_on_off: "cambio de estado"
+      organization on off: "cambio de estado"
+      organization on offs: los cambios de estado la organización
+      organizations trackings: "seguimientos de lugares de colaboración"
+      organizations tracking: "seguimiento de lugar de colaboración"
+      organizations_tracking: "seguimiento de lugar de colaboración"
+      performance: la asignación de roles
+      performances: las asignaciones de roles
+      responsibility: la responsabilidad
+      responsibilities: las responsabilidades
+      role: el rol
+      roles: los roles
+      se team: el equipo del S.E.
+      se teams: los equipos del S.E.
+      se team note: la anotación del equipo del SE
+      se team notes: las anotaciones del equipo del SE
+      selves: la propia organización
+      site: el sitio
+      sites: los sitios
+      talk: la sesión de presentación
+      talks: las sesiones de presentación
+      user: la usuaria
+      users: las usuarias
+
+    attributes:
+      __address_attributes: &_address_attributes
+        address: Dirección
+        city: Localidad
+        cp: Código postal
+        country_id: País
+        province_id: Provincia
+
+      __contact_attributes: &_contact_attributes
+        name: Nombre
+        phone: Teléfono
+        email: Email
+        fax: Fax
+
+      __join_date_attributes: &_join_date_attributes
+        join_at:  Fecha de alta
+        leave_at: Fecha de baja
+
+      __activists_and_interesteds_attributes: &_activists_and_interesteds_attributes
+        <<: *_address_attributes
+        <<: *_contact_attributes
+        different_residence_country: No resido en España
+        birth_day: Fecha de nacimiento
+        blogger: Dirección del blog
+        collabtopics: ¿En qué tema de AI te gustaría colaborar?
+        collabtopic_ids: ¿En qué tema de AI te gustaría colaborar?
+        document_type: Tipo de documento
+        first_name: Nombre
+        hobbies: ¿Cuáles son tus aficiones?
+        hobby_ids: ¿Cuáles son tus aficiones?
+        labour_situation_id: Situación laboral
+        languages: Lenguajes
+        language_ids: Lenguajes
+        last_name: Primer apellido
+        last_name2: Segundo apellido
+        mobile_phone: Teléfono 2
+        nif: Nº Documento (NIF, NIE, ...)
+        occupation_id: Profesión
+        other_hobbies: Otras aficiones
+        other_skills: Otras habilidades
+        other_languages: Otros lenguajes
+        phone: Teléfono 1
+        sex_id: Sexo
+        skills: ¿Qué sabes hacer?
+        skill_ids: ¿Qué sabes hacer?
+        student: Estudiante
+        student_degree: Carrera
+        student_level_id: Nivel de estudios
+        student_place: Nombre del centro
+        student_previous_degrees: Estudios terminados
+        student_year_id: Curso actual
+        student_more_info: Información adicional sobre los estudios
+        other_information: Otros
+        informed_through_id: Pidió información a través de...
+        informed_through_other: Otras formas de informarse
+
+      __activists_sections: &_activists_sections
+        data: Datos personales
+        data_protection_agreement: Protección de datos
+        skills_hobbies: Habilidades y aficiones
+        collab_organizations: Colaboraciones
+        notes: Seguimiento
+        status_changes: Histórico de cambios de estado
+        studies: Estudios y trabajo
+
+      __collaboration_place_attributes: &_collaboration_place_attributes
+        <<: *_address_attributes
+        <<: *_contact_attributes
+        address: Dirección del local
+        collaborations_enabled: Acepta colaboraciones
+        copy_address: Copiar datos de la dirección
+        copy_postal_address: Copiar datos de la dirección postal
+        customer_service_time: Horario de atención al público
+        delivery_address: Dirección de mensajería
+        delivery_cp: Código postal
+        delivery_city: Localidad
+        delivery_contact: Persona de contacto
+        delivery_hours: Horas de contacto
+        delivery_phone: Teléfono de contacto
+        delivery_province_id: Provincia
+        email_2: Segundo Email
+        enabled: Activo
+        meeting_weekday: Día de reunión
+        meeting_hours: Horas de reunión
+        meeting_frequency: Frecuencia
+        meeting_frequencies: [Semanal, Quincenal, Mensual, Bimensual, Trimestral, Semestral, Anual]
+        meeting_venue: Lugar de reunión (sólo si es distinto del local)
+        meeting_venue_show: Lugar de reunión
+        number: Número
+        postal_address: Dirección postal
+        postal_cp: Código postal
+        postal_city: Localidad
+        postal_province_id: Provincia
+        show_to_interesteds: Mostrar en formulario público
+        sections:
+          meetings: Reuniones
+          postal_address: Dirección postal
+          delivery_address: Dirección de mensajería
+          notes: Seguimiento
+
+      __notes_attributes: &_notes_attributes
+        body: Cuerpo
+        monitoring_date: Fecha del seguimiento
+        monitoring_person: Persona que realiza el seguimiento
+        monitoring_topic: Tema del seguimiento
+        title: Título
+
+
+      activist:
+        <<: *_activists_and_interesteds_attributes
+        <<: *_join_date_attributes
+        data_protection_agreement: Firma acuerdo de protección de datos
+        leave_reason_id: Motivo de la baja
+        leave_more_info: Más información sobre su baja
+        base: Error en datos de activista
+        clear: Limpiar Información Personal
+        languages: Idiomas
+        skills: Habilidades
+        hobbies: Afficciones
+        collabtopics: Quiere colaborar
+        with_active_collaborations: "¿Con colaboraciones activas?"
+        is_partner: "¿Es socio?"
+        sections:
+          <<: *_activists_sections
+          leave: Estado de baja
+
+
+      #activist_note:
+      #  <<: *_notes_attributes
+
+      activists_collaboration:
+        <<: *_join_date_attributes
+        <<: *_organizations
+        activist_id: Activista
+        activist_status_id: Estado de la colaboración
+        activist_status_changed_at: Fecha del último cambio de estado
+        base: Datos de colaboración
+        autonomy_type: Tipo
+        availability_id: Disponibilidad
+        collaboration_id: Detalle de la colaboración
+        collaboration_type: Tipo de colaboración
+        committee_id: "Comité/Comisión"
+        expertise_ids: Experto en
+        h_activist_notes: "Seguimiento"
+        organization_id: Organización
+        organization_type: Tipo de organización
+        responsibility_id: Responsabilidades
+        responsibility_ids: Responsabilidades
+        more_info: Más información
+
+        sections:
+          status: Estado
+          autonomy: Colaboración autonómica
+
+      alert:
+        closed: Cerrada
+        closed_at: Fecha del cierre
+        created_at: Fecha
+        name: Nombre
+        sections:
+          data: Información de la alerta
+          leave: Cerrar/abrir
+          notes: Seguimiento
+
+      alert_definition:
+        name: Nombre
+        object: Se refiere a
+        watched_table: Fichero
+
+      #alert_note:
+      #  <<: *_notes_attributes
+
+      autonomy:
+        <<: *_collaboration_place_attributes
+        name: Nombre
+        enabled: Activa
+
+      #autonomy_note:
+      #  <<: *_notes_attributes
+
+      campaign:
+        name: Nombre
+        starting_at: Fecha de inicio
+        country_id: País
+        country_none: País no asignado
+        campaigntopic_id: Tema
+        ending_at: Fecha de fin
+        campaignactions: Acciones de la campaña
+        campaigntopic_none: Sin Tema asignado
+
+      campaignaction:
+        activists_raising: Gestión de activismo
+        activists_raising_material_distrib: Distribución de materiales de activismo (hoja recogida de datos de personas interesadas, Súper A,   buscamos gente como tú, etc.)
+        campaign_id: Campaña
+        contact_person: Persona de contacto
+        contact_phone: Teléfono
+        contact_email: Email
+        institutional: Relaciones institucionales
+        institutional_authorities_contact: Contacto con las autoridades
+        institutional_other:  Otras acciones institucionales
+        media: Medios de comunicación
+        media_material_distrib: Distribución de materiales
+        media_other: Otros
+        mobilization: Movilización
+        mobilization_to_who: "A quién y cómo habéis convocado (carteles, aviso en medios de comunicación, redes sociales, espacios públicos, convocatoria a socios, etc.)"
+        mobilization_description: "Descripción acto (charla, acto de calle, performance, videoforum, lectura de manifiesto, actividades   para menores, etc.) y cómo ha sido el desarrollo del acto"
+        used_material: "Materiales utilizados (si son interesantes los de la intranet, si habéis realizado otros, etc.)"
+        interesteds_comments: "Nivel de participación e interés de la gente que se ha acercado "
+        interesteds_signs: "Número de firmas, cartas, postales, etc. recogidas"
+        media_urls: "Enlaces a fotografías y vídeos"
+        activists_raising_member_commited: Implicación de activistas en la actividad (miembros activos, puntuales, expertos, etc.)
+        activists_raising_interesteds: Número de personas interesadas en ser activistas 
+        web_2_0: Web 2.0
+        web_2_0_specific_actions: Acciones específicas propuestas en la circular
+        school_network: Red de escuelas 
+        school_network_description: Más información
+        society_movement: Movilización sectores de la sociedad
+        society_movement_description: Más información
+        join_organizations: Coordinarse con otras organizaciones
+        join_organizations_description: Más información
+        other_info: Otros
+        other_info_description:  Más información
+        positive_facts: Aspectos positivos
+        improve_facts: Aspectos a mejorar
+        sectorial: Trabajo sectorial
+        sectorial_NGO: Trabajo sectorial con ONG
+        sectorial_other: Otros trabajos sectoriales
+        organization_id: Organización
+        organization_type: Tipo de Organización
+
+        sections:
+          contact: Contacto
+          more_info: Más información
+          organizations: Organizaciones adheridas
+          other_actions: Otras acciones
+          performances: Actos de movilización
+          valuation: Valoración de la acción
+
+      campaignactions_organization:
+        campaignaction_id: Campaña
+
+      committee:
+        <<: *_collaboration_place_attributes
+        name: Comité/Comisión
+        enabled: Activo
+
+      #committee_note:
+      #  <<: *_notes_attributes
+
+      country:
+        <<: *_collaboration_place_attributes
+        enabled: Activo
+        name: Nombre
+
+      #country_note:
+      #  <<: *_notes_attributes
+
+      event_record:
+        timestamp: Fecha
+        name: Tipo de evento
+        extra_info: Más información
+        sections:
+          data: Información del evento
+          leave: Cerrar/abrir
+          notes: Seguimiento
+
+      event_definition:
+        name: Nombre
+        object: Se refiere a
+        watched_model: Fichero
+
+      #event_record_note:
+      #  <<: *_notes_attributes
+
+      hr_school:
+        email: Correo electrónico del centro
+        <<: *_address_attributes
+        <<: *_contact_attributes
+        <<: *_join_date_attributes
+        ages: Edades
+        assigned_organization_type: Tipo de ET asignada
+        assigned_organization_id: ET asignada
+        contact_name: Persona de contacto
+        contact_position: Cargo
+        contact_email: Correo electrónico personal
+        contact_phone: Teléfono personal
+        contact_tweeter: Nombre de usuario en Twitter
+        is_partner: Soy socio/a de Amnistía Internacional
+        is_activist: Colaboro de forma regular con un grupo de Amnistía Internacional
+        direction_approval: Visto bueno del centro
+        hr_work_through: Trabajar a través de
+        hr_work_throughs: Trabajar a través de
+        hr_work_through_ids: Trabajar a través de
+        hr_school_levels: Niveles educativos
+        hr_school_level_ids: Niveles educativos
+        hr_school_level_other: Otros niveles educativos
+        name: Nombre del centro
+        phone2: Teléfono 2
+        pupils_count: Número de alumnos/as
+        school_management: Gestión del centro
+        status: Estado
+        tutor: Tutor/a
+        tutor_phone: Teléfono
+        hr_type: Tipo
+        type_other: Otro tipo
+        web_page: Página web
+        academic_years: Cursos
+        academic_year_ids: Cursos
+        years: Cursos
+        accepted_privacity: Política de privacidad
+
+        sections:
+          school_data: Datos del centro
+          contact_person: Datos de la persona de contacto
+          school_group: Grupo escolar
+          school_management: Gestión del centro
+          organization_managers: "Grupo local/entidad autonómica más próxima al centro"
+          notes: Seguimiento
+
+      hr_school_organization_manager:
+        <<: *_organizations
+        organization_id: Organización
+        organization_type: Tipo de organización
+
+      #hr_school_note:
+      #  <<: *_notes_attributes
+
+      interested:
+        <<: *_activists_and_interesteds_attributes
+        local_organization_id: Grupo en el que quieres colaborar
+        talks: Sesiones de presentación disponibles
+        talk_ids: Sesiones de presentación disponibles
+        wants_todo: ¿Qué quieres hacer?
+        created_at: Fecha de alta del registro del/a interesado/a
+        minor_checked: Se ha recibido la aprobación de los padres/tutores
+        email_sent: Email enviado
+        letter_sent: Carta enviada
+        is_activist: Pasado a activista
+        is_minor: Menor de edad
+        sections:
+          <<: *_activists_sections
+          collaboration_organization: Grupo en el que quieres colaborar
+        mail:
+          body: Cuerpo
+          mailto: Dirección email
+          subject: Colaborar con Amnistía Internacional
+        accepted_privacity: Política de privacidad
+
+
+      local_organization:
+        <<: *_collaboration_place_attributes
+
+      #local_organization_note:
+      #  <<: *_notes_attributes
+
+      organization_on_off:
+        date: Fecha
+        on_or_off: Cambio a
+        more_info:  Más información
+        organization_id: Organización
+
+      organizations_tracking:
+        organization_id: Organización
+        organization_type: Tipo de organización
+        user_id: Usuario
+
+      note:
+        <<: *_notes_attributes
+
+      performance:
+        <<: *_organizations
+        agent_id: Usuaria
+        choose_one_organization_type: Selecciona un tipo de organización
+        choose_one_role: Selecciona un rol
+        hr_school: Escuela de DD.HH.
+        role_id: Rol
+        site: Amnistía Internacional
+        stage_id: Organización
+        stage_id_s: Organización/es
+        stage_type: Tipo de organización
+
+      role:
+        name: Nombre
+        description: Descripción del rol
+        stage_type: Tipo de organización
+
+      se_team:
+        <<: *_collaboration_place_attributes
+        enabled: Activo
+        name: Nombre
+
+      #se_team_note:
+      #  <<: *_notes_attributes
+
+      talk:
+        address: Lugar
+        date: Fecha
+        hours: Horas
+        name: Título
+        organization_type: Tipo de entidad territorial
+        organization_id: Entidad territorial
+        seats: Aforo
+        sections:
+          interesteds: Personas inscritas
+
+      user:
+        created_at: Fecha de creación
+        email: Email
+        login: Login
+        password: Contraseña
+        password_confirmation: Confirmar contraseña
+        role_ids: Roles
+        organizations_trackings: Seguimiento de Lugares de Colaboración
+        sections:
+          login: Datos de acceso
+          roles: Asignaciones de roles
+    errors:
+      models:
+        __note_errors: &_note_errors
+          attributes:
+            base:
+              note_errors: Borra primero sus contestaciones.
+              monitoring_date_future: La fecha de seguimiento está en el futuro
+
+        activist:
+          attributes:
+            base:
+              has_collaborations: El activista tiene colaboraciones
+              conflicting_dates: La fecha de alta no puede ser posterior a la fecha de baja
+              birth_day_future: La fecha de nacimiento está en el futuro
+              age_less_minor: "El activista debe ser mayor de 14 años"
+              leave_date_future: La fecha de baja está en el futuro
+              join_date_future: La fecha de alta está en el futuro
+              address_can_not_be_empty: La dirección está incompleta
+              missing_leave_at: Introduce la fecha de la baja.
+              still_active_collaborations: El activista tiene todavía colaboraciones en activo. Debe dar de baja las colaboraciones antes de registrar la baja del activista
+              interested_already_exists: La persona ya existe como interesado. Por favor, busca al interesado y pásalo a activista.
+            nif:
+              empty: no puede estar vacío cuando el tipo de documento es NIF
+              empty_nie: no puede estar vacío cuando el tipo de documento es NIE
+              nie_must_start_xyz: el NIE tiene que comenzar por X, Y o Z
+              invalid: inválido, debe ser de la forma 01234567A
+              invalid_length: longitud errónea, debe tener entre 6 y 8 dígitos más la letra
+              invalid_letter: "letra errónea, debería ser %{letter}"
+              missing_letter: falta la letra %{letter}
+              already_taken: "El NIF ya esta en uso, lo que significa que el activista ya está registrado en la aplicación. Si no ves los datos del activista, tienes que contactar con el Administrador. Envía una incidencia con los detalles a través de Intranet/Soporte tecnológico/Crear Incidencia"
+
+        #activist_note:
+        #  <<: *_note_errors
+
+        activists_collaboration:
+          attributes:
+            base:
+              conflicting_dates: La fecha de inicio de la colaboración no puede ser anterior a la fecha de alta del activista.
+              join_date_future: La fecha de alta está en el futuro
+              status_change_date_future: La fecha de cambio de estado está en el futuro
+              organization_disabled: La organización elegida no está activa.
+
+        alert:
+          attributes:
+            base:
+              closed_date_future: La fecha de alta está en el futuro
+
+        #alert_note:
+        #  <<: *_note_errors
+        #  attributes:
+        #    base:
+        #      join_date_future: La fecha de alta está en el futuro
+
+        autonomy:
+          attributes:
+            base:
+              has_activists: La entidad autonómica tiene activistas
+              address_can_not_be_empty: La dirección está incompleta
+
+        #autonomy_note:
+        #  <<: *_note_errors
+
+        campaign:
+          attributes:
+            base:
+              conflicting_dates: La fecha de inicio no puede ser posterior a la fecha de fin
+
+        campaignaction:
+          attributes:
+            base:
+              conflicting_dates: La fecha de inicio no puede ser posterior a la fecha de fin
+              starting_date_future: La fecha de inicio está en el futuro
+              ending_date_future: La fecha de fin está en el futuro
+            organization_type:
+              empty: Debes especificar un tipo de organización.
+          duplicated_action: Este lugar de colaboración no puede tener dos acciones realizadas idénticas. Puede editar y modificar la acción que ya está dada de alta
+
+        committee:
+          attributes:
+            base:
+              has_activists: El comité/comisión tiene activistas
+              address_can_not_be_empty: La dirección está incompleta
+
+        #committee_note:
+        #  <<: *_note_errors
+
+        country:
+          attributes:
+            base:
+              has_activists: El país tiene activistas
+              address_can_not_be_empty: La dirección está incompleta
+
+        #country_note:
+        #  <<: *_note_errors
+
+        hr_school:
+          attributes:
+            base:
+              address_can_not_be_empty: La dirección está incompleta
+              conflicting_dates: La fecha de inicio no puede ser posterior a la fecha de fin
+              leave_date_future: La fecha de baja está en el futuro
+              join_date_future: La fecha de alta está en el futuro
+              status_is_not_inactive_with_leave_at: Se ha seleccionado una fecha de baja pero el estado esta todavía activo.
+            direction_approval:
+              must_be_true: Debe tener el visto bueno del centro
+            accepted_privacity:
+              privacity_must_be_accepted: Debe aceptar la política de privacidad
+
+        #hr_school_note:
+        #  <<: *_note_errors
+        #  attributes:
+        #   base:
+        #      address_can_not_be_empty: La dirección está incompleta
+
+        interested:
+          attributes:
+            base:
+              age_less_minor: "Si tienes entre 14 y 17 años necesitamos una autorización de tu padre, madre o tutor para tramitar tu afiliación. En ese caso, por favor, imprime este formulario, rellénalo, adjunta la autorización mencionada y envíalo a Amnistía Internacional, C/ Fernando VI, nº 8, 28004 Madrid. Muchas gracias."
+              birth_day_future: La fecha de nacimiento está en el futuro
+              more_interesteds_than_seats: No quedan plazas para la sesión de presentación %{talk}
+              already_migrated: El Interesado ya ha sido migrado.
+            accepted_privacity:
+              privacity_must_be_accepted: Debe aceptar la política de privacidad
+            address:
+              must_be_valid: Debe rellenar todos los campos de su dirección de contacto actual
+            cp:
+              must_be_valid: Debe rellenar todos los campos de su dirección de contacto actual
+            city:
+              must_be_valid: Debe rellenar todos los campos de su dirección de contacto actual
+            province_id:
+              must_be_valid: Debe rellenar todos los campos de su dirección de contacto actual
+            nif:
+              empty: no puede estar vacío cuando el tipo de documento es NIF
+              empty_nie: no puede estar vacío cuando el tipo de documento es NIE
+              nie_must_start_xyz: el NIE tiene que comenzar por X, Y o Z
+              invalid: inválido, debe ser de la forma 01234567A
+              invalid_length: longitud errónea, debe tener entre 6 y 8 dígitos más la letra
+              invalid_letter: "letra errónea, debería ser %{letter}"
+              missing_letter: falta la letra %{letter}
+
+
+        local_organization:
+          attributes:
+            number: no tiene el formato E-número
+            base:
+              has_activists: El grupo tiene activistas
+              has_campaignactions: El grupo tiene acciones realizadas
+              address_can_not_be_empty: La dirección está incompleta
+
+        #local_organization_note:
+        #  <<: *_note_errors
+        note:
+          <<: *_note_errors
+
+        organization_on_off:
+          attributes:
+            date:
+              blank: No puede estar en blanco.
+              date_required: Se requiere una fecha de alta o de baja.
+              invalid_date: no puede ser posterior a la del último cambio de actividad.
+
+        performance:
+          attributes:
+            base:
+              not_valid: Por favor, comprueba que has seleccionado tanto el tipo de organización, como la organización, como el rol a asignar.
+      
+
+
+        se_team:
+          attributes:
+            base:
+              has_activists: El equipo del S.E. tiene activistas
+              address_can_not_be_empty: La dirección está incompleta
+
+        #se_team_note:
+        #  <<: *_note_errors
+
+        talk:
+          attributes:
+            base:
+              date_future: La fecha está en el futuro
+
+      template:
+        header:
+          one:   No se ha podido guardar %{model}
+          other:  "No se ha podido guardar %{model} porque se han encontrado %{count} errores:"
+        body: ""
+        # The variable :count is also available
+        header_not_deleted:
+          one:   No se ha podido borrar %{model}
+          other:  No se ha podido borrar %{model} porque se han encontrado %{count} errores
+
+      messages:
+        # The standard messages are in station/es.yml
+        cant_contain_digits: no puede contener dígitos
+        incomplete_address: incompleta, introduzca la provincia, la ciudad, el código postal y la direccion
+        not_a_number: debe ser numérico
+        not_a_phone_number: no es un número de teléfono
+
+#  # TODO: Review these translations to modifiy standard translations file, and then remove them.
+#  # start default translations: get from  http://github.com/svenfuchs/rails-i18n/tree/master
+#  # Spanish translations for Rails
+#  # by Francisco Fernando García Nieto (ffgarcianieto@gmail.com)
+#  number:
+#    # Used in number_with_delimiter()
+#    # These are also the defaults for "currency", "percentage", "precision", and "human"
+#    format:
+#      # Sets the separator between the units, for more precision (e.g. 1.0 / 2.0 == 0.5)
+#      separator: ","
+#      # Delimets thousands (e.g. 1,000,000 is a million) (always in groups of three)
+#      delimiter: "."
+#      # Number of decimals, behind the separator (1 with a precision of 2 gives: 1.00)
+#      precision: 3
+
+#    # Used in number_to_currency()
+#    currency:
+#      format:
+#        # Where is the currency sign? %u is the currency unit, %n the number (default: $5.00)
+#        format: "%n %u"
+#        unit: "€"
+#        # These three are to override number.format and are optional
+#        separator: ","
+#        delimiter: "."
+#        precision: 2
+
+#    # Used in number_to_percentage()
+#    percentage:
+#      format:
+#        # These three are to override number.format and are optional
+#        # separator:
+#        delimiter: ""
+#        # precision:
+
+#    # Used in number_to_precision()
+#    precision:
+#      format:
+#        # These three are to override number.format and are optional
+#        # separator:
+#        delimiter: ""
+#        # precision:
+
+#    # Used in number_to_human_size()
+#    human:
+#      format:
+#        # These three are to override number.format and are optional
+#        # separator:
+#        delimiter: ""
+#        precision: 1
+#      # Rails <= v2.2.2
+#      # storage_units: [Bytes, KB, MB, GB, TB]
+#      # Rails >= v2.3
+#      storage_units:
+#        format: "%n %u"
+#        units:
+#          byte:
+#            one:   "Byte"
+#            other: "Bytes"
+#          kb: "KB"
+#          mb: "MB"
+#          gb: "GB"
+#          tb: "TB"
+
+#  # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
+#  datetime:
+#    formats:
+#      default: "%d/%m/%Y %h:%M"
+#      date_and_time_short: "%d/%m/%Y %H:%M"
+
+#    distance_in_words:
+#      half_a_minute: "medio minuto"
+#      less_than_x_seconds:
+#        one:  "menos de 1 segundo"
+#        other: "menos de %{count} segundos"
+#      x_seconds:
+#        one:  "1 segundo"
+#        other: "%{count} segundos"
+#      less_than_x_minutes:
+#        one:  "menos de 1 minuto"
+#        other: "menos de %{count} minutos"
+#      x_minutes:
+#        one:  "1 minuto"
+#        other: "%{count} minutos"
+#      about_x_hours:
+#        one:  "alrededor de 1 hora"
+#        other: "alrededor de %{count} horas"
+#      x_days:
+#        one:  "1 día"
+#        other: "%{count} días"
+#      about_x_months:
+#        one:  "alrededor de 1 mes"
+#        other: "alrededor de %{count} meses"
+#      x_months:
+#        one:  "1 mes"
+#        other: "%{count} meses"
+#      about_x_years:
+#        one:  "alrededor de 1 año"
+#        other: "alrededor de %{count} años"
+#      over_x_years:
+#        one:  "más de 1 año"
+#        other: "más de %{count} años"
+
+
+#  date:
+#    formats:
+#      # Use the strftime parameters for formats.
+#      # When no format has been given, it uses default.
+#      # You can provide other formats here if you like!
+#      default: "%d/%m/%Y"
+#      short: "%e de %b"
+#      long: "%e de %B de %Y"
+
+#    day_names: [Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado]
+#    abbr_day_names: [Dom, Lun, Mar, Mie, Jue, Vie, Sab]
+
+#    # Don"t forget the nil at the beginning; there"s no such thing as a 0th month
+#    month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
+#    abbr_month_names: [~, Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Set, Oct, Nov, Dic]
+#    # Used in date_select and datime_select.
+#    order:
+#      - :day
+#      - :month
+#      - :year
+#  time:
+#    formats:
+#      default: "%A, %e de %B de %Y, %H:%M:%S"
+#      #deleted %z to GMT
+#      short: "%e de %b %H:%M"
+#      long: "%e de %B de %Y %H:%M"
+#      date_and_time_short: "%d/%m/%Y %H:%M"
+#    am: "am"
+#    pm: "pm"

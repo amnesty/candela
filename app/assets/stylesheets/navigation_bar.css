@@ -1,0 +1,207 @@
+/* Styles for navigation bar */
+@charset "UTF-8";
+
+#main_nav_menu_container {
+  min-height: 24px;
+  width: 100%;
+  display:block;
+  clear: both; 
+} 
+
+#main_nav_menu { 
+  background-color: #000000; 
+  min-height: 24px;
+  width: 100%;
+
+	margin-left: 0px;
+	margin-top: -5px;
+	padding: 0;
+
+	float: left;
+	position: relative;
+	z-index: 20;
+}
+
+.nav_menu_group {
+	/* Contenedor */
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	box-shadow: 2px 2px 7px black;
+	-webkit-box-shadow: 2px 2px 7px black;
+	padding: 0;
+
+	background: #5F603C;
+
+/*
+	background: #36B213;
+	background: -moz-linear-gradient(top,  #bfd255 0%, #72aa00 48%, #72aa00 52%, #9ecb2d 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bfd255), color-stop(48%,#72aa00), color-stop(52%,#72aa00), color-stop(100%,#9ecb2d));
+	background: -webkit-linear-gradient(top,  #bfd255 0%,#72aa00 48%,#72aa00 52%,#9ecb2d 100%);
+	background: -o-linear-gradient(top,  #bfd255 0%,#72aa00 48%,#72aa00 52%,#9ecb2d 100%);
+	background: -ms-linear-gradient(top,  #bfd255 0%,#72aa00 48%,#72aa00 52%,#9ecb2d 100%);
+	background: linear-gradient(to bottom,  #bfd255 0%,#72aa00 48%,#72aa00 52%,#9ecb2d 100%);
+*/
+}
+
+.nav_menu li { 
+	list-style-type: none;
+}
+
+.nav_menu li a { 
+	list-style-type: none;
+  color: #FDFD00;
+  text-align: center;
+}
+
+
+/* ======================= */
+/* = Primer Nivel        = */
+/* ======================= */
+.nav_menu > li { 
+
+	list-style-type: none;
+  color: #FDFD00;
+  text-align: center;
+  font-size: 1.3em; 
+  font-weight: bolder;
+
+  padding: 2px 25px;
+	position: relative;
+
+  border-right: 1px solid white;
+
+	float: left;
+}
+
+.nav_menu > li.last	{ border: none !important;  }
+
+.nav_menu a {
+
+	cursor: pointer;
+	text-decoration: none;
+
+	display: block;
+	padding: 0.15em 0.5em;
+
+}
+
+.nav_menu a:hover { 
+
+	-webkit-transition: all 0s ease-in-out;
+	-moz-transition: all 0s ease-in-out;
+}
+
+/* ======================= */
+/* = Segundo Nivel       = */
+/* ======================= */
+.nav_menu ul { /* comportamiento de la lista del segundo nivel */
+
+	list-style-type: none;
+
+	margin: 0;
+	padding: 0;
+
+	left: -1000em;
+	position: absolute;
+	z-index: 120;
+}
+
+.nav_menu li:hover ul {
+
+	left: 0;
+}
+
+.nav_menu ul li { 
+
+	text-align: center;
+
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+
+	float: none;
+
+}
+
+.active, .nav_menu li:hover, .nav_menu ul li:hover, .nav_menu ul li a:hover { 
+	position: relative;
+}
+
+/* ======================= */
+/* = Tercer Nivel        = */
+/* ======================= */
+.nav_menu ul ul { 
+	margin: 0 0 0 95%;
+	left: -1000em;
+	position: absolute;
+}
+
+.nav_menu li:hover ul ul{ 
+	left: -1000em;
+}
+
+.nav_menu ul li:hover ul{ 
+	left: 0;
+	top: 3px;
+}
+
+/* ======================= */
+/* = Responsive Personal = */
+/* ======================= */
+/*
+@media only screen and (max-width: 990px) {
+
+    .nav_menu li {
+		width: 33%;
+    }
+
+	.nav_menu ul ul {
+		margin: 0 0 0 -95%;
+	}	
+
+    .nav_menu ul li {
+		width: 200px;
+    }
+
+}
+
+@media only screen and (max-width: 767px) {
+
+	.nav_menu {
+	}
+    
+    .nav_menu li {
+		line-height: 22px;
+		height: 26px;
+    }
+
+    .nav_menu ul li {
+		width: 180px;
+    }
+
+}
+
+@media only screen and (max-width: 479px) {
+	
+	.nav_menu li {
+		width: 50%;
+	}
+	
+	.active, .nav_menu li:hover,
+	.nav_menu ul li:hover, .nav_menu ul li a:hover {
+		font-weight: normal;
+	}
+	
+    .nav_menu ul li {
+		width: 160px;
+    }
+
+	.nav_menu ul ul {
+		margin: 0 0 0 95%;
+	}	
+
+	.nav_menu ul li:hover ul{
+		top: 0px;
+	}
+
+}
+*/

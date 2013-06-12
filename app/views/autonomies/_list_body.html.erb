@@ -1,0 +1,6 @@
+<%= hidden_inputs_for(autonomy, count) %>
+
+<td><%= link_to h(autonomy.name), autonomy, :class => (autonomy.enabled ? '' : 'strike gray' ) %></td>
+<td><%=h autonomy.email %></td>
+<td><%= link_to( I18n.t("form.buttons.notes"), autonomy_path(autonomy, :anchor => 'autonomy_section_notes') )%>
+

@@ -1,0 +1,59 @@
+<div class="container_form">
+  <%= gx_form_for(@interested, :url => { :controller => 'public', :action => 'create_interested' } ) do |f| %>
+
+  <% form_errors = false %>
+  <% unless @interested.errors.count.zero?
+      form_errors = '"El formulario contiene los siguientes errores. Revise los campos marcados en rojo por favor:" + "\n\n"'
+      form_errors << @interested.errors.inject('') do |body_str, error|
+        error_field   = error.first
+        error_message = error.last 
+        body_str << "+ '  * #{ I18n.t(error_field, :scope => [ :activerecord, :attributes, 'interested']) }: #{ error_message }' + '#{ '\n'  }' ".html_safe
+        #body_str.html_safe
+      end 
+    end %>
+   <% if form_errors %>
+    <%= javascript_tag "alert(#{ form_errors });" %>
+   <% end %>
+
+
+
+    <%= render :partial => 'interesteds/form', :object => f %>
+
+    <input name="interested[accepted_privacity]" id="interested_accepted_privacity" value="checkbox" type="checkbox">
+    Acepto la <a href="http://www.es.amnesty.org/politica-de-privacidad" target="_blank" title="Política de privacidad">política de privacidad</a> (por favor léela antes de enviar tus datos)</td>
+
+
+    <div class='center'>
+      <% unless @with_more_information %>
+        <p class="big_padding">Si tienes 2 minutos más, por favor, puedes rellenar el formulario completo. Serán de gran utilidad para ofrecerte el mejor modo de colaborar como activista". Si no, selecciona "enviar con esta información</p>
+        <p class="text_center big_padding font_plus_two">
+          <%= f.submit( 'Rellenar el formulario completo', :name => 'with_moar', :style => 'background-color: black; color: white;' ) %>
+          <%= f.submit( 'Enviar con esta información', :style => 'background-color: black; color: white;' ) %>
+        </p>
+      <% else %>
+        <p class="text_center big_padding font_plus_two">
+          <%= f.submit( 'Enviar el formulario', :style => 'background-color: black; color: white;', :name => 'include_moar' ) %>
+        </p>
+
+      <% end %>
+
+    </div>
+
+  <% end %>
+
+</div>
+
+  <div>
+    <!-- Piwik -->
+    <script type="text/javascript">
+    var pkBaseURL = (("https:" == document.location.protocol) ? "https://estadisticas.es.amnesty.org/piwik/" : "http://estadisticas.es.amnesty.org/piwik/");
+    document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+    </script><script type="text/javascript">
+    try {
+    var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
+    piwikTracker.trackPageView();
+    piwikTracker.enableLinkTracking();
+    } catch( err ) {}
+    </script><noscript><p><img src="http://estadisticas.es.amnesty.org/piwik/piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>
+    <!-- End Piwik Tracking Code -->
+  </div>

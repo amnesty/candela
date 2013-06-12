@@ -1,0 +1,35 @@
+<%= open_rounded_box %>
+<!-- <<<<<INDEX_TOOLBAR-->
+  <%= add_toolbar_edit_button( 'activists_collaboration' ) %>
+  <%= add_toolbar_delete_button( 'activists_collaboration' ) %>
+  <% if @container %>
+    <%= add_toolbar_new_button( 'activists_collaboration', eval("new_#{@container.class.name.underscore}_activists_collaboration_path(@container.id, :prepare_create => true)" ) ) %>
+    <%= add_toolbar_fast_search( 'activists_collaboration', eval("#{@container.class.name.underscore}_activists_collaborations_path(@container.id)" ) ) %>
+  <% else %>
+    <%= add_toolbar_new_button( 'activists_collaboration', new_activists_collaboration_path(:prepare_create => true) ) %>
+    <%= add_toolbar_fast_search( 'activists_collaboration', activists_collaborations_path ) %>
+  <% end %>
+<!-- >>>>>INDEX_TOOLBAR-->
+<!-- <<<<<INDEX_CAPTION-->
+  <% if @container 
+       caption = Gx.t_action("activists_collaborations.index") + t("words.for") + link_to( @container.full_name, eval("#{@container.class.name.underscore}_path(@container.id)") )
+     else
+       caption = Gx.t_action("activists_collaborations.index")
+     end %>
+<!-- >>>>>INDEX_CAPTION-->
+  <h1><%= caption %></h1>
+
+<%= close_rounded_box %>
+
+<%= open_rounded_box(false) %>
+<!-- <<<<<INDEX_TABLE-->
+  <%= render :partial => 'index' %>
+    <% if will_paginate @activists_collaborations %>
+     <div class="paginate">
+       <%= page_entries_info @activists_collaborations %>
+       <%= will_paginate @activists_collaborations, :container => false  %>
+     </div>
+   <% end %>
+<!-- >>>>>INDEX_TABLE-->
+<%= close_rounded_box %>
+

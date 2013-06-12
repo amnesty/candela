@@ -1,0 +1,23 @@
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+
+  <div id="login_and_password">
+
+	  <p>
+        <label for="login">Login</label><br/>
+        <%= f.text_field :login, :size => 'auto' %></p>
+	  </p>
+
+      <p>
+        <label for="password">Contraseña</label><br/>
+        <%= f.password_field :password, :size => 'auto' %>
+      </p>
+
+  </div>
+
+  <div id="go">
+    <p><%= f.submit "» Entrar", { :class => "button" } %></p>
+  </div>
+
+<% end %>
+

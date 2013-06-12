@@ -1,0 +1,10 @@
+<!-- <<<<<HIDE_CHECK_BOX-->
+<% if embedded.nil? %>
+  <th></th>
+<% end %>
+<!-- >>>>>HIDE_CHECK_BOX-->
+<th><%= Gx.t_attr("activists_collaboration.collaboration_type") %></th>
+<th><%= t("activists_collaboration.organization") %></th>
+<th><%= t("activists_collaboration.activist") %></th>
+<th><%= Gx.t_attr("activists_collaboration.responsibility_id") + "/" + Gx.t_attr("activists_collaboration.expertise_ids") %></th>
+<th><%= Gx.t_attr("activists_collaboration.activist_status_id") %></th>

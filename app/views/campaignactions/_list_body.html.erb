@@ -1,0 +1,7 @@
+<%= hidden_inputs_for(campaignaction, count, { :hide => [ 'notes' ] }) %>
+
+<td><%= link_to t("campaignaction.view_action"), polymorphic_url([campaignaction.organization, campaignaction ])%></td>
+<td><%=h campaignaction.organization ? campaignaction.organization.to_title : '---' %></td>
+<td><%=h campaignaction.campaign.name %></td>
+
+

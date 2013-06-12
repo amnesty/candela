@@ -1,0 +1,65 @@
+<% disabled ||= false %>
+<table id="<%= params[:action] %>_talk_form" class="table_form">
+
+  <tr class="list_style_1">
+    <td><%= form.label_required :name %></td>
+    <td><%= form.text_field :name %></td>
+  </tr>
+
+
+  <tr class="list_style_0">
+    <td><%= form.label_required :description %></td>
+    <td><%= form.text_area :description %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :permission_ids, t('permission.other') %></td>
+    <td>
+      <% unless disabled %>
+        <%= link_to_function t('form.actions.check_all_permissions_checkbox'), "toggleCheckedOf(true, 'ALL')" %> | 
+        <%= link_to_function t('form.actions.uncheck_all_permissions_checkbox'), "toggleCheckedOf(false, 'ALL')" %>
+      <% end %>
+
+      <% sorted_permissions = Permission.find(:all, :order => 'objective ASC') %>
+      <% last_objective     = '' %>
+    
+      <% sorted_permissions.each do |permission| %>
+        <% # objective can be nil (self), for traslations, we manage it as self 
+           objective = permission.objective || 'self' %>
+
+        <% unless last_objective == objective %>
+          <p class="block clear font_plus_one" style="margin.top: 25px">
+            <b><%= t("permissions.over_object",  :objective => t("activerecord.models.#{ objective.underscore.pluralize.gsub('_',' ') }")) %></b><br />
+            <% unless disabled %>
+              <%= link_to_function t('form.actions.check_all_permissions_checkbox'), "toggleCheckedOf(true, '#{ objective.downcase }')" %> | 
+              <%= link_to_function t('form.actions.uncheck_all_permissions_checkbox'), "toggleCheckedOf(false, '#{ objective.downcase }')" %>
+            <% end %>
+          </p>
+
+        <% end %>
+        
+        <p class="smaller left big_padding">
+          <%= check_box_tag("role[permission_ids][]",
+                permission.id,
+                @role.permission_ids.include?(permission.id),
+                { :class => "check_box_permission check_box_permission_#{ objective.downcase }",
+                  :disabled => (disabled ? "disabled" : false )}) %>
+          <i><%= permission.title %></i>
+        </p>
+
+        
+
+        <% last_objective = objective %>
+      <% end %>
+
+<%
+#form.collection_select :role, :permission_ids,
+#                        Permission.find(:all).sort,
+#                        :id,
+#                        :title,
+#                        { :include_blank => true, :selected => @role.permission_ids },
+#                        { :multiple => true, :name => 'role[permission_ids][]' }
+ %>
+    </td>
+  </tr>
+</table>
