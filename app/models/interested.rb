@@ -169,10 +169,6 @@ class Interested < ActiveRecord::Base
     ['first_name', 'last_name', 'last_name2', 'nif' ].collect{|f| "interesteds.#{f}" }
   end
 
-  def self.filters_for_index
-    ['is_minor', 'has_pending_communication', 'is_activist']
-  end
-
   def self.searcheable_fields
     [unhideable_fields, hideable_fields ].flatten
   end

@@ -18,16 +18,16 @@
 
 <% end  %>
 
-<% if klass.respond_to? :filters_for_index %>
+<% if controller.respond_to?(:filters_for_index) %>
   <%= round_div_box do %>
     <%= link_to_function t("search.show_hide_filters"), "$('#filters_for_collection').toggle()", :class => "with_icon action_view_hidden" %>
     <div id="filters_for_collection" style="display:none">
       <%= form_tag polymorphic_url([ @container, plural_name_klass ]), :method => :get do %>
         <table>
-        <% klass.filters_for_index.each do |filter_name| %>
+        <% controller.filters_for_index.each do |filter_name,value| %>
           <tr>
-            <td><%= Gx.t_attr("#{klass.name.underscore}.#{filter_name}") %>: </td>
-            <td><%= select_tag "index_filters[#{filter_name}]", options_for_select([["", ""],["Si","true"],["No","false"]], params[:index_filters][filter_name.to_sym]), :onchange => "this.form.submit();" %></td> 
+            <td><%= t("#{klass.name.underscore}.filters.#{filter_name.to_s}") %>: </td>
+            <td><%= select_tag "index_filters[#{filter_name.to_s}]", options_for_select([["", ""],["Si","true"],["No","false"]], params[:index_filters][filter_name]), :onchange => "this.form.submit();" %></td> 
           </tr>
         <% end %>      
         </table>

@@ -31,8 +31,6 @@ module ActiveRecord
         }
         base.scope :can_see, lambda { |agent| {} }
         
-        
-        
         base.scope :include_in, {}
         
         base.scope :container_is, lambda { |container|  }
@@ -129,6 +127,19 @@ module ActiveRecord
 #          search.sorts ||= "#{self.default_order_field if self.respond_to?("default_order_field")} #{self.default_order_direction if self.respond_to?("default_order_direction")}"
           search.result(:distinct => true).order("#{self.default_order_field if self.respond_to?("default_order_field")} #{self.default_order_direction if self.respond_to?("default_order_direction")}")
         end                                       
+
+        def filter_with_definitions(filter_definitions, active_filters)
+          filtered_ids = self.pluck("#{self.name.tableize}.id")
+          active_filters.each do |key,value|
+            case Gx.to_boolean(value) 
+              when true
+                filtered_ids &= self.send(*filter_definitions[key.to_sym]).pluck("#{self.name.tableize}.id")
+              when false
+                filtered_ids -= self.send(*filter_definitions[key.to_sym]).pluck("#{self.name.tableize}.id")
+            end
+          end
+          where("#{self.name.tableize}.id" => filtered_ids)
+        end
 
       end      
     end

@@ -81,6 +81,23 @@ class Activist < ActiveRecord::Base
     { :conditions => ["activists.id NOT IN (?)", self.with_active_collaborations.collect{|a|a.id} ] }
   }                                                    
 
+  scope :with_related_collaborations_on, lambda { |agent|
+    if agent.is_a?(User)
+#      options = { :include => :activists_collaborations }       
+      if agent.has_any_permission_to(:read, :activist, :on => Site.current)
+        {}
+      else
+        ps = agent.performances.all(:include    => [ :role => :permissions ],
+                                    :conditions => [ 'permissions.objective = ? AND performances.stage_type IS NOT NULL AND performances.stage_type != ?', 'Activist', 'Site' ]
+                                 )
+        conditions = [ ps.map{ |p| "(activists_collaborations.organization_id = '#{ p.stage_id }' AND activists_collaborations.organization_type = '#{ p.stage_type }')" }.join(' OR ') ]
+        {:joins => :activists_collaborations, :conditions => conditions}
+      end
+    else
+      where("1 = 0") # Empty set
+    end
+  }
+
   scope :is_partner, lambda { |q| (q.nil? || (q.instance_of?(String) && q.empty?)) ? {} : { :conditions => (Gx.to_boolean(q) ? "partnership_id IS NOT NULL" : "partnership_id IS NULL") } }
 
   scope :is_leave, lambda { |q| (q.nil? || (q.instance_of?(String) && q.empty?)) ? {} : { :conditions => (Gx.to_boolean(q) ? "leave_at IS NOT NULL" : "leave_at IS NULL") } }
@@ -88,23 +105,9 @@ class Activist < ActiveRecord::Base
   scope :include_in,  { :include => [ :activists_collaborations ] }
 
   # Searchs Authorization NamedScope
-  scope :can_see, lambda { |agent|
-    
-    conditions = ''
-    options    = { :include => :activists_collaborations }                           
-          
-    # whole site read activist permission                          
-    if agent.is_a?(User) and not agent.has_any_permission_to(:read, :activist, :on => Site.current)
-      ps = 
-        agent.performances.all(:include    => [ :role => :permissions ],
-                               :conditions => [ 'permissions.objective = ? AND performances.stage_type IS NOT NULL AND performances.stage_type != ?', 'Activist', 'Site' ]
-                               )
-      options[:conditions] = [ ps.map{ |p| "(activists_collaborations.organization_id = '#{ p.stage_id }' AND activists_collaborations.organization_type = '#{ p.stage_type }' AND activists_collaborations.activist_status_id != #{ ActivistStatus.inactive_id })" }.join(' OR ') ]
-    end
-    options
-  }
+  scope :can_see, lambda { |agent| {} }
   
-  # Objects auhtorization blocks
+  # Objects authorization blocks
   
   # Last authorization block. Activist can be CRUD by user if activist belongs and organization that user have role on.
   authorizing do |user, permission|
@@ -130,7 +133,7 @@ class Activist < ActiveRecord::Base
   authorizing do |user, permission|
     permission == :read and self.activists_collaborations.empty?
   end
-  
+ 
   
   def to_title
     "#{ self.full_name } #{ I18n.t('activist.leave_state', :leave_at => I18n.localize(self.leave_at.to_date)) if self.leave_at.present? }"
@@ -146,10 +149,6 @@ class Activist < ActiveRecord::Base
 
   def self.fast_search_fields
     ['first_name', 'last_name', 'last_name2', 'nif', 'phone', 'mobile_phone', 'email' ].collect{|f| "activists.#{f}" }
-  end
-
-  def self.filters_for_index
-    ['is_leave']
   end
 
   def self.searcheable_fields

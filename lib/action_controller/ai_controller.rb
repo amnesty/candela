@@ -39,16 +39,16 @@ module ActionController
             
       # Parameters for query
       query_to   = options[:query_to] || model_class.in_container(current_container)
-      search_params = {model_class.name.underscore.to_sym => params[:index_filters] || {}}
-      search_params[:order] = params[:order] || (model_class.default_order_field if model_class.respond_to?("default_order_field")) || "#{ model_class.table_name }.id"
-      search_params[:direction]  = params[:direction] || (model_class.default_order_direction if model_class.respond_to?("default_order_direction")) || "ASC"
+      search_params = {}
+      order = params[:order] || (model_class.default_order_field if model_class.respond_to?("default_order_field")) || "#{ model_class.table_name }.id"
+      direction  = params[:direction] || (model_class.default_order_direction if model_class.respond_to?("default_order_direction")) || "ASC"
       per_page   = params[:per_page]  || 30
       
-#      @resources = query_to.include_in.can_see(current_agent).column_sort(order, direction).paginate(:page => params[:page],
-#                                                                                                     :per_page => per_page,
-#                                                                                                     :conditions => conditions.join(' AND '))
+#      @resources = query_to.advanced_search(search_params,current_agent).paginate(:page => params[:page],
+#                                                                   :per_page => per_page,
+#                                                                   :conditions => conditions.join(' AND '))
 
-      @resources = query_to.advanced_search(search_params,current_agent).paginate(:page => params[:page],
+      @resources = query_to.include_in.can_see(current_agent).filter_with_definitions(filters_for_index, params[:index_filters]).column_sort(order, direction).paginate(:page => params[:page],
                                                                    :per_page => per_page,
                                                                    :conditions => conditions.join(' AND '))
 

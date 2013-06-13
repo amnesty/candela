@@ -10,14 +10,20 @@ class InterestedsController < ApplicationController
   authorization_filter :update, :interested, :only => [ :edit, :update]
   authorization_filter :destroy, :interested, :only => [ :delete, :destroy ]
   
+  # Definitions for filters on index action
+  def filters_for_index
+    {
+      :is_minor => [:is_minor, true],
+      :has_pending_communication => [:has_pending_communication, true],
+      :is_activist => [:is_activist, true]
+    }
+  end
+
   def new
     @resource = Interested.new
     super
   end
 
-#
-# Sends an email or writes a pdf for the interested
-#
   def prepare_mail
     resource
   end

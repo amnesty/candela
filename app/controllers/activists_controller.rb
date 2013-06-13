@@ -17,6 +17,14 @@ class ActivistsController < ApplicationController
     @resource.must_check_unlinked_interested = true
   end
 
+  # Definitions for filters on index action
+  def filters_for_index
+    {
+      :is_leave => [:is_leave, true],
+      :with_related_collaborations => [:with_related_collaborations_on, current_agent]
+    }
+  end
+
   def leave
     if activist.leave_at.nil?
       redirect_to url_for(:action => "edit", :section => "leave" )
@@ -84,4 +92,5 @@ class ActivistsController < ApplicationController
       @activist.province_id = 0
     end
   end
+
 end

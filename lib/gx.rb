@@ -206,9 +206,9 @@ module Gx
       ret.empty? ? ret : ('"' + ret.gsub('"', '“') + '"')
     end
 
-    # Returns: nil if value==nil ,  true on a defined set of values , false otherwise
+    # Returns: nil if value is nil or empty string,  true on a defined set of values , false otherwise
     def to_boolean(value)
-      value.nil? ? nil : value.to_s.match(/(true|t|yes|y|1)$/i) != nil
+      (value.nil? || (value.is_a?(String) && value.empty?)) ? nil : value.to_s.match(/(true|t|yes|y|1)$/i) != nil
     end
 
   end # class << self
