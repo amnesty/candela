@@ -199,15 +199,15 @@ es:
       update_and_list: Actualizar y Listar
 
     messages:
-      select_item_to_delete: "Por favor, selecciona primero %{model} que deseas borrar"
-      select_item_to_edit: "Por favor, selecciona primero %{model} que deseas editar"
-      select_item_to_leave: "Por favor, selecciona primero %{model} que deseas dar de baja"
-      select_item_to_notes: "Por favor, selecciona primero %{model} para consultar su seguimiento"
-      select_item_to_to_activist: "Por favor, selecciona primero %{model} que deseas pasar a activista"
-      select_item_to_prepare_mail: "Por favor, selecciona primero %{model} al que deseas enviar el correo"
-      select_item_to_prepare_pdf: "Por favor, selecciona primero %{model} al que deseas generar la carta"
-      select_item_to_reply: "Por favor, selecciona primero %{model} que deseas contestar"
-
+      no_item_selected: "Por favor, selecciona primero %{model}"
+#      select_item_to_delete: "Por favor, selecciona primero %{model} que deseas borrar"
+#      select_item_to_edit: "Por favor, selecciona primero %{model} que deseas editar"
+#      select_item_to_leave: "Por favor, selecciona primero %{model} que deseas dar de baja"
+#      select_item_to_notes: "Por favor, selecciona primero %{model} para consultar su seguimiento"
+#      select_item_to_to_activist: "Por favor, selecciona primero %{model} que deseas pasar a activista"
+#      select_item_to_prepare_mail: "Por favor, selecciona primero %{model} al que deseas enviar el correo"
+#      select_item_to_prepare_pdf: "Por favor, selecciona primero %{model} al que deseas generar la carta"
+#      select_item_to_reply: "Por favor, selecciona primero %{model} que deseas contestar"
 
     permissions:
       config: Configurar

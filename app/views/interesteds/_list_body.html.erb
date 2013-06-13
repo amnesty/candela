@@ -1,8 +1,17 @@
 <% embedded ||= false %>
 <% unless embedded %>
-  <%= raw hidden_inputs_for(interested, count, { :hide => [ 'notes' ], :more => [ :to_activist  => to_activist_interested_path(interested),
-                                                                              :prepare_mail => prepare_mail_interested_path(interested),
-                                                                              :prepare_pdf  => prepare_pdf_interested_path(interested) ]}) %>
+<%
+    new_communication = interested.communications.new
+    interested.communications.delete new_communication
+%>
+  <%= raw hidden_inputs_for(interested, count, { :hide => [ 'notes' ], 
+                              :more => [ 
+                                        :communications  => interested_interested_communications_path(interested),
+                                        :to_activist  => to_activist_interested_path(interested),
+                                        :prepare_mail => prepare_mail_interested_path(interested),
+                                        :prepare_pdf  => prepare_pdf_interested_path(interested), 
+                                        :new_communication  => new_polymorphic_url([ interested, new_communication ]) 
+                                       ]}) %>
 <% end %>
 
 <td>

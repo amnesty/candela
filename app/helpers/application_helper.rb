@@ -48,9 +48,7 @@ module ApplicationHelper
       end
       
       if klass.name.eql?('Interested')
-        html << collection_action_button(klass, 'to_activist')
-        html << collection_action_button(klass, 'prepare_mail') if current_user.has_any_permission_to(:create_email, :interesteds, :on => Site.current)
-        html << collection_action_button(klass, 'prepare_pdf')  if current_user.has_any_permission_to(:create_pdf,   :interesteds, :on => Site.current)
+        html << interested_collection_action_buttons
       end
       
       klass_name = klass.name
@@ -82,18 +80,17 @@ module ApplicationHelper
     end
   end
 
-  def collection_action_button(klass, action)
+  def collection_action_button(klass, action, options={})
 
-    ''.tap do |html|
-      html << "<div class='actions right'>"
-      html << link_to_function(t("form.buttons.#{ action }"),
+    options[:wrapper_tag] ||= :div
+    link = link_to_function(t("form.buttons.#{ action }"),
                                 "if(document.indexForm.boxchecked.value == -1) { 
-                                  alert('#{ t("form.messages.select_item_to_#{ action }", :model => t("activerecord.models.#{ klass.name.downcase.gsub("_", " ") }"))}');
+                                  alert('#{ t("form.messages.no_item_selected", :model => Gx.t_model(klass.name.downcase))}');
                                 } else {
                                   submitform('#{ action }'); }",
                                 :class => "action_#{ action } with_icon")
-      html << "</div>"
-    end
+
+    options[:wrapper_tag].empty? ? link : content_tag(options[:wrapper_tag], link, :class => "actions right")
   end
 
   def show_actions_for(object)
@@ -113,7 +110,7 @@ module ApplicationHelper
       end
       
       if klass_name.eql?('Interested') 
-        html << interested_action_buttons(object)
+        html << interested_show_action_buttons(object)
       end
       
       { :update => 'edit', :destroy => 'delete' }.each_pair do |action, action_label|
@@ -123,8 +120,9 @@ module ApplicationHelper
     end
   end
 
-  def object_action_button_to(object, action)
-    content_tag :div, :class => "actions right" do
+  def object_action_button_to(object, action, options={})
+    options[:wrapper_tag] ||= :div
+    content_tag options[:wrapper_tag], :class => "actions right" do
       link_to( t("form.buttons.#{action}"), [action, @container, object], :class => "action_#{action} with_icon")
     end
   end
