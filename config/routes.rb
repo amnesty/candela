@@ -67,6 +67,14 @@ AiVoluntariado::Application.routes.draw do
     put :send_pdf, :on => :member
     get :prepare_mail, :on => :member
     put :send_mail, :on => :member
+
+    resources :interested_communications, :path => :communications do 
+      get :delete, :on => :member
+      resources :notes do
+        get :delete, :on => :member    
+      end
+    end
+
   end
 
   # ROUTES FOR ORGANIZATIONS
@@ -156,12 +164,24 @@ AiVoluntariado::Application.routes.draw do
     end
   end
 
-  resources :event_records do
-    get :delete, :on => :member    
-    resources :notes do
+  #ROUTES FOR EVENT RECORDS
+
+#  resources :event_records do
+#    get :delete, :on => :member    
+#    resources :notes do
+#      get :delete, :on => :member    
+#    end
+#  end
+  EventRecord.child_classes.prepend('EventRecord').each do |klass_name|
+    resources klass_name.underscore.pluralize, :controller => 'event_records', :defaults => (klass_name != 'EventRecord' ? {:type => klass_name}:{}) do 
       get :delete, :on => :member    
+      resources :notes do
+        get :delete, :on => :member    
+      end
     end
   end
+
+  #ROUTES FOR ALERTS
 
   resources :alerts do
     get :delete, :on => :member    

@@ -258,7 +258,13 @@ class Interested < ActiveRecord::Base
     end
   end
   
+#-----------------------------------------------
+# EVENT-RELATED CODE
 
+  has_many :event_records, :class_name => 'EventRecord', :foreign_key => :item_id, 
+                           :include => :event_definition, :conditions => "event_definitions.watched_model = 'Interested'"
+
+  has_many :communications, :class_name => 'InterestedCommunication', :foreign_key => :item_id
   
 end
 

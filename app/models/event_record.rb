@@ -29,11 +29,15 @@ class EventRecord < ActiveRecord::Base
 # Child classes management
 #---------------------------
 
+  def self.child_classes
+    EventDefinition.pluck(:klass).compact.uniq
+  end
+
   def self.inherited(child)
     child.instance_eval do
-      def model_name
-        EventRecord.model_name
-      end
+#      def model_name
+#        EventRecord.model_name
+#      end
     end
     super
   end

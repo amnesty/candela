@@ -1,0 +1,12 @@
+<% communication = interested_communication %>
+<%= hidden_inputs_for(communication, count, :hide => []) %>
+
+<td><%= link_to h(communication.communication_description), communication %></td>
+
+<td><%= localize(communication.timestamp, :format => :short) %></td>
+
+<td><%= communication.h_record %></td>
+
+<td>
+
+</td>

@@ -2,15 +2,20 @@ class InterestedCommunication < EventRecord
   
   belongs_to :interested
 
-  before_create :add_changed_field
+  before_save :set_communication_description
 
-  def add_changed_field
+  attr_accessor :communication_description
 
-#logger.info "*********** CHANGES: #{event_object.changes.inspect}"
-#    info[:changes_on] = []
-#    event_object.changes.each do |key,value|
-#      info[:changes_on] = info[:changes_on].push(key) if info_fields.include? key.to_s
-#    end
+  def mass_assignment_authorizer(role = nil)
+    super + ([:timestamp, :communication_description])
+  end
+
+  def set_communication_description
+    info['communication_description'] = @communication_description if @communication_description
+  end
+
+  def has_fast_search?
+    false
   end
 
   def event_codename
@@ -26,10 +31,17 @@ class InterestedCommunication < EventRecord
   end
 
   def communication_description
-    watched_fields = event_definition.trigger_conditions[:change][:or].keys
-    communication_fields = info["changes"].collect{|key,value| Gx.t_attr("interested.#{key}") if watched_fields.include? key.to_sym}.compact
-    communication_fields.join(', ')
+    if self.new_record?
+      ''
+    elsif info['communication_description']
+      info['communication_description']
+    else
+      watched_fields = event_definition.trigger_conditions[:change][:or].keys
+      communication_fields = info["changes"].collect{|key,value| Gx.t_attr("interested.#{key}") if watched_fields.include? key.to_sym}.compact
+      communication_fields.join(', ')
+    end
   end
+
 #---------------------------------
 # Overridden EventRecord methods
 #---------------------------------

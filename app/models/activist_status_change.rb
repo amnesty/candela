@@ -4,6 +4,11 @@ class ActivistStatusChange < EventRecord
   belongs_to :activist
   belongs_to :activists_collaboration
 
+  # FIXME: Overriding model_name is a fast alternative to avoid duplicating partials for a STI subclass. Find a better way!!
+  def self.model_name
+    EventRecord.model_name
+  end
+
   def activist
     event_object.activist
   end

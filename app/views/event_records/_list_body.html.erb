@@ -1,7 +1,7 @@
 
 <%= hidden_inputs_for(event_record, count, :hide => []) %>
 
-<td><%= link_to h(event_record.event_definition.name), event_record %></td>
+<td><%= link_to h(event_record.event_definition.name), event_record.becomes(EventRecord) %></td>
 
 <td><%= localize(event_record.timestamp, :format => :short) %></td>
 
