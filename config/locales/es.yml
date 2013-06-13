@@ -170,6 +170,7 @@ es:
       send: Enviar
 
     buttons:
+      add_collaboration: Nueva colaboración
       back:   Volver
       cancel: Cancelar
       cancel_edit: Volver

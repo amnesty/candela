@@ -34,6 +34,11 @@
 
   <td><%= readable_obj ? h(activist.phone) : '---' %></td>
 
-  <td><%= readable_obj ? link_to( I18n.t("form.buttons.notes"), activist_path(activist, :anchor => 'activist_section_notes') ) : "ToDo: Link to Create collaboration" %>
+  <td>
+    <% if readable_obj %>
+      <%= link_to I18n.t("form.buttons.notes"), activist_path(activist, :anchor => 'activist_section_notes') %>
+    <% else %>
+      <%= link_to I18n.t("form.buttons.add_collaboration"), new_activist_activists_collaboration_path(activist) if !activist.leave_at.present? %>
+    <% end %>
 
-
+  </td>
