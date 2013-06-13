@@ -122,11 +122,7 @@ module ApplicationHelper
 
   def object_action_button_to(object, action)
     content_tag :div, :class => "actions right" do
-      if object.class.name == 'Note'
-        link_to( t("form.buttons.#{action}"), [action, @container, object], :class => "action_#{action} with_icon")
-      else
-        link_to( t("form.buttons.#{action}"), [action, object], :class => "action_#{action} with_icon")
-      end
+      link_to( t("form.buttons.#{action}"), [action, @container, object], :class => "action_#{action} with_icon")
     end
   end
 
