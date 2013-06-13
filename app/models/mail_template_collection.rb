@@ -10,9 +10,9 @@ class MailTemplateCollection < ActiveRecord::Base
   TEMPLATE_FOLDER = Settings.interested_mailer.template_folder
  
   #TODO: authorizations for mail template collections
-  authorizing do |user, permission|
-    true unless permission == :destroy
-  end
+#  authorizing do |user, permission|
+#    true unless permission == :destroy
+#  end
 
   def self.instance_for(collection_or_codename)
     case collection_or_codename

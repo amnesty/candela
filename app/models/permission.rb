@@ -2,6 +2,8 @@
 require_dependency "#{Rails.root}/vendor/gems/station/app/models/permission"
 class Permission
 
+  attr_accessible :action, :objective, :roles
+
   validates_uniqueness_of :action, :scope => [:objective]
 
   def title
