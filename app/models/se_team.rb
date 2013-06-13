@@ -8,6 +8,7 @@ class SeTeam < ActiveRecord::Base
 
   include ActiveRecord::AIActiveRecord
   include ActiveRecord::AIOrganization
+  include MailTemplateConsumer
 
   scope :available_for_hr_schools, { :conditions => {:name => "Educación en DDHH"} }
 

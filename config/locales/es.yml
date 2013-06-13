@@ -271,6 +271,7 @@ es:
 
 
 ######################## ENTITIES ######################################
+# TODO: Check these translations to improve their usage...
 
   __notes_entity: &_notes_entity
     no_creator: Anónimo
@@ -737,6 +738,9 @@ es:
       local_organization_note: 
         one: la anotación del grupo
         other: las anotaciones del grupo
+      mail_template_collection:
+        one: la colección de plantillas para email
+        other: las colecciones de plantillas para email
       note: 
         one: la anotación
         other: las anotaciones
@@ -1147,6 +1151,12 @@ es:
         organization_id: Organización
         organization_type: Tipo de organización
         user_id: Usuario
+
+      mail_template_collection:
+        codename: Nombre
+        description: Descripción
+        default_template_name: Plantilla por defecto
+        assignments: Plantillas asignadas
 
       note:
         <<: *_notes_attributes

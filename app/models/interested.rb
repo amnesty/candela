@@ -233,7 +233,7 @@ class Interested < ActiveRecord::Base
       begin
         InterestedMailer.contact_email(self, {}).deliver 
         (self.is_minor? || self.email_sent = true)
-      rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
+      rescue MailTemplateException, Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
         # TODO: By now, if contact mail fails, email_sent is not check and an error is added, but interested creation is not stopped. ¿Should it be the behaviour?
         errors.add(:email, :undeliverable )
 #        return false

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130426135203) do
+ActiveRecord::Schema.define(:version => 20130430113335) do
 
   create_table "POSTAL", :primary_key => "POSTAL_ID", :force => true do |t|
     t.string  "cp"
@@ -691,6 +691,24 @@ ActiveRecord::Schema.define(:version => 20130426135203) do
     t.integer  "db_file_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "mail_template_assignments", :force => true do |t|
+    t.string   "consumer_type"
+    t.integer  "consumer_id"
+    t.integer  "mail_template_collection_id"
+    t.string   "template_name"
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
+  end
+
+  create_table "mail_template_collections", :force => true do |t|
+    t.string   "codename"
+    t.text     "description"
+    t.text     "default_template_name"
+    t.text     "available_consumers_script"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   create_table "notes", :force => true do |t|

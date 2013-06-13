@@ -1,0 +1,87 @@
+<% disabled ||= false %>
+
+<table id="<%= params[:action] %>_mail_template_collection_form" class="table_form">
+
+  <tr class="<%= Gx.list_style %>">
+    <td><%= form.label_required :codename %></td>
+    <td><%= form.text_field     :codename %></td>
+  </tr>
+
+  <tr class="<%= Gx.list_style %>">
+    <td><%= form.label :description %></td>
+    <td><%= form.text_field :description %></td>
+  </tr>
+
+  <tr class="<%= Gx.list_style %>">
+    <td><%= form.label :default_template_name %></td>
+    <td>
+      <%= 
+        option_list = form.object.template_names.collect {|name| [name, name] }
+        option_list.append [form.object.default_template_name,form.object.default_template_name, :class => 'invalid_option'] if !form.object.valid_default_template?
+        html_options = {
+         :onchange => "update_template_name_select_class(this)",
+         :class => "template_name_select #{'invalid_option' if !form.object.valid_default_template?}"
+        }
+        form.select :default_template_name, options_for_select(option_list, form.object.default_template_name), {}, html_options
+      %>
+    </td>
+  </tr>
+
+  <tr class="form_section">
+    <td colspan="2"><%= form.label :assignments %></td>
+  </tr>
+
+  <table class="table_list">
+    <tr>
+      <th><%= "Tipo" %></th>
+      <th><%= "Nombre" %></th>
+      <th><%= "Plantilla" %></th>
+    </tr>
+
+    <% @resource.available_consumers.each do |consumer| %>
+      <% assignment = consumer.mail_template_assignment_for(@resource) || @resource.assignments.new(:consumer => consumer) %>
+      <%= form.fields_for :assignments, assignment do |assignment_fields| %>
+        <%= assignment_fields.hidden_field :id if assignment.id %>
+        <%= assignment_fields.hidden_field :consumer_type %>
+        <%= assignment_fields.hidden_field :consumer_id %>
+
+        <tr>
+          <td>
+            <%= consumer.class.model_name.human.capitalize %>
+          </td>
+          <td>
+            <%= consumer.name %>
+          </td>
+          <td>
+            <%
+                option_list = @resource.template_names.collect {|name| [name, name] }
+                option_list.append [assignment.template_name,assignment.template_name, :class => 'invalid_option'] if (!assignment.template_name.nil? && !assignment.template_name.blank? && !@resource.template_names.include?(assignment.template_name))
+                html_options = {
+                  :onchange => "update_template_name_select_class(this)",
+                  :class => "template_name_select #{'invalid_option' if !assignment.valid_template_name?}"
+                }
+                html_options.merge!(:disabled => 'disabled') if disabled
+            %>
+            <%= assignment_fields.select :template_name, options_for_select(option_list, assignment.template_name), {:include_blank => 'Por defecto'}, html_options  %>
+
+          </td>
+        </tr>
+
+      <% end %>
+    <% end %>
+
+<script>
+  function update_template_name_select_class(input) {
+    invalidOptionClass = 'invalid_option';
+    if ($(input).find('option:selected').hasClass(invalidOptionClass)){
+      $(input).addClass(invalidOptionClass);
+    } else {
+      $(input).removeClass(invalidOptionClass);
+    }
+  }
+</script>
+
+  </table>
+
+</table>
+

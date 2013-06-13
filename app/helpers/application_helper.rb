@@ -118,7 +118,7 @@ module ApplicationHelper
       end
       
       { :update => 'edit', :destroy => 'delete' }.each_pair do |action, action_label|
-         html << object_action_button_to(object, action_label) if current_user.has_any_permission_to(action, klass_name)
+         html << object_action_button_to(object, action_label) if object.authorizes? action
       end
 
     end

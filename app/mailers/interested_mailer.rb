@@ -6,12 +6,34 @@ class InterestedMailer < ActionMailer::Base
   def contact_email(interested, params)
     @message_type = params[:message_type] || :email 
     @interested = interested
-    template_name = (interested.is_minor? && !interested.minor_checked ? 'contact_email_minors' : 'contact_email')
-    mail :to => (params[:mailto] || interested.email), 
-         :subject =>  params[:subject] || Gx.t_attr("interested.mail.subject"),
-         :template_name => template_name
+
+    mail_with_template :to => (params[:mailto] || interested.email), 
+                       :subject =>  params[:subject] || Gx.t_attr("interested.mail.subject"),
+                       :body => params[:body],
+                       :template_collection => (interested.is_minor? && !interested.minor_checked ? 'contact_minors' : 'contact_interesteds'),
+                       :template_consumer => interested.local_organization
   end 
    
+  def mail_with_template(params)
+    body = params.delete :body
+    template_collection = params.delete :template_collection
+    template_consumer = params.delete :template_consumer
+    mail(params) do |format|
+      format.html {
+        if params[:body]
+          render :text => params[:body]
+        else
+          template_file_name = template_consumer.assigned_mail_template_for template_collection
+          begin
+            render template_file_name
+          rescue ActionView::MissingTemplate => e
+            raise MailTemplateException.new :exception => e, :template_collection => template_collection, :template_consumer => template_consumer
+          end
+        end
+      }
+    end
+  end
+
   def test_email(params)
     mail :to => params[:to], 
          :subject =>  params[:subject] || "Testing email system",

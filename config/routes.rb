@@ -50,6 +50,8 @@ AiVoluntariado::Application.routes.draw do
     end
   end
 
+  resources :mail_template_collections
+
   resources :provinces
 
   resources :roles do

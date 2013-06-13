@@ -8,6 +8,7 @@ class LocalOrganization < ActiveRecord::Base
 
   include ActiveRecord::AIActiveRecord
   include ActiveRecord::AIOrganization
+  include MailTemplateConsumer
   
   validates_presence_of :number
  

@@ -17,9 +17,9 @@
       <td><%= text_field_tag( "subject", "Contacto desde Amnistía Internacional", :class => 'big' ) %></td>
     </tr>
     <tr>
-      <td><%= label_tag( "body_mail", Gx.t_attr("interested.mail.body") ) %></td>
-      <td><%= text_area_tag( "body_mail", InterestedMailer.contact_email(@resource, :message_type => :email).body, :class => 'big' ) %></td>
-      <script>new nicEditor({iconsPath : '/assets/nicEditorIcons.gif'}).panelInstance('body_mail');</script>
+      <td><%= label_tag( "body", Gx.t_attr("interested.mail.body") ) %></td>
+      <td><%= text_area_tag( "body", InterestedMailer.contact_email(@resource, :message_type => :email).body, :class => 'big' ) %></td>
+      <script>new nicEditor({iconsPath : '/assets/nicEditorIcons.gif'}).panelInstance('body');</script>
     </tr>
     </table>
   <% end %>

@@ -494,4 +494,7 @@ font-weight: bold;
 
 }
 
-
+/* Mail templates form */
+.template_name_select.invalid_option, .template_name_select option.invalid_option  {
+   background-color: #EF3D47;
+}
