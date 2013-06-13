@@ -848,6 +848,7 @@ es:
         collabtopics: Quiere colaborar
         with_active_collaborations: "¿Con colaboraciones activas?"
         is_partner: "¿Es socio?"
+        is_leave: De baja
         sections:
           <<: *_activists_sections
           leave: Estado de baja
@@ -1065,6 +1066,7 @@ es:
         letter_sent: Carta enviada
         is_activist: Pasado a activista
         is_minor: Menor de edad
+        has_pending_communication: Pendiente de comunicación
         sections:
           <<: *_activists_sections
           collaboration_organization: Grupo en el que quieres colaborar

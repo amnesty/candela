@@ -109,21 +109,25 @@ module ActiveRecord
             end
           end
         end
-    
+
 #        def default_order_field
-#          "#{self.name.tableize}.name"
+#          column_names.include?("updated_at") && "#{ table_name }.updated_at" || [ table_name, columns.first.name ].join('.')
 #        end
-#        
+
 #        def default_order_direction
-#          "ASC"
+#          column_names.include?("updated_at") && "ASC" || "DESC"
 #        end
     
         def has_fast_search?
           true
         end
 
+        #TODO: Use ransack also for sorting -> parameters || class_defaults || updated_at.desc || id.asc
         def advanced_search(parameters, agent)
-          ransack_with_scopes(parameters[self.name.underscore.to_sym]).result(:distinct => true).can_see(agent).include_in.order("#{self.default_order_field if self.respond_to?("default_order_field")} #{self.default_order_direction if self.respond_to?("default_order_direction")}")
+#          ransack_with_scopes(parameters[self.name.underscore.to_sym]).result(:distinct => true).can_see(agent).include_in.order("#{self.default_order_field if self.respond_to?("default_order_field")} #{self.default_order_direction if self.respond_to?("default_order_direction")}")
+          search = self.can_see(agent).include_in.ransack_with_scopes(parameters[self.name.underscore.to_sym])
+#          search.sorts ||= "#{self.default_order_field if self.respond_to?("default_order_field")} #{self.default_order_direction if self.respond_to?("default_order_direction")}"
+          search.result(:distinct => true).order("#{self.default_order_field if self.respond_to?("default_order_field")} #{self.default_order_direction if self.respond_to?("default_order_direction")}")
         end                                       
 
       end      

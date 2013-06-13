@@ -28,27 +28,32 @@ class InterestedMailer < ActionMailer::Base
   def resume_alert_email(local_organization, interesteds)
     @interesteds = interesteds
     @local_organization = local_organization
-    mail :to => InterestedMailer.organization_recipients_for_alert(local_organization).unshift(local_organization.email), 
+    mail :to => InterestedMailer.organization_recipients_for_alert(local_organization), 
          :bcc => Settings.interested_mailer.bcc,
          :subject =>  "Alerta de nuevos interesados: #{ local_organization.full_name }"
   end
 
-  #FIXME: Responsibilities and provinces with supervisor should be defined in settings file.
+  #FIXME: Responsibilities for receiving mails and provinces with supervisor should be defined in settings file.
 
   def self.organization_recipients_for_alert(local_organization)
-    local_organization.active_members_with_responsibility("Gestión activismo").collect{|act| act.email if !act.email.empty?}.compact
+    recipients = local_organization.active_members_with_responsibility("Gestión activismo").collect{|act| act.email if !act.email.empty?}.compact
+    recipients.unshift(local_organization.email) if !local_organization.email.empty?
+    recipients.unshift(local_organization.email_2) if !local_organization.email_2.empty?
+    recipients
   end
 
   def self.autonomy_recipients_for_alert(local_organization)
     provincies_and_supervisor = {'Madrid' => 'AI Madrid', 'Barcelona' => 'Cataluña'}
-    ret = ""
+    recipients = []
     provincies_and_supervisor.each do |province_name, autonomy_name|
       a = Autonomy.find_by_name(autonomy_name)
       if !a.nil? && !local_organization.province.nil? && local_organization.province.name == province_name
-        ret = a.active_members_with_responsibility("Gestión activismo").collect{|am| am.email}.join(', ')
+        recipients = a.active_members_with_responsibility("Gestión activismo").collect{|am| am.email}
+        recipients.unshift(a.email) if !a.email.empty?
+        recipients.unshift(a.email_2) if !a.email_2.empty?
       end
     end  
-    ret    
+    recipients  
   end
 
 end

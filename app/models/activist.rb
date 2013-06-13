@@ -81,7 +81,9 @@ class Activist < ActiveRecord::Base
     { :conditions => ["activists.id NOT IN (?)", self.with_active_collaborations.collect{|a|a.id} ] }
   }                                                    
 
-  scope :is_partner, lambda { |q| (q.nil? || q.empty?) ? {} : { :conditions => (Gx.to_boolean(q) ? "partnership_id IS NOT NULL" : "partnership_id IS NULL") } }
+  scope :is_partner, lambda { |q| (q.nil? || (q.instance_of?(String) && q.empty?)) ? {} : { :conditions => (Gx.to_boolean(q) ? "partnership_id IS NOT NULL" : "partnership_id IS NULL") } }
+
+  scope :is_leave, lambda { |q| (q.nil? || (q.instance_of?(String) && q.empty?)) ? {} : { :conditions => (Gx.to_boolean(q) ? "leave_at IS NOT NULL" : "leave_at IS NULL") } }
 
   scope :include_in,  { :include => [ :activists_collaborations ] }
 
@@ -146,18 +148,9 @@ class Activist < ActiveRecord::Base
     ['first_name', 'last_name', 'last_name2', 'nif', 'phone', 'mobile_phone', 'email' ].collect{|f| "activists.#{f}" }
   end
 
-# REDUNDANT INFORMATION: TO BE REMOVED  
-#  def self.searcheable_columns
-#    columns.select{ |c| not unsearcheable_column_names.include?(c.name) } 
-#  end
-#  
-#  def self.unsearcheable_column_names
-#    ['id', 'created_at', 'updated_at', 'created_by', 'other_languages', 'country_id' ]
-#  end
-#
-#  def self.columns_name_to_object(names)
-#    columns.select{ |c| names.include?(c.name) }.sort{|a,b| names.index(a.name) <=> names.index(b.name) }
-#  end
+  def self.filters_for_index
+    ['is_leave']
+  end
 
   def self.searcheable_fields
     [unhideable_fields, hideable_fields, 'activists_collaboration.organization_type' , 'activists_collaboration.collaboration_type', 

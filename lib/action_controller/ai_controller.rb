@@ -18,6 +18,9 @@ module ActionController
     # GET / 
     def index(options = {}, &block)
 
+      # Filters
+      params[:index_filters] ||= {}
+
       # Fast Search Conditions
       conditions = options[:conditions] || []
       
@@ -34,16 +37,20 @@ module ActionController
         conditions << query_strings.map{|query_string| "(#{query_string})"}.join(" AND ")
       end
             
-      # Default values for query
-      order      = params[:order]     || (model_class.default_order_field if model_class.respond_to?("default_order_field")) || "#{ model_class.table_name }.id"
-      direction  = params[:direction] || (model_class.default_order_direction if model_class.respond_to?("default_order_direction")) || "ASC"
+      # Parameters for query
+      query_to   = options[:query_to] || model_class.in_container(current_container)
+      search_params = {model_class.name.underscore.to_sym => params[:index_filters] || {}}
+      search_params[:order] = params[:order] || (model_class.default_order_field if model_class.respond_to?("default_order_field")) || "#{ model_class.table_name }.id"
+      search_params[:direction]  = params[:direction] || (model_class.default_order_direction if model_class.respond_to?("default_order_direction")) || "ASC"
       per_page   = params[:per_page]  || 30
       
-      query_to   = options[:query_to] || model_class.in_container(current_container)
-      
-      @resources = query_to.include_in.can_see(current_agent).column_sort(order, direction).paginate(:page => params[:page],
-                                                                                                     :per_page => per_page,
-                                                                                                     :conditions => conditions.join(' AND '))
+#      @resources = query_to.include_in.can_see(current_agent).column_sort(order, direction).paginate(:page => params[:page],
+#                                                                                                     :per_page => per_page,
+#                                                                                                     :conditions => conditions.join(' AND '))
+
+      @resources = query_to.advanced_search(search_params,current_agent).paginate(:page => params[:page],
+                                                                   :per_page => per_page,
+                                                                   :conditions => conditions.join(' AND '))
 
       instance_variable_set "@#{ model_class.name.tableize }", @resources
  

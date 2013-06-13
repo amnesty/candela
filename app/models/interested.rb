@@ -48,9 +48,11 @@ class Interested < ActiveRecord::Base
   validates_numericality_of :cp, :on => :save, :allow_blank => true
   validates_length_of :cp, :is => 5, :allow_blank => true
 
-  scope :is_minor, lambda { |q| (q.nil? || q.empty?) ? {} : { :conditions => "birth_day" + (Gx.to_boolean(q) ? " > '" : " <= '") + self.minor_birth_date.to_s(:db) + "'" } }
+  scope :is_minor, lambda { |q| (q.nil? || (q.instance_of?(String) && q.empty?)) ? {} : { :conditions => "birth_day" + (Gx.to_boolean(q) ? " > '" : " <= '") + self.minor_birth_date.to_s(:db) + "'" } }
   
-  scope :is_activist, lambda { |q| (q.nil? || q.empty?) ? {} : { :conditions => (Gx.to_boolean(q) ? "activist_id IS NOT NULL" : "activist_id IS NULL") } }
+  scope :is_activist, lambda { |q| (q.nil? || (q.instance_of?(String) && q.empty?)) ? {} : { :conditions => (Gx.to_boolean(q) ? "activist_id IS NOT NULL" : "activist_id IS NULL") } }
+
+  scope :has_pending_communication, lambda { |q| (q.nil? || (q.instance_of?(String) && q.empty?)) ? {} : { :conditions => (Gx.to_boolean(q) ? "(email_sent <> true OR email_sent IS NULL) AND (letter_sent <> true OR letter_sent IS NULL)" : "email_sent = true OR letter_sent = true") } }
 
   # instested has any scope through organization. just test user has permission 
   authorizing do |user, permission|
@@ -61,22 +63,6 @@ class Interested < ActiveRecord::Base
   def h_local_organization; local_organization_id.nil? ? "" : local_organization.name; end
   def h_occupation;         occupation_id.nil?         ? "" : occupation.name; end
     
-#  def fill_body(message_type)
-
-#    if self.local_organization
-#      
-#     letter_body = get_letter_body message_type
-#     letter_body.gsub!('#{sex_presentation}', sex_presentation)
-#     letter_body.gsub!('#{name}', self.first_name)
-
-#     letter_body.gsub!('#{local_organization_info}', text_for_local_organization)
-#     letter_body.gsub!('#{local_organization_email}', local_organization.email)
-#     letter_body.gsub!('#{talk_info}', text_for_talk)  
-
-#      return letter_body
-#    end
-#  end
-  
 #TODO: Move to helper
   def sex_presentation
     case self.sex_id
@@ -184,6 +170,10 @@ class Interested < ActiveRecord::Base
     ['first_name', 'last_name', 'last_name2', 'nif' ].collect{|f| "interesteds.#{f}" }
   end
 
+  def self.filters_for_index
+    ['is_minor', 'has_pending_communication', 'is_activist']
+  end
+
   def self.searcheable_fields
     [unhideable_fields, hideable_fields ].flatten
   end
@@ -254,37 +244,7 @@ class Interested < ActiveRecord::Base
       (self.email_sent = true) and InterestedMailer.contact_email(self, {}).deliver
     end
   end
-  
-#  def get_letter_body(message_type)
-
-#    files_dir = "#{ Rails.root }/app/reports/interesteds/"
-
-#    if self.is_minor? && !self.minor_checked
-#      file = 'minors_2011_03.html'
-#      letter_body = File.read("#{files_dir}#{ file }")
-#    else
-#      file = 'main_letter_body_2012_10.html'
-#      letter_body = File.read("#{files_dir}#{ file }")
-#      if self.talks.empty?
-#        collab_file = 'collaboration_without_talk_2012_10.html'
-#      else
-#        collab_file = 'collaboration_with_talk_2012_10.html'
-#      end
-
-#      if message_type == :email
-#        header_text = File.read("#{files_dir}video_header_2012_10.html")
-#      else
-#        header_text = "<p><br></p>"*4
-#      end
-
-#      letter_body.gsub!('#{header_text}', header_text)
-#      letter_body.gsub!('#{collaboration_text}', File.read("#{files_dir}#{ collab_file }"))
-#      
-#    end
-
-#    letter_body
-#  end
-  
+ 
   private
   def privacity_accepted
     self.accepted_privacity || self.errors.add(:accepted_privacity, :privacity_must_be_accepted)
