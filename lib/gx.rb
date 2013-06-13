@@ -101,7 +101,7 @@ module Gx
       I18n.t "activerecord.attributes." + text
     end
 
-    # Translates a model name, guessing if it must pluralize.
+    # Translates a model name, guessing if it must pluralize and taking into account current use of model translations in the app .
     # FIXME: Modify use of tranlations to allow a better model translation method
     def t_model(text)
 #      I18n.t("activerecord.models." + text.gsub("_", " "))
@@ -110,7 +110,12 @@ module Gx
       elsif Object.const_defined?(text.singularize.camelize)
         text.singularize.camelize.constantize.model_name.human(:count=>2)
       else
-        I18n.t "activerecord.models.#{text}"
+        ret = I18n.t "activerecord.models.#{text.singularize}"
+        if ret.is_a?(Hash)
+          text.pluralize == text ? ret[:other] : ret[:one]
+        else
+          ret
+        end
       end
     end
 

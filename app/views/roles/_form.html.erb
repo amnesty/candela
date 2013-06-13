@@ -29,7 +29,7 @@
 
         <% unless last_objective == objective %>
           <p class="block clear font_plus_one" style="margin.top: 25px">
-            <b><%= t("permissions.over_object",  :objective => t("activerecord.models.#{ objective.underscore.pluralize.gsub('_',' ') }")) %></b><br />
+            <b><%= t("permissions.over_object",  :objective => Gx.t_model(objective.underscore.pluralize)) %></b><br />
             <% unless disabled %>
               <%= link_to_function t('form.actions.check_all_permissions_checkbox'), "toggleCheckedOf(true, '#{ objective.downcase }')" %> | 
               <%= link_to_function t('form.actions.uncheck_all_permissions_checkbox'), "toggleCheckedOf(false, '#{ objective.downcase }')" %>

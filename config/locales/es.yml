@@ -759,7 +759,9 @@ es:
       se_team_note: 
         one: la anotación del equipo del SE
         other: las anotaciones del equipo del SE
-      selves: la propia organización
+      self: 
+        one: la propia organización
+        other: la propia organización
       site: 
         one: el sitio
         other: los sitios
