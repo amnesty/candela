@@ -5,7 +5,7 @@ class InterestedCommunicationsController < ApplicationController
   
   def index
     options = {}
-    options[:query_to] = Interested.find(params[:interested_id]).communications
+    options[:query_to] = Interested.find(params[:interested_id]).communications if params[:interested_id]
     super(options)
   end
 

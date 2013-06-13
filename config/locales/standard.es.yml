@@ -190,9 +190,9 @@ es:
   time:
     am: am
     formats:
-      default: ! '%d/%m/%Y %h:%M'
+      default: ! '%d/%m/%Y %H:%M'
       long: ! '%A, %d de %B de %Y %H:%M:%S'
-      short: ! "%d/%m/%Y %h:%M"
+      short: ! "%d/%m/%Y %H:%M"
     pm: pm
   # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
   activemodel:
