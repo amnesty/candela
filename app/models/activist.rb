@@ -109,7 +109,7 @@ class Activist < ActiveRecord::Base
   
   # Objects authorization blocks
   
-  # Last authorization block. Activist can be CRUD by user if activist belongs and organization that user have role on.
+  # Last authorization block. Activist can be CRUD by user if activist belongs to an organization that user has role on.
   authorizing do |user, permission|
     # FIXME
     ret = false
@@ -129,11 +129,12 @@ class Activist < ActiveRecord::Base
     end || nil
   end 
     
-  # allow see activist if activist has no collaborations and has one interested
-  authorizing do |user, permission|
-    permission == :read and self.activists_collaborations.empty?
-  end
- 
+#  # Check permissions based on related interested (disabled)
+#  authorizing do |user, permission|
+#    if related_int = self.related_interested) 
+#      related_int.authorize? permission, :to => user
+#    end
+#  end
   
   def to_title
     "#{ self.full_name } #{ I18n.t('activist.leave_state', :leave_at => I18n.localize(self.leave_at.to_date)) if self.leave_at.present? }"
@@ -174,8 +175,6 @@ class Activist < ActiveRecord::Base
     ]
   end
 
-#search_methods :with_active_collaborations, :is_partner
-  
   def self.conditions_columns
     { :cont   => [ 'first_name', 'last_name', 'last_name2', 'nif', 'address', 'informed_through_other', 'student_place',
                     'student_previous_degrees', 'student_more_info', 'other_hobbies', 'leave_more_info', 'other_skills', 'blogger',
@@ -278,7 +277,7 @@ class Activist < ActiveRecord::Base
   end
 
   def related_interested    
-    Interested.find :first, :conditions => {:document_type => document_type, :nif => nif}
+    Interested.find :last, :conditions => {:document_type => document_type, :nif => nif}
   end
   
   private

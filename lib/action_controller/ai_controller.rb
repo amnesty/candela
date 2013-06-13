@@ -48,10 +48,9 @@ module ActionController
 #                                                                   :per_page => per_page,
 #                                                                   :conditions => conditions.join(' AND '))
 
-      @resources = query_to.include_in.can_see(current_agent).filter_with_definitions(filters_for_index, params[:index_filters]).column_sort(order, direction).paginate(:page => params[:page],
-                                                                   :per_page => per_page,
-                                                                   :conditions => conditions.join(' AND '))
-
+      @resources = query_to.include_in.can_see(current_agent)
+      @resources = @resources.filter_with_definitions(filters_for_index, params[:index_filters]) if self.respond_to?(:filters_for_index)
+      @resources = @resources.column_sort(order, direction).paginate(:page => params[:page], :per_page => per_page, :conditions => conditions.join(' AND '))
       instance_variable_set "@#{ model_class.name.tableize }", @resources
  
       # Needed? FIXME

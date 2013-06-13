@@ -29,6 +29,7 @@ module ActiveRecord
           base.column_names.include?('enabled') ?
             { :conditions => [ 'enabled = true' ] } : {}
         }
+
         base.scope :can_see, lambda { |agent| {} }
         
         base.scope :include_in, {}
@@ -129,16 +130,20 @@ module ActiveRecord
         end                                       
 
         def filter_with_definitions(filter_definitions, active_filters)
-          filtered_ids = self.pluck("#{self.name.tableize}.id")
-          active_filters.each do |key,value|
-            case Gx.to_boolean(value) 
-              when true
-                filtered_ids &= self.send(*filter_definitions[key.to_sym]).pluck("#{self.name.tableize}.id")
-              when false
-                filtered_ids -= self.send(*filter_definitions[key.to_sym]).pluck("#{self.name.tableize}.id")
+          if active_filters.nil? || active_filters.empty? 
+            scoped 
+          else 
+            filtered_ids = self.pluck("#{self.name.tableize}.id")
+            active_filters.each do |key,value|
+              case Gx.to_boolean(value) 
+                when true
+                  filtered_ids &= self.send(*filter_definitions[key.to_sym]).pluck("#{self.name.tableize}.id")
+                when false
+                  filtered_ids -= self.send(*filter_definitions[key.to_sym]).pluck("#{self.name.tableize}.id")
+              end
             end
+            where("#{self.name.tableize}.id" => filtered_ids)
           end
-          where("#{self.name.tableize}.id" => filtered_ids)
         end
 
       end      

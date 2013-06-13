@@ -216,22 +216,14 @@ class Interested < ActiveRecord::Base
     items.sort_by{ |elem| [ elem.last_name.underscore, elem.last_name2.underscore, elem.first_name.underscore ] }
   end
   
-  # Redefined to show only the interesteds of the group logged in
+  # Show only the interesteds of the group logged in
   scope :can_see, lambda { |agent|
-    conditions = ''
-    agent.performances.each do |p|
-      if p.stage_type.nil? == false && p.stage_type != "Site" && p.stage_type == 'LocalOrganization'
-        subcondition = "local_organization_id = #{p.stage_id}"
-        if conditions != ''
-          conditions = "(" + conditions + ")OR(" + subcondition + ")"
-        else
-          conditions = subcondition
-        end
-      end
+    if agent.has_any_permission_to :read, :interested
+      lloo_ids = agent.performances.where(:stage_type => 'LocalOrganization').pluck(:stage_id)
+      lloo_ids.any? ? {:conditions => {:local_organization_id => lloo_ids}} : {}
+    else
+      where('1=0')
     end
-    {
-      :conditions => conditions
-    }
   }
 
   def sent_contact_email
