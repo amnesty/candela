@@ -1,0 +1,167 @@
+gl:
+
+  locale_name: "Gallego"
+
+######################## VIEWS ######################################
+
+  application:
+    locale_selection:
+      select_locale: "GL-Idioma:"
+
+  layouts:
+    new_hr_school:
+      title: GL-Formulario de adhesión a la Red de Escuelas por los Derechos Humanos
+      form_description: GL-Rellena el formulario y contactaremos contigo para explicarte cómo unirte a la Red de Escuelas por los Derechos Humanos.
+
+  public:
+    new_hr_school:
+      form_errors_header: GL-El formulario contiene los siguientes errores. Revise los campos marcados en rojo, por favor.
+      accept_privacy_policy: GL-Acepto la <a href="http://www.es.amnesty.org/politiGL-de-privacidad" target="_blank" title="Política de privacidad">política de privacidad</a> (por favor léela antes de enviar tus datos)
+      submit: GL-Enviar el formulario
+
+######################## GENERIC-APP  ######################################
+# TODO: Check these translations to improve their usage...
+
+  __organizations: &_organizations
+    autonomy: GL-Entidad autonómica
+    country: GL-País
+    committee: "GL-Comité/Comisión"
+    local_organization: GL-Grupo
+    localorganization: GL-Grupo
+    se_team: GL-Equipo del S.E.
+    seteam: GL-Equipo del S.E.
+
+######################## ENTITIES ######################################
+
+  hr_school:
+    choose_one_organization_type: "GL-Elije un tipo de ET" 
+#    statuses:
+#      active: "Alta"
+#      inactive: "Baja"
+#      pending:  "Pendiente actualización"
+#    types: ['Público', 'Concertado', 'Privado', 'Otros' ]
+    search:
+      search_params: 'GL-Parámetros de la escuela de DD.HH.'
+      none_found_by_hr_academic_year: 'GL-No hay escuelas con esos cursos académicos'
+      none_found_by_hr_level: 'GL-No hay escuelas con esos niveles educativos'
+      none_found_by_hr_work_through: 'GL-No hay escuelas que trabajen a través de esos criterios'
+    notes:
+      none: 'GL-La Escuela no tiene ningún seguimiento'
+
+  hr_school_organization_managers:
+    new: 'GL-Añadir otra organización'
+    none: 'GL-No se ha asignado ninguna organización gestora'
+
+#################### ACTIVE RECORD ########################
+
+  activerecord:
+    models:
+      hrschool: GL-la escuela de DD.HH.
+      hr school: GL-la escuela de DD.HH.
+      hr_school: GL-la escuela de DD.HH.
+      hr schools: GL-las escuelas de DD.HH.
+      hr school note: GL-la anotación de la escuela de DD.HH.
+      hr school notes: GL-las anotaciones de la escuela de DD.HH.
+      hr work throughs: GL-el trabajo a través de
+
+    attributes:
+      __address_attributes: &_address_attributes
+        address: GL-Dirección
+        city: GL-Localidad
+        cp: GL-Código postal
+        country_id: GL-País
+        province_id: GL-Provincia
+
+      __contact_attributes: &_contact_attributes
+        name: GL-Nombre
+        phone: GL-Teléfono
+        email: GL-Email
+        fax: GL-Fax
+
+      __join_date_attributes: &_join_date_attributes
+        join_at:  GL-Fecha de alta
+        leave_at: GL-Fecha de baja
+
+      hr_school:
+        email: GL-Correo electrónico del centro
+        <<: *_address_attributes
+        <<: *_contact_attributes
+        <<: *_join_date_attributes
+        ages: GL-Edades
+        assigned_organization_type: GL-Tipo de ET asignada
+        assigned_organization_id: GL-ET asignada
+        contact_name: GL-Persona de contacto
+        contact_position: GL-Cargo
+        contact_email: GL-Correo electrónico personal
+        contact_phone: GL-Teléfono personal
+        contact_tweeter: GL-Nombre de usuario en Twitter
+        is_partner: GL-Soy socio/a de Amnistía Internacional
+        is_activist: GL-Colaboro de forma regular con un grupo de Amnistía Internacional
+        direction_approval: GL-Visto bueno del centro
+        hr_work_through: GL-Trabajar a través de
+        hr_work_throughs: GL-Trabajar a través de
+        hr_work_through_ids: GL-Trabajar a través de
+        hr_school_levels: GL-Niveles educativos
+        hr_school_level_ids: GL-Niveles educativos
+        hr_school_level_other: GL-Otros niveles educativos
+        name: GL-Nombre del centro
+        phone2: GL-Teléfono 2
+        pupils_count: GL-Número de alumnos/as
+        school_management: GL-Gestión del centro
+        status: GL-Estado
+        tutor: GL-Tutor/a
+        tutor_phone: GL-Teléfono
+        hr_type: GL-Tipo
+        type_other: GL-Otro tipo
+        web_page: GL-Página web
+        academic_years: GL-Cursos
+        academic_year_ids: GL-Cursos
+        years: GL-Cursos
+        accepted_privacity: GL-Política de privacidad
+
+        sections:
+          school_data: GL-Datos del centro
+          contact_person: GL-Datos de la persona de contacto
+          school_group: GL-Grupo escolar
+          school_management: GL-Gestión del centro
+          organization_managers: "GL-Grupo local/entidad autonómica más próxima al centro"
+          notes: GL-Seguimiento
+
+      hr_school_organization_manager:
+        <<: *_organizations
+        organization_id: GL-Organización
+        organization_type: GL-Tipo de organización
+
+    errors:
+      models:
+
+         hr_school:
+          attributes:
+            base:
+              address_can_not_be_empty: GL-La dirección está incompleta
+              conflicting_dates: GL-La fecha de inicio no puede ser posterior a la fecha de fin
+              leave_date_future: GL-La fecha de baja está en el futuro
+              join_date_future: GL-La fecha de alta está en el futuro
+              status_is_not_inactive_with_leave_at: GL-Se ha seleccionado una fecha de baja pero el estado esta todavía activo.
+            direction_approval:
+              must_be_true: GL-Debe tener el visto bueno del centro
+            accepted_privacity:
+              privacity_must_be_accepted: GL-Debe aceptar la política de privacidad
+
+      template:
+        header:
+          one:   GL-No se ha podido guardar %{model}
+          other:  "GL-No se ha podido guardar %{model} porque se han encontrado %{count} errores:"
+        body: ""
+        # The variable :count is also available
+        header_not_deleted:
+          one:   GL-No se ha podido borrar %{model}
+          other:  GL-No se ha podido borrar %{model} porque se han encontrado %{count} errores
+
+      messages:
+        # The standard messages are in station/es.yml
+        cant_contain_digits: GL-no puede contener dígitos
+        incomplete_address: GL-incompleta, introduzca la provincia, la ciudad, el código postal y la direccion
+        not_a_number: GL-debe ser numérico
+        not_a_phone_number: GL-no es un número de teléfono
+

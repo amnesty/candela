@@ -1,5 +1,31 @@
 es:
 
+  locale_name: "Castellano"
+
+######################## VIEWS ######################################
+
+  application:
+    locale_selection:
+      select_locale: "Idioma:"
+
+  layouts:
+    new_hr_school:
+      title: Formulario de adhesión a la Red de Escuelas por los Derechos Humanos
+      form_description: Rellena el formulario y contactaremos contigo para explicarte cómo unirte a la Red de Escuelas por los Derechos Humanos.
+
+  public:
+    new_hr_school:
+      form_errors_header: El formulario contiene los siguientes errores. Revise los campos marcados en rojo, por favor.
+      accept_privacy_policy: Acepto la <a href="http://www.es.amnesty.org/politica-de-privacidad" target="_blank" title="Política de privacidad">política de privacidad</a> (por favor léela antes de enviar tus datos)
+      submit: Enviar el formulario
+
+    hr_school_confirm:
+      title: Formulario de adhesión a la Red de Escuelas por los Derechos Humanos
+      confirm_message: Gracias por interesarte en la red de escuelas. En breve nos pondremos en contacto contigo.
+
+######################## GENERIC-APP  ######################################
+# TODO: Check these translations to improve their usage...
+
   __organizations: &_organizations
     autonomy: Entidad autonómica
     country: País

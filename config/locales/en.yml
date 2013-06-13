@@ -1,5 +1,169 @@
 #TODO: Put app-specific english translations here
-
 en:
+
+  locale_name: "English"
+
+######################## VIEWS ######################################
+  
+  application:
+    locale_selection:
+      select_locale: "Language:"
+
+  layouts:
+    new_hr_school:
+      title: Join form for Human Rights Schools Network
+      form_description: Fill in the form and we will contact you to explain how to join the Human Rights Schools Network.
+
+  public:
+    new_hr_school:
+      form_errors_header: EN-El formulario contiene los siguientes errores. Revise los campos marcados en rojo, por favor.
+      accept_privacy_policy: EN-Acepto la <a href="http://www.es.amnesty.org/politiEN-de-privacidad" target="_blank" title="Política de privacidad">política de privacidad</a> (por favor léela antes de enviar tus datos)
+      submit: EN-Enviar el formulario
+
+######################## GENERIC-APP  ######################################
+# TODO: Check these translations to improve their usage...
+
+  __organizations: &_organizations
+    autonomy: EN-Entidad autonómica
+    country: EN-País
+    committee: "EN-Comité/Comisión"
+    local_organization: EN-Grupo
+    localorganization: EN-Grupo
+    se_team: EN-Equipo del S.E.
+    seteam: EN-Equipo del S.E.
+
+######################## ENTITIES ######################################
+
+  hr_school:
+    choose_one_organization_type: "EN-Elije un tipo de ET" 
+#    statuses:
+#      active: "Alta"
+#      inactive: "Baja"
+#      pending:  "Pendiente actualización"
+#    types: ['Público', 'Concertado', 'Privado', 'Otros' ]
+    search:
+      search_params: 'EN-Parámetros de la escuela de DD.HH.'
+      none_found_by_hr_academic_year: 'EN-No hay escuelas con esos cursos académicos'
+      none_found_by_hr_level: 'EN-No hay escuelas con esos niveles educativos'
+      none_found_by_hr_work_through: 'EN-No hay escuelas que trabajen a través de esos criterios'
+    notes:
+      none: 'EN-La Escuela no tiene ningún seguimiento'
+
+  hr_school_organization_managers:
+    new: 'EN-Añadir otra organización'
+    none: 'EN-No se ha asignado ninguna organización gestora'
+
+#################### ACTIVE RECORD ########################
+
+  activerecord:
+    models:
+      hrschool: EN-la escuela de DD.HH.
+      hr school: EN-la escuela de DD.HH.
+      hr_school: EN-la escuela de DD.HH.
+      hr schools: EN-las escuelas de DD.HH.
+      hr school note: EN-la anotación de la escuela de DD.HH.
+      hr school notes: EN-las anotaciones de la escuela de DD.HH.
+      hr work throughs: EN-el trabajo a través de
+
+    attributes:
+      __address_attributes: &_address_attributes
+        address: EN-Dirección
+        city: EN-Localidad
+        cp: EN-Código postal
+        country_id: EN-País
+        province_id: EN-Provincia
+
+      __contact_attributes: &_contact_attributes
+        name: EN-Nombre
+        phone: EN-Teléfono
+        email: EN-Email
+        fax: EN-Fax
+
+      __join_date_attributes: &_join_date_attributes
+        join_at:  EN-Fecha de alta
+        leave_at: EN-Fecha de baja
+
+      hr_school:
+        email: EN-Correo electrónico del centro
+        <<: *_address_attributes
+        <<: *_contact_attributes
+        <<: *_join_date_attributes
+        ages: EN-Edades
+        assigned_organization_type: EN-Tipo de ET asignada
+        assigned_organization_id: EN-ET asignada
+        contact_name: EN-Persona de contacto
+        contact_position: EN-Cargo
+        contact_email: EN-Correo electrónico personal
+        contact_phone: EN-Teléfono personal
+        contact_tweeter: EN-Nombre de usuario en Twitter
+        is_partner: EN-Soy socio/a de Amnistía Internacional
+        is_activist: EN-Colaboro de forma regular con un grupo de Amnistía Internacional
+        direction_approval: EN-Visto bueno del centro
+        hr_work_through: EN-Trabajar a través de
+        hr_work_throughs: EN-Trabajar a través de
+        hr_work_through_ids: EN-Trabajar a través de
+        hr_school_levels: EN-Niveles educativos
+        hr_school_level_ids: EN-Niveles educativos
+        hr_school_level_other: EN-Otros niveles educativos
+        name: EN-Nombre del centro
+        phone2: EN-Teléfono 2
+        pupils_count: EN-Número de alumnos/as
+        school_management: EN-Gestión del centro
+        status: EN-Estado
+        tutor: EN-Tutor/a
+        tutor_phone: EN-Teléfono
+        hr_type: EN-Tipo
+        type_other: EN-Otro tipo
+        web_page: EN-Página web
+        academic_years: EN-Cursos
+        academic_year_ids: EN-Cursos
+        years: EN-Cursos
+        accepted_privacity: EN-Política de privacidad
+
+        sections:
+          school_data: EN-Datos del centro
+          contact_person: EN-Datos de la persona de contacto
+          school_group: EN-Grupo escolar
+          school_management: EN-Gestión del centro
+          organization_managers: "EN-Grupo local/entidad autonómica más próxima al centro"
+          notes: EN-Seguimiento
+
+      hr_school_organization_manager:
+        <<: *_organizations
+        organization_id: EN-Organización
+        organization_type: EN-Tipo de organización
+
+    errors:
+      models:
+
+         hr_school:
+          attributes:
+            base:
+              address_can_not_be_empty: EN-La dirección está incompleta
+              conflicting_dates: EN-La fecha de inicio no puede ser posterior a la fecha de fin
+              leave_date_future: EN-La fecha de baja está en el futuro
+              join_date_future: EN-La fecha de alta está en el futuro
+              status_is_not_inactive_with_leave_at: EN-Se ha seleccionado una fecha de baja pero el estado esta todavía activo.
+            direction_approval:
+              must_be_true: EN-Debe tener el visto bueno del centro
+            accepted_privacity:
+              privacity_must_be_accepted: EN-Debe aceptar la política de privacidad
+
+      template:
+        header:
+          one:   EN-No se ha podido guardar %{model}
+          other:  "EN-No se ha podido guardar %{model} porque se han encontrado %{count} errores:"
+        body: ""
+        # The variable :count is also available
+        header_not_deleted:
+          one:   EN-No se ha podido borrar %{model}
+          other:  EN-No se ha podido borrar %{model} porque se han encontrado %{count} errores
+
+      messages:
+        # The standard messages are in station/es.yml
+        cant_contain_digits: EN-no puede contener dígitos
+        incomplete_address: EN-incompleta, introduzca la provincia, la ciudad, el código postal y la direccion
+        not_a_number: EN-debe ser numérico
+        not_a_phone_number: EN-no es un número de teléfono
 
 

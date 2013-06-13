@@ -1,7 +1,6 @@
 AiVoluntariado::Application.routes.draw do
 
 #  devise_for :users
-
   resources :users do
     get :delete, :on => :member
     
@@ -194,10 +193,14 @@ AiVoluntariado::Application.routes.draw do
 #  match '/auto_complete/autonomies_as_options_for_activists_collaborations/:autonomy_id' => 'activists_collaborations#auto_complete_for_activist_search', :as => :auto_complete_for_activist_search_autonomy_activists_collaborations
 
   # Routes for public controller: all actions accessible via GET requests.
+scope "(:locale)" do
   match 'public/:action(.:format)', :controller => 'public'
+end
 
   # Other static routes  
+scope "(:locale)" do
   match '/form_hr_schools'   => 'public#new_hr_school',  :as => :form_hr_schools
+end
   match '/form_voluntariado' => 'public#new_interested', :as => :form_voluntariado
   match '/gen_alerts'        => 'alerts#generate',  :as => :gen_alerts
   match '/search'            => 'search#index',     :as => :search
@@ -224,4 +227,5 @@ AiVoluntariado::Application.routes.draw do
   # Note: This route will make all actions in every controller accessible via GET requests.
   #TODO: old app had a similar wild controller route... uncommment if necessary
 #  match ':controller(/:action(/:id))(.:format)' # old routing: -->  map.default '/:controller/:action/:id', :controller => :controller, :action => :action
+
 end

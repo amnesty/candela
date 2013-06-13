@@ -452,3 +452,11 @@ font-weight: bold;
 .child_notes span { font-size: 1.3em; }
 .child_notes li    { border-left: 2px solid #f1f1f1; list-style: none; }
 .parent_note .meta { font-size: 0.9em; font-style: italic;  }
+
+/* Locale selection bar */
+
+#locale_banner {
+  float: right;
+  margin: 10px;  
+}
+

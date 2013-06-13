@@ -1,5 +1,9 @@
 module ApplicationHelper
 
+  def change_locale_url(locale)
+    url_for(params.merge({:locale => locale}) )
+  end
+
   # Rended rounded div box FIXME
   def round_div_box(options = {}, &block)
 

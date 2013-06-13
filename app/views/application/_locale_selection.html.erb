@@ -1,0 +1,12 @@
+  <div id="locale_banner">
+    <%= form_tag change_locale_url(I18n.locale) do %>
+      <p>
+        <%= t('.select_locale') %>
+        <%= select_tag 'locale', 
+          options_for_select(I18n.available_locales.map{|l| [I18n.t('locale_name', :locale => l), l]}, I18n.locale.to_s),
+          :onchange => "document.location = '#{change_locale_url('SET_LOCALE_HERE')}'.replace('SET_LOCALE_HERE',this.value)" 
+        %>
+      </p>
+    <% end %>
+  </div>
+

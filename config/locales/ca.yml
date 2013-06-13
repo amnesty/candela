@@ -1,0 +1,167 @@
+ca:
+
+  locale_name: "Catalán"
+
+######################## VIEWS ######################################
+
+  application:
+    locale_selection:
+      select_locale: "CA-Idioma:"
+
+  layouts:
+    new_hr_school:
+      title: CA-Formulario de adhesión a la Red de Escuelas por los Derechos Humanos
+      form_description: CA-Rellena el formulario y contactaremos contigo para explicarte cómo unirte a la Red de Escuelas por los Derechos Humanos.
+
+  public:
+    new_hr_school:
+      form_errors_header: CA-El formulario contiene los siguientes errores. Revise los campos marcados en rojo, por favor.
+      accept_privacy_policy: CA-Acepto la <a href="http://www.es.amnesty.org/politica-de-privacidad" target="_blank" title="Política de privacidad">política de privacidad</a> (por favor léela antes de enviar tus datos)
+      submit: CA-Enviar el formulario
+
+######################## GENERIC-APP  ######################################
+# TODO: Check these translations to improve their usage...
+
+  __organizations: &_organizations
+    autonomy: CA-Entidad autonómica
+    country: CA-País
+    committee: "CA-Comité/Comisión"
+    local_organization: CA-Grupo
+    localorganization: CA-Grupo
+    se_team: CA-Equipo del S.E.
+    seteam: CA-Equipo del S.E.
+
+######################## ENTITIES ######################################
+
+  hr_school:
+    choose_one_organization_type: "CA-Elije un tipo de ET" 
+#    statuses:
+#      active: "Alta"
+#      inactive: "Baja"
+#      pending:  "Pendiente actualización"
+#    types: ['Público', 'Concertado', 'Privado', 'Otros' ]
+    search:
+      search_params: 'CA-Parámetros de la escuela de DD.HH.'
+      none_found_by_hr_academic_year: 'CA-No hay escuelas con esos cursos académicos'
+      none_found_by_hr_level: 'CA-No hay escuelas con esos niveles educativos'
+      none_found_by_hr_work_through: 'CA-No hay escuelas que trabajen a través de esos criterios'
+    notes:
+      none: 'CA-La Escuela no tiene ningún seguimiento'
+
+  hr_school_organization_managers:
+    new: 'CA-Añadir otra organización'
+    none: 'CA-No se ha asignado ninguna organización gestora'
+
+#################### ACTIVE RECORD ########################
+
+  activerecord:
+    models:
+      hrschool: CA-la escuela de DD.HH.
+      hr school: CA-la escuela de DD.HH.
+      hr_school: CA-la escuela de DD.HH.
+      hr schools: CA-las escuelas de DD.HH.
+      hr school note: CA-la anotación de la escuela de DD.HH.
+      hr school notes: CA-las anotaciones de la escuela de DD.HH.
+      hr work throughs: CA-el trabajo a través de
+
+    attributes:
+      __address_attributes: &_address_attributes
+        address: CA-Dirección
+        city: CA-Localidad
+        cp: CA-Código postal
+        country_id: CA-País
+        province_id: CA-Provincia
+
+      __contact_attributes: &_contact_attributes
+        name: CA-Nombre
+        phone: CA-Teléfono
+        email: CA-Email
+        fax: CA-Fax
+
+      __join_date_attributes: &_join_date_attributes
+        join_at:  CA-Fecha de alta
+        leave_at: CA-Fecha de baja
+
+      hr_school:
+        email: CA-Correo electrónico del centro
+        <<: *_address_attributes
+        <<: *_contact_attributes
+        <<: *_join_date_attributes
+        ages: CA-Edades
+        assigned_organization_type: CA-Tipo de ET asignada
+        assigned_organization_id: CA-ET asignada
+        contact_name: CA-Persona de contacto
+        contact_position: CA-Cargo
+        contact_email: CA-Correo electrónico personal
+        contact_phone: CA-Teléfono personal
+        contact_tweeter: CA-Nombre de usuario en Twitter
+        is_partner: CA-Soy socio/a de Amnistía Internacional
+        is_activist: CA-Colaboro de forma regular con un grupo de Amnistía Internacional
+        direction_approval: CA-Visto bueno del centro
+        hr_work_through: CA-Trabajar a través de
+        hr_work_throughs: CA-Trabajar a través de
+        hr_work_through_ids: CA-Trabajar a través de
+        hr_school_levels: CA-Niveles educativos
+        hr_school_level_ids: CA-Niveles educativos
+        hr_school_level_other: CA-Otros niveles educativos
+        name: CA-Nombre del centro
+        phone2: CA-Teléfono 2
+        pupils_count: CA-Número de alumnos/as
+        school_management: CA-Gestión del centro
+        status: CA-Estado
+        tutor: CA-Tutor/a
+        tutor_phone: CA-Teléfono
+        hr_type: CA-Tipo
+        type_other: CA-Otro tipo
+        web_page: CA-Página web
+        academic_years: CA-Cursos
+        academic_year_ids: CA-Cursos
+        years: CA-Cursos
+        accepted_privacity: CA-Política de privacidad
+
+        sections:
+          school_data: CA-Datos del centro
+          contact_person: CA-Datos de la persona de contacto
+          school_group: CA-Grupo escolar
+          school_management: CA-Gestión del centro
+          organization_managers: "CA-Grupo local/entidad autonómica más próxima al centro"
+          notes: CA-Seguimiento
+
+      hr_school_organization_manager:
+        <<: *_organizations
+        organization_id: CA-Organización
+        organization_type: CA-Tipo de organización
+
+    errors:
+      models:
+
+         hr_school:
+          attributes:
+            base:
+              address_can_not_be_empty: CA-La dirección está incompleta
+              conflicting_dates: CA-La fecha de inicio no puede ser posterior a la fecha de fin
+              leave_date_future: CA-La fecha de baja está en el futuro
+              join_date_future: CA-La fecha de alta está en el futuro
+              status_is_not_inactive_with_leave_at: CA-Se ha seleccionado una fecha de baja pero el estado esta todavía activo.
+            direction_approval:
+              must_be_true: CA-Debe tener el visto bueno del centro
+            accepted_privacity:
+              privacity_must_be_accepted: CA-Debe aceptar la política de privacidad
+
+      template:
+        header:
+          one:   CA-No se ha podido guardar %{model}
+          other:  "CA-No se ha podido guardar %{model} porque se han encontrado %{count} errores:"
+        body: ""
+        # The variable :count is also available
+        header_not_deleted:
+          one:   CA-No se ha podido borrar %{model}
+          other:  CA-No se ha podido borrar %{model} porque se han encontrado %{count} errores
+
+      messages:
+        # The standard messages are in station/es.yml
+        cant_contain_digits: CA-no puede contener dígitos
+        incomplete_address: CA-incompleta, introduzca la provincia, la ciudad, el código postal y la direccion
+        not_a_number: CA-debe ser numérico
+        not_a_phone_number: CA-no es un número de teléfono
+

@@ -3,25 +3,22 @@
 
   <% form_errors = false %>
   <% unless @hr_school.errors.count.zero?
-      form_errors = '"El formulario contiene los siguientes errores. Revise los campos marcados en rojo por favor:" + "\n\n"'
-      form_errors << @hr_school.errors.inject('') do |body_str, error|
-        error_field   = error.first
-        error_message = error.last 
-        body_str << "+ '  * #{ I18n.t(error_field, :scope => [ :activerecord, :attributes, 'hr_school']) }: #{ error_message }' + '#{ '\n'  }' ".html_safe
-        #body_str.html_safe
-      end.html_safe 
+      form_errors = "#{t('.form_errors_header')}\\n"
+      @hr_school.errors.full_messages.each do |msg|
+        form_errors << "  * #{msg}\\n"
+      end 
     end %>
    <% if form_errors %>
-     <%= javascript_tag "alert(#{ form_errors });" %>
+     <%= javascript_tag "alert(#{'"'}#{ form_errors }#{'"'});" %>
    <% end %>
 
     <%= render :partial => 'hr_schools/form', :object => f %>
 
     <input name="hr_school[accepted_privacity]" id="hr_school_accepted_privacity" value="checkbox" type="checkbox">
-    Acepto la <a href="http://www.es.amnesty.org/politica-de-privacidad" target="_blank" title="Política de privacidad">política de privacidad</a> (por favor léela antes de enviar tus datos)</td>
+    <%= raw t('.accept_privacy_policy') %>
 
     <p class="text_center big_padding font_plus_two">
-      <%= f.submit( 'Enviar el formulario', :style => 'background-color: black; color: white;' ) %>
+      <%= f.submit( t('.submit'), :style => 'background-color: black; color: white;' ) %>
     </p>
 
   <% end %>
