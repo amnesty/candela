@@ -53,9 +53,11 @@ class Interested < ActiveRecord::Base
 
   scope :has_pending_communication, lambda { |q| (q.nil? || (q.instance_of?(String) && q.empty?)) ? {} : { :conditions => (Gx.to_boolean(q) ? "(email_sent <> true OR email_sent IS NULL) AND (letter_sent <> true OR letter_sent IS NULL)" : "email_sent = true OR letter_sent = true") } }
 
-  # instested has any scope through organization. just test user has permission 
+  # Last authorization block. Interested can be CRUD by user if user has role on its local_organization
   authorizing do |user, permission|
-    (user.is_a?(User) and user.has_any_permission_to(permission, :interested)) || nil
+    if user.is_a?(User) and user.has_any_permission_to(permission, :interested)
+      user.agent_performances.map(&:stage).include? self.local_organization
+    end
   end
     
   def to_title; full_name; end
@@ -218,7 +220,7 @@ class Interested < ActiveRecord::Base
   
   # Show only the interesteds of the group logged in
   scope :can_see, lambda { |agent|
-    if agent.has_any_permission_to :read, :interested
+    if agent.is_a?(User) and agent.has_any_permission_to(:read, :interested)
       lloo_ids = agent.performances.where(:stage_type => 'LocalOrganization').pluck(:stage_id)
       lloo_ids.any? ? {:conditions => {:local_organization_id => lloo_ids}} : {}
     else
