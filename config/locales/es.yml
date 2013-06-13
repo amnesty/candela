@@ -1283,7 +1283,8 @@ es:
               invalid_length: longitud errónea, debe tener entre 6 y 8 dígitos más la letra
               invalid_letter: "letra errónea, debería ser %{letter}"
               missing_letter: falta la letra %{letter}
-
+            email:
+              undeliverable: ha sido imposible enviar un email de bienvenida a la dirección proporcionada
 
         local_organization:
           attributes:

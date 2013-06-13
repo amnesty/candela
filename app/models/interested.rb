@@ -33,8 +33,7 @@ class Interested < ActiveRecord::Base
   
   #validates_uniqueness_of :nif, :scope => [ :document_type ]
 
-#TODO: Should the application send an email without previous revision?  
-#  before_create :sent_contact_email
+  before_create :sent_contact_email
   
   validates_format_of :first_name, :last_name, :with => REGEXP_ONLY_ALPHA, :on => :save,
                       :message => I18n.t('activerecord.errors.messages.cant_contain_digits')
@@ -241,7 +240,14 @@ class Interested < ActiveRecord::Base
 
   def sent_contact_email
     if self.email?
-      (self.email_sent = true) and InterestedMailer.contact_email(self, {}).deliver
+      begin
+        InterestedMailer.contact_email(self, {}).deliver 
+        (self.is_minor? || self.email_sent = true)
+      rescue Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
+        # TODO: By now, if contact mail fails, email_sent is not check and an error is added, but interested creation is not stopped. ¿Should it be the behaviour?
+        errors.add(:email, :undeliverable )
+#        return false
+      end
     end
   end
  

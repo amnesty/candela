@@ -1,4 +1,4 @@
-<%= hidden_inputs_for(note, count, { :hide => [ 'notes' ], :more => { :reply =>  polymorphic_url([ :new, @container, note ], :parent_id => note.id )}}) %>
+<%= hidden_inputs_for(note, count, { :hide => [ 'notes' ], :more => { :reply =>  polymorphic_url([ :new, @container, note ], :parent_id => note.id )}}) if @container %>
 
 
 <% show_container ||= false %>
