@@ -10,7 +10,7 @@ class EventRecordsController < ApplicationController
   end
   
   def new
-    redirect_to root_path, :notice => t('event_record.cant_be_created')
+    redirect_to :back, :notice => t('event_record.cant_be_created')
   end
 
 end

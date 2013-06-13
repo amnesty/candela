@@ -53,10 +53,12 @@ module ApplicationHelper
         html << collection_action_button(klass, 'prepare_pdf')  if current_user.has_any_permission_to(:create_pdf,   :interesteds, :on => Site.current)
       end
       
-      
       klass_name = klass.name
       if klass_name == 'Note'
         klass_name = "#{ @container.class.name }Note"
+      end
+      if klass < EventRecord
+        klass_name = "EventRecord"
       end
       
       { :update => 'edit', :destroy => 'delete' }.each_pair do |action, action_label|
@@ -101,6 +103,9 @@ module ApplicationHelper
       klass_name = object.class.name
       if klass_name == 'Note'
         klass_name = "#{ @container.class.name }Note"
+      end
+      if object.class < EventRecord
+        klass_name = "EventRecord"
       end
 
       if klass_name.eql?('Activist')
