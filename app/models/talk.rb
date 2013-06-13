@@ -1,6 +1,6 @@
 class Talk < ActiveRecord::Base
 
-  attr_accessible :name, :organization_type, :organization_id, :date, :address, :hours, :seats  
+  attr_accessible :name, :organization_type, :organization_id, :date, :address, :hours, :seats, :interesteds_talks_attributes  
 
   include ActiveRecord::AIActiveRecord
   include ActiveRecord::MultipleJoinsConditionForActivist
@@ -10,6 +10,8 @@ class Talk < ActiveRecord::Base
 
   belongs_to :organization, :polymorphic => true
   
+  has_many :interesteds_talks
+  accepts_nested_attributes_for :interesteds_talks
   has_and_belongs_to_many :interesteds
   
   after_destroy :clear_hbtm

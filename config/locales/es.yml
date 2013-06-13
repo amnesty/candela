@@ -1126,6 +1126,9 @@ es:
         <<: *_event_record_attributes
         communication_description: Descripción de la comunicación
 
+      interesteds_talk:
+        attended: Asistencia
+
       local_organization:
         <<: *_collaboration_place_attributes
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130320100739) do
+ActiveRecord::Schema.define(:version => 20130426135203) do
 
   create_table "POSTAL", :primary_key => "POSTAL_ID", :force => true do |t|
     t.string  "cp"
@@ -606,7 +606,7 @@ ActiveRecord::Schema.define(:version => 20130320100739) do
     t.integer "skill_id"
   end
 
-  create_table "interesteds_talks", :id => false, :force => true do |t|
+  create_table "interesteds_talks", :force => true do |t|
     t.integer "interested_id"
     t.integer "talk_id"
     t.boolean "attended"
