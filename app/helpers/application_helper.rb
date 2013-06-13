@@ -83,7 +83,7 @@ module ApplicationHelper
   def collection_action_button(klass, action)
 
     ''.tap do |html|
-      html << "<div class=\"actions right\">"
+      html << "<div class='actions right'>"
       html << link_to_function(t("form.buttons.#{ action }"),
                                 "if(document.indexForm.boxchecked.value == -1) { 
                                   alert('#{ t("form.messages.select_item_to_#{ action }", :model => t("activerecord.models.#{ klass.name.downcase.gsub("_", " ") }"))}');
@@ -107,10 +107,8 @@ module ApplicationHelper
          html << object_action_button_to(object, 'leave') if current_user.has_any_permission_to(:update, object.class.name)
       end
       
-      if klass_name.eql?('Interested') && !object.activist.present?
-        html << object_action_button_to(object, 'to_activist') if current_user.has_any_permission_to(:update, :interesteds, :on => Site.current) 
-        html << object_action_button_to(object, 'prepare_mail') if current_user.has_any_permission_to(:create_email, :interesteds, :on => Site.current)
-        html << object_action_button_to(object, 'prepare_pdf')  if current_user.has_any_permission_to(:create_pdf,   :interesteds, :on => Site.current)
+      if klass_name.eql?('Interested') 
+        html << interested_action_buttons(object)
       end
       
       { :update => 'edit', :destroy => 'delete' }.each_pair do |action, action_label|

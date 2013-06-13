@@ -192,7 +192,7 @@ module ActionController
     protected
     def t(message_id, options = {})
       if options[:scope]
-        model = Gx.t_model_with_article(options[:scope])
+        model = Gx.t_model(options[:scope])
         options.delete(:scope)
         options.merge!(:model => model)
       end

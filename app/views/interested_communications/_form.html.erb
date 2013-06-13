@@ -1,15 +1,7 @@
-<% show_section = params[:section] || 'all' %>
-
 <table id="<%= params[:action] %>_interested_communication_form" class="table_form">
 
-<% if show_section == 'all' || show_section == 'section_data' %>
-  <tr class="form_section">
-    <td><%= form.label "sections.data" %></td>
-    <td></td>
-  </tr>
-
-<%= form.hidden_field :event_definition_id %>
-<%= form.hidden_field :item_id %>
+  <%= form.hidden_field :event_definition_id %>
+  <%= form.hidden_field :item_id %>
 
   <tr class="<%= Gx.list_style %>">
     <td><%= form.label_required :timestamp %></td>
@@ -20,8 +12,5 @@
     <td><%= form.label :communication_description %></td>
     <td><%= form.text_field :communication_description %></td>
   </tr>
-
-<% end %>
-
 
 </table>

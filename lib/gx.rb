@@ -101,14 +101,17 @@ module Gx
       I18n.t "activerecord.attributes." + text
     end
 
-    # Model keys in es.yml have no underscores but spaces. Also, for the error messages
-    # to work in Spanish, we must add the article to the model name, like in "el activisita", so here, we have to take it off
+    # Translates a model name, guessing if it must pluralize.
+    # FIXME: Modify use of tranlations to allow a better model translation method
     def t_model(text)
-      I18n.t("activerecord.models." + text.gsub("_", " "))
-    end
-
-    def t_model_with_article(text)
-      I18n.t("activerecord.models." + text.gsub("_", " "))
+#      I18n.t("activerecord.models." + text.gsub("_", " "))
+      if Object.const_defined?(text.camelize)
+        text.camelize.constantize.model_name.human(:count=>1)
+      elsif Object.const_defined?(text.singularize.camelize)
+        text.singularize.camelize.constantize.model_name.human(:count=>2)
+      else
+        I18n.t "activerecord.models.#{text}"
+      end
     end
 
     # In r2r, error messages for field validations are first looked up in

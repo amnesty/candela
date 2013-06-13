@@ -189,9 +189,12 @@ es:
       reply:  Contestar anotación seleccionada
       send:   Enviar
       show:   Mostrar
+      show_activist: Ver activista
       to_activist: A activista
+      communications: Comunicaciones
       prepare_mail: Enviar correo
       prepare_pdf: Crear carta
+      new_communication: Nueva comunicación
       update: Actualizar
       update_and_list: Actualizar y Listar
 
@@ -663,77 +666,109 @@ es:
 
   activerecord:
     models:
-      activist: el activista
-      activists: los activistas
-      activists collaboration: la colaboración
-      activists_collaboration: la colaboración
-      activists collaborations: las colaboraciones
-      activist note: la anotación del activista
-      activist notes: las anotaciones del activista
-      alert: la alerta
-      alerts: las alertas
-      alert note: la anotación de la alerta
-      alert notes: las anotaciones de la alerta
-      event record: el evento
-      event records: los eventos
-      event record note: la anotación del evento
-      event record notes: las anotaciones de los eventos
-      autonomy: la entidad autonómica
-      autonomies: las entidades autonómicas
-      autonomy note: la anotación de la entidad autonómica
-      autonomy notes: las anotaciones de la entidad autonómica
-      campaign: la campaña
-      campaigns: las campañas
-      campaignaction: la acción realizada
-      campaignactions: las acciones realizadas
-      campaignactions organization: la organización adherida a la acción
-      campaignactions organizations: las organizaciones adheridas a la acción
-      committee: el comité/comisión
-      committees: los comités/comisiones
-      committee note: la anotación del comité/comisión
-      committee notes: las anotaciones del comité/comisión
-      country: el país
-      countries: los países
-      country note: la anotación del país
-      country notes: las anotaciones del país
-      hrschool: la escuela de DD.HH.
-      hr school: la escuela de DD.HH.
-      hr_school: la escuela de DD.HH.
-      hr schools: las escuelas de DD.HH.
-      hr school note: la anotación de la escuela de DD.HH.
-      hr school notes: las anotaciones de la escuela de DD.HH.
-      hr work throughs: el trabajo a través de
-      interested: el interesado
-      interesteds: los interesados
-      local organization: el grupo
-      local organizations: los grupos
-      local organization note: la anotación del grupo
-      local organization notes: las anotaciones del grupo
-      note: la anotación
-      notes: las anotaciones
-      organization_on_off: "cambio de estado"
-      organization on off: "cambio de estado"
-      organization on offs: los cambios de estado la organización
-      organizations trackings: "seguimientos de lugares de colaboración"
-      organizations tracking: "seguimiento de lugar de colaboración"
-      organizations_tracking: "seguimiento de lugar de colaboración"
-      performance: la asignación de roles
-      performances: las asignaciones de roles
-      responsibility: la responsabilidad
-      responsibilities: las responsabilidades
-      role: el rol
-      roles: los roles
-      se team: el equipo del S.E.
-      se teams: los equipos del S.E.
-      se team note: la anotación del equipo del SE
-      se team notes: las anotaciones del equipo del SE
+      activist: 
+        one: el activista
+        other: los activistas
+      activists_collaboration: 
+        one: la colaboración
+        other: las colaboraciones
+      activist_note: 
+        one: la anotación del activista
+        other: las anotaciones del activista
+      alert: 
+        one: la alerta
+        other: las alertas
+      alert_note: 
+        one: la anotación de la alerta
+        other: las anotaciones de la alerta
+      event_record: 
+        one: el evento
+        other: los eventos
+      event_record_note: 
+        one: la anotación del evento
+        other: las anotaciones de los eventos
+      autonomy: 
+        one: la entidad autonómica
+        other: las entidades autonómicas
+      autonomy_note: 
+        one: la anotación de la entidad autonómica
+        other: las anotaciones de la entidad autonómica
+      campaign: 
+        one: la campaña
+        other: las campañas
+      campaignaction: 
+        one: la acción realizada
+        other: las acciones realizadas
+      campaignactions_organization: 
+        one: la organización adherida a la acción
+        other: las organizaciones adheridas a la acción
+      committee: 
+        one: el comité/comisión
+        other: los comités/comisiones
+      committee_note: 
+        one: la anotación del comité/comisión
+        other: las anotaciones del comité/comisión
+      country: 
+        one: el país
+        other: los países
+      country_note: 
+        one: la anotación del país
+        other: las anotaciones del país
+      hr_school: 
+        one: la escuela de DD.HH.
+        other: las escuelas de DD.HH.
+      hr_school_note: 
+        one: la anotación de la escuela de DD.HH.
+        other: las anotaciones de la escuela de DD.HH.
+      hr_work_through:
+        one: la anotación de la escuela de DD.HH.
+        other: el trabajo a través de
+      interested: 
+        one: el interesado
+        other: los interesados
+      interested_communication: 
+        one: la comunicación con interesado
+        other: las comunicaciones con interesado
+      local_organization: 
+        one: el grupo
+        other: los grupos
+      local_organization_note: 
+        one: la anotación del grupo
+        other: las anotaciones del grupo
+      note: 
+        one: la anotación
+        other: las anotaciones
+      organization_on_off: 
+        one: "cambio de estado"
+        other: los cambios de estado de la organización
+      organizations_tracking:
+        one: "seguimiento de lugar de colaboración"
+        other: "seguimientos de lugares de colaboración"
+      performance: 
+        one: la asignación de roles
+        other: las asignaciones de roles
+      responsibility: 
+        one: la responsabilidad
+        other: las responsabilidades
+      role: 
+        one: el rol
+        other: los roles
+      se_team: 
+        one: el equipo del S.E.
+        other: los equipos del S.E.
+      se_team_note: 
+        one: la anotación del equipo del SE
+        other: las anotaciones del equipo del SE
       selves: la propia organización
-      site: el sitio
-      sites: los sitios
-      talk: la sesión de presentación
-      talks: las sesiones de presentación
-      user: la usuaria
-      users: las usuarias
+      site: 
+        one: el sitio
+        other: los sitios
+      talk: 
+        one: la sesión de presentación
+        other: las sesiones de presentación
+      user: 
+        one: la usuaria
+        other: las usuarias
 
     attributes:
       __address_attributes: &_address_attributes
@@ -993,7 +1028,7 @@ es:
       #country_note:
       #  <<: *_notes_attributes
 
-      event_record:
+      event_record: &_event_record_attributes
         timestamp: Fecha
         name: Tipo de evento
         extra_info: Más información
@@ -1085,6 +1120,9 @@ es:
           subject: Colaborar con Amnistía Internacional
         accepted_privacity: Política de privacidad
 
+      interested_communication:
+        <<: *_event_record_attributes
+        communication_description: Descripción de la comunicación
 
       local_organization:
         <<: *_collaboration_place_attributes
@@ -1319,8 +1357,6 @@ es:
           attributes:
             base:
               not_valid: Por favor, comprueba que has seleccionado tanto el tipo de organización, como la organización, como el rol a asignar.
-      
-
 
         se_team:
           attributes:
@@ -1353,135 +1389,3 @@ es:
         not_a_number: debe ser numérico
         not_a_phone_number: no es un número de teléfono
 
-#  # TODO: Review these translations to modifiy standard translations file, and then remove them.
-#  # start default translations: get from  http://github.com/svenfuchs/rails-i18n/tree/master
-#  # Spanish translations for Rails
-#  # by Francisco Fernando García Nieto (ffgarcianieto@gmail.com)
-#  number:
-#    # Used in number_with_delimiter()
-#    # These are also the defaults for "currency", "percentage", "precision", and "human"
-#    format:
-#      # Sets the separator between the units, for more precision (e.g. 1.0 / 2.0 == 0.5)
-#      separator: ","
-#      # Delimets thousands (e.g. 1,000,000 is a million) (always in groups of three)
-#      delimiter: "."
-#      # Number of decimals, behind the separator (1 with a precision of 2 gives: 1.00)
-#      precision: 3
-
-#    # Used in number_to_currency()
-#    currency:
-#      format:
-#        # Where is the currency sign? %u is the currency unit, %n the number (default: $5.00)
-#        format: "%n %u"
-#        unit: "€"
-#        # These three are to override number.format and are optional
-#        separator: ","
-#        delimiter: "."
-#        precision: 2
-
-#    # Used in number_to_percentage()
-#    percentage:
-#      format:
-#        # These three are to override number.format and are optional
-#        # separator:
-#        delimiter: ""
-#        # precision:
-
-#    # Used in number_to_precision()
-#    precision:
-#      format:
-#        # These three are to override number.format and are optional
-#        # separator:
-#        delimiter: ""
-#        # precision:
-
-#    # Used in number_to_human_size()
-#    human:
-#      format:
-#        # These three are to override number.format and are optional
-#        # separator:
-#        delimiter: ""
-#        precision: 1
-#      # Rails <= v2.2.2
-#      # storage_units: [Bytes, KB, MB, GB, TB]
-#      # Rails >= v2.3
-#      storage_units:
-#        format: "%n %u"
-#        units:
-#          byte:
-#            one:   "Byte"
-#            other: "Bytes"
-#          kb: "KB"
-#          mb: "MB"
-#          gb: "GB"
-#          tb: "TB"
-
-#  # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
-#  datetime:
-#    formats:
-#      default: "%d/%m/%Y %h:%M"
-#      date_and_time_short: "%d/%m/%Y %H:%M"
-
-#    distance_in_words:
-#      half_a_minute: "medio minuto"
-#      less_than_x_seconds:
-#        one:  "menos de 1 segundo"
-#        other: "menos de %{count} segundos"
-#      x_seconds:
-#        one:  "1 segundo"
-#        other: "%{count} segundos"
-#      less_than_x_minutes:
-#        one:  "menos de 1 minuto"
-#        other: "menos de %{count} minutos"
-#      x_minutes:
-#        one:  "1 minuto"
-#        other: "%{count} minutos"
-#      about_x_hours:
-#        one:  "alrededor de 1 hora"
-#        other: "alrededor de %{count} horas"
-#      x_days:
-#        one:  "1 día"
-#        other: "%{count} días"
-#      about_x_months:
-#        one:  "alrededor de 1 mes"
-#        other: "alrededor de %{count} meses"
-#      x_months:
-#        one:  "1 mes"
-#        other: "%{count} meses"
-#      about_x_years:
-#        one:  "alrededor de 1 año"
-#        other: "alrededor de %{count} años"
-#      over_x_years:
-#        one:  "más de 1 año"
-#        other: "más de %{count} años"
-
-
-#  date:
-#    formats:
-#      # Use the strftime parameters for formats.
-#      # When no format has been given, it uses default.
-#      # You can provide other formats here if you like!
-#      default: "%d/%m/%Y"
-#      short: "%e de %b"
-#      long: "%e de %B de %Y"
-
-#    day_names: [Domingo, Lunes, Martes, Miércoles, Jueves, Viernes, Sábado]
-#    abbr_day_names: [Dom, Lun, Mar, Mie, Jue, Vie, Sab]
-
-#    # Don"t forget the nil at the beginning; there"s no such thing as a 0th month
-#    month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
-#    abbr_month_names: [~, Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Set, Oct, Nov, Dic]
-#    # Used in date_select and datime_select.
-#    order:
-#      - :day
-#      - :month
-#      - :year
-#  time:
-#    formats:
-#      default: "%A, %e de %B de %Y, %H:%M:%S"
-#      #deleted %z to GMT
-#      short: "%e de %b %H:%M"
-#      long: "%e de %B de %Y %H:%M"
-#      date_and_time_short: "%d/%m/%Y %H:%M"
-#    am: "am"
-#    pm: "pm"
