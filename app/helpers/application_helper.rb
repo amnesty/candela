@@ -44,13 +44,13 @@ module ApplicationHelper
     ''.tap do |html|
       
       if klass.name.eql?('Activist')
-        html << action_button_to(klass, 'leave')
+        html << collection_action_button(klass, 'leave')
       end
       
       if klass.name.eql?('Interested')
-        html << action_button_to(klass, 'to_activist')
-        html << action_button_to(klass, 'prepare_mail') if current_user.has_any_permission_to(:create_email, :interesteds, :on => Site.current)
-        html << action_button_to(klass, 'prepare_pdf')  if current_user.has_any_permission_to(:create_pdf,   :interesteds, :on => Site.current)
+        html << collection_action_button(klass, 'to_activist')
+        html << collection_action_button(klass, 'prepare_mail') if current_user.has_any_permission_to(:create_email, :interesteds, :on => Site.current)
+        html << collection_action_button(klass, 'prepare_pdf')  if current_user.has_any_permission_to(:create_pdf,   :interesteds, :on => Site.current)
       end
       
       
@@ -60,7 +60,7 @@ module ApplicationHelper
       end
       
       { :update => 'edit', :destroy => 'delete' }.each_pair do |action, action_label|
-         html << action_button_to(klass, action_label) if current_user.has_any_permission_to(action, klass_name)
+         html << collection_action_button(klass, action_label) if current_user.has_any_permission_to(action, klass_name)
       end
 
       if current_user.has_any_permission_to(:create, klass_name) and klass_name != 'Alert' 
@@ -80,7 +80,7 @@ module ApplicationHelper
     end
   end
 
-  def action_button_to(klass, action)
+  def collection_action_button(klass, action)
 
     ''.tap do |html|
       html << "<div class=\"actions right\">"
@@ -91,6 +91,38 @@ module ApplicationHelper
                                   submitform('#{ action }'); }",
                                 :class => "action_#{ action } with_icon")
       html << "</div>"
+    end
+  end
+
+  def show_actions_for(object)
+
+    ''.tap do |html|
+      
+      klass_name = object.class.name
+      if klass_name == 'Note'
+        klass_name = "#{ @container.class.name }Note"
+      end
+
+      if klass_name.eql?('Activist')
+         html << object_action_button_to(object, 'leave') if current_user.has_any_permission_to(:update, object.class.name)
+      end
+      
+      if klass_name.eql?('Interested') && !object.activist.present?
+        html << object_action_button_to(object, 'to_activist') if current_user.has_any_permission_to(:update, :interesteds, :on => Site.current) 
+        html << object_action_button_to(object, 'prepare_mail') if current_user.has_any_permission_to(:create_email, :interesteds, :on => Site.current)
+        html << object_action_button_to(object, 'prepare_pdf')  if current_user.has_any_permission_to(:create_pdf,   :interesteds, :on => Site.current)
+      end
+      
+      { :update => 'edit', :destroy => 'delete' }.each_pair do |action, action_label|
+         html << object_action_button_to(object, action_label) if current_user.has_any_permission_to(action, klass_name)
+      end
+
+    end
+  end
+
+  def object_action_button_to(object, action)
+    content_tag :div, :class => "actions right" do
+      link_to( t("form.buttons.#{action}"), [action, object], :class => "action_#{action} with_icon")
     end
   end
 
