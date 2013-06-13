@@ -197,6 +197,8 @@ es:
       new_communication: Nueva comunicación
       update: Actualizar
       update_and_list: Actualizar y Listar
+      print: Imprimir
+      close: Cerrar
 
     messages:
       no_item_selected: "Por favor, selecciona primero %{model}"

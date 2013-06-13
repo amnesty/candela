@@ -112,6 +112,10 @@ module ApplicationHelper
       if klass_name.eql?('Interested') 
         html << interested_show_action_buttons(object)
       end
+
+      if klass_name.eql?('Talk') 
+        html << print_popup_action_button
+      end
       
       { :update => 'edit', :destroy => 'delete' }.each_pair do |action, action_label|
          html << object_action_button_to(object, action_label) if current_user.has_any_permission_to(action, klass_name)
@@ -125,6 +129,21 @@ module ApplicationHelper
     content_tag options[:wrapper_tag], :class => "actions right" do
       link_to( t("form.buttons.#{action}"), [action, @container, object], :class => "action_#{action} with_icon")
     end
+  end
+
+  def print_popup_action_button
+    content_tag(:div, :class => "actions right") do
+      link_to t("form.buttons.print"), url_for(params.merge({:print_view => true}) ), :class => 'action_print with_icon', :target => "_blank"
+    end
+  end
+
+  def print_action_bar
+
+    content_tag(:div, :id => 'print_action_bar') do
+      link_to_function(t("form.buttons.print"), "window.print();") <<
+      link_to_function(t("form.buttons.close"), "window.close();")
+    end
+
   end
 
   def gx_form_for(record_or_name_or_array, *args, &proc)
