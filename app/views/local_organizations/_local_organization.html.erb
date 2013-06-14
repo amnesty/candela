@@ -20,6 +20,10 @@
         <%= summary_talks_section_for(local_organization) %>
       </tr>
 
+      <tr>
+        <%= summary_hr_schools_section_for(local_organization, { :colspan => 2 }) %>
+      </tr>
+
       <% if current_agent.can_track?(local_organization) %>
         <%= summary_notes_section_for(local_organization) %>
       <% end %>

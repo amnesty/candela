@@ -43,7 +43,10 @@ es:
     other_addresses: Otras direcciones
     other_collaborations: Otras colaboraciones
     talks: Sesiones de presentación   
-    organization_on_offs:
+    organization_on_offs: Histórico de actividad
+    hr_schools: Centros de la red de escuelas
+    assigned_hr_schools: Centros gestionados
+    near_hr_schools: Centros cercanos
 
   __organization_search: &_organization_search
     meetings: Reuniones
@@ -506,6 +509,7 @@ es:
       none: 'No se han encontrado anotaciones'
 
   hr_school:
+    none: No se han encontrado escuelas
     choose_one_organization_type: Elije un tipo de ET
     statuses:
       active: "Alta"

@@ -301,4 +301,49 @@ module SummaryHelper
       end
     end
   end
+
+  def summary_hr_schools_section_for(organization, options = {})
+
+    uniq_name  = organization.class.name.underscore
+
+    options[:id] = "#{ uniq_name }_section_hr_schools"
+    options[:title] = t("#{ uniq_name }.sections.hr_schools")
+
+    summary_section(options) do 
+
+      content_tag(:table, :width => '100%') do
+
+        content_tag(:tr) do
+          content_tag(:th, t("#{ uniq_name }.sections.assigned_hr_schools")) +
+          content_tag(:th, t("#{ uniq_name }.sections.near_hr_schools"))
+        end <<
+
+        content_tag(:tr) do
+          content_tag(:td) do
+            if organization.assigned_hr_schools.empty?
+              t("hr_school.none")
+            else
+              content_tag(:ul) do
+                organization.assigned_hr_schools.collect do |school|
+                  "<li>#{ link_to school.name, school }</li>"
+                end.join('').html_safe
+              end
+            end
+          end <<
+          content_tag(:td) do
+            if organization.near_hr_schools.empty?
+              t("hr_school.none")
+            else
+              content_tag(:ul) do
+                organization.near_hr_schools.collect do |school|
+                  "<li>#{ link_to school.name, school }</li>"
+                end.join('').html_safe
+              end
+            end
+          end
+        end
+      end
+    end
+  end
+
 end

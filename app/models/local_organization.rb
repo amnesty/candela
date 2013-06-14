@@ -18,6 +18,10 @@ class LocalOrganization < ActiveRecord::Base
   has_many :campaignactions, :as => :organization, :dependent => :destroy
   has_many :talks, :foreign_key => :organization_id, :conditions => "organization_type = 'LocalOrganization'", :dependent => :destroy
 
+  has_many :assigned_hr_schools, :as => :assigned_organization, :class_name => 'HrSchool', :dependent => :restrict
+  has_many :hr_school_organization_managers, :as => :organization, :dependent => :destroy
+  has_many :near_hr_schools, :through => :hr_school_organization_managers, :source => :hr_school, :class_name => 'HrSchool'
+
   scope :include_in, { :include => :province }
   scope :only_to_interesteds, { :conditions => { :show_to_interesteds => true, :enabled => true }}
   scope :scoping_with_agent, lambda { |agent|

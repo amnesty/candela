@@ -14,6 +14,10 @@ class Autonomy < ActiveRecord::Base
   has_many :talks, :foreign_key => :organization_id, :conditions => "organization_type = 'Autonomy'", :dependent => :destroy
   has_many :autonomic_teams, :dependent => :destroy
   
+  has_many :assigned_hr_schools, :as => :assigned_organization, :class_name => 'HrSchool', :dependent => :restrict
+  has_many :hr_school_organization_managers, :as => :organization, :dependent => :destroy
+  has_many :near_hr_schools, :through => :hr_school_organization_managers, :source => :hr_school, :class_name => 'HrSchool'
+
   def full_name; name; end
 
   def to_title;
