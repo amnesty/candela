@@ -1,0 +1,63 @@
+<%= gx_form_for( [:send_admin_request, @resource] ) do |form| %>
+
+  <%= round_div_box do %>
+    <div class="right form_actions">
+      <% referer = request.params[:referer] || request.referer %>
+      <%= hidden_field_tag 'referer', referer %>
+      <input type="hidden" name="referer" value='<%=referer%>'></input>
+      <%= button_to_function(I18n.t("form.buttons.back"), "document.location = '#{ referer }'", :class => 'action_cancel' ) %>
+      <%= form.submit( I18n.t("form.buttons.send"), :class => 'action_apply', :name => 'commit', :confirm => t("activist.admin_request.confirm_request", :action => t("activist.admin_request.actions.leave")) ) if !form.object.leave_at.present? %>
+    </div>
+    <h1><%= t("activist.admin_request.title_html", :obj => link_to(@resource.full_name, @resource)) %></h1>
+  <% end %>
+
+  <h2><%= t 'activist.admin_request.form_info_html' %></h2>
+  <% if form.object.leave_at.present? %>
+    <p> <b> <%= t("activist.admin_request.clear_label_html") %> </b>
+      <ul>
+        <% ['rejoin','clear','delete'].each do |op| %>
+          <li><%= link_to( raw(t "activist.admin_request.actions.#{op}"), send_admin_request_activist_path(activist.id, :operation => op), :method => 'put', :confirm => t("activist.admin_request.confirm_request", :action => t("activist.admin_request.actions.#{op}")) ) %></li>
+        <% end %>
+      </ul>
+    </p>
+
+  <% else %>
+  <table id="<%= params[:action] %>_activist_form" class="table_form">
+    <tr class="form_section">
+      <td><%= form.label "sections.leave" %></td>
+      <td></td>
+    </tr>
+
+    <input type="hidden" name="operation" value="leave"></input>
+
+    <tr class="list_style_0">
+      <td><%= form.label 'clear' %></td>
+      <td><%= check_box_tag 'leave_op[clear]', 'SI' %> <%= t('activist.clear_checkbox') %></td>
+    </tr>
+
+    <tr class="list_style_1">
+      <td><%= form.label_required 'leave_at' %></td>
+      <td><%= text_field_tag 'leave_op[leave_at]', I18n.localize(Date.today, :format => '%d-%m-%Y'), { :size => 8, :maxlength => 10, :readonly => true } %></td>
+      <%= javascript_tag("$('#leave_op_leave_at').datepicker();") %>
+    </tr>
+
+    <tr class="list_style_0">
+      <td><%= form.label 'leave_reason_id' %></td>
+      <td><%= select_tag 'leave_op[leave_reason_id]', options_for_select(LeaveReason.all.collect(&:name)), { :include_blank => true } %></td>
+    </tr>
+
+    <tr class="list_style_1">
+      <td><%= form.label :leave_more_info %></td>
+      <td><%= text_area_tag 'leave_op[leave_more_info]' %></td>
+    </tr>
+  </table>
+  <% end %>
+
+
+  <%= round_div_box do %>
+    <div class='center form_actions'>
+      <%= form.submit( I18n.t("form.buttons.send"), :class => 'action_apply', :name => 'commit', :confirm => t("activist.admin_request.confirm_request", :action => t("activist.admin_request.actions.leave")) ) if !form.object.leave_at.present? %>
+    </div>
+  <% end %>
+
+<% end %>

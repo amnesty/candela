@@ -1,5 +1,5 @@
 <% readable_obj = controller.authorized?(:read, activist) %>
-  <%= raw hidden_inputs_for(activist, count, {:more => [ :leave => leave_activist_url(activist)] }) %>
+  <%= raw hidden_inputs_for(activist, count, {:more => [ :leave => leave_activist_url(activist), :admin_request => admin_request_activist_url(activist)] }) %>
 
   <td>
     <%= raw '<strike>' if activist.leave_at.present? %>

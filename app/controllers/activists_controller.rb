@@ -4,7 +4,7 @@ class ActivistsController < ApplicationController
 
   authorization_filter :create,  :activist, :only => [ :new, :create ]
   authorization_filter :read,    :activist, :only => [ :show ]
-  authorization_filter :update,  :activist, :only => [ :edit, :update]
+  authorization_filter :update,  :activist, :only => [ :edit, :update, :admin_request, :send_admin_request]
   authorization_filter :destroy, :activist, :only => [ :delete, :destroy ]
   
   authorization_filter :leave,   :activist, :only => [ :rejoin, :leave ]
@@ -23,6 +23,24 @@ class ActivistsController < ApplicationController
       :is_leave => [:is_leave, true],
       :with_related_collaborations => [:with_related_collaborations_on, current_agent]
     }
+  end
+
+  def admin_request
+  end
+
+  def send_admin_request
+    resource
+    if params['action'].empty?
+      flash[:error] = t('activist.admin_request.no_action')
+      redirect_to activist_path(@resource)
+    else
+      unless ApplicationMailer.activist_admin_request(@resource, current_user, params).deliver
+        flash[:error] = t('activist.admin_request.fail_at_send')
+      else
+        flash[:notice] = t('activist.admin_request.sent_success')
+      end
+      redirect_to activist_path(@resource)
+    end
   end
 
   def leave

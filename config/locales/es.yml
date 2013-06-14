@@ -188,6 +188,7 @@ es:
       join:   Unirse
       launch_query: Lanzar consulta
       leave: Gestionar estado
+      admin_request: Cambio de estado
       notes:  Seguimiento
       reply:  Contestar anotación seleccionada
       send:   Enviar
@@ -301,6 +302,19 @@ es:
     member_of: Miembro de
     other_collaborations: Otras colaboraciones
     rejoin: Pincha aquí para dar de alta otra vez a la activista
+    admin_request:
+      actions: 
+        leave: Dar de baja al activista
+        rejoin: Volver a dar de alta al activista
+        clear: Borrar datos personales definitivamente
+        delete: Borrar definitivamente al activista
+      title_html: "Solicitud de cambio de estado para %{obj}"
+      form_info_html: No puede realizar cambios de estado sobre el activista. La aplicación enviará una solicitud al administrador. 
+      clear_label_html: El activista ya está dado de baja. Puede solicitar las siguientes acciones.
+      confirm_request: 'Se enviará una petición al administrador para %{action}. ¿Seguro?'
+      no_action: No se ha seleccionado ninguna acción para solicitar al administrador.
+      fail_at_send: Error enviando solicitud. Por favor, contacte directamente con el administrador.
+      sent_success: La solicitud ha sido enviada al administrador.
     leave_status_text: 'Para ser activista debe haber, al menos, una colaboración en activo. Debe realizar una de las siguientes acciones:<ul>
  <li>Dar de alta una colaboración.</li>
  <li>Dar de baja al activista.</li>

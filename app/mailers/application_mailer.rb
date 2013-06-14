@@ -3,6 +3,14 @@ class ApplicationMailer < ActionMailer::Base
   
   default from: Settings.application_mailer.from 
 
+  def activist_admin_request(activist, user, params)
+    @activist = activist
+    @user = user
+    @params = params
+    mail :to => Settings.application_mailer.activist_leave_request.recipients, 
+         :subject =>  Settings.application_mailer.activist_leave_request.subject
+  end
+
   def contact_email(interested, params)
     @message_type = params[:message_type] || :email 
     @interested = interested

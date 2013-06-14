@@ -44,7 +44,11 @@ module ApplicationHelper
     ''.tap do |html|
       
       if klass.name.eql?('Activist')
-        html << collection_action_button(klass, 'leave')
+        if current_user.has_any_permission_to(:leave, Activist)
+          html << collection_action_button(klass, 'leave') 
+        elsif current_user.has_any_permission_to(:update, Activist)
+          html << collection_action_button(klass, 'admin_request') 
+        end
       end
       
       if klass.name.eql?('Interested')
@@ -106,7 +110,11 @@ module ApplicationHelper
       end
 
       if klass_name.eql?('Activist')
-         html << object_action_button_to(object, 'leave') if object.authorize? :update, :to => current_user
+        if object.authorize? :leave, :to => current_user
+          html << object_action_button_to(object, 'leave') 
+        elsif object.authorize? :update, :to => current_user
+          html << object_action_button_to(object, 'admin_request') 
+        end
       end
       
       if klass_name.eql?('Interested') 

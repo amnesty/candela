@@ -22,6 +22,8 @@ AiVoluntariado::Application.routes.draw do
       get :leave
       get :clear
       get :rejoin
+      get :admin_request
+      put :send_admin_request
     end
 
     resources :activists_collaborations do 
