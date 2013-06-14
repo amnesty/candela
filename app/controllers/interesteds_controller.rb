@@ -19,6 +19,11 @@ class InterestedsController < ApplicationController
     }
   end
 
+  # Default values for filters on index action
+  def default_filters_for_index
+    {}
+  end
+
   def new
     @resource = Interested.new
     super

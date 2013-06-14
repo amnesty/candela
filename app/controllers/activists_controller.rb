@@ -25,6 +25,13 @@ class ActivistsController < ApplicationController
     }
   end
 
+  # Default values for filters on index action
+  def default_filters_for_index
+    {
+      :with_related_collaborations => true
+    }
+  end
+
   def admin_request
   end
 
