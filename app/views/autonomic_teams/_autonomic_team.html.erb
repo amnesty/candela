@@ -1,0 +1,13 @@
+<%= summary_view do %>
+
+  <tr>
+    <%= summary_section(:id => "autonomic_team_info", :colspan => 2, :title => Gx.t_attr("autonomic_team.sections.data")) do %>
+      <p><%= summary_label Gx.t_attr('autonomic_team.name') %>: <%= summary_field autonomic_team.name %></p>
+      <p><%= summary_label Gx.t_attr('autonomic_team.autonomy') %>: <%= summary_field link_to(autonomic_team.autonomy.name, autonomic_team.autonomy) %></p>
+    <% end %>
+  <tr>
+
+  <%= summary_collaborations_for_section_for(autonomic_team) %>
+
+<% end %>
+

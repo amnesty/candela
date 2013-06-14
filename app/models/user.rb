@@ -72,7 +72,7 @@ class User < ActiveRecord::Base
     
     if options[:on]
       # scope on, or Site global permission
-      match_permissions = match_permissions.select{ |p| p[:stage_type] == options[:on].class.name and p[:stage_id] == options[:on].id }
+      match_permissions = match_permissions.select{ |p| (p[:stage_type] == options[:on].class.name and p[:stage_id] == options[:on].id) or p[:stage_type] == 'Site' }
     end
     
     match_permissions.any?

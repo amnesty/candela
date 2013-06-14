@@ -86,6 +86,9 @@ AiVoluntariado::Application.routes.draw do
     resources :notes do
       get :delete, :on => :member 
     end
+    resources :autonomic_teams do
+      get :delete, :on => :member 
+    end
     resources :activists_collaborations do
       get :delete, :on => :member 
       get :autocomplete_activist_search, :on => :collection
@@ -197,6 +200,7 @@ AiVoluntariado::Application.routes.draw do
   match '/organizations_for_hr_schools'   => "hr_schools#organizations_for",         :as => :organizations_for_hr_schools
   match '/organizations_for_search'       => "search#organizations_for",             :as => :organizations_for_search
   match '/collaboration_types_for_search' => "search#collaboration_types_for",       :as => :collaboration_types_for_search
+  match '/autonomic_teams_for_autonomy'   => "autonomies#autonomic_teams_for",       :as => :autonomic_teams_for_autonomy
   
   match '/provinces_for_cps'              => "public#provinces_for", :as => :provinces_for_cps
   match '/cities_for_province'            => "public#cities_for",    :as => :cities_for_province

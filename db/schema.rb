@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130430113335) do
+ActiveRecord::Schema.define(:version => 20130506102747) do
 
   create_table "POSTAL", :primary_key => "POSTAL_ID", :force => true do |t|
     t.string  "cp"
@@ -106,6 +106,11 @@ ActiveRecord::Schema.define(:version => 20130430113335) do
     t.text     "more_info"
     t.integer  "availability_id"
     t.string   "autonomy_type"
+  end
+
+  create_table "activists_collaborations_autonomic_teams", :id => false, :force => true do |t|
+    t.string  "activists_collaboration_id"
+    t.integer "autonomic_team_id"
   end
 
   create_table "activists_collaborations_committees", :id => false, :force => true do |t|
@@ -222,6 +227,15 @@ ActiveRecord::Schema.define(:version => 20130430113335) do
   add_index "audits", ["auditable_id", "auditable_type"], :name => "auditable_index"
   add_index "audits", ["created_at"], :name => "index_audits_on_created_at"
   add_index "audits", ["user_id", "user_type"], :name => "user_index"
+
+  create_table "autonomic_teams", :force => true do |t|
+    t.string   "name"
+    t.integer  "autonomy_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "autonomic_teams", ["autonomy_id"], :name => "index_autonomic_teams_on_autonomy_id"
 
   create_table "autonomies", :force => true do |t|
     t.string   "name"

@@ -1,6 +1,10 @@
 module ActivistsCollaborationsHelper
-  
-  #OPTIMIZE: status_options_for_select AND type_options_for_select created becuase with rails 2.3.8 seems to have no possibility of including classes in options_for_select. It Rails is updated, optimize these methods!
+ 
+  def options_for_autonomic_teams(autonomy, selected = nil) 
+    options = (autonomy.nil? ? [[t('activists_collaboration.select_an_autonomy'),'']] : autonomy.autonomic_teams.collect{|team|[team.name,team.id]} )
+    options_for_select(options, selected)
+  end
+ 
   def status_options_for_select(default_value = 'status_3')
     option_list = ActivistStatus.all.collect{|elem| [elem.name, "status_#{ elem.id }", :class => "collaboration_status_#{ elem.id }"] } 
     option_list.prepend ['Todos los estados','', :class => '']
@@ -14,6 +18,12 @@ module ActivistsCollaborationsHelper
     option_list.prepend [t("#{ uniq_name }.sections.all_collaborations"),'', :class => '']
     select_tag('collaboration_type[]', options_for_select(option_list), {:id => 'activist_filter_type', :onchange => "modifyActivistFilter('type',$(this))" } )
 
+  end
+
+  def autonomic_team_options_for_select(autonomy, default_value = '')
+    option_list = autonomy.autonomic_teams.collect {|team| [team.name, "autonomic_team_#{team.id}", :class => "autonomic_team_#{ team.id }"] }
+    option_list.prepend [t("autonomy.sections.all_autonomic_teams"),'', :class => '']
+    select_tag('autonomic_team[]', options_for_select(option_list), {:id => 'activist_filter_autonomic_team', :onchange => "modifyActivistFilter('autonomic_team',$(this))" } )
   end
 
   def display_activist_collaborations_marks(collaboration)

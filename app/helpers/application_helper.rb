@@ -106,7 +106,7 @@ module ApplicationHelper
       end
 
       if klass_name.eql?('Activist')
-         html << object_action_button_to(object, 'leave') if current_user.has_any_permission_to(:update, object.class.name)
+         html << object_action_button_to(object, 'leave') if object.authorize? :update, :to => current_user
       end
       
       if klass_name.eql?('Interested') 
@@ -118,7 +118,7 @@ module ApplicationHelper
       end
       
       { :update => 'edit', :destroy => 'delete' }.each_pair do |action, action_label|
-         html << object_action_button_to(object, action_label) if object.authorizes? action
+         html << object_action_button_to(object, action_label) if object.authorize? action, :to => current_user
       end
 
     end

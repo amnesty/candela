@@ -98,6 +98,16 @@
       <td><%= form.label_required :autonomy_type %></td>
       <td><%= form.select :autonomy_type, ActivistsCollaboration.autonomy_types %></td>
     </tr>
+    <tr class="<%= Gx.list_style %> section_autonomy">
+      <td><%= form.label_required :autonomic_team_ids %><i class="help"><%= raw t("form.multiple_select_help") %></i></td>
+      <td>
+        <%= form.select :autonomic_team_ids, options_for_autonomic_teams(form.object.organization, form.object.autonomic_teams.collect(&:id)), {}, {:multiple => true} %>
+      </td>
+      <% 
+        #content_for(:head){ javascript_tag "addAutocompleteInputCallback('activists_collaboration_organization_id', '#{autonomic_teams_for_autonomy_path}', 'organization_id', 'activists_collaboration_autonomic_team_ids', function(){fitListSizeToContents('activists_collaboration_autonomic_team_ids',5)});" } 
+        content_for(:head){ javascript_tag "addAutocompleteInputCallback('activists_collaboration_organization_id', '#{autonomic_teams_for_autonomy_path}', 'organization_id', 'activists_collaboration_autonomic_team_ids');" } 
+      %>
+    </tr>
   <% end %>
 
   <% if @activists_collaboration.is_expertise %>

@@ -1,0 +1,8 @@
+
+<%= hidden_inputs_for(autonomic_team, count, { :hide => ['notes' ] }) if embedded.nil? %>
+
+<td><%= link_to_if autonomic_team.authorize?(:read, :to => current_user), autonomic_team.name, autonomy_autonomic_team_path(autonomic_team.autonomy,autonomic_team) %></td>
+
+<td><%= autonomic_team.activists_collaborations.count %></td>
+
+

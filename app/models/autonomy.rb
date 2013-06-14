@@ -3,7 +3,8 @@ class Autonomy < ActiveRecord::Base
   attr_accessible :name, :collaborations_enabled, :phone, :address, :cp, :province_id, :city, :email, :email_2, :fax, 
                   :customer_service_time, :meeting_weekday, :meeting_frequency, :meeting_hours, :meeting_venue, 
                   :postal_address, :postal_cp, :postal_province_id, :postal_city, 
-                  :delivery_contact, :delivery_phone, :delivery_hours, :delivery_address, :delivery_cp, :delivery_province_id, :delivery_city
+                  :delivery_contact, :delivery_phone, :delivery_hours, :delivery_address, :delivery_cp, :delivery_province_id, :delivery_city,
+                  :autonomic_team_ids
 
   include ActiveRecord::AIActiveRecord
   include ActiveRecord::AIOrganization
@@ -11,7 +12,7 @@ class Autonomy < ActiveRecord::Base
 
   has_many :campaignactions, :as => :organization, :dependent => :destroy
   has_many :talks, :foreign_key => :organization_id, :conditions => "organization_type = 'Autonomy'", :dependent => :destroy
-  
+  has_many :autonomic_teams, :dependent => :destroy
   
   def full_name; name; end
 

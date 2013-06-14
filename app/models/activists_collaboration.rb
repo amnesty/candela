@@ -4,7 +4,8 @@ class ActivistsCollaboration < ActiveRecord::Base
   
   include ActiveRecord::AIActiveRecord
 
-  attr_accessible :activist_id, :collaboration_type, :organization_type, :organization_id, :autonomy_type,
+  attr_accessible :activist_id, :collaboration_type, :organization_type, :organization_id, 
+                  :autonomy_type, :autonomic_team_ids,
                   :join_at, :more_info, :activist_status_id, :activist_status_changed_at,
                   :responsibility_ids, :availability_id
  
@@ -20,6 +21,7 @@ class ActivistsCollaboration < ActiveRecord::Base
   belongs_to :country, :class_name => "Country", :foreign_key => "collaboration_id"
   belongs_to :organization, :polymorphic => true
 
+  has_and_belongs_to_many :autonomic_teams
   has_and_belongs_to_many :responsibilities
   has_and_belongs_to_many :expertises
   
@@ -109,7 +111,7 @@ class ActivistsCollaboration < ActiveRecord::Base
     end
     ret 
   end
-  
+
   # Authorization blocks.
   # User can operate over collaboration if activist is defined, activist has an interested an activist has zero collaborations
   authorizing do |user, permission|

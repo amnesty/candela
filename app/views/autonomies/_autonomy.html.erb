@@ -8,6 +8,23 @@
   <%= summary_view do %>
 
     <%= summary_organization_header(autonomy) %>
+
+    <% if autonomy.authorize?(:read, :to => current_agent) %>
+      <tr>
+      <%= summary_section(:id => "autonomy_autonomic_teams", :colspan => 2, :title => Gx.t_attr("autonomy.autonomic_teams")) do %>
+        <% teams = autonomy.autonomic_teams.order(:name) %>
+        <div class="actions">
+          <% new_team = autonomy.autonomic_teams.new %>
+          <% autonomy.autonomic_teams.delete new_team %>
+          <%= summary_action(:create, new_autonomy_autonomic_team_path(autonomy), { :object => new_team }) %>
+          <%= summary_action(:read, autonomy_autonomic_teams_path(autonomy),    { :to => :edit, :object => new_team }) %>
+        </div>
+
+        <%= render( :partial => "shared/collection", :object => teams, :locals => { :klass => AutonomicTeam, :embedded => true } ) %>
+
+      <% end %>
+      </tr>
+    <% end %>
     
     <% if current_agent.has_any_permission_to(:read, :activists_collaborations, :on => autonomy) or 
           current_agent.has_any_permission_to(:read, :activists_collaborations, :on => current_site) %>

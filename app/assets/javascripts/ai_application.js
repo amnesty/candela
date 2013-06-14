@@ -123,12 +123,13 @@ function checkHideableGroup(formInput, hideableGroupSelector, showValue, display
 
 var activistFilterHash = {};
 
-function initActivistFilters(){
-  if (activistFilterHash ==null)
+function initActivistFilters(activeFilters){
+  if (activistFilterHash == null)
     activistFiltersHash = {};
 
-  modifyActivistFilter('status',$('#activist_filter_status'));
-  modifyActivistFilter('type',$('#activist_filter_type'));
+  for (var i = 0; i < activeFilters.length; i++) {
+    modifyActivistFilter(activeFilters[i],$('#activist_filter_'+activeFilters[i]));
+  }
 }
 
 function modifyActivistFilter(filterName,input){

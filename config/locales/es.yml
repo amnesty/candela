@@ -350,6 +350,7 @@ es:
     SupportLocalOrganization: Activista de apoyo en Grupo
     SupportSeTeam: Activista de apoyo en equipo S.E.
     not_found: "La forma de colaboración no ha podido ser encontrada"
+    select_an_autonomy: Seleccione una entidad autonómica
     # Select in activists_collaboration form
     none: Ninguna
 
@@ -408,6 +409,11 @@ es:
 #  alert_note:
 #    <<: *_notes_entity
 
+  autonomic_team:
+    sections:
+      <<: *_collaborations_sections
+      <<: *_organization_sections
+
   autonomy:
     abrev: Auton.
     title: Entidad autonómica
@@ -425,6 +431,7 @@ es:
     sections:
       <<: *_collaborations_sections
       <<: *_organization_sections
+      all_autonomic_teams: Todos los equipos
 
 #  autonomy_note:
 #    <<: *_notes_entity
@@ -690,6 +697,9 @@ es:
       event_record_note: 
         one: la anotación del evento
         other: las anotaciones de los eventos
+      autonomic_team:
+        one: el equipo autonómico
+        other: los equipos autonómicos
       autonomy: 
         one: la entidad autonómica
         other: las entidades autonómicas
@@ -917,6 +927,8 @@ es:
         activist_status_changed_at: Fecha del último cambio de estado
         base: Datos de colaboración
         autonomy_type: Tipo
+        autonomic_teams: Equipos autonómicos
+        autonomic_team_ids: Equipos autonómicos
         availability_id: Disponibilidad
         collaboration_id: Detalle de la colaboración
         collaboration_type: Tipo de colaboración
@@ -951,10 +963,20 @@ es:
       #alert_note:
       #  <<: *_notes_attributes
 
+      autonomic_team:
+        <<: *_collaboration_place_attributes
+        name: Nombre
+        autonomy: Entidad autonómica
+        activists_collaborations: Colaboraciones
+        sections:
+          data: Información del equipo
+
       autonomy:
         <<: *_collaboration_place_attributes
         name: Nombre
         enabled: Activa
+        autonomic_teams: Equipos
+        autonomic_team_ids: Equipos
 
       #autonomy_note:
       #  <<: *_notes_attributes

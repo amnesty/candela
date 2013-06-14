@@ -45,7 +45,9 @@ module SummaryHelper
     
     if object.authorize? action, :to => agent
       link_to t("form.buttons.#{ text }"), url, :class => "action_#{ text } with_icon left"
-    end
+    else 
+      ''
+    end.html_safe
   end
   
   def summary_organization_header(object)
@@ -58,7 +60,7 @@ module SummaryHelper
 
         content_tag(:div, :class => "actions") do
           summary_action(:update, edit_polymorphic_url(object, :section => "section_data"), { :to => :edit, :object => object }) <<
-          link_to( t("form.buttons.show"),  polymorphic_url(object, :section => "section_data"), :class => "action_show with_icon left" )
+          summary_action(:read, polymorphic_url(object, :section => "section_data"), { :to => :show, :object => object })
         end <<
 
         [ 'address', 'email', 'phone', 'cp', 'city' ].collect do |field|
@@ -159,15 +161,20 @@ module SummaryHelper
         summary_section(:id => "#{ uniq_name }_collaborations", :colspan => 2, :title => t("#{ uniq_name }.sections.collaborations")) do 
 
 
-         form_tag (url_for organization), :method => :get do
+         form_tag '#', :method => :get do
            ''.tap do |html|
-              html << status_options_for_select
 
+              html << autonomic_team_options_for_select(organization) if organization.is_a?(Autonomy)
+              html << status_options_for_select
               html << type_options_for_select(uniq_name)
 
               html << "<ul  id='organization_activists_list' >"
               collaborations.each do |collaboration|
-                html << "<li class=\"collaboration_state_#{ collaboration.activist_status.name } #{ collaboration.guess_collaboration_type } status_#{ collaboration.activist_status_id } \">"
+
+                collaboration_classes = ["collaboration_state_#{collaboration.activist_status.name}", collaboration.guess_collaboration_type, "status_#{collaboration.activist_status_id}"]
+                collaboration_classes += collaboration.autonomic_teams.collect{|team| "autonomic_team_#{team.id}"} if organization.is_a?(Autonomy)
+                html << "<li class= '#{collaboration_classes.join(' ')}'>"
+
                 html << "#{ display_activist_collaborations_marks(collaboration) }"
                 text_args = { :collaboration_type => link_to( h(collaboration.kind),activist_activists_collaboration_path(collaboration.activist, collaboration) ),
                               :organization       => link_to( h(collaboration.organization_name), collaboration_organization_path(collaboration)),
@@ -178,12 +185,14 @@ module SummaryHelper
                               :responsibility     => collaboration.h_responsibilities }
                         
                 text_args[:expertise] = collaboration.h_expertises if collaboration.is_expertise 
-                html << "#{ t("activists_collaboration.texts.#{ collaboration.guess_collaboration_type }_collaborations", text_args) }"
+                html << t("activists_collaboration.texts.#{ collaboration.guess_collaboration_type }_collaborations", text_args)
                 html << '</li>'
               end
-              html << "</ul>"
+              html << '</ul>'
 
-              html << javascript_tag('$(document).ready(function(){ initActivistFilters(); });')
+              active_filters = ["'status'","'type'"]
+              active_filters.push "'autonomic_team'" if organization.is_a?(Autonomy)
+              html << javascript_tag("$(document).ready(function(){ initActivistFilters([#{active_filters.join(',')}]); });")
             end.html_safe
           end
 
@@ -193,6 +202,22 @@ module SummaryHelper
     end
   end
   
+  def summary_autonomic_teams_for(autonomy)
+
+    uniq_name = autonomy.class.name.underscore
+    content_tag :tr do
+      summary_section(:id => "#{ uniq_name }_autonomic_teams", :colspan => 2, :title => t("#{ uniq_name  }.sections.autonomic_teams")) do 
+        form_tag (url_for autonomy), :method => :get do
+          content_tag :ul, :id => "#{ uniq_name }_autonomic_teams_list" do
+            autonomy.autonomic_teams.inject('') do |html,team| 
+              html << content_tag(:li, team.name)
+            end.html_safe
+          end
+        end
+      end
+    end
+  end
+
   def summary_organizations_onoffs_for(organization, options = {})
     
     uniq_name = organization.class.name.underscore

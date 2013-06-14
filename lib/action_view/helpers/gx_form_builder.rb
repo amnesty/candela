@@ -140,7 +140,7 @@ module ActionView
       # No idea why errors_messages rails method is returning {{attribute}}:{{message}} instead of translation. though have something related with Gx santis module overwrite t_model method
       def errors_in_form
 	unless @object.errors.count.zero?
-	  object_t_name  = I18n.t(@object_name, :scope => [ :activerecord, :models ])
+	  object_t_name  = Gx.t_model @object_name
 	  header_message = I18n.t(:header, :count => @object.errors.count, :model => object_t_name, :scope => [ :activerecord, :errors, :template ])
 	  string         = content_tag(:h2, header_message, :model => @object_name) unless header_message.blank?
 
