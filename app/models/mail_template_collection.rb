@@ -7,7 +7,7 @@ class MailTemplateCollection < ActiveRecord::Base
   has_many :assignments, :class_name => 'MailTemplateAssignment', :foreign_key => :mail_template_collection_id, :dependent => :destroy
   accepts_nested_attributes_for :assignments
 
-  TEMPLATE_FOLDER = Settings.interested_mailer.template_folder
+  TEMPLATE_FOLDER = Settings.application_mailer.template_folder
  
   #TODO: authorizations for mail template collections
 #  authorizing do |user, permission|

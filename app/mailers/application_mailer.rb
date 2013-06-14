@@ -1,7 +1,7 @@
 # encoding: utf-8
-class InterestedMailer < ActionMailer::Base 
+class ApplicationMailer < ActionMailer::Base 
   
-  default from: Settings.interested_mailer.from 
+  default from: Settings.application_mailer.from 
 
   def contact_email(interested, params)
     @message_type = params[:message_type] || :email 
@@ -43,15 +43,15 @@ class InterestedMailer < ActionMailer::Base
   def resume_interested_email(local_organization, interesteds)
     @interesteds = interesteds
     mail :to => local_organization.email, 
-         :bcc => Settings.interested_mailer.bcc,
+         :bcc => Settings.application_mailer.bcc,
          :subject =>  "Listado de Interesados: #{ local_organization.full_name }"
   end
 
   def resume_alert_email(local_organization, interesteds)
     @interesteds = interesteds
     @local_organization = local_organization
-    mail :to => InterestedMailer.organization_recipients_for_alert(local_organization), 
-         :bcc => Settings.interested_mailer.bcc,
+    mail :to => ApplicationMailer.organization_recipients_for_alert(local_organization), 
+         :bcc => Settings.application_mailer.bcc,
          :subject =>  "Alerta de nuevos interesados: #{ local_organization.full_name }"
   end
 

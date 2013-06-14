@@ -9,7 +9,7 @@ namespace :new_interested do
 
       local_organizations.each do |lo|
         interesteds = get_new_interesteds_from_yesterday.select{|it| it.local_organization_id == lo.id }
-        InterestedMailer.resume_alert_email(lo, interesteds).deliver if interesteds.any?
+        ApplicationMailer.resume_alert_email(lo, interesteds).deliver if interesteds.any?
       end
     end
 
@@ -21,7 +21,7 @@ namespace :new_interested do
 
       local_organizations.each do |lo|
         interesteds = get_new_interesteds_from_last_week.select{|it| it.local_organization_id == lo.id }
-        InterestedMailer.resume_alert_email(lo, interesteds).deliver if interesteds.any?
+        ApplicationMailer.resume_alert_email(lo, interesteds).deliver if interesteds.any?
       end
 
     end

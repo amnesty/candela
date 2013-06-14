@@ -43,7 +43,7 @@ class InterestedsController < ApplicationController
       unless @resource.save 
         flash[:error] = t('interested.fail_at_updated')
       else
-        unless InterestedMailer.contact_email(@resource, params).deliver
+        unless ApplicationMailer.contact_email(@resource, params).deliver
           flash[:error] = t('interested.fail_at_send_email')
         else
           flash[:notice] = t('interested.email_sent_success')
