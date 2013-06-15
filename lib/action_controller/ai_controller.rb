@@ -19,7 +19,7 @@ module ActionController
     def index(options = {}, &block)
 
       # Filters
-      params[:index_filters] ||= default_filters_for_index
+      params[:index_filters] ||= (default_filters_for_index if self.respond_to?(:filters_for_index)) || {}
 
       # Fast Search Conditions
       conditions = options[:conditions] || []
