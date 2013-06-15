@@ -139,9 +139,16 @@
     <td><%= form.text_field :email %></td>
   </tr>
 
+  <tr class="list_style_0">
+    <td><%= form.label :email_2 %></td>
+    <td><%= form.text_field :email_2 %></td>
+  </tr>
+
   <% if params[:controller] != 'public' and !form.object.new_record?%>
+  <tr>
     <td><%= form.label :created_at %></td>
     <td><%= form.date_select :created_at, :readony => true %></td>
+  </tr>
   <% end %>
 
 
@@ -152,9 +159,9 @@
 
   <tr class="list_style_0">
       <td><%= form.label_required :local_organization_id %></td>
-      <td><%= form.select :local_organization_id, LocalOrganization.orderby_name.only_to_interesteds.scoping_with_agent(current_agent).collect { |x| [x.name, x.id] }, { :include_blank => true } %>
-      <% content_for(:head){ javascript_tag "addAutocompleteInputCallback('interested_local_organization_id', '#{talks_as_options_for_interesteds_talks_path}', 'local_organization_id', 'interested_talk_ids');" } %>
-
+      <td>
+        <%= form.select :local_organization_id, LocalOrganization.orderby_name.only_to_interesteds.scoping_with_agent(current_agent).collect { |x| [x.name, x.id] }, { :include_blank => true } %>
+        <% content_for(:head){ javascript_tag "addAutocompleteInputCallback('interested_local_organization_id', '#{talks_as_options_for_interesteds_talks_path}', 'local_organization_id', 'interested_talk_ids');" } %>
       </td>
   </tr>
 

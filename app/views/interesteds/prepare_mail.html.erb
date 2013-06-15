@@ -10,7 +10,7 @@
     <table>
     <tr>
       <td><%= label_tag( "mailto", Gx.t_attr("interested.mail.mailto") ) %></td>
-      <td><%= text_field_tag( "mailto", @resource.email, :class => 'big' ) %></td>
+      <td><%= text_field_tag( "mailto", @resource.email_addresses.join(','), :class => 'big' ) %></td>
     </tr>
     <tr>
       <td><%= label_tag( "subject", Gx.t_attr("interested.mail.subject") ) %></td>

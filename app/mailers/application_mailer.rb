@@ -15,7 +15,7 @@ class ApplicationMailer < ActionMailer::Base
     @message_type = params[:message_type] || :email 
     @interested = interested
 
-    mail_with_template :to => (params[:mailto] || interested.email), 
+    mail_with_template :to => (params[:mailto] || interested.email_addresses), 
                        :subject =>  params[:subject] || Gx.t_attr("interested.mail.subject"),
                        :body => params[:body],
                        :template_collection => (interested.is_minor? && !interested.minor_checked ? 'contact_minors' : 'contact_interesteds'),
@@ -23,13 +23,13 @@ class ApplicationMailer < ActionMailer::Base
   end 
    
   def mail_with_template(params)
-    body = params.delete :body
+    custom_body = params.delete :body
     template_collection = params.delete :template_collection
     template_consumer = params.delete :template_consumer
     mail(params) do |format|
       format.html {
-        if params[:body]
-          render :text => params[:body]
+        if custom_body
+          render :text => custom_body
         else
           template_file_name = template_consumer.assigned_mail_template_for template_collection
           begin

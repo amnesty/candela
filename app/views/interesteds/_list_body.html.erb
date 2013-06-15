@@ -28,7 +28,7 @@
 
     <%= interested.activist.present? ?  raw("<li>#{ link_to(t('interested.migrated'), interested.activist) }</li>") : ''  %>
 
-    <% if interested.present? and interested.email != ''  %>
+    <% if interested.present? and interested.email_addresses.any? %>
       <li><%= interested.email_sent?       ?  t('interested.email_sent')                             : t('interested.email_not_sent') %></li>
     <% else %>
       <li><%= interested.letter_sent?      ?  t('interested.letter_sent')                            : t('interested.letter_not_sent') %></li>

@@ -11,7 +11,7 @@ module ActiveRecord
 
           # COMMON VALIDATES
             # Formatting of email fields
-            validates_format_of :email,   :with => ActiveRecord::Base::REGEXP_EMAIL, :on => :save, :allow_blank => true
+            validates_format_of :email,   :with => ActiveRecord::Base::REGEXP_EMAIL, :allow_blank => true
             validates_format_of :nif,     :with => ActiveRecord::Base::REGEXP_NIF, :if => Proc.new{|a| a.document_type == 'NIF' }, :message => Gx.t_error('activist.nif.invalid'), :allow_blank => true
             
             # Uniquess

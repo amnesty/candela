@@ -818,6 +818,7 @@ es:
         name: Nombre
         phone: Teléfono
         email: Email
+        email_2: Segundo Email
         fax: Fax
 
       __join_date_attributes: &_join_date_attributes
@@ -886,7 +887,6 @@ es:
         delivery_hours: Horas de contacto
         delivery_phone: Teléfono de contacto
         delivery_province_id: Provincia
-        email_2: Segundo Email
         enabled: Activo
         meeting_weekday: Día de reunión
         meeting_hours: Horas de reunión

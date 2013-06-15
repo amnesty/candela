@@ -7,12 +7,12 @@ class Interested < ActiveRecord::Base
   
   attr_accessible :first_name, :last_name, :last_name2, :sex_id, :birth_day, :created_at, :document_type, :nif, 
                   :different_residence_country, :cp, :address, :province_id, :city, 
-                  :phone, :mobile_phone, :email, :local_organization_id, :talk_ids, 
+                  :phone, :mobile_phone, :email, :email_2, :local_organization_id, :talk_ids, 
                   :labour_situation_id, :occupation_id, 
                   :student_previous_degrees, :student, :student_place, :student_level_id, :student_degree, :student_year_id, :student_more_info, 
                   :collabtopic_ids, :language_ids, :skill_ids, :other_skills, :hobby_ids, :blogger, :other_hobbies, 
                   :wants_todo, :informed_through_id, :informed_through_other,
-                  :minor_checked
+                  :minor_checked, :accepted_privacity
 
   audited :on => [:create,:update,:destroy] 
 #                  :only => [:local_organization_id, :activist_id, :minor_checked, :email_sent, :letter_sent ]
@@ -27,6 +27,7 @@ class Interested < ActiveRecord::Base
   validates_presence_of :document_type, :if => Proc.new{|r| r.from_public }
   validates_presence_of :nif, :if => Proc.new{|r| r.from_public }
   validates_uniqueness_of :nif, :allow_nil => true, :allow_blank => true, :scope => [ :document_type ]  
+  validates_format_of :email_2,   :with => ActiveRecord::Base::REGEXP_EMAIL, :allow_blank => true
   
   belongs_to :local_organization
   belongs_to :activist
@@ -228,8 +229,15 @@ class Interested < ActiveRecord::Base
     end
   }
 
+  def email_addresses
+    ret = []
+    ret << email if email?
+    ret << email_2 if email_2?
+    ret
+  end
+
   def sent_contact_email
-    if self.email?
+    if self.email_addresses.any?
       begin
         ApplicationMailer.contact_email(self, {}).deliver 
         (self.is_minor? || self.email_sent = true)
