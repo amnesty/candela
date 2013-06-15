@@ -11,6 +11,16 @@ class ApplicationMailer < ActionMailer::Base
          :subject =>  Settings.application_mailer.activist_leave_request.subject
   end
 
+  def alert_hr_school_assigned(hr_school, params={})
+    @hr_school = hr_school
+    @organization = hr_school.assigned_organization
+
+    mail_with_template :to => [@organization.email], 
+                       :subject =>  params[:subject] || I18n.t('hr_school.alert_hr_school_assigned.subject'),
+                       :template_collection => 'alert_hr_school_assigned',
+                       :template_consumer => @organization
+  end 
+
   def contact_email(interested, params)
     @message_type = params[:message_type] || :email 
     @interested = interested
@@ -44,7 +54,7 @@ class ApplicationMailer < ActionMailer::Base
 
   def test_email(params)
     mail :to => params[:to], 
-         :subject =>  params[:subject] || "Testing email system",
+#         :subject =>  params[:subject] || "Testing email system",
          :body => params[:body] || "This is a test"
   end
    

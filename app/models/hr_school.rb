@@ -2,10 +2,12 @@ class HrSchool < ActiveRecord::Base
 
   include ActiveRecord::AIActiveRecord
 
-  attr_accessible :name, :status, :hr_school_level_ids, :hr_school_level_other, 
+  attr_accessible :name, :status, :hr_school_level_ids, :hr_school_level_other, :hr_type, :type_other, :join_at, :leave_at,
                   :address, :cp, :province_id, :city, :phone, :phone2, :fax, :web_page, :email, 
                   :contact_name, :contact_position, :contact_email, :contact_phone, :contact_tweeter, 
-                  :is_partner, :is_activist, :direction_approval, :accepted_privacity
+                  :is_partner, :is_activist, :direction_approval, :accepted_privacity,
+                  :school_management, :assigned_organization_type, :assigned_organization_id,
+                  :hr_work_through_ids
 
   audited :on => [:create,:update,:destroy]
 #                  :only => [ :name, :status, :join_at, :leave_at, :contact_name, :direction_approval, :tutor, :assigned_organization_id, :assigned_organization_type ]
@@ -26,7 +28,8 @@ class HrSchool < ActiveRecord::Base
   
   after_destroy :clear_hbtm
   before_validation :ensure_assigned_organization
-  
+  before_save :check_assigned_organization_alert
+ 
   validates_uniqueness_of :name
 
   validates_presence_of :status
@@ -267,6 +270,17 @@ class HrSchool < ActiveRecord::Base
   
   def status_is_inactive_when_leave_at_comes
     errors.add :base, :status_is_not_inactive_with_leave_at  if status != I18n.t("hr_school.statuses.inactive") and leave_at.present?
+  end
+  
+  def check_assigned_organization_alert
+    if self.assigned_organization && (changes.keys & ["assigned_organization_id","assigned_organization_type"]).any?
+      begin
+        ApplicationMailer.alert_hr_school_assigned(self).deliver 
+      rescue MailTemplateException, Net::SMTPAuthenticationError, Net::SMTPServerBusy, Net::SMTPSyntaxError, Net::SMTPFatalError, Net::SMTPUnknownError => e
+        # If email delivery fails, an error is added but the school is saved.
+        errors.add(:email, :undeliverable )
+      end
+    end
   end
   
   def self.test_assigned_organization

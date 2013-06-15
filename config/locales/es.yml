@@ -537,6 +537,8 @@ es:
       none_found_by_hr_work_through: 'No hay escuelas que trabajen a través de esos criterios'
     notes:
       none: 'La Escuela no tiene ningún seguimiento'
+    alert_hr_school_assigned:
+      subject: "Nueva escuela de DDHH asignada"
 
   hr_school_organization_managers:
     new: 'Añadir otra organización'
