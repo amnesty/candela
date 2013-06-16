@@ -61,8 +61,8 @@ class ActivistsController < ApplicationController
   def clear
     set_resource
     @activist.clear_sensitive_data
-    unless @activist.save_without_validation
-      flash[:error] = @activist.errors.inspect
+    unless @activist.save(:validate => false)
+      flash[:error] = @activist.errors.to_xml
     end
     redirect_to url_for(:action => "show")
   end
@@ -93,7 +93,7 @@ class ActivistsController < ApplicationController
         end
         respond_to do |format|
           format.html {
-            if @resource.save_without_validation
+            if @resource.save(:validate => false)
               flash[:success] = t(:updated, :scope => @resource.class.to_s.underscore)
               redirect_to :action => :show, :referer => params[:referer]
             else

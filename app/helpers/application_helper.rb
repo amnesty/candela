@@ -89,7 +89,7 @@ module ApplicationHelper
     options[:wrapper_tag] ||= :div
     link = link_to_function(t("form.buttons.#{ action }"),
                                 "if(document.indexForm.boxchecked.value == -1) { 
-                                  alert('#{ t("form.messages.no_item_selected", :model => Gx.t_model(klass.name.downcase))}');
+                                  alert('#{ t("form.messages.no_item_selected", :model => Gx.t_model(klass.name))}');
                                 } else {
                                   submitform('#{ action }'); }",
                                 :class => "action_#{ action } with_icon")

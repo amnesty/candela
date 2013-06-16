@@ -7,7 +7,8 @@ class Activist < ActiveRecord::Base
                   :different_residence_country, :address, :cp, :province_id, :city, :phone, :mobile_phone, :email, 
                   :join_at, :other_information, :labour_situation_id, :occupation_id, 
                   :student_previous_degrees, :student, :student_place, :student_level_id, :student_degree, :student_year_id, :student_more_info, 
-                  :data_protection_agreement, :informed_through_id, :informed_through_other, :collabtopic_ids, :language_ids, :skill_ids, :other_skills, :hobby_ids, :other_hobbies, :blogger
+                  :data_protection_agreement, :informed_through_id, :informed_through_other, :collabtopic_ids, :language_ids, :skill_ids, :other_skills, :hobby_ids, :other_hobbies, :blogger,
+                  :leave_at, :leave_reason_id, :leave_more_info
 
   audited :on => [:create,:update,:destroy]
 #                  :only => [:data_protection_agreement, :leave_at, :leave_reason_id ]
@@ -22,7 +23,6 @@ class Activist < ActiveRecord::Base
   has_one :interested
   
   has_many :notes, :dependent => :destroy, :as => "noteable"
-  has_many :activists_statuschanges, :autosave => "on", :dependent => :destroy
   has_many :activists_collaborations, :dependent => :destroy
   has_many :organizations, :through => :activists_collaborations, :source_type => [ LocalOrganization, SeTeam ].join(' OR ')
   

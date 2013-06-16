@@ -42,13 +42,8 @@ class ActivistsCollaboration < ActiveRecord::Base
 
   validates_uniqueness_of :activist_id, :scope => [:organization_id, :organization_type, :collaboration_type], :message => I18n.t('activists_collaboration.errors.already_exists')
 
-  scope :active, lambda { |q|
-    { :conditions => [ 'leave_at IS NULL' ] }
-  }
-  
-  scope :active_status, lambda { |q| 
-    { :conditions => [ "activist_status_id != ?", ActivistStatus.leave_id ] }
-  }
+  scope :active, { :conditions => [ 'leave_at IS NULL' ] }
+  scope :active_status, { :conditions => [ "activist_status_id != ?", ActivistStatus.leave_id ] }
 
   scope :orderby_name, { :joins => :activist, :order => 'activists.last_name, activists.last_name2, activists.first_name'  }
   scope :include_in, { :include => :organization }
