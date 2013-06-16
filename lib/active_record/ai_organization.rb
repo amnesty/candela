@@ -113,6 +113,13 @@ module ActiveRecord
         def same_address_for_deliver_and_postal?
           self.postal_cp.eql?(self.delivery_cp) and self.postal_city.eql?(self.delivery_city) and self.postal_province_id.eql?(self.delivery_province_id)
         end
+
+        def email_addresses
+          ret = []
+          ret << email if email?
+          ret << email_2 if email_2?
+          ret
+        end
         
       end
       module ClassMethods

@@ -15,7 +15,7 @@ class ApplicationMailer < ActionMailer::Base
     @hr_school = hr_school
     @organization = hr_school.assigned_organization
 
-    mail_with_template :to => [@organization.email], 
+    mail_with_template :to => [@organization.email_addresses], 
                        :subject =>  params[:subject] || I18n.t('hr_school.alert_hr_school_assigned.subject'),
                        :template_collection => 'alert_hr_school_assigned',
                        :template_consumer => @organization
@@ -54,7 +54,7 @@ class ApplicationMailer < ActionMailer::Base
 
   def test_email(params)
     mail :to => params[:to], 
-#         :subject =>  params[:subject] || "Testing email system",
+         :subject =>  params[:subject] || "Testing email system",
          :body => params[:body] || "This is a test"
   end
    
@@ -77,9 +77,7 @@ class ApplicationMailer < ActionMailer::Base
 
   def self.organization_recipients_for_alert(local_organization)
     recipients = local_organization.active_members_with_responsibility("Gestión activismo").collect{|act| act.email if !act.email.empty?}.compact
-    recipients.unshift(local_organization.email) if !local_organization.email.empty?
-    recipients.unshift(local_organization.email_2) if !local_organization.email_2.empty?
-    recipients
+    recipients | local_organization.email_addresses
   end
 
   def self.autonomy_recipients_for_alert(local_organization)
@@ -88,9 +86,7 @@ class ApplicationMailer < ActionMailer::Base
     provincies_and_supervisor.each do |province_name, autonomy_name|
       a = Autonomy.find_by_name(autonomy_name)
       if !a.nil? && !local_organization.province.nil? && local_organization.province.name == province_name
-        recipients = a.active_members_with_responsibility("Gestión activismo").collect{|am| am.email}
-        recipients.unshift(a.email) if !a.email.empty?
-        recipients.unshift(a.email_2) if !a.email_2.empty?
+        recipients = a.active_members_with_responsibility("Gestión activismo").collect{|am| am.email} | a.email_addresses
       end
     end  
     recipients  
