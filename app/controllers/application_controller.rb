@@ -18,6 +18,8 @@ class ApplicationController < ActionController::Base
 
   alias_method :current_user, :current_agent 
 
+protected
+
   def session_expired_control
     # session expire time 20 min
     now =  Time.now
