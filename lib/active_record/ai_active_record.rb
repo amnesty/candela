@@ -50,8 +50,8 @@ module ActiveRecord
           
           # Global authrozing permissions
           authorizing do |user, permission|
-            #Site.current.authorize?( [permission, base.name.to_sym], :to => user, :default => nil)
-            user.has_any_permission_to(permission, base.name.to_sym, :on => Site.current ) || nil
+            Site.current.authorize?( [permission, base.name.to_sym], :to => user, :default => nil)
+            #user.has_any_permission_to(permission, base.name.to_sym, :on => Site.current ) || nil
           end
           
           # Permission access to index. If is new_record and permission is read, just check user has_any_permission_to
