@@ -1,4 +1,3 @@
-#TODO: Put app-specific english translations here
 en:
 
   locale_name: "English"
@@ -9,19 +8,23 @@ en:
     locale_selection:
       select_locale: "Language:"
 
-  layouts:
-    new_hr_school:
-      title: Join form for Human Rights Schools Network
-      form_description: Fill in the form and we will contact you to explain how to join the Human Rights Schools Network.
-
   public:
     new_hr_school:
+      title: EN-Formulario de adhesión a la Red de Escuelas por los Derechos Humanos
+      heading_text: EN-Rellena el formulario y contactaremos contigo para explicarte cómo unirte a la Red de Escuelas por los Derechos Humanos.
       form_errors_header: EN-El formulario contiene los siguientes errores. Revise los campos marcados en rojo, por favor.
       accept_privacy_policy: EN-Acepto la <a href="http://www.es.amnesty.org/politiEN-de-privacidad" target="_blank" title="Política de privacidad">política de privacidad</a> (por favor léela antes de enviar tus datos)
       submit: EN-Enviar el formulario
 
+    hr_school_confirm:
+      title: EN-Adhesión a la Red de Escuelas por los Derechos Humanos
+      confirm_message: EN-Gracias por interesarte en la red de escuelas. En breve nos pondremos en contacto contigo.
+
+    list_hr_schools:
+      title: EN-Red de Escuelas por los Derechos Humanos
+      heading_text: EN-Escuelas de la Red de Escuelas por lor DDHH
+
 ######################## GENERIC-APP  ######################################
-# TODO: Check these translations to improve their usage...
 
   __organizations: &_organizations
     autonomy: EN-Entidad autonómica
@@ -36,11 +39,6 @@ en:
 
   hr_school:
     choose_one_organization_type: "EN-Elije un tipo de ET" 
-#    statuses:
-#      active: "Alta"
-#      inactive: "Baja"
-#      pending:  "Pendiente actualización"
-#    types: ['Público', 'Concertado', 'Privado', 'Otros' ]
     search:
       search_params: 'EN-Parámetros de la escuela de DD.HH.'
       none_found_by_hr_academic_year: 'EN-No hay escuelas con esos cursos académicos'
@@ -156,16 +154,13 @@ en:
           one:   EN-No se ha podido guardar %{model}
           other:  "EN-No se ha podido guardar %{model} porque se han encontrado %{count} errores:"
         body: ""
-        # The variable :count is also available
         header_not_deleted:
           one:   EN-No se ha podido borrar %{model}
           other:  EN-No se ha podido borrar %{model} porque se han encontrado %{count} errores
 
       messages:
-        # The standard messages are in station/es.yml
         cant_contain_digits: EN-no puede contener dígitos
         incomplete_address: EN-incompleta, introduzca la provincia, la ciudad, el código postal y la direccion
         not_a_number: EN-debe ser numérico
         not_a_phone_number: EN-no es un número de teléfono
-
 

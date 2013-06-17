@@ -1,0 +1,51 @@
+<% content_for :title, t('.title') %>
+<% content_for :heading_text, t('.heading_text') %>
+
+  <table class="table_list">
+
+    <tr>
+      <% [:province_id, :city, :name, :hr_type, :hr_school_levels, :web_page].each do |field| %>
+        <th><%= Gx.t_attr("hr_school.#{field.to_s}") %></th>
+      <% end %>
+    </tr>
+
+  <% if @hr_schools.empty?%>
+    <tr>
+      <td colspan="20">
+        <h4 class="empty"><%= t("navigation.paginate.none", :model => Gx.t_model('hr_schools')) %></h4>
+      </td>
+    </tr>
+  <% else %>
+    <% last_province = @hr_schools.first.province %>
+    <% @hr_schools.each do |school| %>
+      <tr class="list_style_<%= cycle(0,1) %> <%= 'separator_lvl1' if school.province != last_province %>" >
+        <td><%= school.province.name %></td>
+        <td><%= school.h_city %></td>
+        <td><%= school.name %></td>
+        <td><%= school.hr_type %></td>
+        <td>
+          <ul><% school.hr_school_levels.each do |lvl| %>
+            <li><%= lvl.name + (lvl.name == 'Otro' ? " (#{school.hr_school_level_other})" : '') %></li>
+          <% end %></ul>
+        </td>
+        <td><%= link_to school.web_page, school.web_page, :target => "_blank" %></td>
+      </tr>
+    <% last_province = school.province %>
+    <% end %>
+  <% end %>
+
+  </table>
+
+<!-- Piwik -->
+    <script type="text/javascript">
+    var pkBaseURL = (("https:" == document.location.protocol) ? "https://estadisticas.es.amnesty.org/piwik/" : "http://estadisticas.es.amnesty.org/piwik/");
+    document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
+    </script><script type="text/javascript">
+    try {
+    var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
+    piwikTracker.trackPageView();
+    piwikTracker.enableLinkTracking();
+    } catch( err ) {}
+    </script><noscript><p><img src="http://estadisticas.es.amnesty.org/piwik/piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>
+<!-- End Piwik Tracking Code -->
+

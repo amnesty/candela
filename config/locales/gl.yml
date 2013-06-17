@@ -8,19 +8,23 @@ gl:
     locale_selection:
       select_locale: "GL-Idioma:"
 
-  layouts:
-    new_hr_school:
-      title: GL-Formulario de adhesión a la Red de Escuelas por los Derechos Humanos
-      form_description: GL-Rellena el formulario y contactaremos contigo para explicarte cómo unirte a la Red de Escuelas por los Derechos Humanos.
-
   public:
     new_hr_school:
+      title: GL-Formulario de adhesión a la Red de Escuelas por los Derechos Humanos
+      heading_text: GL-Rellena el formulario y contactaremos contigo para explicarte cómo unirte a la Red de Escuelas por los Derechos Humanos.
       form_errors_header: GL-El formulario contiene los siguientes errores. Revise los campos marcados en rojo, por favor.
       accept_privacy_policy: GL-Acepto la <a href="http://www.es.amnesty.org/politiGL-de-privacidad" target="_blank" title="Política de privacidad">política de privacidad</a> (por favor léela antes de enviar tus datos)
       submit: GL-Enviar el formulario
 
+    hr_school_confirm:
+      title: GL-Adhesión a la Red de Escuelas por los Derechos Humanos
+      confirm_message: GL-Gracias por interesarte en la red de escuelas. En breve nos pondremos en contacto contigo.
+
+    list_hr_schools:
+      title: GL-Red de Escuelas por los Derechos Humanos
+      heading_text: GL-Escuelas de la Red de Escuelas por lor DDHH
+
 ######################## GENERIC-APP  ######################################
-# TODO: Check these translations to improve their usage...
 
   __organizations: &_organizations
     autonomy: GL-Entidad autonómica
@@ -35,11 +39,6 @@ gl:
 
   hr_school:
     choose_one_organization_type: "GL-Elije un tipo de ET" 
-#    statuses:
-#      active: "Alta"
-#      inactive: "Baja"
-#      pending:  "Pendiente actualización"
-#    types: ['Público', 'Concertado', 'Privado', 'Otros' ]
     search:
       search_params: 'GL-Parámetros de la escuela de DD.HH.'
       none_found_by_hr_academic_year: 'GL-No hay escuelas con esos cursos académicos'
@@ -155,13 +154,11 @@ gl:
           one:   GL-No se ha podido guardar %{model}
           other:  "GL-No se ha podido guardar %{model} porque se han encontrado %{count} errores:"
         body: ""
-        # The variable :count is also available
         header_not_deleted:
           one:   GL-No se ha podido borrar %{model}
           other:  GL-No se ha podido borrar %{model} porque se han encontrado %{count} errores
 
       messages:
-        # The standard messages are in station/es.yml
         cant_contain_digits: GL-no puede contener dígitos
         incomplete_address: GL-incompleta, introduzca la provincia, la ciudad, el código postal y la direccion
         not_a_number: GL-debe ser numérico

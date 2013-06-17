@@ -8,19 +8,23 @@ eu:
     locale_selection:
       select_locale: "EU-Idioma:"
 
-  layouts:
-    new_hr_school:
-      title: EU-Formulario de adhesión a la Red de Escuelas por los Derechos Humanos
-      form_description: EU-Rellena el formulario y contactaremos contigo para explicarte cómo unirte a la Red de Escuelas por los Derechos Humanos.
-
   public:
     new_hr_school:
+      title: EU-Formulario de adhesión a la Red de Escuelas por los Derechos Humanos
+      heading_text: EU-Rellena el formulario y contactaremos contigo para explicarte cómo unirte a la Red de Escuelas por los Derechos Humanos.
       form_errors_header: EU-El formulario contiene los siguientes errores. Revise los campos marcados en rojo, por favor.
       accept_privacy_policy: EU-Acepto la <a href="http://www.es.amnesty.org/politiEU-de-privacidad" target="_blank" title="Política de privacidad">política de privacidad</a> (por favor léela antes de enviar tus datos)
       submit: EU-Enviar el formulario
 
+    hr_school_confirm:
+      title: EU-Adhesión a la Red de Escuelas por los Derechos Humanos
+      confirm_message: EU-Gracias por interesarte en la red de escuelas. En breve nos pondremos en contacto contigo.
+
+    list_hr_schools:
+      title: EU-Red de Escuelas por los Derechos Humanos
+      heading_text: EU-Escuelas de la Red de Escuelas por lor DDHH
+
 ######################## GENERIC-APP  ######################################
-# TODO: Check these translations to improve their usage...
 
   __organizations: &_organizations
     autonomy: EU-Entidad autonómica
@@ -35,11 +39,6 @@ eu:
 
   hr_school:
     choose_one_organization_type: "EU-Elije un tipo de ET" 
-#    statuses:
-#      active: "Alta"
-#      inactive: "Baja"
-#      pending:  "Pendiente actualización"
-#    types: ['Público', 'Concertado', 'Privado', 'Otros' ]
     search:
       search_params: 'EU-Parámetros de la escuela de DD.HH.'
       none_found_by_hr_academic_year: 'EU-No hay escuelas con esos cursos académicos'
@@ -155,13 +154,11 @@ eu:
           one:   EU-No se ha podido guardar %{model}
           other:  "EU-No se ha podido guardar %{model} porque se han encontrado %{count} errores:"
         body: ""
-        # The variable :count is also available
         header_not_deleted:
           one:   EU-No se ha podido borrar %{model}
           other:  EU-No se ha podido borrar %{model} porque se han encontrado %{count} errores
 
       messages:
-        # The standard messages are in station/es.yml
         cant_contain_digits: EU-no puede contener dígitos
         incomplete_address: EU-incompleta, introduzca la provincia, la ciudad, el código postal y la direccion
         not_a_number: EU-debe ser numérico

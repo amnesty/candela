@@ -26,8 +26,18 @@ class PublicController < ApplicationController
   end
 
   def confirm_hr_school
-    @interested = Interested.find(params[:hr_school])
+    @hr_school = HrSchool.find(params[:hr_school])
       render :template => "public/hr_school_confirm", :layout => false
+  end
+
+  def list_hr_schools
+    @hr_schools = HrSchool.where(:status => I18n.t(:active, :scope => [:hr_school, :statuses])).
+                          includes(:province).order('provinces.name,city,hr_schools.name')
+
+    respond_to do |format|
+      format.html { render :template => 'public/list_hr_schools', :layout => 'new_hr_school' }
+    end
+    
   end
 
   def new_interested
@@ -119,7 +129,7 @@ class PublicController < ApplicationController
 #---------------------------------------------------
 # LOCALE FROM PARAMS
 
-  before_filter :set_i18n_locale_from_params, :only => [:new_hr_school, :create_hr_school, :confirm_hr_school]
+  before_filter :set_i18n_locale_from_params, :only => [:new_hr_school, :create_hr_school, :confirm_hr_school, :list_hr_schools]
 
   protected
 

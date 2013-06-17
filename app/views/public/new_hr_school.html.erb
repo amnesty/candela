@@ -1,3 +1,6 @@
+<% content_for :title, t('.title') %>
+<% content_for :heading_text, t('.heading_text') %>
+
 <div class="container_form">
   <%= gx_form_for(@hr_school, :url => { :controller => 'public', :action => 'create_hr_school' } ) do |f| %>
 

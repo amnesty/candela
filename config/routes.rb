@@ -214,7 +214,7 @@ AiVoluntariado::Application.routes.draw do
   # HHRR schools: localized actions
   scope "(:locale)" do
     match '/form_hr_schools'   => 'public#new_hr_school',  :as => :form_hr_schools
-    ["new_hr_school", "create_hr_school", "confirm_hr_school"].each do |action_name|
+    ["new_hr_school", "create_hr_school", "confirm_hr_school", "list_hr_schools"].each do |action_name|
       match "public/#{action_name}" => "public##{action_name}"
     end
   end

@@ -145,6 +145,10 @@ class HrSchool < ActiveRecord::Base
     I18n.t('hr_school.types')
   end
 
+  def h_city
+    (City.find_by_name(city) || City.find_by_id(city)).name if self.city?
+  end
+
   def h_work_throughs
     self.hr_work_throughs.collect { |hrwt| hrwt.name }.join(", ")
   end
@@ -175,24 +179,6 @@ class HrSchool < ActiveRecord::Base
     end
   end
   
-#  def self.searcheable_columns
-#    columns.select{ |c| not unsearcheable_column_names.include?(c.name) }
-#  end
-#  
-#  def self.unsearcheable_column_names
-#    ['id', 'created_at', 'updated_at', 'created_by', 'hr_school_level_id', 'hr_work_through_id', 'academic_year_id', 'assigned_organization_id' , 'assigned_organization_type']
-#  end
-#
-#  def self.searcheable_columns_order
-#    [ 'name',  'status' , 'years',  'hr_type', 'type_other',  'hr_school_level_other', 'join_at', 'leave_at',
-#      'address', 'cp', 'province_id',  'city',  'phone',  'phone2', 'fax', 'web_page',   'email',  'contact_name', 
-#      'contact_position', 'direction_approval', 'school_management', 'tutor', 'tutor_phone', 'pupils_count', 'ages' ]
-#  end
-#
-#  def self.columns_name_to_object(names)
-#    columns.select{ |c| names.include?(c.name) }.sort{|a,b| names.index(a.name) <=> names.index(b.name) }
-#  end
-
   def self.searcheable_fields
     [unhideable_fields, hideable_fields, 'hr_school_organization_manager.organization_type', 'hr_school_organization_manager.organization_id' ].flatten
   end
