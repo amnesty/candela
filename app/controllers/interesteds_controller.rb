@@ -83,10 +83,13 @@ class InterestedsController < ApplicationController
       if @resource.valid_to_migrate? and @resource.to_activist!
         redirect_to new_activist_activists_collaboration_path(@resource.activist)
       else
-        flash[:error] = t('form.actions.not_created', :scope => 'activist' ) +  "<br>" +
-                        @resource.migrate_errors.collect { |error_array|
-                                           "#{ Gx.proper(error_array[0] == 'first_name' ? 'nombre' : error_array[0])}: #{error_array[1]}"
-                                          }.join("<br />")
+        if @resource.migrate_errors
+          error_list = @resource.migrate_errors.full_messages
+        else
+          error_list = @resource.errors.full_messages
+          error_list += @resource.activist.errors.full_messages if @resource.activist
+        end
+        flash[:error] = t('form.actions.not_created', :scope => 'activist' ) +  "<br>" + error_list.join("<br />")
         redirect_to edit_interested_path(@resource)
       end
     end
