@@ -5,7 +5,8 @@ class Campaignaction < ActiveRecord::Base
                   :media_urls, :media, :media_material_distrib, :media_other, :activists_raising, :activists_raising_member_commited, :activists_raising_material_distrib, :activists_raising_interesteds, 
                   :web_2_0, :web_2_0_specific_actions, :institutional, :institutional_authorities_contact, :institutional_other, 
                   :school_network, :school_network_description, :society_movement, :society_movement_description, 
-                  :join_organizations, :join_organizations_description, :other_info, :other_info_description, :positive_facts, :improve_facts
+                  :join_organizations, :join_organizations_description, :other_info, :other_info_description,
+                  :gender_approach, :gender_approach_description, :gender_approach_tool_evaluation, :positive_facts, :improve_facts
 
   include ActiveRecord::AIActiveRecord
 

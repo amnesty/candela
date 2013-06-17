@@ -1044,6 +1044,9 @@ es:
         join_organizations_description: Más información
         other_info: Otros
         other_info_description:  Más información
+        gender_approach: "¿Habéis aplicado las recomendaciones que figuran en la circular de movilización en cuanto a la integración del enfoque de género?"
+        gender_approach_description: "En caso afirmativo, detalla cuáles, cómo las habéis aplicado y qué dificultades os habéis encontrado."
+        gender_approach_tool_evaluation: "En caso de que la acción prioritaria incluyera indicaciones específicas (Herrramienta para la integración del enfoque de género en la acción prioritaria), ¿cómo valoráis esta herramienta? (utilidad, claridad, idoneidad, adecuado ...)"
         positive_facts: Aspectos positivos
         improve_facts: Aspectos a mejorar
         sectorial: Trabajo sectorial
@@ -1058,6 +1061,7 @@ es:
           organizations: Organizaciones adheridas
           other_actions: Otras acciones
           performances: Actos de movilización
+          gender_approach: Enfoque de género
           valuation: Valoración de la acción
 
       campaignactions_organization:

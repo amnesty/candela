@@ -328,6 +328,9 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
     t.text    "other_info_description"
     t.text    "positive_facts"
     t.text    "improve_facts"
+    t.boolean "gender_approach"
+    t.text    "gender_approach_description"
+    t.text    "gender_approach_tool_evaluation"
   end
 
   create_table "campaigns", :force => true do |t|

@@ -224,10 +224,29 @@
   </tr>
 
   <tr class="form_section section_more_info">
-    <td><%= form.label "sections.valuation" %></td>
+    <td><%= form.label "sections.gender_approach" %></td>
     <td></td>
   </tr>
 
+  <tr class="list_style_1">
+    <td><%= form.label :gender_approach %></td>
+    <td><%= form.check_box :gender_approach, :onchange => "if (this.checked) { $('tr.gender_approach').show() } else { $('tr.gender_approach').hide() } ;" %></td>
+  </tr>
+
+  <tr class="list_style_0 gender_approach">
+    <td><%= form.label :gender_approach_description %></td>
+    <td><%= form.text_area :gender_approach_description %></td>
+  </tr>
+
+  <tr class="list_style_1 gender_approach">
+    <td><%= form.label :gender_approach_tool_evaluation %></td>
+    <td><%= form.text_area :gender_approach_tool_evaluation %></td>
+  </tr>
+
+  <tr class="form_section section_more_info">
+    <td><%= form.label "sections.valuation" %></td>
+    <td></td>
+  </tr>
 
   <tr class="list_style_1">
     <td><%= form.label :positive_facts %></td>
@@ -241,15 +260,12 @@
 
 <% end %>
 
-
-
-
 </table>
 
 
 
 <script>
-<% [ 'mobilization', 'media', 'activists_raising', 'web_2_0', 'institutional', 'school_network', 'society_movement', 'join_organizations', 'other_info' ].each do |group| %>
+<% [ 'mobilization', 'media', 'activists_raising', 'web_2_0', 'institutional', 'school_network', 'society_movement', 'join_organizations', 'other_info', 'gender_approach'].each do |group| %>
   var <%= group %> = document.getElementById('campaignaction_<%= group %>');
   if( <%= group %> && <%= group %>.checked )
     $('tr.<%= group %>').show();
