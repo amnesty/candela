@@ -1,10 +1,30 @@
+# This migration allows both updating the application from the previous version or creating a new one.
+
 class CheckOrCreateInitialSchema < ActiveRecord::Migration
   def up
 
-    # If activists table exists, aussmes that previous data has been loaded from previous version of tha application, and does nothing.
-    # If not, loads the whole schema from previous application.
-    if !Activist.table_exists?
+    # If activists table exists, assumes that previous data has been loaded from previous version of the application
+    #    --> Fix schema
+    if Activist.table_exists?
 
+      # Remove some tables
+      ['POSTAL', 'PROVINCES'].each{|t| drop_table t if table_exists? t }
+
+      # Add 'not null' condition to standard rails timestamp fields
+      tables_for_timestamp_fixing = [
+        "academic_years", "activist_statuses", "activists", "activists_collaborations", "activists_statuschanges", "activists_talks", "alert_definitions", 
+        "alerts", "autonomies", "availabilities", "available_hours", "board_positions", "campaigns", "campaigntopics", "cities", "collabtopics", 
+        "committees", "countries", "event_definitions", "event_records", "expertises", "hobbies", "hr_school_levels", "hr_schools", "hr_work_throughs", 
+        "informed_throughs", "interesteds", "invitations", "labour_situations", "languages", "leave_reasons", "local_organizations", "logos", 
+        "occupations", "provinces", "responsibilities", "se_teams", "sessions", "sexes", "sites", "skills", "student_levels", "student_years", "talks"
+      ]
+      tables_for_timestamp_fixing.each do |t|
+        change_column t, :created_at, :datetime, :null => false
+        change_column t, :updated_at, :datetime, :null => false
+      end
+
+    # If not, loads the whole schema from previous application.
+    else
       create_table "academic_years", :force => true do |t|
         t.string   "year"
         t.datetime "created_at", :null => false

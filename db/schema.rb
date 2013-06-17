@@ -13,28 +13,10 @@
 
 ActiveRecord::Schema.define(:version => 20130522081903) do
 
-  create_table "POSTAL", :primary_key => "POSTAL_ID", :force => true do |t|
-    t.string  "cp"
-    t.string  "city"
-    t.string  "municipe"
-    t.string  "comunity"
-    t.integer "PROVINCE_ID",   :limit => 8
-    t.string  "province_name"
-  end
-
-  add_index "POSTAL", ["PROVINCE_ID"], :name => "FK8D03F0CBE5899933"
-
-  create_table "PROVINCES", :primary_key => "PROVINCE_ID", :force => true do |t|
-    t.string  "nameKey"
-    t.binary  "visible",  :limit => 1
-    t.string  "code",                  :null => false
-    t.integer "GROUP_ID", :limit => 8
-  end
-
   create_table "academic_years", :force => true do |t|
     t.string   "year"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "academic_years_hr_schools", :id => false, :force => true do |t|
@@ -44,8 +26,8 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
 
   create_table "activist_statuses", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "activists", :force => true do |t|
@@ -64,8 +46,8 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
     t.integer  "labour_situation_id"
     t.boolean  "student"
     t.boolean  "data_protection_agreement"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.string   "student_place"
     t.integer  "student_level_id"
     t.integer  "student_year_id"
@@ -99,8 +81,8 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
     t.datetime "join_at"
     t.datetime "leave_at"
     t.integer  "leave_reason_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
     t.integer  "activist_status_id"
     t.datetime "activist_status_changed_at"
     t.text     "more_info"
@@ -152,8 +134,8 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
     t.datetime "date"
     t.integer  "activist_status_id"
     t.integer  "leave_reason_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
     t.integer  "activist_id"
     t.integer  "activists_collaboration_id"
   end
@@ -162,8 +144,8 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
     t.integer  "talk_id"
     t.integer  "activist_id"
     t.boolean  "attended"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "alert_definitions", :force => true do |t|
@@ -175,8 +157,8 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
     t.string   "watched_joins"
     t.string   "watched_where"
     t.date     "start_date",          :default => '2009-01-01'
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
     t.integer  "days_for_triggering", :default => 0
   end
 
@@ -190,8 +172,8 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
     t.integer  "record_id"
     t.boolean  "closed"
     t.date     "closed_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "attachments", :force => true do |t|
@@ -239,8 +221,8 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
 
   create_table "autonomies", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
     t.boolean  "enabled"
     t.string   "address"
     t.string   "cp",                     :limit => 5
@@ -272,20 +254,20 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
 
   create_table "availabilities", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "available_hours", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "board_positions", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "campaignactions", :force => true do |t|
@@ -336,8 +318,8 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
   create_table "campaigns", :force => true do |t|
     t.string   "name"
     t.string   "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
     t.integer  "campaigntopic_id"
     t.integer  "country_id"
     t.date     "starting_at"
@@ -346,8 +328,8 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
 
   create_table "campaigntopics", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "categories", :force => true do |t|
@@ -368,16 +350,16 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
 
   create_table "cities", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",               :null => false
+    t.datetime "updated_at",               :null => false
     t.integer  "province_id"
     t.string   "cp",          :limit => 5
   end
 
   create_table "collabtopics", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "collabtopics_interesteds", :id => false, :force => true do |t|
@@ -387,8 +369,8 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
 
   create_table "committees", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
     t.boolean  "enabled"
     t.string   "address"
     t.string   "cp",                     :limit => 5
@@ -419,8 +401,8 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
 
   create_table "countries", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
     t.string   "isoname",                :limit => 2
     t.boolean  "has_linked_campaigns"
     t.boolean  "enabled"
@@ -467,8 +449,8 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
     t.boolean  "is_unique",          :default => false
     t.string   "info_fields"
     t.text     "trigger_conditions"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
   end
 
   create_table "event_records", :force => true do |t|
@@ -478,21 +460,21 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
     t.integer  "item_id"
     t.datetime "timestamp"
     t.text     "info"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "expertises", :force => true do |t|
     t.string   "name"
     t.string   "category"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "hobbies", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "hobbies_interesteds", :id => false, :force => true do |t|
@@ -502,8 +484,8 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
 
   create_table "hr_school_levels", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "hr_school_levels_hr_schools", :id => false, :force => true do |t|
@@ -535,8 +517,8 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
     t.string   "tutor_phone",                :limit => 12
     t.integer  "pupils_count"
     t.text     "years"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
     t.string   "fax",                        :limit => 9
     t.string   "web_page"
     t.string   "phone2",                     :limit => 12
@@ -561,14 +543,14 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
 
   create_table "hr_work_throughs", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "informed_throughs", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "interesteds", :force => true do |t|
@@ -600,8 +582,8 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
     t.text     "wants_todo"
     t.text     "blogger"
     t.integer  "local_organization_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
     t.text     "student_more_info"
     t.integer  "occupation_id"
     t.integer  "activist_id"
@@ -640,26 +622,26 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
     t.integer  "role_id"
     t.string   "acceptation_code"
     t.datetime "accepted_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "labour_situations", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "languages", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "leave_reasons", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "local_organizations", :force => true do |t|
@@ -669,8 +651,8 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
     t.string   "phone",                  :limit => 12
     t.string   "email"
     t.string   "fax",                    :limit => 9
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
     t.string   "email_2"
     t.string   "city"
     t.string   "cp",                     :limit => 5
@@ -707,8 +689,8 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
     t.integer  "parent_id"
     t.string   "thumbnail"
     t.integer  "db_file_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
   end
 
   create_table "mail_template_assignments", :force => true do |t|
@@ -745,8 +727,8 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
 
   create_table "occupations", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "organization_on_offs", :force => true do |t|
@@ -783,15 +765,15 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
 
   create_table "provinces", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.integer  "country_id"
   end
 
   create_table "responsibilities", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
     t.boolean  "for_member"
     t.boolean  "for_autonomy"
   end
@@ -804,8 +786,8 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
 
   create_table "se_teams", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
     t.boolean  "enabled"
     t.string   "address"
     t.string   "cp",                     :limit => 5
@@ -837,8 +819,8 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
     t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
@@ -846,8 +828,8 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
 
   create_table "sexes", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "singular_agents", :force => true do |t|
@@ -862,35 +844,35 @@ ActiveRecord::Schema.define(:version => 20130522081903) do
     t.boolean  "ssl",                           :default => false
     t.boolean  "exception_notifications",       :default => false
     t.string   "exception_notifications_email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                                              :null => false
+    t.datetime "updated_at",                                                              :null => false
     t.boolean  "create_permissions_as_roles",   :default => false
   end
 
   create_table "skills", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "student_levels", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "student_years", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "talks", :force => true do |t|
     t.string   "name"
     t.datetime "date"
     t.string   "address"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
     t.string   "hours"
     t.integer  "seats",             :limit => 8
     t.integer  "organization_id"
