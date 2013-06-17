@@ -57,19 +57,12 @@ class User < ActiveRecord::Base
   end
   
   def has_any_permission_to(action, objective, options = {})
-    
-    match_permissions = []
-    permissions.each do |permission|
-      # Match by objective
-      if permission[:action] == action.to_s and permission[:objective] == objective.to_s.camelize.singularize
-        match_permissions << permission
-      # Match by self
-      elsif permission[:action] == action.to_s and permission[:objective].nil? and permission[:stage_type] == objective.to_s.camelize.singularize
-        match_permissions << permission
-      end
-    end
-    
-    
+
+    objective_class_name = objective.to_s.camelize.singularize
+    match_permissions = permissions.select{|p| p[:action] == action.to_s and 
+                                               (p[:objective] == objective_class_name or 
+                                               (p[:objective].nil? and p[:stage_type] == objective_class_name))}
+
     if options[:on]
       # scope on, or Site global permission
       match_permissions = match_permissions.select{ |p| (p[:stage_type] == options[:on].class.name and p[:stage_id] == options[:on].id) or p[:stage_type] == 'Site' }

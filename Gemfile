@@ -18,6 +18,9 @@ gem 'ransack'
 gem 'settingslogic'
 gem 'exception_notification'
 
+# Uncomment to profile controller actions.  
+#gem 'rack-mini-profiler'
+
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
@@ -48,3 +51,5 @@ gem 'rails3-jquery-autocomplete'
 
 # To use debugger
 # gem 'debugger'
+
+
