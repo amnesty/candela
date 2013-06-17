@@ -172,7 +172,6 @@ AiVoluntariado::Application.routes.draw do
   end
 
   #ROUTES FOR EVENT RECORDS
-
   EventRecord.child_classes.prepend('EventRecord').each do |klass_name|
     resources klass_name.underscore.pluralize, :controller => 'event_records', :defaults => (klass_name != 'EventRecord' ? {:type => klass_name}:{}) do 
       get :delete, :on => :member    
@@ -180,7 +179,7 @@ AiVoluntariado::Application.routes.draw do
         get :delete, :on => :member    
       end
     end
-  end
+  end if EventRecord.table_exists?
 
   #ROUTES FOR ALERTS
 

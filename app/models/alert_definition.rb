@@ -1,5 +1,7 @@
 class AlertDefinition < ActiveRecord::Base
 
+  attr_accessible :name, :description, :enabled, :watched_table, :watched_field, :days_for_triggering, :watched_where
+
   validates_uniqueness_of :name
 
   has_many :alerts

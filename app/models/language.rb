@@ -1,5 +1,7 @@
 class Language < ActiveRecord::Base
   
+  attr_accessible :name
+
   include ActiveRecord::AIActiveRecord
   include ActiveRecord::MultipleJoinsConditionForActivist
 
