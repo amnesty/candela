@@ -48,7 +48,7 @@ class Activist < ActiveRecord::Base
   validates_presence_of :nif
   validates_uniqueness_of :nif, :scope => [ :document_type ], :message => Gx.t_error('activist.nif.already_taken')
 
-  cattr_accessor :must_check_unlinked_interested
+  attr_accessor :must_check_unlinked_interested
   validate :check_unlinked_interested 
   validate :join_at_date_not_in_future
   validate :leave_at_date_not_in_future
