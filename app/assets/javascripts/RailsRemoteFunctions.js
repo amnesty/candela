@@ -9,37 +9,39 @@
  */
 
 function addAutocompleteInputCallback(triggerElementId, ajaxUrl, requestParamName, updatedElementId, afterSuccess) {
-
   $(document).ready(function() {
-
     $('#'+triggerElementId).on("change", function(e) {
       e.preventDefault();
-
-      updatedElement = $('#'+updatedElementId);
-      updatedElement.addClass('loading');
-
-      $.ajax({
-        url: ajaxUrl,
-        async: false,
-        method: 'get',
-        dataType: 'html',
-        data: requestParamName+'='+e.target.value, 
-        success: function(data) {
-          updatedElement.removeClass('loading');
-          if (updatedElement.attr('type') == 'text')
-            updatedElement.val(data);
-          else // Discarded all other options, select input is assumed
-            updatedElement.empty().append(data);
-          if (afterSuccess){
-            afterSuccess();
-          }
-        },
-        error: function(xhr,exception,status) {
-          //TODO: catch any errors here
-          updatedElement.removeClass('loading');
-        }
-      });
+      performInputAutocomplete(ajaxUrl, requestParamName+'='+e.target.value, updatedElementId, afterSuccess)
     });
+  });
+}
+
+function performInputAutocomplete(ajaxUrl, requestParams, updatedElementId, afterSuccess) {
+
+  updatedElement = $('#'+updatedElementId);
+  updatedElement.addClass('loading');
+
+  $.ajax({
+    url: ajaxUrl,
+    async: false,
+    method: 'get',
+    dataType: 'html',
+    data: requestParams, 
+    success: function(data) {
+      updatedElement.removeClass('loading');
+      if (updatedElement.attr('type') == 'text')
+        updatedElement.val(data);
+      else // Discarded all other options, select input is assumed
+        updatedElement.empty().append(data);
+      if (afterSuccess){
+        afterSuccess();
+      }
+    },
+    error: function(xhr,exception,status) {
+      //TODO: catch any errors here
+      updatedElement.removeClass('loading');
+    }
   });
 }
 
