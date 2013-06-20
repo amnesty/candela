@@ -1,5 +1,5 @@
 <%= round_div_box do %>
-  <h1><%= raw t('main_page.monitoring_title', :agent => current_agent.name) %></h1>
+  <h1><%= raw t('.title', :agent => current_agent.name) %></h1>
 <% end  %>
 
 <% if current_agent.has_any_permission_to(:read, :alerts) %>

@@ -4,9 +4,58 @@ es:
 
 ######################## VIEWS ######################################
 
+  admin:
+    index:
+      title: Administración
+      access: Accesos
+      config: Configuración general
+      tables: Mantenimiento de ficheros
+
   application:
+
     locale_selection:
       select_locale: "Idioma:"
+
+    menu:
+      shortcuts: 
+        admin: Administración
+        home: Inicio
+        logout: Salir
+        monitoring: Seguimiento
+      main_menu:
+        activists: Activistas
+        autonomies: Entidades autonómicas
+        campaigns: Campañas
+        campaignactions: Acciones realizadas
+        collaboration_types: Lugares de colaboración
+        committees: Comités/Comisiones
+        countries: Países
+        hr_schools: Red de escuelas
+        interesteds: Interesados
+        local_organizations: Grupos
+        se_teams: Equipos del SE.
+        reception: Acogida
+        actions: Acciones
+        talks: Sesiones presentación
+      search: 
+        top: Búsquedas
+        activists: Activistas
+        collaborations: Colaboraciones
+        hr_schools: Escuelas DD.HH.
+        campaignactions: Acciones realizadas
+        interesteds: Interesados
+        talks: Sesiones presentación
+        collaboration_types: Lugares de colaboración
+        local_organizations: Grupos locales
+        se_teams: Equipos del SE
+        countries: Paises
+        committees: Comités/Comisiones
+        autonomies: Autonomías
+        alerts: Alertas
+
+  monitoring:
+    index:
+      title: Página de seguimiento para <i>%{agent}</i>
 
   public:
     new_hr_school:
@@ -61,11 +110,6 @@ es:
     support_collaborations: Colaboraciones de apoyo
     casual_collaborations: Colaboraciones puntuales
 
-  admin:
-    access: Accesos
-    config: Configuración general
-    tables: Mantenimiento de ficheros
-
   home:
     sections:
       activists_notes: Seguimiento de las activistas
@@ -83,41 +127,7 @@ es:
       se_team_notes: Seguimiento de mi equipo
       talks: Sesiones de presentación
 
-  main_page:
-    admin: Administración
-    home: Inicio
-    monitoring_title: Página de seguimiento para <i>%{agent}</i>
-    logout: Salir
-    menu_activists: Activistas
-    menu_autonomies: Entidades autonómicas
-    menu_campaigns: Campañas
-    menu_campaignactions: Acciones realizadas
-    menu_collaboration_types: Lugares de colaboración
-    menu_committees: Comités/Comisiones
-    menu_countries: Países
-    menu_hr_schools: Red de escuelas
-    menu_interesteds: Interesados
-    menu_local_organizations: Grupos
-    menu_se_teams: Equipos del SE.
-    menu_reception: Acogida
-    menu_actions: Acciones
-    menu_talks: Sesiones presentación
-    monitoring: Seguimiento
-    search: Búsquedas
-    search_activists: Activistas
-    search_collaborations: Colaboraciones
-    search_hr_schools: Escuelas DD.HH.
-    search_campaignactions: Acciones realizadas
-    search_interesteds: Interesados
-    search_talks: Sesiones presentación
-    search_collaboration_types: Lugares de colaboración
-    search_local_organizations: Grupos locales
-    search_se_teams: Equipos del SE
-    search_countries: Paises
-    search_committees: Comités/Comisiones
-    search_autonomies: Autonomías
-    search_alerts: Alertas
-    under_development: En desarrollo
+
 
   search:
     activists: "Búsqueda de activistas"
