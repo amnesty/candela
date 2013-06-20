@@ -17,9 +17,6 @@
       <li>
         <%= link_to t('main_page.menu_activists'), activists_path if current_agent.has_any_permission_to(:read, :activists) %>
       </li>
-      <li>
-        <%= link_to t('main_page.menu_interesteds'), interesteds_path if current_agent.has_any_permission_to(:read, :interesteds)  %>
-      </li>
     </ul>
   </li>
 
@@ -45,25 +42,28 @@
   </li>
 
   <li class="nav_menu_item_lvl1">
-    <%= "Formación" %>
+    <%= t('main_page.menu_reception') %>
     <ul class="nav_menu_group">
       <li>
-        <%= link_to t('main_page.menu_talks'), talks_path if current_agent.has_any_permission_to(:read, :talks) %>
+        <%= link_to t('main_page.menu_interesteds'), interesteds_path if current_agent.has_any_permission_to(:read, :interesteds)  %>
       </li>
       <li>
-        <%= link_to t('main_page.menu_hr_schools'), hr_schools_path, :class => "last" if current_agent.has_any_permission_to(:read, :hr_schools) %>
+        <%= link_to t('main_page.menu_talks'), talks_path if current_agent.has_any_permission_to(:read, :talks) %>
       </li>
     </ul>
   </li>
 
   <li class="nav_menu_item_lvl1">
-    <%= "Acciones" %>
+    <%= t('main_page.menu_actions') %>
     <ul class="nav_menu_group">
       <li>
         <%= link_to t('main_page.menu_campaigns'), campaigns_path if current_agent.has_any_permission_to(:read, :campaigns) %>
       </li>
       <li>
         <%= link_to t('main_page.menu_campaignactions'), campaignactions_path if current_agent.has_any_permission_to(:read, :campaignactions) %>
+      </li>
+      <li>
+        <%= link_to t('main_page.menu_hr_schools'), hr_schools_path, :class => "last" if current_agent.has_any_permission_to(:read, :hr_schools) %>
       </li>
     </ul>
   </li>

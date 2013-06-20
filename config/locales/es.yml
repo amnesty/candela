@@ -95,10 +95,12 @@ es:
     menu_collaboration_types: Lugares de colaboración
     menu_committees: Comités/Comisiones
     menu_countries: Países
-    menu_hr_schools: Escuelas DD.HH.
+    menu_hr_schools: Red de escuelas
     menu_interesteds: Interesados
     menu_local_organizations: Grupos
     menu_se_teams: Equipos del SE.
+    menu_reception: Acogida
+    menu_actions: Acciones
     menu_talks: Sesiones presentación
     monitoring: Seguimiento
     search: Búsquedas
