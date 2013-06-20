@@ -334,7 +334,7 @@ es:
 
     filters:
       is_leave: De baja
-      with_related_collaborations: Relacionados con mis grupos
+      with_related_collaborations: Relacionados con mi estructura
 
   activists_collaboration:
     activist: Activista
