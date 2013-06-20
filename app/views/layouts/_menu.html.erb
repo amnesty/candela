@@ -2,7 +2,7 @@
 <div id="shortcuts">
 
   <%= link_to          t('main_page.home'),   root_path, :id => "home" %>
-  <%= link_to          t('main_page.monitoring'), root_path, :id => "monitoring" %>
+  <%= link_to          t('main_page.monitoring'), monitoring_path, :id => "monitoring" %>
   <%= link_to          t('main_page.logout'), logout_path, :id => "logout" %>
   <%= link_to          t('main_page.admin'),    admin_path, :id => 'admin' if current_agent.has_any_permission_to(:config, :site, :on => Site.current) %>
 

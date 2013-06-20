@@ -7,13 +7,13 @@ class AlertsController < ApplicationController
   authorization_filter :destroy, :alert, :only => [ :delete, :destroy ]
   
   def new
-    redirect_to root_path, :notice => t('alerts.cant_be_created')
+    redirect_to alerts_path, :notice => t('alerts.cant_be_created')
   end
 
   def generate
     num = Alert.all.count
     AlertDefinition.create_alerts
-    redirect_to root_path, :notice => "Se han creado #{Alert.all.count - num} nuevas alertas"
+    redirect_to alerts_path, :notice => "Se han creado #{Alert.all.count - num} nuevas alertas"
   end
   
 end

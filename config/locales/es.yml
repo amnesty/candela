@@ -86,7 +86,7 @@ es:
   main_page:
     admin: Administración
     home: Inicio
-    home_title: Página de Inicio de <i>%{agent}</i>
+    monitoring_title: Página de seguimiento para <i>%{agent}</i>
     logout: Salir
     menu_activists: Activistas
     menu_autonomies: Entidades autonómicas

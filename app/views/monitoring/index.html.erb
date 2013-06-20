@@ -1,5 +1,5 @@
 <%= round_div_box do %>
-  <h1><%= raw t('main_page.home_title', :agent => current_agent.name) %></h1>
+  <h1><%= raw t('main_page.monitoring_title', :agent => current_agent.name) %></h1>
 <% end  %>
 
 <% if current_agent.has_any_permission_to(:read, :alerts) %>
@@ -47,7 +47,7 @@
       <thead>
         <tr><th>
           <%= link_to_function "Seguimiento de #{ current_agent.name} como #{ performance.role.name } para #{performance.organization_name}", 
-                               "updateFollowingPerformance('link_to_following_performance_#{ performance.id }','following_performance_#{ performance.id }','#{root_path(:performance => performance.id)}');", 
+                               "updateFollowingPerformance('link_to_following_performance_#{ performance.id }','following_performance_#{ performance.id }','#{monitoring_path(:performance => performance.id)}');", 
                                :class => "font_plus_one with_icon action_view",
                                :id       => "link_to_following_performance_#{ performance.id }"
           %>

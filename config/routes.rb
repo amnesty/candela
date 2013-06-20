@@ -15,6 +15,8 @@ AiVoluntariado::Application.routes.draw do
       
   end
 
+  match '/monitoring' => "monitoring#index", :as => :monitoring
+
   resources :activists do
 
     member do 
@@ -235,7 +237,7 @@ AiVoluntariado::Application.routes.draw do
   match '/search'            => 'search#index',     :as => :search
   match '/admin'             => 'admin#index',      :as => :admin
 
-  root :to => "home#index"
+  root :to => "monitoring#index"
 
   # Note: This route will make all actions in every controller accessible via GET requests.
   # This is a legacy wild controller route that's not recommended for RESTful applications.
