@@ -10,8 +10,6 @@
     <td><%= form.text_field :email %></td>
   </tr>
 
-  <% if @resource.needs_password? -%>
-
     <tr class="list_style_1">
       <td><%= form.label :password %></td>
       <td><%= form.password_field :password %></td>
@@ -21,14 +19,6 @@
       <td><%= form.label :password_confirmation %></td>
       <td><%= form.password_field :password_confirmation %></td>
     </tr>
-
-  <% else -%>
-
-    <tr class="list_style_1">
-      <td><%= t(:associating_to_id, :id => session[:openid_identifier]) %></td>
-    </tr>
-
-  <% end -%>
 
 </table>
 
