@@ -590,6 +590,7 @@ es:
       is_activist: Pasado a activista
       is_minor: Menor de edad
       has_pending_communication: Pendiente de comunicación
+      with_talks: Apuntados a sesión
 
   interested_communication:
     texts:

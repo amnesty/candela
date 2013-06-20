@@ -15,7 +15,8 @@ class InterestedsController < ApplicationController
     {
       :is_minor => [:is_minor, true],
       :has_pending_communication => [:has_pending_communication, true],
-      :is_activist => [:is_activist, true]
+      :is_activist => [:is_activist, true],
+      :with_talks => [:with_talks]
     }
   end
 
