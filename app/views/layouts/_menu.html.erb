@@ -89,14 +89,17 @@
       <li>
          <%= link_to t('main_page.search_alerts'), search_path(:what => :alerts) if current_agent.has_any_permission_to(:read, :alerts) %>         
       </li>
+      <% collab_places = [:local_organizations, :se_teams, :countries, :autonomies, :committees] %>
+      <% if collab_places.collect{|org|current_agent.has_any_permission_to(:read, org)}.include?(true) %>
       <li>
          <%=  link_to t('main_page.menu_collaboration_types'), '' %>         
         <ul class="nav_menu_group">
-          <% [:local_organizations, :se_teams, :countries, :autonomies, :committees].each do |org| %>
+          <% collab_places.each do |org| %>
             <li><%= link_to t("main_page.search_#{org.to_s}"), search_path(:what => org) if current_agent.has_any_permission_to(:read, org) %></li>         
           <% end %>
         </ul>
       </li>
+      <% end %>
     </ul>
   </li>
 </ul>
