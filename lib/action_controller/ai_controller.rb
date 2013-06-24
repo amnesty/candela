@@ -32,7 +32,7 @@ module ActionController
         else
           @search_fields = [ "#{model_class.to_s.tableize}.name"]
         end
-        @search_terms = Gx.regexp_acutes params[:query].split(' ')
+        @search_terms = Gx.regexp_acutes params[:query].split(' ').collect{|s|ActiveRecord::Base.connection.quote_string(s)}
         query_strings = @search_terms.map{|search_term| @search_fields.map{ |field| "CONVERT (#{field} USING latin1) REGEXP CONVERT ('#{ search_term }' USING latin1)" }.join(" OR ") }
         conditions << query_strings.map{|query_string| "(#{query_string})"}.join(" AND ")
       end
