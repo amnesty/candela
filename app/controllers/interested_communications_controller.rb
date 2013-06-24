@@ -1,7 +1,9 @@
 class InterestedCommunicationsController < ApplicationController
   include ActionController::AIController
 
+  authorization_filter :create, :interested_communication, :only => [ :new, :create ]
   authorization_filter :read, :interested_communication, :only => [ :show, :index ]
+  authorization_filter :update, :interested_communication, :only => [ :edit, :update]
   
   def index
     options = {}

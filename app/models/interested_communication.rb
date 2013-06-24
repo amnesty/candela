@@ -58,7 +58,7 @@ class InterestedCommunication < EventRecord
 
 #FIXME: Fix permissions for EventRecord child classes!!!! 
   def authorize? (user,permission)
-    self.becomes(EventRecord).authorize?(user,permission)
+    self.dup.becomes(EventRecord).authorize?(user,permission)
   end
 
 
