@@ -97,7 +97,8 @@ class Activist < ActiveRecord::Base
           end
         end 
         conditions = conditions.empty? ? "1 = 0" : conditions.compact.join('OR')
-        {:joins => [:activists_collaborations => :autonomic_teams], :conditions => conditions }
+        res_ids = includes([:activists_collaborations => :autonomic_teams]).where(conditions).collect(&:id)
+        {:conditions => {:id => res_ids}}
       end
     else
       where("1 = 0") # Empty set
