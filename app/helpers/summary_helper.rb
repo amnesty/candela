@@ -164,7 +164,11 @@ module SummaryHelper
          form_tag '#', :method => :get do
            ''.tap do |html|
 
-              html << autonomic_team_options_for_select(organization) if organization.is_a?(Autonomy)
+              if organization.is_a?(Autonomy)
+                aatt = current_user.agent_performances.where(:stage_type => 'AutonomicTeam').collect(&:stage).select{|t|t.autonomy == organization}.uniq
+                default_team = (aatt.count == 1 ? aatt.first : nil) 
+                html << autonomic_team_options_for_select(organization, default_team) 
+              end
               html << status_options_for_select
               html << type_options_for_select(uniq_name)
 

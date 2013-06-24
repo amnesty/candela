@@ -37,5 +37,29 @@ class Autonomy < ActiveRecord::Base
     managers = activists_collaborations.collect {|c| c.activist if (c.has_responsibility?(resp) && c.is_active && c.is_member) }.compact
   end
 
+  # User can read autonomy if has access to one of its teams
+  authorizing do |user, permission|
+    if user.is_a?(User) and permission == :read
+      matching_teams = user.agent_performances.collect{|p|p.stage if p.stage_type == 'AutonomicTeam'} & autonomic_teams
+      return true if matching_teams.any?
+    end
+    nil 
+  end
+  
+  # Overrides AIOrganization.can_choose to include autonomic teams
+  scope :can_choose, lambda { |agent|
+    conditions = "#{ self.name.tableize }.enabled = 1"
+    if agent.is_a?(User) and not agent.has_any_permission_to(:read, self.name, :on => Site.current)
+      can_read = agent.performances.select{|p|  p.stage_type == "#{ self.name }" }.map(&:stage_id) 
+      can_read |= agent.performances.select{|p|  p.stage_type == "AutonomicTeam" }.map(&:stage).collect(&:autonomy_id)
+      if can_read.any?
+        conditions = '' "#{ self.name.tableize }.id IN(#{ can_read.join(',') })"
+      else # ensure cant read
+        conditions = " 1 != 1 "
+      end
+    end 
+    {  :conditions => "#{ conditions }" }
+  }
+
 end
 

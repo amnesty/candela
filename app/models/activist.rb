@@ -83,15 +83,21 @@ class Activist < ActiveRecord::Base
 
   scope :with_related_collaborations_on, lambda { |agent|
     if agent.is_a?(User)
-#      options = { :include => :activists_collaborations }       
       if agent.has_any_permission_to(:read, :activist, :on => Site.current)
         {}
       else
         ps = agent.performances.all(:include    => [ :role => :permissions ],
                                     :conditions => [ 'permissions.objective = ? AND performances.stage_type IS NOT NULL AND performances.stage_type != ?', 'Activist', 'Site' ]
                                  )
-        conditions = [ ps.map{ |p| "(activists_collaborations.organization_id = '#{ p.stage_id }' AND activists_collaborations.organization_type = '#{ p.stage_type }')" }.join(' OR ') ]
-        {:joins => :activists_collaborations, :conditions => conditions}
+        conditions = ps.collect do |p| 
+          if p.stage.is_a? ActiveRecord::AIOrganization
+            "(activists_collaborations.organization_id = '#{ p.stage_id }' AND activists_collaborations.organization_type = '#{ p.stage_type }')" 
+          elsif p.stage.is_a? AutonomicTeam
+            "(activists_collaborations_autonomic_teams.autonomic_team_id = '#{ p.stage_id }')" 
+          end
+        end 
+        conditions = conditions.empty? ? "1 = 0" : conditions.compact.join('OR')
+        {:joins => [:activists_collaborations => :autonomic_teams], :conditions => conditions }
       end
     else
       where("1 = 0") # Empty set
@@ -109,7 +115,7 @@ class Activist < ActiveRecord::Base
   
   # Objects authorization blocks
   
-  # Last authorization block. Activist can be CRUD by user if activist belongs to an organization that user has role on.
+  # Activist can be CRUD by user if activist belongs to an organization that user has role on.
   authorizing do |user, permission|
     # FIXME
     ret = false
@@ -120,6 +126,18 @@ class Activist < ActiveRecord::Base
             end || nil
     end
     ret
+  end
+
+  # Activist can be CRUD by user if activist belongs to an autonomic team that user has role on.
+  authorizing do |user, permission|
+    if user.is_a?(User) 
+      team_performances = user.agent_performances.select{|p|p.stage_type == 'AutonomicTeam'}
+      teams = self.activists_collaborations.collect{|c|c.organization.autonomic_teams if c.organization.is_a? Autonomy}.flatten & team_performances.map(&:stage)
+      teams.each do |t|
+        return true if user.has_any_permission_to( permission, :Activist, :on => t)
+      end
+    end
+    nil
   end
   
   # Permission to create activist if user has any permission to create

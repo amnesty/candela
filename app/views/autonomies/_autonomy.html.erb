@@ -17,7 +17,7 @@
           <% new_team = autonomy.autonomic_teams.new %>
           <% autonomy.autonomic_teams.delete new_team %>
           <%= summary_action(:create, new_autonomy_autonomic_team_path(autonomy), { :object => new_team }) %>
-          <%= summary_action(:read, autonomy_autonomic_teams_path(autonomy),    { :to => :edit, :object => new_team }) %>
+          <%= summary_action(:read, autonomy_autonomic_teams_path(autonomy),    { :to => :show, :object => new_team }) %>
         </div>
 
         <%= render( :partial => "shared/collection", :object => teams, :locals => { :klass => AutonomicTeam, :embedded => true } ) %>
@@ -26,20 +26,20 @@
       </tr>
     <% end %>
     
-    <% if current_agent.has_any_permission_to(:read, :activists_collaborations, :on => autonomy) or 
-          current_agent.has_any_permission_to(:read, :activists_collaborations, :on => current_site) %>
+    <% if ([autonomy,current_site]+autonomy.autonomic_teams).collect{|o|
+          current_agent.has_any_permission_to(:read, :activists_collaborations, :on => o)}.include?(true) %>
       <%= summary_collaborations_for_section_for(autonomy) %>
     <% end %>
 
     <% if autonomy.authorize?(:read, :to => current_agent) %>
 
       <tr>
-        <%= summary_campaignactions_section_for(autonomy) %>
-        <%= summary_talks_section_for(autonomy) %>
+        <%= current_agent.has_any_permission_to(:read, :campaignactions, :on => autonomy) ? summary_campaignactions_section_for(autonomy) : '<td></td>'.html_safe %>
+        <%= current_agent.has_any_permission_to(:read, :talks, :on => autonomy) ? summary_talks_section_for(autonomy) : '<td></td>'.html_safe %>
       </tr>
 
       <tr>
-        <%= summary_hr_schools_section_for(autonomy, { :colspan => 2 }) %>
+        <%= current_agent.has_any_permission_to(:read, :hr_schools, :on => autonomy) ? summary_hr_schools_section_for(autonomy, { :colspan => 2 }) : ('<td></td>'*2).html_safe %>
       </tr>
 
       <% if current_agent.can_track?(autonomy) %>

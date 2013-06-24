@@ -5,7 +5,7 @@
     <%= link_to_function t('form.actions.uncheck_all_organizations_checkbox'), "toggleCheckedOf(false, 'ALL')" %> 
   </p>
 
-  <% @stages.each do |stage| %>
+  <% @stages.sort_by{|s|s.full_name}.each do |stage| %>
     <p class="smaller left big_padding">
       <%= check_box_tag("performance[stage_ids][]",
             stage.id,

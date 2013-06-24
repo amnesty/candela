@@ -10,6 +10,10 @@ class AutonomicTeam < ActiveRecord::Base
   def to_title; name; end
   def self.has_fast_search?; false; end
 
+  def full_name
+    "#{autonomy.name} - #{name}"    
+  end
+
   # Authorization delegated to autonomy
   authorizing do |user, permission|
     self.autonomy.authorize? permission, :to => user unless self.autonomy.nil?

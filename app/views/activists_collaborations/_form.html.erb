@@ -38,7 +38,9 @@
         <%= form.hidden_field :organization_type, :value => @activists_collaboration.guess_organization_type %>
         <td><%= form.label_required @activists_collaboration.guess_organization_type.downcase %></td>
         <% valid_new_collaboration  = @activists_collaboration.collaboration_type_list.can_choose(current_user).inject([]) do |valid_organizations, organization| 
-                                          valid_organizations << organization if current_user.has_any_permission_to(:create, :activists_collaboration, :on => organization) or current_user.has_any_permission_to(:create, :activists_collaboration, :on => Site.current)
+                                         stages_list = [organization,current_site]
+                                         stages_list += organization.autonomic_teams if organization.respond_to?(:autonomic_teams)
+                                         valid_organizations << organization if stages_list.collect{|s| current_agent.has_any_permission_to(:create, :activists_collaborations, :on => s)}.include?(true)
                                          valid_organizations
                                        end %>
 

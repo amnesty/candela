@@ -84,6 +84,7 @@ es:
     localorganization: Grupo
     se_team: Equipo del S.E.
     seteam: Equipo del S.E.
+    autonomic_team: Equipo autonómico
 
   __organization_sections: &_organization_sections
     collaborations: Miembros y colaboradores
@@ -440,6 +441,8 @@ es:
 #    <<: *_notes_entity
 
   autonomic_team:
+    abrev: Eq.Aut.
+    title: Equipo autonómico
     sections:
       <<: *_collaborations_sections
       <<: *_organization_sections
@@ -661,6 +664,7 @@ es:
       Autonomy: Entidad autonómica
       Country: País
       HrSchool: Escuela DD.HH.
+      AutonomicTeam: Equipo autonómico
       none: Ninguna
 
   se_team:

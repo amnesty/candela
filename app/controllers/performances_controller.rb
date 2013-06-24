@@ -73,7 +73,14 @@ class PerformancesController < ApplicationController
 
   
   def stages_for_performances
-    @stages = Performance.organizations_for_stage(params[:stage_type])
+    if params[:stage_type]
+      @stages = Performance.organizations_for_stage(params[:stage_type])
+    elsif params[:parent_stage_type] && params[:parent_stage_id] && params[:child_stages_method]
+      parent_stage = params[:parent_stage_type].constantize.find_by_id(params[:parent_stage_id]) 
+      @stages = Performance.organizations_for_stage(params[:stage_type], {:parent_stage => parent_stage, :child_stages_method => params[:child_stages_method]})
+    else
+      @stages = []
+    end
     render :template => 'performances/stages_as_options', :layout => nil
   end
 

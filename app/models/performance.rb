@@ -5,7 +5,7 @@ class Performance
   
   include ActiveRecord::AIActiveRecord
   
-  attr_accessible :stage_type, :stage_id, :stage_ids, :role_id, :agent_type, :agent_id
+  attr_accessible :stage, :stage_type, :stage_id, :stage_ids, :role, :role_id, :agent, :agent_type, :agent_id
 
   attr_accessor :stage_ids # form multiple performances create
  
@@ -32,7 +32,7 @@ class Performance
 =end
   
   def self.stage_types
-    ["Site", "LocalOrganization", "SeTeam", "Autonomy", "Country", "Committee", "HrSchool" ]
+    ["Site", "LocalOrganization", "SeTeam", "Autonomy", "Country", "Committee", "HrSchool", "AutonomicTeam" ]
   end
   
   def to_title
@@ -42,7 +42,7 @@ class Performance
   
   # FIXME  
   def h_stage
-    stage.nil? ? "" : (stage.name || "")
+    stage.nil? ? "" : (stage.full_name || "")
   end
 
   def h_agent
@@ -95,7 +95,7 @@ class Performance
   def organization_name
     ret = ""
     if self.stage_id and self.stage_type
-      return "#{ I18n.t("#{ self.stage_type.underscore }.abrev") } #{ self.stage.name }"
+      return "#{ I18n.t("#{ self.stage_type.underscore }.abrev") } #{ self.stage.full_name }"
     end
     return I18n.t('activists_collaboration.unknown_organization')
   end
@@ -111,8 +111,14 @@ class Performance
   end
   
   
-  def self.organizations_for_stage(stage_type)
-    self.stage_types.include?(stage_type) ? stage_type.constantize.orderby_name : []
+  def self.organizations_for_stage(stage_type, options = {:parent_stage => nil, :child_stages_method => nil})
+    ret = []
+    if options[:parent_stage] && options[:child_stages_method]
+      ret = options[:parent_stage].send(options[:child_stages_method])
+    elsif self.stage_types.include?(stage_type)    
+      ret = stage_type.constantize.orderby_name
+    end
+    ret
 #    unless self.stage_types.include?(stage_type)
 #      raise ActiveRecord::RecordNotFound
 #    end

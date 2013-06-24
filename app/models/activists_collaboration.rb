@@ -66,27 +66,6 @@ class ActivistsCollaboration < ActiveRecord::Base
     ret
   }
   
-#  scope :by_multiple_collaboration_ids, lambda { |ids|
-#            ret = {}
-#                                                   
-#            unless ids.nil?
-#                ret                 = { :joins => [], :conditions => [] }
-#                count               = 0
-#                relation_table_name = "activists_collaborations"
-#                ids = [*ids]
-#                ids.each { |col_type|
-#                  
-#                  ret[:joins]      << "INNER JOIN `activists_collaborations` AS `activists_collaborations_#{ count }`"
-#                  ret[:conditions] << "`activists_collaborations_#{ count }`.activist_id = `activists`.id"
-#                  ret[:conditions] << "activists_collaborations_#{ count }.collaboration_type = '#{ col_type }'"
-#                  count += 1
-#                }
-#                ret[:conditions] = ret[:conditions].join(' AND ')                              
-
-#            end
-#            ret
-#          }
-
   # Authorization blocks.
   # User can operate over collaboration if has permission over organization collaboration belongs to 
   authorizing do |user, permission|
@@ -98,13 +77,15 @@ class ActivistsCollaboration < ActiveRecord::Base
   end
   
   # Authorization blocks.
-  # User can operate over collaboration if has permission over activist
+  # User can operate over collaboration if has permission over an autonomic team belonging to autonomy
   authorizing do |user, permission|
-    ret = nil
-    if organization and user.is_a?(User)
-      ret = (user.has_any_permission_to(permission, self.class, :on => organization) || nil)
+    if user.is_a?(User) and autonomic_teams.any?
+      matching_teams = user.agent_performances.collect{|p|p.stage if (p.stage_type == 'AutonomicTeam' && p.stage.autonomy == organization)}.compact
+      matching_teams.each do |t|
+        return true if user.has_any_permission_to( permission, self.class, :on => t)
+      end
     end
-    ret 
+    nil 
   end
 
   # Authorization blocks.
@@ -129,6 +110,7 @@ class ActivistsCollaboration < ActiveRecord::Base
         agent.performances.all(:include    => [ :role => :permissions ],
                                :conditions => [ 'permissions.objective = ? AND performances.stage_type IS NOT NULL AND performances.stage_type != ?', 'Activist', 'Site' ]
                                )
+      ps = ps.collect{|p| p.stage.respond_to?(:autonomy) ? Performance.new(:agent => p.agent, :role => p.role, :stage => p.stage.autonomy) : p}
       options[:conditions] = [ ps.map{ |p| "(activists_collaborations.organization_id = '#{ p.stage_id }' AND activists_collaborations.organization_type = '#{ p.stage_type }' AND activists_collaborations.activist_status_id != #{ ActivistStatus.inactive_id })" }.join(' OR ') ]
     end
     options

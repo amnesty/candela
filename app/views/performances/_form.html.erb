@@ -12,14 +12,83 @@
 
     <td>
       <%= form.select :stage_type,
-                      Performance.stage_types.collect{ |s| [Gx.t_attr("performance.#{s.underscore}"), s ] },
+                      Performance.stage_types.collect{ |s| 
+                        if s.constantize.instance_methods.include?(:autonomy)
+                          [Gx.t_attr("performance.#{s.underscore}"), s, {
+                            'data-parent-stage' => 'Autonomy',
+                            'data-parent-stage-type' => 'Autonomy',
+                            'data-child-stages-method' => 'autonomic_teams',
+                            'data-parent-stage-label' => Gx.t_attr("performance.#{'Autonomy'.underscore}"),
+                            'data-parent-stage-autocomplete-url' => organizations_for_search_path,
+                            'data-parent-stage-params' => 'organization_type=Autonomy',
+
+                          }]
+                        else
+                          [Gx.t_attr("performance.#{s.underscore}"), s]
+                        end
+                      },
                       { :promt    => Gx.t_attr("performance.choose_one_organization_type"),
                         :include_blank => true },
                       { :disabled => (['edit','update'].include?(params[:action]) ? "disabled" : false)}
       %>
-      <% content_for(:head){ javascript_tag "addAutocompleteInputCallback('performance_stage_type', '#{stages_for_performances_path}', 'stage_type', 'cell_performance_stage_id');" } %>
+<script>
+
+function addAutocompleteStagesCallback(triggerElementId){
+  $(document).ready(function() {
+
+    $('#'+triggerElementId).on("change", function(e) {
+      e.preventDefault();
+
+      selectedOption = $("option:selected", this);
+      parentStage = selectedOption.data("parent-stage");
+
+      if (parentStage) {
+        $('#parent_stage_row').show();
+        $('#parent_stage_row_label').text(selectedOption.data("parent-stage-label"));
+        performInputAutocomplete(selectedOption.data("parent-stage-autocomplete-url"), selectedOption.data("parent-stage-params"), 'parent_stage_select');
+        $('#parent_stage_select').data('parent-stage-type', selectedOption.data("parent-stage-type"));
+        $('#parent_stage_select').data('child-stages-method', selectedOption.data("child-stages-method"));
+      }
+      else {
+        $('#parent_stage_row').hide();
+        performInputAutocomplete('<%= stages_for_performances_path%>', 'stage_type='+e.target.value, 'cell_performance_stage_id');
+      }
+    });
+  });
+}
+
+function addParentStageCallback(triggerElementId){
+  $(document).ready(function() {
+
+    $('#'+triggerElementId).on("change", function(e) {
+      e.preventDefault();
+
+        performInputAutocomplete('<%= stages_for_performances_path%>', 
+                                 'parent_stage_type='+$(e.target).data("parent-stage-type")+
+                                    '&parent_stage_id='+e.target.value+'&child_stages_method='+$(e.target).data("child-stages-method"), 
+                                 'cell_performance_stage_id');
+    });
+  });
+}
+
+addAutocompleteStagesCallback('performance_stage_type');
+addParentStageCallback('parent_stage_select');
+
+</script>
 
   </tr>
+
+  <tr id='parent_stage_row' class="list_style_0" style="display:none">
+    <td>
+      <label id='parent_stage_row_label'></label>
+    </td>
+
+    <td>
+      <%= select_tag 'parent_stage_id', [], :id => 'parent_stage_select' %>
+
+    </td>
+  </tr>
+
   <tr class="list_style_1">
     <td>
       <%= form.label_required :stage_id_s %>
@@ -39,7 +108,7 @@
                   stage.id,
                   (form.object.agent.performances.any? and form.object.agent.performances.select{ |p| (p.stage_type == stage.class.name and p.stage_id == stage.id)  }.any?),
                   { :class => "check_box_permission check_box_permission_#{ stage.class.name }" }) %>
-            <i><%= stage.to_title %></i>
+            <i><%= stage.full_name %></i>
           </p>
         <% end %>
       <% end %>

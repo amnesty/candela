@@ -21,9 +21,10 @@ module ActivistsCollaborationsHelper
   end
 
   def autonomic_team_options_for_select(autonomy, default_value = '')
+    default_value = "autonomic_team_#{default_value.id}" if default_value.is_a?(AutonomicTeam)
     option_list = autonomy.autonomic_teams.collect {|team| [team.name, "autonomic_team_#{team.id}", :class => "autonomic_team_#{ team.id }"] }
     option_list.prepend [t("autonomy.sections.all_autonomic_teams"),'', :class => '']
-    select_tag('autonomic_team[]', options_for_select(option_list), {:id => 'activist_filter_autonomic_team', :onchange => "modifyActivistFilter('autonomic_team',$(this))" } )
+    select_tag('autonomic_team[]', options_for_select(option_list, default_value), {:id => 'activist_filter_autonomic_team', :onchange => "modifyActivistFilter('autonomic_team',$(this))" } )
   end
 
   def display_activist_collaborations_marks(collaboration)
