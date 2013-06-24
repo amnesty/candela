@@ -75,10 +75,8 @@ module ApplicationHelper
       
       if klass.has_fast_search? 
         html << '<div class="fast_search right">'
-        html << "<form action=\"#{ polymorphic_url([ @container, klass.new ]) }\" method=\"get\">"
         html << '<input id="query" name="query" type="text" + value = "' + (params[:query]? params[:query] : '') + '" />'
         html << "<input id=\"#{ klass.name.underscore }_submit\" name=\"commit\" type=\"submit\" value=\"#{ t('form.buttons.fast_search') }\" />"
-        html << '</form>'
         html << '</div>'
       end
     end

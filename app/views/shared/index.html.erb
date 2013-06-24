@@ -2,38 +2,40 @@
 <% plural_name_klass   = singular_name_klass.pluralize %>
 <% applying_fast_search = klass.has_fast_search? && defined?(:@search_terms) && !@search_terms.nil? && !@search_terms.empty? %>
 
-<%= round_div_box do %>
+<%= form_tag polymorphic_url([ @container, plural_name_klass ]), :method => :get do %>
 
-  <%= raw index_actions_for(klass) %>
-
-  <h1>
-    <%= Gx.t_action("#{ singular_name_klass }.index") %>
-    <%= raw "#{ t("words.of") } #{ link_to( @container.full_name, eval("#{@container.class.name.underscore}_path(@container.id)")) }" if @container %>
-  </h1>
-
-  <% if applying_fast_search %>
-    <%= t('search.fast_searched_fields_header') %>
-    <%= @search_fields.collect{|f| Gx.t_attr("#{f.split('.').first.singularize}.#{f.split('.').last}")}.join(', ') %>
-  <% end %>
-
-<% end  %>
-
-<% if controller.respond_to?(:filters_for_index) %>
   <%= round_div_box do %>
-    <%= link_to_function t("search.show_hide_filters"), "$('#filters_for_collection').toggle()", :class => "with_icon action_view_hidden" %>
-    <div id="filters_for_collection" style="display:none">
-      <%= form_tag polymorphic_url([ @container, plural_name_klass ]), :method => :get do %>
-        <table>
-        <% controller.filters_for_index.each do |filter_name,value| %>
-          <tr>
-            <td><%= t("#{klass.name.underscore}.filters.#{filter_name.to_s}") %>: </td>
-            <td><%= select_tag "index_filters[#{filter_name.to_s}]", options_for_select([["", ""],["Si","true"],["No","false"]], params[:index_filters][filter_name]), :onchange => "this.form.submit();" %></td> 
-          </tr>
-        <% end %>      
-        </table>
-      <% end %>
-    </div>
+
+    <%= raw index_actions_for(klass) %>
+
+    <h1>
+      <%= Gx.t_action("#{ singular_name_klass }.index") %>
+      <%= raw "#{ t("words.of") } #{ link_to( @container.full_name, eval("#{@container.class.name.underscore}_path(@container.id)")) }" if @container %>
+    </h1>
+
+    <% if applying_fast_search %>
+      <%= t('search.fast_searched_fields_header') %>
+      <%= @search_fields.collect{|f| Gx.t_attr("#{f.split('.').first.singularize}.#{f.split('.').last}")}.join(', ') %>
+    <% end %>
+
+  <% end  %>
+
+  <% if controller.respond_to?(:filters_for_index) %>
+    <%= round_div_box do %>
+      <%= link_to_function t("search.show_hide_filters"), "$('#filters_for_collection').toggle()", :class => "with_icon action_view_hidden" %>
+      <div id="filters_for_collection" style="display:none">
+          <table>
+          <% controller.filters_for_index.each do |filter_name,value| %>
+            <tr>
+              <td><%= t("#{klass.name.underscore}.filters.#{filter_name.to_s}") %>: </td>
+              <td><%= select_tag "index_filters[#{filter_name.to_s}]", options_for_select([["", ""],["Si","true"],["No","false"]], params[:index_filters][filter_name]), :onchange => "this.form.submit();" %></td> 
+            </tr>
+          <% end %>      
+          </table>
+      </div>
+    <% end %>
   <% end %>
+
 <% end %>
 
 <%= round_div_box(:padding => false) do %>
