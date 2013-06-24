@@ -24,9 +24,7 @@ module ActionController
       # Fast Search Conditions
       conditions = options[:conditions] || []
       
-      if params.include?(:query) and (params[:query].nil? or params[:query].length < 1)
-        flash[:error] = 'search.none'
-      elsif params.include?(:query) and (params[:query].present? or params[:query].length > 1)
+      if params.include?(:query) and !params[:query].blank?
         if model_class.respond_to?("fast_search_fields")
           @search_fields = model_class.fast_search_fields
         else
