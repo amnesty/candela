@@ -6,9 +6,6 @@ class Responsibility < ActiveRecord::Base
 
   has_and_belongs_to_many :activists_collaborations
 
-  scope :for_member, { :conditions => 'for_member=true' }
-  scope :for_autonomy, { :conditions => 'for_autonomy=true' }
-
   scope :by_ids, lambda { |ids| 
     ret = {}
     unless ids.nil? || ids.empty?

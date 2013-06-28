@@ -93,13 +93,7 @@
 
     <% end %>
 
-
-
-  <% if @activists_collaboration.must_have_extra_autonomy_fields %>
-    <tr class="<%= Gx.list_style %> section_autonomy">
-      <td><%= form.label_required :autonomy_type %></td>
-      <td><%= form.select :autonomy_type, ActivistsCollaboration.autonomy_types %></td>
-    </tr>
+  <% if @activists_collaboration.is_autonomy %>
     <tr class="<%= Gx.list_style %> section_autonomy">
       <td><%= form.label_required :autonomic_team_ids %><i class="help"><%= raw t("form.multiple_select_help") %></i></td>
       <td>
@@ -125,14 +119,8 @@
     <td><%= form.date_select :join_at, { :include_blank => true } %></td>
   </tr>
 
-  <% if @activists_collaboration.must_have_responsability
-      if @activists_collaboration.is_member
-        responsibilities = Responsibility.for_member.orderby_name
-      elsif @activists_collaboration.must_have_extra_autonomy_fields
-        responsibilities = Responsibility.for_autonomy.orderby_name
-      else
-        responsibilities = Responsibility.orderby_name
-      end %>
+  <% if @activists_collaboration.must_have_responsability %>
+    <% responsibilities = Responsibility.orderby_name %>
       <tr class="<%= Gx.list_style %>">
         <td><%= form.label 'responsibility_id' %></td>
         <td>
@@ -145,8 +133,6 @@
           </div>
         <% end %>
         </td>
-
-        
       </tr>
   <% end %>
 

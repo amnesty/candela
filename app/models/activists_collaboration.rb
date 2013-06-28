@@ -174,7 +174,7 @@ class ActivistsCollaboration < ActiveRecord::Base
 
   def self.activist_autonomy_collaboration_types
     [
-      'AutonomyAutonomy',
+      'MemberAutonomy',
       'ExpertiseAutonomy',
       'CasualAutonomy',
       'SupportAutonomy'
@@ -211,7 +211,6 @@ class ActivistsCollaboration < ActiveRecord::Base
   def self.autonomy_collaboration_types
     [
       'MemberAutonomy',
-      'AutonomyAutonomy',
       'SupportAutonomy',
       'CasualAutonomy',
       'ExpertiseAutonomy'
@@ -349,14 +348,8 @@ class ActivistsCollaboration < ActiveRecord::Base
   end
 
   def must_have_responsability
-    is_member || (is_autonomy && is_expertise == false ) ||
-      ['SupportLocalOrganization', 'SupportSeTeam', 'SupportAutonomy', 'SupportCountry' ].index(collaboration_type) != nil
+    is_member || is_support
   end
-
-  def must_have_extra_autonomy_fields
-    (is_autonomy && is_expertise == false ) || collaboration_type == 'MemberAutonomy'
-  end
-
 
   def organization_name
     ret = ""
