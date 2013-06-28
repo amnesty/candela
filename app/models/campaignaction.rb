@@ -86,6 +86,8 @@ class Campaignaction < ActiveRecord::Base
       "society_movement", "society_movement_description", 
       "join_organizations", "join_organizations_description", 
       "other_info", "other_info_description", 
+      "/gender_approach", 
+      "gender_approach", "gender_approach_description", "gender_approach_tool_evaluation", 
       '/valuation_params', 
       "positive_facts", "improve_facts"
     ]
