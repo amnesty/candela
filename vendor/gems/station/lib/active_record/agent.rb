@@ -64,8 +64,8 @@ module ActiveRecord #:nodoc:
 #        options[:activation]     ||= false
 #        options[:invite] = :email if options[:invite].nil?
 
-puts "+-+-+-+-+ CLASS: #{self.name}"        
-puts "+-+-+-+-+ OPTIONS: #{options.inspect}"        
+#puts "+-+-+-+-+ CLASS: #{self.name}"        
+#puts "+-+-+-+-+ OPTIONS: #{options.inspect}"        
 #puts "+-+-+-+-+ CALLER: "
 #caller.each{|s|puts s}
 

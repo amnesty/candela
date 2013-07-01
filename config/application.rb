@@ -67,7 +67,7 @@ config.autoload_paths += Dir["#{config.root}/vendor/gems/station/lib/**/"]
 #FIXME: User model dependency requirement here is ugly!!
 config.to_prepare do
 require_dependency "#{Rails.root}/app/models/user"
-puts "+-+-+-+-+ config/application - after_initialize -> ActiveRecord::Agent.symbols : #{ActiveRecord::Agent.symbols.inspect}"
+#puts "+-+-+-+-+ config/application - after_initialize -> ActiveRecord::Agent.symbols : #{ActiveRecord::Agent.symbols.inspect}"
 end
 
 #    # Set layout for devise views
