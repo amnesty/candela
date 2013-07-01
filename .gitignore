@@ -21,6 +21,7 @@ config/database.yml
 config/deploy.rb
 config/application_settings.yml
 config/mailer.yml
+Capfile
 
 # Ignore project files and initialization scripts for development
 .rvmrc
