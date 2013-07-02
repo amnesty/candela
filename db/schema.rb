@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130628121031) do
+ActiveRecord::Schema.define(:version => 20130701090345) do
 
   create_table "academic_years", :force => true do |t|
     t.string   "year"
@@ -91,7 +91,7 @@ ActiveRecord::Schema.define(:version => 20130628121031) do
   end
 
   create_table "activists_collaborations_autonomic_teams", :id => false, :force => true do |t|
-    t.string  "activists_collaboration_id"
+    t.integer "activists_collaboration_id"
     t.integer "autonomic_team_id"
   end
 
@@ -270,51 +270,6 @@ ActiveRecord::Schema.define(:version => 20130628121031) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "campaignactions", :force => true do |t|
-    t.integer "campaign_id"
-    t.integer "campaigntopic_id"
-    t.string  "contact_person"
-    t.string  "contact_phone",                      :limit => 12
-    t.string  "contact_email"
-    t.boolean "mobilization"
-    t.text    "mobilization_description"
-    t.boolean "institutional"
-    t.text    "institutional_authorities_contact"
-    t.text    "institutional_other"
-    t.boolean "media"
-    t.text    "media_material_distrib"
-    t.text    "media_other"
-    t.boolean "sectorial"
-    t.text    "sectorial_NGO"
-    t.text    "sectorial_other"
-    t.boolean "activists_raising"
-    t.text    "activists_raising_material_distrib"
-    t.text    "activists_raising_interesteds"
-    t.integer "organization_id"
-    t.string  "organization_type"
-    t.text    "mobilization_to_who"
-    t.text    "used_material"
-    t.text    "interesteds_comments"
-    t.text    "interesteds_signs"
-    t.text    "media_urls"
-    t.text    "activists_raising_member_commited"
-    t.boolean "web_2_0"
-    t.text    "web_2_0_specific_actions"
-    t.boolean "school_network"
-    t.text    "school_network_description"
-    t.boolean "society_movement"
-    t.text    "society_movement_description"
-    t.boolean "join_organizations"
-    t.text    "join_organizations_description"
-    t.boolean "other_info"
-    t.text    "other_info_description"
-    t.text    "positive_facts"
-    t.text    "improve_facts"
-    t.boolean "gender_approach"
-    t.text    "gender_approach_description"
-    t.text    "gender_approach_tool_evaluation"
-  end
-
   create_table "campaigns", :force => true do |t|
     t.string   "name"
     t.string   "status"
@@ -432,6 +387,18 @@ ActiveRecord::Schema.define(:version => 20130628121031) do
     t.string   "meeting_venue"
     t.text     "customer_service_time"
     t.boolean  "show_in_collaborations",               :default => false
+  end
+
+  create_table "custom_action_topics", :force => true do |t|
+    t.string   "name",                                     :null => false
+    t.boolean  "requires_extra_fields", :default => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
+  end
+
+  create_table "custom_action_topics_performed_actions", :id => false, :force => true do |t|
+    t.integer "custom_action_topic_id"
+    t.integer "performed_action_id"
   end
 
   create_table "db_files", :force => true do |t|
@@ -752,6 +719,57 @@ ActiveRecord::Schema.define(:version => 20130628121031) do
     t.integer "stage_id"
     t.string  "stage_type"
   end
+
+  create_table "performed_actions", :force => true do |t|
+    t.integer "campaign_id"
+    t.integer "campaigntopic_id"
+    t.string  "contact_person"
+    t.string  "contact_phone",                      :limit => 12
+    t.string  "contact_email"
+    t.boolean "mobilization"
+    t.text    "mobilization_description"
+    t.boolean "institutional"
+    t.text    "institutional_authorities_contact"
+    t.text    "institutional_other"
+    t.boolean "media"
+    t.text    "media_material_distrib"
+    t.text    "media_other"
+    t.boolean "sectorial"
+    t.text    "sectorial_NGO"
+    t.text    "sectorial_other"
+    t.boolean "activists_raising"
+    t.text    "activists_raising_material_distrib"
+    t.text    "activists_raising_interesteds"
+    t.integer "organization_id"
+    t.string  "organization_type"
+    t.text    "mobilization_to_who"
+    t.text    "used_material"
+    t.text    "interesteds_comments"
+    t.text    "interesteds_signs"
+    t.text    "media_urls"
+    t.text    "activists_raising_member_commited"
+    t.boolean "web_2_0"
+    t.text    "web_2_0_specific_actions"
+    t.boolean "school_network"
+    t.text    "school_network_description"
+    t.boolean "society_movement"
+    t.text    "society_movement_description"
+    t.boolean "join_organizations"
+    t.text    "join_organizations_description"
+    t.boolean "other_info"
+    t.text    "other_info_description"
+    t.text    "positive_facts"
+    t.text    "improve_facts"
+    t.boolean "gender_approach"
+    t.text    "gender_approach_description"
+    t.text    "gender_approach_tool_evaluation"
+    t.string  "type"
+    t.string  "custom_name"
+    t.integer "custom_action_topic_id"
+    t.string  "custom_action_topic_other"
+  end
+
+  add_index "performed_actions", ["custom_action_topic_id"], :name => "index_performed_actions_on_custom_action_topic_id"
 
   create_table "permissions", :force => true do |t|
     t.string "action"

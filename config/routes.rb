@@ -42,6 +42,10 @@ AiVoluntariado::Application.routes.draw do
     get :delete, :on => :member
   end
 
+  resources :custom_actions do
+    get :delete, :on => :member
+  end
+
   resources :campaigns do
     get :delete, :on => :member
     get :show_info, :on => :collection
@@ -106,6 +110,9 @@ AiVoluntariado::Application.routes.draw do
     resources :campaignactions do
       get :delete, :on => :member 
     end    
+    resources :custom_actions do
+      get :delete, :on => :member 
+    end    
   end
 
   resources :committees do
@@ -155,6 +162,9 @@ AiVoluntariado::Application.routes.draw do
       get :delete, :on => :member 
     end
     resources :campaignactions do
+      get :delete, :on => :member 
+    end    
+    resources :custom_actions do
       get :delete, :on => :member 
     end    
   end

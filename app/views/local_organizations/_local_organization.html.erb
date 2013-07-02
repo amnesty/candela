@@ -15,9 +15,15 @@
 
     <% if local_organization.authorize?(:read, :to => current_agent) %>
 
+      <% if current_agent.has_any_permission_to(:read, :performed_actions, :on => local_organization) %>
       <tr>
         <%= summary_campaignactions_section_for(local_organization) %>
-        <%= summary_talks_section_for(local_organization) %>
+        <%= summary_custom_actions_section_for(local_organization) %>
+      </tr>
+      <% end %>
+
+      <tr>
+        <%= current_agent.has_any_permission_to(:read, :talks, :on => local_organization) ? summary_talks_section_for(local_organization, { :colspan => 2 }) : ('<td></td>'*2).html_safe %>
       </tr>
 
       <tr>

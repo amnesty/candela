@@ -1,0 +1,43 @@
+<%= round_div_box do %>
+  <h1>
+    <%= Gx.t_action("custom_action.index") %>
+  </h1>
+
+  <% if current_user.has_any_permission_to(:create, PerformedAction) %>
+    <div class="right">
+      <%= link_to( t("form.buttons.create"), new_polymorphic_path(CustomAction.new, :action => :new), :class => 'action_add with_icon') %>
+    </div>
+  <% end %>
+
+ <table class="table_list">
+
+  <tr>
+    <th><%= Gx.t_attr("custom_action.organization_id") %></th>
+    <th><%= Gx.t_attr("custom_action.custom_name") %></th>
+  </tr>
+
+  <% organizations = @custom_actions.map(&:organization).uniq %>
+  <% count = 0 %>
+  <% organizations.each do |organization| %>
+    <% unless organization.nil? %>
+      <% organization_custom_actions = @custom_actions.select{|c| c.organization == organization }.sort{|a,b| a.campaign_id <=> b.campaign_id } %>
+      <tr class="list_style_<%= cycle(0,1) %>">
+	<td><%= link_to organization.name, organization %></td>
+	<td>
+	  <ul>
+	  <% organization_custom_actions.each do |o_ca| %>
+	    <li><%= o_ca.custom_name %> : 
+      <%= link_to(t("custom_action.view_action"), o_ca) if o_ca.authorize?(:read, :to => current_agent) %> / 
+      <%= raw link_to(t("custom_action.edit_action"), edit_custom_action_path(o_ca)) if o_ca.authorize?(:update, :to => current_agent) %>
+      </li>
+	  <% end %>
+	  </ul>
+	</td>
+      </tr>
+      <% count += 1 %>
+    <% end %>
+  <% end %>
+
+</table>
+
+<% end  %>

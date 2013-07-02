@@ -60,7 +60,10 @@
         <%= link_to t('.main_menu.campaigns'), campaigns_path if current_agent.has_any_permission_to(:read, :campaigns) %>
       </li>
       <li>
-        <%= link_to t('.main_menu.campaignactions'), campaignactions_path if current_agent.has_any_permission_to(:read, :campaignactions) %>
+        <%= link_to t('.main_menu.campaignactions'), campaignactions_path if current_agent.has_any_permission_to(:read, :performed_actions) %>
+      </li>
+      <li>
+        <%= link_to t('.main_menu.custom_actions'), custom_actions_path if current_agent.has_any_permission_to(:read, :performed_actions) %>
       </li>
       <li>
         <%= link_to t('.main_menu.hr_schools'), hr_schools_path, :class => "last" if current_agent.has_any_permission_to(:read, :hr_schools) %>
@@ -78,7 +81,10 @@
          <%= link_to t('.search.hr_schools'), search_path(:what => :hr_schools) if current_agent.has_any_permission_to(:read, :hr_schools) %>         
       </li>
       <li>
-         <%= link_to t('.search.campaignactions'), search_path(:what => :campaignactions) if current_agent.has_any_permission_to(:read, :campaignactions) %>         
+         <%= link_to t('.search.campaignactions'), search_path(:what => :campaignactions) if current_agent.has_any_permission_to(:read, :performed_actions) %>         
+      </li>
+      <li>
+         <%= link_to t('.search.custom_actions'), search_path(:what => :custom_actions) if current_agent.has_any_permission_to(:read, :performed_actions) %>         
       </li>
       <li>
          <%= link_to t('.search.interesteds'), search_path(:what => :interesteds) if current_agent.has_any_permission_to(:read, :interesteds) %>         

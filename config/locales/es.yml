@@ -26,7 +26,8 @@ es:
         activists: Activistas
         autonomies: Entidades autonómicas
         campaigns: Campañas
-        campaignactions: Acciones realizadas
+        campaignactions: Acciones prioritarias
+        custom_actions: Otras acciones
         collaboration_types: Lugares de colaboración
         committees: Comités/Comisiones
         countries: Países
@@ -42,7 +43,8 @@ es:
         activists: Activistas
         collaborations: Colaboraciones
         hr_schools: Escuelas DD.HH.
-        campaignactions: Acciones realizadas
+        campaignactions: Acciones prioritarias
+        custom_actions: Otras acciones
         interesteds: Interesados
         talks: Sesiones presentación
         collaboration_types: Lugares de colaboración
@@ -88,7 +90,9 @@ es:
 
   __organization_sections: &_organization_sections
     collaborations: Miembros y colaboradores
+    performed_actions: Acciones realizadas
     campaignactions: Acciones realizadas en campañas
+    custom_actions: Otras acciones
     contact: Datos de contacto
     onoffs: Histórico de actividad
     other_addresses: Otras direcciones
@@ -134,7 +138,8 @@ es:
     activists: "Búsqueda de activistas"
     collaborations: "Búsqueda de colaboraciones"
     hr_schools: "Búsqueda de Escuelas de DD.HH."
-    campaignactions: "Búsqueda de acciones realizadas"
+    campaignactions: "Búsqueda de acciones prioritarias"
+    campaignactions: "Búsqueda de otras acciones"
     interesteds: "Búsqueda de interesados"
     talks: "Búsqueda de sesiones de presentación"
     local_organizations: Búsqueda de grupos locales
@@ -297,6 +302,21 @@ es:
     reply: Contestar a esta anotación
     edit: Editar anotación
     meta: Nota creada por %{author} el %{datetime}
+
+  __performed_action_entity: &_performed_action_entity
+    none: No se han encontrado acciones
+    view_action: Ver
+    edit_action: Editar
+    LocalOrganization: Grupo local
+    Autonomy: Entidad autonómica
+    choose_one_organization_type: Elije un tipo de ET
+    search:
+      search_params: 'Parámetros de la acción'
+      contact_params: Contacto
+      performances_params: Actos de movilización
+      other_actions_params: Otras acciones
+      gender_approach: Enfoque de género
+      valuation_params: Valoración de la acción
 
 
   activist:
@@ -470,20 +490,7 @@ es:
 #    <<: *_notes_entity
 
   campaignaction:
-    none: No se han encontrado acciones realizadas
-    view_action: Ver
-    edit_action: Editar
-    LocalOrganization: Grupo local
-    Autonomy: Entidad autonómica
-    choose_one_organization_type: Elije un tipo de ET
-    search:
-      search_params: 'Parámetros de la acción'
-      contact_params: Contacto
-      performances_params: Actos de movilización
-      other_actions_params: Otras acciones
-      gender_approach: Enfoque de género
-      valuation_params: Valoración de la acción
-
+    <<: *_performed_action_entity
 
   committee:
     abrev: ""
@@ -523,6 +530,9 @@ es:
 
 #  country_note:
 #    <<: *_notes_entity
+
+  custom_action:
+    <<: *_performed_action_entity
 
   event_record:
     view_all: Mostrar todos los eventos
@@ -749,8 +759,8 @@ es:
         one: la campaña
         other: las campañas
       campaignaction: 
-        one: la acción realizada
-        other: las acciones realizadas
+        one: la acción prioritaria
+        other: las acciones prioritarias
       campaignactions_organization: 
         one: la organización adherida a la acción
         other: las organizaciones adheridas a la acción
@@ -766,6 +776,9 @@ es:
       country_note: 
         one: la anotación del país
         other: las anotaciones del país
+      custom_action: 
+        one: la acción independiente
+        other: las acciones independientes
       hr_school: 
         one: la escuela de DD.HH.
         other: las escuelas de DD.HH.
@@ -802,6 +815,9 @@ es:
       performance: 
         one: la asignación de roles
         other: las asignaciones de roles
+      performed_action: 
+        one: la acción realizada
+        other: las acciones realizadas
       responsibility: 
         one: la responsabilidad
         other: las responsabilidades
@@ -934,6 +950,59 @@ es:
         monitoring_topic: Tema del seguimiento
         title: Título
 
+      __performed_action_attributes: &_performed_action_attributes
+        custom_name: Nombre
+        custom_action_topics: Tema/s
+        custom_action_topic_ids: Tema/s
+        activists_raising: Gestión de activismo
+        activists_raising_material_distrib: Distribución de materiales de activismo (hoja recogida de datos de personas interesadas, Súper A,   buscamos gente como tú, etc.)
+        campaign_id: Campaña
+        contact_person: Persona de contacto
+        contact_phone: Teléfono
+        contact_email: Email
+        institutional: Relaciones institucionales
+        institutional_authorities_contact: Contacto con las autoridades
+        institutional_other:  Otras acciones institucionales
+        media: Medios de comunicación
+        media_material_distrib: Distribución de materiales
+        media_other: Otros
+        mobilization: Movilización
+        mobilization_to_who: "A quién y cómo habéis convocado (carteles, aviso en medios de comunicación, redes sociales, espacios públicos, convocatoria a socios, etc.)"
+        mobilization_description: "Descripción acto (charla, acto de calle, performance, videoforum, lectura de manifiesto, actividades   para menores, etc.) y cómo ha sido el desarrollo del acto"
+        used_material: "Materiales utilizados (si son interesantes los de la intranet, si habéis realizado otros, etc.)"
+        interesteds_comments: "Nivel de participación e interés de la gente que se ha acercado "
+        interesteds_signs: "Número de firmas, cartas, postales, etc. recogidas"
+        media_urls: "Enlaces a fotografías y vídeos"
+        activists_raising_member_commited: Implicación de activistas en la actividad (miembros activos, puntuales, expertos, etc.)
+        activists_raising_interesteds: Número de personas interesadas en ser activistas 
+        web_2_0: Web 2.0
+        web_2_0_specific_actions: Acciones específicas propuestas en la circular
+        school_network: Red de escuelas 
+        school_network_description: Más información
+        society_movement: Movilización sectores de la sociedad
+        society_movement_description: Más información
+        join_organizations: Coordinarse con otras organizaciones
+        join_organizations_description: Más información
+        other_info: Otros
+        other_info_description:  Más información
+        gender_approach: "¿Habéis aplicado las recomendaciones que figuran en la circular de movilización en cuanto a la integración del enfoque de género?"
+        gender_approach_description: "En caso afirmativo, detalla cuáles, cómo las habéis aplicado y qué dificultades os habéis encontrado."
+        gender_approach_tool_evaluation: "En caso de que la acción prioritaria incluyera indicaciones específicas (Herrramienta para la integración del enfoque de género en la acción prioritaria), ¿cómo valoráis esta herramienta? (utilidad, claridad, idoneidad, adecuado ...)"
+        positive_facts: Aspectos positivos
+        improve_facts: Aspectos a mejorar
+        sectorial: Trabajo sectorial
+        sectorial_NGO: Trabajo sectorial con ONG
+        sectorial_other: Otros trabajos sectoriales
+        organization_id: Organización
+        organization_type: Tipo de Organización
+        sections:
+          contact: Contacto
+          more_info: Más información
+          organizations: Organizaciones adheridas
+          other_actions: Otras acciones
+          performances: Actos de movilización
+          gender_approach: Enfoque de género
+          valuation: Valoración de la acción
 
       activist:
         <<: *_activists_and_interesteds_attributes
@@ -1031,56 +1100,7 @@ es:
         campaigntopic_none: Sin Tema asignado
 
       campaignaction:
-        activists_raising: Gestión de activismo
-        activists_raising_material_distrib: Distribución de materiales de activismo (hoja recogida de datos de personas interesadas, Súper A,   buscamos gente como tú, etc.)
-        campaign_id: Campaña
-        contact_person: Persona de contacto
-        contact_phone: Teléfono
-        contact_email: Email
-        institutional: Relaciones institucionales
-        institutional_authorities_contact: Contacto con las autoridades
-        institutional_other:  Otras acciones institucionales
-        media: Medios de comunicación
-        media_material_distrib: Distribución de materiales
-        media_other: Otros
-        mobilization: Movilización
-        mobilization_to_who: "A quién y cómo habéis convocado (carteles, aviso en medios de comunicación, redes sociales, espacios públicos, convocatoria a socios, etc.)"
-        mobilization_description: "Descripción acto (charla, acto de calle, performance, videoforum, lectura de manifiesto, actividades   para menores, etc.) y cómo ha sido el desarrollo del acto"
-        used_material: "Materiales utilizados (si son interesantes los de la intranet, si habéis realizado otros, etc.)"
-        interesteds_comments: "Nivel de participación e interés de la gente que se ha acercado "
-        interesteds_signs: "Número de firmas, cartas, postales, etc. recogidas"
-        media_urls: "Enlaces a fotografías y vídeos"
-        activists_raising_member_commited: Implicación de activistas en la actividad (miembros activos, puntuales, expertos, etc.)
-        activists_raising_interesteds: Número de personas interesadas en ser activistas 
-        web_2_0: Web 2.0
-        web_2_0_specific_actions: Acciones específicas propuestas en la circular
-        school_network: Red de escuelas 
-        school_network_description: Más información
-        society_movement: Movilización sectores de la sociedad
-        society_movement_description: Más información
-        join_organizations: Coordinarse con otras organizaciones
-        join_organizations_description: Más información
-        other_info: Otros
-        other_info_description:  Más información
-        gender_approach: "¿Habéis aplicado las recomendaciones que figuran en la circular de movilización en cuanto a la integración del enfoque de género?"
-        gender_approach_description: "En caso afirmativo, detalla cuáles, cómo las habéis aplicado y qué dificultades os habéis encontrado."
-        gender_approach_tool_evaluation: "En caso de que la acción prioritaria incluyera indicaciones específicas (Herrramienta para la integración del enfoque de género en la acción prioritaria), ¿cómo valoráis esta herramienta? (utilidad, claridad, idoneidad, adecuado ...)"
-        positive_facts: Aspectos positivos
-        improve_facts: Aspectos a mejorar
-        sectorial: Trabajo sectorial
-        sectorial_NGO: Trabajo sectorial con ONG
-        sectorial_other: Otros trabajos sectoriales
-        organization_id: Organización
-        organization_type: Tipo de Organización
-
-        sections:
-          contact: Contacto
-          more_info: Más información
-          organizations: Organizaciones adheridas
-          other_actions: Otras acciones
-          performances: Actos de movilización
-          gender_approach: Enfoque de género
-          valuation: Valoración de la acción
+        <<: *_performed_action_attributes
 
       campaignactions_organization:
         campaignaction_id: Campaña
@@ -1100,6 +1120,9 @@ es:
 
       #country_note:
       #  <<: *_notes_attributes
+
+      custom_action:
+        <<: *_performed_action_attributes
 
       event_record: &_event_record_attributes
         timestamp: Fecha
@@ -1237,6 +1260,9 @@ es:
         stage_id: Organización
         stage_id_s: Organización/es
         stage_type: Tipo de organización
+
+      performed_action:
+        <<: *_performed_action_attributes
 
       role:
         name: Nombre

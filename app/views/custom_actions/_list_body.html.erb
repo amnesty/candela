@@ -1,0 +1,8 @@
+<%= hidden_inputs_for(custom_action, count, { :hide => [ 'notes' ] }) %>
+
+<td><%= link_to t("custom_action.view_action"), polymorphic_url([custom_action.organization, custom_action ])%></td>
+<td><%=h custom_action.organization ? custom_action.organization.to_title : '---' %></td>
+<td><%=h custom_action.custom_name %></td>
+<td><ul><%=h custom_action.custom_action_topics.collect{|t|content_tag(:li,t.name)}.join.html_safe %></ul></td>
+
+

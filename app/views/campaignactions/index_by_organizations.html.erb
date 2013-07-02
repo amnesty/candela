@@ -3,7 +3,7 @@
     <%= Gx.t_action("campaignaction.index") %>
   </h1>
 
-  <% if current_user.has_any_permission_to(:create, Campaignaction) %>
+  <% if current_user.has_any_permission_to(:create, PerformedAction) %>
     <div class="right">
       <%= link_to( t("form.buttons.create"), new_polymorphic_path(Campaignaction.new, :action => :new), :class => 'action_add with_icon') %>
     </div>

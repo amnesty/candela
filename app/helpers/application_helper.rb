@@ -61,6 +61,8 @@ module ApplicationHelper
       end
       if klass < EventRecord
         klass_name = "EventRecord"
+      elsif klass < PerformedAction
+        klass_name = "PerformedAction"
       end
       
       { :update => 'edit', :destroy => 'delete' }.each_pair do |action, action_label|

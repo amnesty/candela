@@ -26,9 +26,9 @@ class CampaignactionsController < ApplicationController
   def set_organization_type
     if params[:campaignaction] and params[:campaignaction][:organization_type]
       if params[:campaignaction][:organization_type].empty?
-        @campaignaction.organization_type = params[:campaignaction][:organization_type]
-      else
         flash[:error] = Gx.t_error("campaignaction.organization_type.empty")
+      else
+        @campaignaction.organization_type = params[:campaignaction][:organization_type]
       end
     end
       

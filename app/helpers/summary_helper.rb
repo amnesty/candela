@@ -249,14 +249,16 @@ module SummaryHelper
     end
   end
   
-  def summary_talks_section_for(organization)
+  def summary_talks_section_for(organization, options = {})
    
     uniq_name = organization.class.name.underscore
     new_talk  = organization.talks.new
     organization.talks.delete new_talk 
 
-    summary_section(:id => "#{ uniq_name }_section_local_organization_talks", :title => t("#{ uniq_name }.sections.talks")) do 
+    options[:id] = "#{ uniq_name }_section_talks"
+    options[:title] = t("#{ uniq_name }.sections.talks")
 
+    summary_section(options) do 
       content_tag(:div, :class => "actions") do
         summary_action(:create,   new_polymorphic_url([ organization, new_talk ]), { :object => new_talk }) <<
         summary_action(:update,   polymorphic_url([ organization, new_talk ]),     { :to => :edit, :object => new_talk }) <<
@@ -287,7 +289,7 @@ module SummaryHelper
     new_action = organization.campaignactions.new
     organization.campaignactions.delete new_action
 
-    summary_section(:id => "#{ uniq_name }_section_local_organization_campaignactions", :title => t("#{ uniq_name }.sections.campaignactions")) do 
+    summary_section(:id => "#{ uniq_name }_section_campaignactions", :title => t("#{ uniq_name }.sections.campaignactions")) do 
 
       content_tag(:div, :class => "actions") do
         summary_action(:create,   new_polymorphic_url([ organization, new_action ]), { :to => :create, :object => new_action }) <<
@@ -303,6 +305,33 @@ module SummaryHelper
           end.join('').html_safe
         end
       end
+
+    end
+  end
+
+  def summary_custom_actions_section_for(organization)
+
+    uniq_name  = organization.class.name.underscore
+    new_action = organization.custom_actions.new
+    organization.custom_actions.delete new_action
+
+    summary_section(:id => "#{ uniq_name }_section_custom_actions", :title => t("#{ uniq_name }.sections.custom_actions")) do 
+
+      content_tag(:div, :class => "actions") do
+        summary_action(:create,   new_polymorphic_url([ organization, new_action ]), { :to => :create, :object => new_action }) <<
+        summary_action(:read,     polymorphic_url([ organization, new_action ]),     { :to => :show, :object => organization })
+      end <<
+
+      if organization.custom_actions.empty?
+        t("custom_action.none")
+      else
+        content_tag(:ul) do
+          organization.custom_actions.collect do |action|
+            "<li>#{ link_to action.custom_name, action }</li>"
+          end.join('').html_safe
+        end
+      end
+
     end
   end
 

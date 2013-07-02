@@ -37,9 +37,9 @@
         <td>
             <% relation_model_klass.all.each do |s| %>
               <p class="left small_margin small">
-                <%= check_box_tag("#{klass}[#{ relation_model }_id_eq_all][]",
+                <%= check_box_tag("#{klass}[#{ relation_model }_id_eq_any][]",
                                   "#{s.id}",
-                                  (params[klass.to_sym] && params[klass.to_sym]["#{ relation_model }_id_eq_all"] && params[klass.to_sym]["#{ relation_model }_id_eq_all"].include?(s.id.to_s))) %> <%= s.name %>
+                                  (params[klass.to_sym] && params[klass.to_sym]["#{ relation_model }_id_eq_any"] && params[klass.to_sym]["#{ relation_model }_id_eq_any"].include?(s.id.to_s))) %> <%= s.name %>
               </p>
             <% end %>
         </td>

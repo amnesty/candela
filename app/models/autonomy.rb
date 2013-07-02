@@ -11,6 +11,7 @@ class Autonomy < ActiveRecord::Base
   include MailTemplateConsumer
 
   has_many :campaignactions, :as => :organization, :dependent => :destroy
+  has_many :custom_actions, :as => :organization, :dependent => :destroy
   has_many :talks, :foreign_key => :organization_id, :conditions => "organization_type = 'Autonomy'", :dependent => :destroy
   has_many :autonomic_teams, :dependent => :destroy
   

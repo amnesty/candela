@@ -9,7 +9,7 @@ class CreateAutonomicTeams < ActiveRecord::Migration
     add_index :autonomic_teams, :autonomy_id
 
     create_table :activists_collaborations_autonomic_teams, :id => false, :force => true do |t|
-      t.string :activists_collaboration_id
+      t.integer :activists_collaboration_id
       t.integer :autonomic_team_id
     end
 

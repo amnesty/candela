@@ -33,9 +33,15 @@
 
     <% if autonomy.authorize?(:read, :to => current_agent) %>
 
+      <% if current_agent.has_any_permission_to(:read, :performed_actions, :on => autonomy) %>
       <tr>
-        <%= current_agent.has_any_permission_to(:read, :campaignactions, :on => autonomy) ? summary_campaignactions_section_for(autonomy) : '<td></td>'.html_safe %>
-        <%= current_agent.has_any_permission_to(:read, :talks, :on => autonomy) ? summary_talks_section_for(autonomy) : '<td></td>'.html_safe %>
+        <%= summary_campaignactions_section_for(autonomy) %>
+        <%= summary_custom_actions_section_for(autonomy) %>
+      </tr>
+      <% end %>
+
+      <tr>
+        <%= current_agent.has_any_permission_to(:read, :talks, :on => autonomy) ? summary_talks_section_for(autonomy, { :colspan => 2 }) : ('<td></td>'*2).html_safe %>
       </tr>
 
       <tr>

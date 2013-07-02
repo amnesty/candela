@@ -1,0 +1,268 @@
+
+
+
+<table id="<%= params[:action] %>_custom_action_form" class="table_form">
+
+<% unless form.object.organization_type && !form.object.organization_type.empty?  %>
+
+  <tr class="<%= Gx.list_style %>">
+
+    <%= hidden_field_tag "dont_show_errors", true %>
+    <td><%= form.label_required :organization_type %></td>
+    <td>
+      <%= form.select :organization_type, [ [ t('local_organization.abrev'), "LocalOrganization" ], [ t('autonomy.title'), "Autonomy" ] ],
+                      { :include_blank => true } %>
+    </td>
+  </tr>
+
+
+<% else %>
+
+  <tr class="list_style_1">
+    <% if form.object.organization_id and form.object.organization_type %>
+      <%= form.hidden_field :organization_id,   :value => form.object.organization_id %>
+      <%= form.hidden_field :organization_type, :value => form.object.organization_type %>
+      <td><label class="required"><%= t("custom_action.#{ form.object.organization_type }") %></td>
+      <td><%= text_field_tag 'organization_full_name', form.object.organization.full_name, { :disabled => true } %></td>
+    <% else %>
+      <%= form.hidden_field :organization_type %>
+      <td><label class="required"><%= t("custom_action.#{ form.object.organization_type }") %></td>
+      <td><%= form.select :organization_id, form.object.organization_type.constantize.can_choose(current_agent).orderby_name.collect { |x| [x.name, x.id] } %></td>
+    <% end %>
+  </tr>
+
+
+  <tr class="list_style_0">
+    <td><%= form.label_required :custom_name %></td>
+    <td><%= form.text_field :custom_name %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :custom_action_topic_ids %><i class="help"><%= raw t("form.multiple_select_help") %></i></td>
+    <td><%= form.select :custom_action_topic_ids, CustomActionTopic.all.collect { |p| [p.name, p.id] }, {}, {"multiple" => true } %></td>
+  </tr>
+
+  <tr class="form_section section_contact">
+    <td><%= form.label "sections.contact" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :contact_person %></td>
+    <td><%= form.text_field :contact_person %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :contact_phone %></td>
+    <td><%= form.text_field :contact_phone, :maxlength => 20 %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :contact_email %></td>
+    <td><%= form.text_field :contact_email %></td>
+  </tr>
+
+
+  <tr class="form_section section_more_info">
+    <td><%= form.label "sections.performances" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :mobilization %></td>
+    <td><%= form.check_box :mobilization, :onchange => "if (this.checked) { $('tr.mobilization').show() } else { $('tr.mobilization').hide() } ;" %></td>
+  </tr>
+
+
+  <tr class="list_style_0 mobilization">
+    <td><%= form.label :mobilization_to_who %></td>
+    <td><%= form.text_area :mobilization_to_who %></td>
+  </tr>
+
+  <tr class="list_style_0 mobilization">
+    <td><%= form.label :mobilization_description %></td>
+    <td><%= form.text_area :mobilization_description %></td>
+  </tr>
+
+  <tr class="list_style_0 mobilization">
+    <td><%= form.label :used_material %></td>
+    <td><%= form.text_area :used_material %></td>
+  </tr>
+
+
+  <tr class="list_style_0 mobilization">
+    <td><%= form.label :interesteds_comments %></td>
+    <td><%= form.text_area :interesteds_comments %></td>
+  </tr>
+
+  <tr class="list_style_0 mobilization">
+    <td><%= form.label :interesteds_signs %></td>
+    <td><%= form.text_area :interesteds_signs %></td>
+  </tr>
+
+  <tr class="list_style_0 mobilization">
+    <td><%= form.label :media_urls %></td>
+    <td><%= form.text_area :media_urls %></td>
+  </tr>
+
+
+
+  <tr class="form_section section_more_info">
+    <td><%= form.label "sections.other_actions" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :media %></td>
+    <td><%= form.check_box :media, :onchange => "if (this.checked) { $('tr.media').show() } else { $('tr.media').hide() } ;" %></td>
+  </tr>
+
+  <tr class="list_style_0 media">
+    <td><%= form.label :media_material_distrib %></td>
+    <td><%= form.text_area :media_material_distrib %></td>
+  </tr>
+
+  <tr class="list_style_0 media">
+    <td><%= form.label :media_other %></td>
+    <td><%= form.text_area :media_other %></td>
+  </tr>
+
+
+  <tr class="list_style_1">
+    <td><%= form.label :activists_raising %></td>
+    <td><%= form.check_box :activists_raising, :onchange => "if (this.checked) { $('tr.activists_raising').show() } else { $('tr.activists_raising').hide() } ;" %></td>
+  </tr>
+
+  <tr class="list_style_0 activists_raising">
+    <td><%= form.label :activists_raising_member_commited %></td>
+    <td><%= form.text_area :activists_raising_member_commited %></td>
+  </tr>
+
+  <tr class="list_style_0 activists_raising">
+    <td><%= form.label :activists_raising_material_distrib %></td>
+    <td><%= form.text_area :activists_raising_material_distrib %></td>
+  </tr>
+
+  <tr class="list_style_0 activists_raising">
+    <td><%= form.label :activists_raising_interesteds %></td>
+    <td><%= form.text_area :activists_raising_interesteds %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :web_2_0 %></td>
+    <td><%= form.check_box :web_2_0, :onchange => "if (this.checked) { $('tr.web_2_0').show() } else { $('tr.web_2_0').hide() } ;" %></td>
+  </tr>
+
+  <tr class="list_style_0 web_2_0">
+    <td><%= form.label :web_2_0_specific_actions %></td>
+    <td><%= form.text_area :web_2_0_specific_actions %></td>
+  </tr>
+
+
+  <tr class="list_style_1">
+    <td><%= form.label :institutional %></td>
+    <td><%= form.check_box :institutional, :onchange => "if (this.checked) { $('tr.institutional').show() } else { $('tr.institutional').hide() } ;" %></td>
+  </tr>
+
+  <tr class="list_style_0 institutional">
+    <td><%= form.label :institutional_authorities_contact %></td>
+    <td><%= form.text_area :institutional_authorities_contact %></td>
+  </tr>
+
+  <tr class="list_style_0 institutional">
+    <td><%= form.label :institutional_other %></td>
+    <td><%= form.text_area :institutional_other %></td>
+  </tr>
+
+
+  <tr class="list_style_1">
+    <td><%= form.label :school_network %></td>
+    <td><%= form.check_box :school_network, :onchange => "if (this.checked) { $('tr.school_network').show() } else { $('tr.school_network').hide() } ;" %></td>
+  </tr>
+
+  <tr class="list_style_0 school_network">
+    <td><%= form.label :school_network_description %></td>
+    <td><%= form.text_area :school_network_description %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :society_movement %></td>
+    <td><%= form.check_box :society_movement, :onchange => "if (this.checked) { $('tr.society_movement').show() } else { $('tr.society_movement').hide() } ;" %></td>
+  </tr>
+
+  <tr class="list_style_0 society_movement">
+    <td><%= form.label :society_movement_description %></td>
+    <td><%= form.text_area :society_movement_description %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :join_organizations %></td>
+    <td><%= form.check_box :join_organizations, :onchange => "if (this.checked) { $('tr.join_organizations').show() } else { $('tr.join_organizations').hide() } ;" %></td>
+  </tr>
+
+  <tr class="list_style_0 join_organizations">
+    <td><%= form.label :join_organizations_description %></td>
+    <td><%= form.text_area :join_organizations_description %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :other_info %></td>
+    <td><%= form.check_box :other_info, :onchange => "if (this.checked) { $('tr.other_info').show() } else { $('tr.other_info').hide() } ;" %></td>
+  </tr>
+
+  <tr class="list_style_0 other_info">
+    <td><%= form.label :other_info_description %></td>
+    <td><%= form.text_area :other_info_description %></td>
+  </tr>
+
+  <tr class="form_section section_more_info">
+    <td><%= form.label "sections.gender_approach" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :gender_approach %></td>
+    <td><%= form.check_box :gender_approach, :onchange => "if (this.checked) { $('tr.gender_approach').show() } else { $('tr.gender_approach').hide() } ;" %></td>
+  </tr>
+
+  <tr class="list_style_0 gender_approach">
+    <td><%= form.label :gender_approach_description %></td>
+    <td><%= form.text_area :gender_approach_description %></td>
+  </tr>
+
+  <tr class="list_style_1 gender_approach">
+    <td><%= form.label :gender_approach_tool_evaluation %></td>
+    <td><%= form.text_area :gender_approach_tool_evaluation %></td>
+  </tr>
+
+  <tr class="form_section section_more_info">
+    <td><%= form.label "sections.valuation" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :positive_facts %></td>
+    <td><%= form.text_area :positive_facts %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :improve_facts %></td>
+    <td><%= form.text_area :improve_facts %></td>
+  </tr>
+
+<% end %>
+
+</table>
+
+
+
+<script>
+<% [ 'mobilization', 'media', 'activists_raising', 'web_2_0', 'institutional', 'school_network', 'society_movement', 'join_organizations', 'other_info', 'gender_approach'].each do |group| %>
+  var <%= group %> = document.getElementById('campaignaction_<%= group %>');
+  if( <%= group %> && <%= group %>.checked )
+    $('tr.<%= group %>').show();
+  else
+    $('tr.<%= group %>').hide();
+<% end %>
+
+</script>

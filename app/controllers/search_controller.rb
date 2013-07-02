@@ -34,7 +34,7 @@ class SearchController < ApplicationController
     
   private
   def search_what
-    searcheable_klasses = [ "activists", "activists_collaborations", "hr_schools", "campaignactions", "interesteds", "talks", 
+    searcheable_klasses = [ "activists", "activists_collaborations", "hr_schools", "campaignactions", "custom_actions", "interesteds", "talks", 
                             "local_organizations", "se_teams", "countries", "autonomies", "committees", "alerts" ]
     unless searcheable_klasses.include?(params[:what])
       flash[:error] = t('search.none')

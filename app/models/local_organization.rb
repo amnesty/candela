@@ -16,6 +16,7 @@ class LocalOrganization < ActiveRecord::Base
                       :message => I18n.t("activerecord.errors.models.local_organization.attributes.number")
 
   has_many :campaignactions, :as => :organization, :dependent => :destroy
+  has_many :custom_actions, :as => :organization, :dependent => :destroy
   has_many :talks, :foreign_key => :organization_id, :conditions => "organization_type = 'LocalOrganization'", :dependent => :destroy
 
   has_many :assigned_hr_schools, :as => :assigned_organization, :class_name => 'HrSchool', :dependent => :restrict
