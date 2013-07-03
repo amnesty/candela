@@ -174,7 +174,7 @@ module ApplicationHelper
       def notification_area
         ''.tap do |html|
           html << "<div id='notification_area'>"
-          for type in %w{ valid error warning info notice success}
+          for type in %w{ valid error warning info notice success alert}
             next if flash[type.to_sym].blank?
             html << "<div class=\"#{ type }\">#{ flash[type.to_sym] }</div>"
           end

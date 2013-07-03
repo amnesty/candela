@@ -31,7 +31,6 @@ module ActionController #:nodoc:
   module Authorization
     # Inclusion hook to add ActionController::Authentication
     def self.included(base) #:nodoc:
-      base.send :include, ActionController::Authentication unless base.ancestors.include?(ActionController::Authentication)
 
       base.helper_method :authorize?, :authorized?
       # Deprecated
@@ -77,7 +76,7 @@ module ActionController #:nodoc:
     # If user is not authenticated, return not_authenticated to allow identification.
     # Else, set HTTP Forbidden (403) response.
     def not_authorized
-      return not_authenticated unless authenticated?
+      redirect_to(current_site.ssl? ? new_session_url(:protocol => 'https') : new_session_path) unless current_agent
 
       render(:file => "#{Rails.root}/public/403.html",
              :status => 403)

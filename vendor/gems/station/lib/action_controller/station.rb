@@ -20,33 +20,12 @@ module ActionController
         base.helper_method :site
         base.helper_method :current_container
         base.helper_method :container
-        base.helper_method :categories_domain
-        base.helper_method :current_categories_domain
 
         class << base
           def model_class
             @model_class ||= controller_name.classify.constantize
           end
 
-          # Set params from AtomPub raw post
-          def set_params_from_atom(atom_parser, options)
-            parser = case atom_parser
-                     when Proc
-                       atom_parser
-                     when Class
-                       atom_parser.method(:atom_parser).to_proc
-                     when Symbol
-                       atom_parser.to_class.method(:atom_parser).to_proc
-                     else
-                       raise "Invalid AtomParser: #{ atom_parser.inspect }"
-                     end
-
-            before_filter options do |controller|
-              if controller.request.format == Mime::ATOM
-                controller.params = controller.params.merge(parser.call(controller.request.raw_post))
-              end
-            end
-          end
         end
       end
     end
@@ -124,33 +103,5 @@ module ActionController
     deprecated_method :container!, :current_container!
     deprecated_method :needs_container, :current_container!
 
-    def current_categories_domain
-      record_from_path(:acts_as => :categories_domain) || site
-    end
-
-    deprecated_method :categories_domain, :current_categories_domain
-
-    protected
-
-    # Extract request parameters when posting raw data
-    def set_params_from_raw_post(content = controller_name.singularize.to_sym)
-      return if request.raw_post.blank? || params[content]
-
-      filename = request.env["HTTP_SLUG"] || controller_name.singularize
-      content_type = request.content_type
-
-      file = Tempfile.new("media")
-      file.write request.raw_post
-      (class << file; self; end).class_eval do
-        alias local_path path
-        define_method(:content_type) { content_type.dup.taint }
-        define_method(:original_filename) { filename.dup.taint }
-      end
-
-      params[content]                  ||= {}
-      params[content][:title]          ||= filename
-      params[content][:media]          ||= file
-      params[content][:public_read]    ||= true
-    end
   end
 end

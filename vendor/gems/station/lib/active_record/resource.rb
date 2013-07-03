@@ -54,14 +54,6 @@ module ActiveRecord #:nodoc:
           {}
         }
 
-#        if options[:has_media] == :attachment_fu
-#          alias_attribute :media, :uploaded_data
-#        end
-
-#        unless acts_as?(:agent)
-#          attr_protected :author, :author_id, :author_type
-#        end
-
         cattr_reader :resource_options
         class_variable_set "@@resource_options", options
 
@@ -73,7 +65,6 @@ module ActiveRecord #:nodoc:
         extend  ClassMethods
         include InstanceMethods
 
-#        alias_method_chain :logo_image_path, :thumbnails
       end
 
       # Find with params
@@ -91,25 +82,6 @@ module ActiveRecord #:nodoc:
       def mime_types
         Array(resource_options[:mime_types]).map{ |m| Mime.const_get(m.to_sym.to_s.upcase) }
       end
-
-#      def atom_parser(data)
-#        begin
-#          require 'atom/entry'
-#        rescue
-#          raise "Station: You need 'atom-tools' gem for AtomPub support"
-#        end
-
-#        unless respond_to?(:params_from_atom)
-#          raise "Station: You must implement #{ self.to_s }#params_from_atom method to parse Atom entries"
-#        end
-
-#        params_from_atom Atom::Entry.new(data)
-#      end
-
-#      # Create a new instance of this Resource from Atom Entry
-#      def from_atom(entry)
-#        self.new(params_from_atom(entry))
-#      end
 
       # List of comma separated content types accepted for this Content
       def accepts
@@ -186,25 +158,6 @@ module ActiveRecord #:nodoc:
         self.class.record_timestamps = class_timestamps_cache
       end
 
-#      # The arguments to polymorphic_path to build the path for this resource Logo
-#      def logo_image_path_with_thumbnails(options = {})
-#        options[:size] ||= 16
-
-#        thumbnail_logo_image?(options) ?
-#          [ self, { :format => format, :thumbnail => options[:size] } ] :
-#          logo_image_path_without_thumbnails(options)
-#      end
-
-#      private
-
-#      # Is there a logo_image_path available?
-#      def thumbnail_logo_image?(options)
-#        # FIXME: this is only for AttachmentFu
-#        ! new_record? &&
-#          respond_to?(:attachment_options) &&
-#          attachment_options[:thumbnails].keys.map(&:to_s).include?(options[:size].to_s) &&
-#          thumbnails.find_by_thumbnail(options[:size].to_s).present?
-#      end
     end
   end
 end

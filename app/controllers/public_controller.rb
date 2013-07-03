@@ -1,6 +1,6 @@
 class PublicController < ApplicationController
 
-  skip_before_filter :authorization_filter, :authentication_required, :session_expired_control
+  skip_before_filter :authenticate_user!
 
   def new_hr_school
     @hr_school         = HrSchool.new

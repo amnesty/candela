@@ -378,8 +378,8 @@ input.button 			{ padding: 1px 3px !important; }
 
 #notification_area div.error, span.error, div.errorExplanation { background-color: #ffb0b0; background-image: url('/assets/error.png'); border-color: red; }
 
-span.warning 			{ background-color: #fff77e; background-image: url('/assets/warning.png'); border-color: #e7db22; }
-span.info 			{ background-color: #bdcae3; background-image: url('/assets/info.png'); border-color: #6297bc;}
+#notification_area .warning, #notification_area .alert 			{ background-color: #fff77e; background-image: url('/assets/warning.png'); border-color: #e7db22; }
+#notification_area .info 			{ background-color: #bdcae3; background-image: url('/assets/info.png'); border-color: #6297bc;}
 
 div.errorExplanation h2 	{ margin: 0px; }
 div.errorExplanation p 		{ margin: 1px; font-style: italic; font-size: 0.9em; }

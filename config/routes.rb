@@ -1,6 +1,10 @@
 AiVoluntariado::Application.routes.draw do
 
-#  devise_for :users
+  devise_for :users, :skip => [:registrations]
+  devise_scope :user do
+    get "/login" => "devise/sessions#new"
+    get "/logout" => "devise/sessions#destroy"
+  end
   resources :users do
     get :delete, :on => :member
     
@@ -14,6 +18,12 @@ AiVoluntariado::Application.routes.draw do
     end
       
   end
+
+  resources :roles do
+    get :delete, :on => :member
+  end
+
+  resource :site, :only => [:show,:edit,:update]
 
   match '/monitoring' => "monitoring#index", :as => :monitoring
 
@@ -61,10 +71,6 @@ AiVoluntariado::Application.routes.draw do
   resources :mail_template_collections
 
   resources :provinces
-
-  resources :roles do
-    get :delete, :on => :member
-  end
 
   resources :talks do
     get :delete, :on => :member

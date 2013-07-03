@@ -88,7 +88,7 @@ class ActivistsController < ApplicationController
         redirect_to url_for(:action => "edit",  :section => "leave" )
       else
         resource
-        if params[:clear_activist] and @resource.authorizes?(:clear, :to => current_agent)
+        if params[:clear_activist] and @resource.authorize?(:clear, :to => current_agent)
           @resource.clear_sensitive_data
         end
         respond_to do |format|

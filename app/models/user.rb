@@ -1,18 +1,24 @@
 # encoding: utf-8
 
-#FIXME: REMOVE WHEN STATION INITALIZATION WORKS! This should be in ActiveSupport.on_load(:active_record) , but doesn't work....
-ActiveRecord::Base.extend ActiveRecord::ActsAs
-
 class User < ActiveRecord::Base
-  
-  attr_accessor :permissions_cache
-  
+  # Include default devise modules. Others available are:
+  # :token_authenticatable, :confirmable,
+  # :lockable, :omniauthable
+  # :registerable, :recoverable, :rememberable, 
+  devise :database_authenticatable, :validatable, :trackable, :timeoutable, :rememberable
 
-  acts_as_agent :activation => false,
-                :invite => false,
-                :authentication => [ :login_and_password ]
-  
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :id, :login, :email, :password, :password_confirmation, :remember_me
+  attr_accessible #:login, :email, :password, :password_confirmation, :remember_me
+
+#-----------------------------------------------------
+# METHODS FROM OLD USERS (CHECK)
+
+  attr_accessor :permissions_cache
+
   include ActiveRecord::AIActiveRecord
+  
+  acts_as_agent
 
   has_many :performances, :foreign_key => 'agent_id', :dependent => :destroy
   has_many :organizations_trackings, :dependent => :destroy
@@ -42,7 +48,6 @@ class User < ActiveRecord::Base
     
     self.save
   end
-
 
   def self.fast_search_fields
     ['users.login', 'users.email' ]
@@ -136,10 +141,41 @@ class User < ActiveRecord::Base
   def can_track?(organization)
     organizations_trackings.map(&:organization).include?(organization)
   end
-    
-      
-      
-    
-    
-  
+
+#------------------------------------------------------------------
+# Legacy users password management
+
+  def valid_password?(password_str)
+    begin
+      super(password_str) || legacy_user_valid_password?(password_str)
+    rescue BCrypt::Errors::InvalidHash
+      legacy_user_valid_password?(password_str)
+    end
+  end
+
+  def self.update_legacy_passwords_from_yaml(filename)
+    usr_info = YAML.load_file(filename)
+    usr_info.each do |usr_login,usr_password| 
+      u = User.find_by_login(usr_login)
+      if u 
+        if u.valid_password?(usr_password)
+          puts "User #{u.login} updated." 
+        else
+          puts "User #{u.login} not updated: wrong password!!" 
+        end
+      else
+        puts "[WARNING] User #{usr_login} does not exist!!"
+      end        
+    end
+  end
+
+private
+
+  def legacy_user_valid_password?(password_str)
+    return false unless OldUser.find(self.id).valid_password?(password_str)
+    logger.info "[DEVISE legacy users] - User #{login} is using the old password hashing method, updating attribute."
+    self.update_attributes :password => password_str, :password_confirmation => password_str
+    true
+  end
+
 end

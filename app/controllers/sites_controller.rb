@@ -1,30 +1,14 @@
 class SitesController < ApplicationController
+  include ActionController::AIController
 
-  # GET /site
-  # GET /site.xml
+  authorization_filter [:config,:Site],  :site, :only => [ :show, :edit, :update]
+
   def show
-    @site = current_site
   end
 
-  # GET /site/new
-  # GET /site/new.xml
-  def new
-    redirect_to edit_site_path
-  end
-
-  # GET /site/edit
   def edit
-    @site = current_site
   end
 
-  # POST /site
-  # POST /site.xml
-  def create
-    update
-  end
-
-  # PUT /site
-  # PUT /site.xml
   def update
     respond_to do |format|
       if current_site.update_attributes(params[:site])
@@ -39,14 +23,8 @@ class SitesController < ApplicationController
     end
   end
 
-  # DELETE /site
-  # DELETE /site.xml
-  def destroy
-    current_site.destroy if Site.any?
-
-    respond_to do |format|
-      format.html { redirect_to root_path  }
-      format.xml  { head :ok }
-    end
+  def set_resource
+    @resource = @site = current_site
   end
+
 end

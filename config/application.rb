@@ -18,8 +18,6 @@ module AiVoluntariado
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += %W(#{config.root}/lib)
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
-#FIXME: Autoload station lib path in station gem
-config.autoload_paths += Dir["#{config.root}/vendor/gems/station/lib/**/"]
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -63,21 +61,6 @@ config.autoload_paths += Dir["#{config.root}/vendor/gems/station/lib/**/"]
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-
-#FIXME: User model dependency requirement here is ugly!!
-config.to_prepare do
-require_dependency "#{Rails.root}/app/models/user"
-#puts "+-+-+-+-+ config/application - after_initialize -> ActiveRecord::Agent.symbols : #{ActiveRecord::Agent.symbols.inspect}"
-end
-
-#    # Set layout for devise views
-#    config.to_prepare do
-#      Devise::SessionsController.layout "sessions"
-#  #    Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? "application"   : "sessions" }
-#      Devise::ConfirmationsController.layout "sessions"
-#      Devise::UnlocksController.layout "sessions"            
-#      Devise::PasswordsController.layout "sessions"        
-#    end
 
     # Default ActionMailer configuration, red from application data.
     action_mailer_config = YAML.load_file(File.join(Rails.root, "config", "mailer.yml"))[Rails.env]

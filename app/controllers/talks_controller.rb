@@ -7,9 +7,7 @@ class TalksController < ApplicationController
   authorization_filter :update,  :talk, :only => [ :edit,   :update ]
   authorization_filter :destroy, :talk, :only => [ :delete, :destroy ]
 
-  skip_before_filter :authentication_required, :only => [:talks_as_options_for_interesteds ]
-  skip_before_filter :authorization_filter,    :only => [:talks_as_options_for_interesteds ]
-  skip_before_filter :session_expired_control, :only => [:talks_as_options_for_interesteds ]
+  skip_before_filter :authenticate_user!, :only => [:talks_as_options_for_interesteds ]
 
   before_filter :set_organization_type,         :only => [ :create ]
   before_filter :set_organization_by_container, :only => [ :new, :create ]
