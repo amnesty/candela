@@ -139,7 +139,7 @@ es:
     collaborations: "Búsqueda de colaboraciones"
     hr_schools: "Búsqueda de Escuelas de DD.HH."
     campaignactions: "Búsqueda de acciones prioritarias"
-    campaignactions: "Búsqueda de otras acciones"
+    custom_actions: "Búsqueda de otras acciones"
     interesteds: "Búsqueda de interesados"
     talks: "Búsqueda de sesiones de presentación"
     local_organizations: Búsqueda de grupos locales
@@ -314,8 +314,8 @@ es:
       search_params: 'Parámetros de la acción'
       contact_params: Contacto
       performances_params: Actos de movilización
+      other_aspects_params: Otros aspectos relevantes
       other_actions_params: Otras acciones
-      gender_approach: Enfoque de género
       valuation_params: Valoración de la acción
 
 
@@ -777,8 +777,8 @@ es:
         one: la anotación del país
         other: las anotaciones del país
       custom_action: 
-        one: la acción independiente
-        other: las acciones independientes
+        one: la acción del plan
+        other: las otras acciones del plan
       hr_school: 
         one: la escuela de DD.HH.
         other: las escuelas de DD.HH.
@@ -954,40 +954,51 @@ es:
         custom_name: Nombre
         custom_action_topics: Tema/s
         custom_action_topic_ids: Tema/s
-        activists_raising: Gestión de activismo
-        activists_raising_material_distrib: Distribución de materiales de activismo (hoja recogida de datos de personas interesadas, Súper A,   buscamos gente como tú, etc.)
         campaign_id: Campaña
         contact_person: Persona de contacto
         contact_phone: Teléfono
         contact_email: Email
-        institutional: Relaciones institucionales
-        institutional_authorities_contact: Contacto con las autoridades
-        institutional_other:  Otras acciones institucionales
-        media: Medios de comunicación
-        media_material_distrib: Distribución de materiales
-        media_other: Otros
+
         mobilization: Movilización
-        mobilization_to_who: "A quién y cómo habéis convocado (carteles, aviso en medios de comunicación, redes sociales, espacios públicos, convocatoria a socios, etc.)"
-        mobilization_description: "Descripción acto (charla, acto de calle, performance, videoforum, lectura de manifiesto, actividades   para menores, etc.) y cómo ha sido el desarrollo del acto"
-        used_material: "Materiales utilizados (si son interesantes los de la intranet, si habéis realizado otros, etc.)"
-        interesteds_comments: "Nivel de participación e interés de la gente que se ha acercado "
-        interesteds_signs: "Número de firmas, cartas, postales, etc. recogidas"
-        media_urls: "Enlaces a fotografías y vídeos"
-        activists_raising_member_commited: Implicación de activistas en la actividad (miembros activos, puntuales, expertos, etc.)
-        activists_raising_interesteds: Número de personas interesadas en ser activistas 
+        mobilization_description: "Datos del acto de movilización: tipo, fecha, lugar, objetivos, actividades previstas (incluye todos los detalles del acto previsto)"
+        mobilization_pre: "¿Habéis realizado los talleres previos sugeridos en la circular?"
+        mobilization_pre_description: "En caso afirmativo, detalla la actividad"
+        mobilization_to_who: "¿Habéis convocado para apoyar en la actividad a activistas puntuales y/o activistas expertos y/o personas interesadas? En caso afirmativo, explica tu respuesta"
+        mobilization_tour: "En caso de que la propuesta de movilización haya incluído gira de titulares de derechos, víctimas y/o defensores y defensroas de Derechos Humanos, ¿habéis participado en ella?"
+        mobilization_tour_description: "En caso afirmativo, detalla la actividad"
+        used_material: "Materiales utilizados en el acto de movilización (folletos, trípticos, lona, globos, etc...)"
+        used_material_evaluation: "¿Qué valoración realizáis sobre estos materiales? (Interés, novedad, adecuación, originalidad, utilidad, orientado a los objetivos, llamativos...)"
+        used_material_others: "¿Habéis utilizado otros materiales elaborado y/o diseñados por la estructura?"
+        used_material_others_description: "En caso afirmativo, detalla cuáles"
+        interesteds_comments: "Nivel de participación e interés de la gente que se ha acercado"
+        interesteds_signs: "Número de firmas, cartas, postales, etc"
+        media_urls: "Enlaces a fotografías, videos, blogs, ..."
+
+        activists_raising: Gestión del activismo
+        activists_raising_member_commited: "¿Cuántos activistas, aproximadamente, han participado en la preparación, desarrollo y evaluación de la acción?"
+        activists_raising_expert: "¿Habéis contado con el apoyo de activistas puntuales y activistas expertos en la preparación, desarollo y/o evaluación de la acción?"
+        activists_raising_material_distrib: "En caso afirmativo, detalla qué actividades/tareas han realizado"
+        activists_raising_interesteds: "¿Cuántas personas han dejado sus datos interesadas en ser activistas?"
+
+        gender_approach: Enfoque de género
+        gender_approach_applied: "¿Habéis aplicado las recomendaciones que figuran en la circular de movilización en cuanto a la integración del enfoque de género?"
+        gender_approach_description: "En caso afirmativo, detalla cuáles, cómo las habéis aplicado y qué dificultades os habéis encontrado."
+        gender_approach_tool_evaluation: "En caso de que la acción prioritaria incluyera indicaciones específicas (Herrramienta para la integración del enfoque de género en la acción prioritaria), ¿cómo valoráis esta herramienta? (utilidad, claridad, idoneidad, adecuado ...)"
+
+        media: Medios de comunicación
+        media_material_distrib: "Detalla el trabajo con medios de comunicación"
         web_2_0: Web 2.0
-        web_2_0_specific_actions: Acciones específicas propuestas en la circular
+        web_2_0_specific_actions: "Redes sociales (Facebook, Twitter, etc)"
+        institutional: Relaciones institucionales
+        institutional_authorities_contact: "Mociones, declaraciones y/o contacto con las autoridades"
         school_network: Red de escuelas 
-        school_network_description: Más información
-        society_movement: Movilización sectores de la sociedad
-        society_movement_description: Más información
-        join_organizations: Coordinarse con otras organizaciones
+        school_network_description: "Trabajo realizado y número de Escuelas implicadas"
+        society_movement: Movilización sectores de la sociedad/Alianzas
+        society_movement_description: "Tipo de organización (mujeres, menores, inmigración, ...)"
+        join_organizations: Acciones con jóvenes
         join_organizations_description: Más información
         other_info: Otros
         other_info_description:  Más información
-        gender_approach: "¿Habéis aplicado las recomendaciones que figuran en la circular de movilización en cuanto a la integración del enfoque de género?"
-        gender_approach_description: "En caso afirmativo, detalla cuáles, cómo las habéis aplicado y qué dificultades os habéis encontrado."
-        gender_approach_tool_evaluation: "En caso de que la acción prioritaria incluyera indicaciones específicas (Herrramienta para la integración del enfoque de género en la acción prioritaria), ¿cómo valoráis esta herramienta? (utilidad, claridad, idoneidad, adecuado ...)"
         positive_facts: Aspectos positivos
         improve_facts: Aspectos a mejorar
         sectorial: Trabajo sectorial
@@ -999,9 +1010,9 @@ es:
           contact: Contacto
           more_info: Más información
           organizations: Organizaciones adheridas
-          other_actions: Otras acciones
           performances: Actos de movilización
-          gender_approach: Enfoque de género
+          other_aspects: Otros aspectos relevantes
+          other_actions: Otras acciones
           valuation: Valoración de la acción
 
       activist:

@@ -1,0 +1,48 @@
+<table class="table_list" >
+  <tr class="important_row">
+    <td colspan="2"><%= t('custom_action.search.search_params') %></td>
+  </tr>
+
+  <tbody class="unhideable">
+
+  <tr class="list_style_0">
+    <td>
+      <label><%= Gx.t_attr('custom_action.organization_type') %>:</label>
+    </td>
+    <% organization_type_param  = params[:custom_action] and params[:custom_action][:organization_type_equals] ? sanitize(params[:custom_action][:assigned_organization_type_equals]) : '' %>
+    <% organization_type_values = [ [ Gx.t_attr("performance.choose_one_organization_type"), ""],
+                                    [ Gx.t_attr('activists_collaboration.localorganization'), 'LocalOrganization'], 
+                                    [ Gx.t_attr('activists_collaboration.autonomy'), 'Autonomy'] ] %>
+
+    <td>
+        <%= select 'custom_action', 'organization_type_eq', organization_type_values, { :default_value => organization_type_param } %>
+        <% content_for(:head){ javascript_tag "addAutocompleteInputCallback('custom_action_organization_type_eq', '#{organizations_for_search_path}', 'organization_type', 'custom_action_organization_id_eq');" } %>
+    </td>
+  </tr>
+  <tr class="list_style_1">
+    <td>
+      <label><%= Gx.t_attr('custom_action.organization_id') %>:</label>
+    </td>
+      <% if organization_type_param.present? %>
+        <% organizations_for_custom_actions = CustomAction.organizations_for(organization_type_param).collect{ |ao| [ao.name, ao.id] } %>
+      <% else %>
+        <% organizations_for_custom_actions = [ [ t("custom_action.choose_one_organization_type"), ''] ] %>
+      <% end %>
+    <td><%= select( 'custom_action', 'organization_id_eq', organizations_for_custom_actions ) %>
+  </tr>
+
+    <% CustomAction.unhideable_fields.each do |field_name| %>
+      <%= render :partial => 'filters_field', :locals => { :klass => 'custom_action', :field_name => field_name } %>
+    <% end %>
+
+  </tbody>
+
+  <%= render :partial => 'show_more_row' %>
+
+  <tbody id="custom_action_extra_fields" class="hideable" style="display: none;">
+    <% CustomAction.hideable_fields.each do |field_name| %>
+      <%= render :partial => 'filters_field', :locals => { :klass => 'custom_action', :field_name => field_name } %>
+    <% end %>
+  </tbody>
+
+</table>

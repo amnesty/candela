@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130702126023) do
+ActiveRecord::Schema.define(:version => 20130704081943) do
 
   create_table "academic_years", :force => true do |t|
     t.string   "year"
@@ -742,10 +742,8 @@ ActiveRecord::Schema.define(:version => 20130702126023) do
     t.text    "mobilization_description"
     t.boolean "institutional"
     t.text    "institutional_authorities_contact"
-    t.text    "institutional_other"
     t.boolean "media"
     t.text    "media_material_distrib"
-    t.text    "media_other"
     t.boolean "sectorial"
     t.text    "sectorial_NGO"
     t.text    "sectorial_other"
@@ -779,6 +777,15 @@ ActiveRecord::Schema.define(:version => 20130702126023) do
     t.string  "custom_name"
     t.integer "custom_action_topic_id"
     t.string  "custom_action_topic_other"
+    t.boolean "mobilization_pre"
+    t.text    "mobilization_pre_description"
+    t.boolean "mobilization_tour"
+    t.text    "mobilization_tour_description"
+    t.text    "used_material_evaluation"
+    t.boolean "used_material_others"
+    t.text    "used_material_others_description"
+    t.boolean "activists_raising_expert"
+    t.boolean "gender_approach_applied"
   end
 
   add_index "performed_actions", ["custom_action_topic_id"], :name => "index_performed_actions_on_custom_action_topic_id"

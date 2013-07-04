@@ -1,0 +1,248 @@
+
+  <tr class="form_section section_contact">
+    <td><%= form.label "sections.contact" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :contact_person %></td>
+    <td><%= form.text_field :contact_person %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :contact_phone %></td>
+    <td><%= form.text_field :contact_phone, :maxlength => 20 %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :contact_email %></td>
+    <td><%= form.text_field :contact_email %></td>
+  </tr>
+
+
+  <tr class="form_section section_more_info">
+    <td><%= form.label "sections.performances" %></td>
+    <td></td>
+  </tr>
+
+
+  <tr class="list_style_1">
+    <td><%= form.label :mobilization %></td>
+    <td><%= form.check_box :mobilization, :onchange => "if (this.checked) { $('tr.mobilization').show() } else { $('tr.mobilization').hide() } ;" %></td>
+  </tr>
+
+
+  <tr class="list_style_0 mobilization">
+    <td><%= form.label :mobilization_description %></td>
+    <td><%= form.text_area :mobilization_description %></td>
+  </tr>
+
+  <tr class="list_style_0 mobilization">
+    <td><%= form.label :mobilization_pre %></td>
+    <td><%= form.check_box :mobilization_pre %></td>
+  </tr>
+
+  <tr class="list_style_0 mobilization">
+    <td><%= form.label :mobilization_pre_description %></td>
+    <td><%= form.text_area :mobilization_pre_description %></td>
+  </tr>
+
+  <tr class="list_style_0 mobilization">
+    <td><%= form.label :mobilization_to_who %></td>
+    <td><%= form.text_area :mobilization_to_who %></td>
+  </tr>
+
+  <tr class="list_style_0 mobilization">
+    <td><%= form.label :mobilization_tour %></td>
+    <td><%= form.check_box :mobilization_tour %></td>
+  </tr>
+
+  <tr class="list_style_0 mobilization">
+    <td><%= form.label :mobilization_tour_description %></td>
+    <td><%= form.text_area :mobilization_tour_description %></td>
+  </tr>
+
+  <tr class="list_style_0 mobilization">
+    <td><%= form.label :used_material %></td>
+    <td><%= form.text_area :used_material %></td>
+  </tr>
+
+  <tr class="list_style_0 mobilization">
+    <td><%= form.label :used_material_evaluation %></td>
+    <td><%= form.text_area :used_material_evaluation %></td>
+  </tr>
+
+  <tr class="list_style_0 mobilization">
+    <td><%= form.label :used_material_others %></td>
+    <td><%= form.check_box :used_material_others %></td>
+  </tr>
+
+  <tr class="list_style_0 mobilization">
+    <td><%= form.label :used_material_others_description %></td>
+    <td><%= form.text_area :used_material_others_description %></td>
+  </tr>
+
+  <tr class="list_style_0 mobilization">
+    <td><%= form.label :interesteds_comments %></td>
+    <td><%= form.text_area :interesteds_comments %></td>
+  </tr>
+
+  <tr class="list_style_0 mobilization">
+    <td><%= form.label :interesteds_signs %></td>
+    <td><%= form.text_area :interesteds_signs %></td>
+  </tr>
+
+  <tr class="list_style_0 mobilization">
+    <td><%= form.label :media_urls %></td>
+    <td><%= form.text_area :media_urls %></td>
+  </tr>
+
+  <tr class="form_section section_other_aspects">
+    <td><%= form.label "sections.other_aspects" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :activists_raising %></td>
+    <td><%= form.check_box :activists_raising %></td>
+  </tr>
+
+  <tr class="list_style_0 activists_raising">
+    <td><%= form.label :activists_raising_member_commited %></td>
+    <td><%= form.text_area :activists_raising_member_commited %></td>
+  </tr>
+
+  <tr class="list_style_0 activists_raising">
+    <td><%= form.label :activists_raising_expert %></td>
+    <td><%= form.check_box :activists_raising_expert %></td>
+  </tr>
+
+  <tr class="list_style_0 activists_raising">
+    <td><%= form.label :activists_raising_material_distrib %></td>
+    <td><%= form.text_area :activists_raising_material_distrib %></td>
+  </tr>
+
+  <tr class="list_style_0 activists_raising">
+    <td><%= form.label :activists_raising_interesteds %></td>
+    <td><%= form.text_area :activists_raising_interesteds %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :gender_approach %></td>
+    <td><%= form.check_box :gender_approach %></td>
+  </tr>
+
+  <tr class="list_style_0 gender_approach">
+    <td><%= form.label :gender_approach_applied %></td>
+    <td><%= form.check_box :gender_approach_applied %></td>
+  </tr>
+
+  <tr class="list_style_0 gender_approach">
+    <td><%= form.label :gender_approach_description %></td>
+    <td><%= form.text_area :gender_approach_description %></td>
+  </tr>
+
+  <tr class="list_style_0 gender_approach">
+    <td><%= form.label :gender_approach_tool_evaluation %></td>
+    <td><%= form.text_area :gender_approach_tool_evaluation %></td>
+  </tr>
+
+  <tr class="form_section section_more_info">
+    <td><%= form.label "sections.other_actions" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :media %></td>
+    <td><%= form.check_box :media %></td>
+  </tr>
+
+  <tr class="list_style_0 media">
+    <td><%= form.label :media_material_distrib %></td>
+    <td><%= form.text_area :media_material_distrib %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :web_2_0 %></td>
+    <td><%= form.check_box :web_2_0 %></td>
+  </tr>
+
+  <tr class="list_style_0 web_2_0">
+    <td><%= form.label :web_2_0_specific_actions %></td>
+    <td><%= form.text_area :web_2_0_specific_actions %></td>
+  </tr>
+
+
+  <tr class="list_style_1">
+    <td><%= form.label :institutional %></td>
+    <td><%= form.check_box :institutional %></td>
+  </tr>
+
+  <tr class="list_style_0 institutional">
+    <td><%= form.label :institutional_authorities_contact %></td>
+    <td><%= form.text_area :institutional_authorities_contact %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :school_network %></td>
+    <td><%= form.check_box :school_network %></td>
+  </tr>
+
+  <tr class="list_style_0 school_network">
+    <td><%= form.label :school_network_description %></td>
+    <td><%= form.text_area :school_network_description %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :society_movement %></td>
+    <td><%= form.check_box :society_movement %></td>
+  </tr>
+
+  <tr class="list_style_0 society_movement">
+    <td><%= form.label :society_movement_description %></td>
+    <td><%= form.text_area :society_movement_description %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :join_organizations %></td>
+    <td><%= form.check_box :join_organizations %></td>
+  </tr>
+
+  <tr class="list_style_0 join_organizations">
+    <td><%= form.label :join_organizations_description %></td>
+    <td><%= form.text_area :join_organizations_description %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :other_info %></td>
+    <td><%= form.check_box :other_info %></td>
+  </tr>
+
+  <tr class="list_style_0 other_info">
+    <td><%= form.label :other_info_description %></td>
+    <td><%= form.text_area :other_info_description %></td>
+  </tr>
+
+
+  <tr class="form_section section_more_info">
+    <td><%= form.label "sections.valuation" %></td>
+    <td></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :positive_facts %></td>
+    <td><%= form.text_area :positive_facts %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :improve_facts %></td>
+    <td><%= form.text_area :improve_facts %></td>
+  </tr>
+
+<script>
+
+<% [ 'mobilization', 'activists_raising', 'gender_approach', 'media', 'web_2_0', 'institutional', 'school_network', 'society_movement', 'join_organizations', 'other_info'].each do |group| %>
+  registerHideableGroup('<%= form.object.class.name.underscore %>_<%= group %>', 'tr.<%= group %>',  true, 'table-row');
+<% end %>
+
+</script>

@@ -69,6 +69,19 @@ $.datepicker.setDefaults({
 
 /*** Hideable groups: Showing/hiding elements associated to a form input ***/
 
+function registerHideableGroup(chkBoxId, hideableGroupSelector, showValue, displayAttribute){
+
+  $('#'+chkBoxId).on("change", function(e) {
+      e.preventDefault();
+      checkHideableGroupById(chkBoxId, hideableGroupSelector, showValue, displayAttribute);
+    });
+  
+  $(document).ready(function(){
+    checkHideableGroupById(chkBoxId, hideableGroupSelector, showValue, displayAttribute);
+  });
+
+}
+
 function checkHideableGroupById(chkBoxId, hideableGroupSelector, showValue, displayAttribute){
   
   chkBox = document.getElementById(chkBoxId);
