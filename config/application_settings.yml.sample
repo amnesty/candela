@@ -2,10 +2,17 @@
 
 defaults: &defaults
 
+  # session expire time
+  max_inactive_minutes: 30
+
   application_mailer:
+    global_subject_prefix: "[Candela-testing-app]"
     from: "Example sender <example-sender@example.com>"
     bcc: [ "bcc-recipient1@example.com","bcc-recipient2@example.com" ]
     template_folder: app/mail_templates
+    activist_leave_request:
+      recipients: ["application-admin@example.net"]
+      subject: "Request for activist status change"
 
 # Namespace-specific values (namespace is usually Rails.env)
 development:
@@ -17,6 +24,15 @@ development:
 test:
 
   exception_notification:
+
+  <<: *defaults
+
+staging:
+
+  exception_notification:
+    email_prefix: "[ERROR in activismo_staging]"
+    sender_address: "Activismo App <example-sender@example.com>"
+    exception_recipients: ["app_administrator@example.com"]
 
   <<: *defaults
 
