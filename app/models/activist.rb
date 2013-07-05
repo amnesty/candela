@@ -5,6 +5,7 @@ class Activist < ActiveRecord::Base
 
   attr_accessible :first_name, :last_name, :last_name2, :sex_id, :birth_day, :document_type, :nif, 
                   :different_residence_country, :address, :cp, :province_id, :city, :phone, :mobile_phone, :email, 
+                  :dedication_hours, :in_person_collaboration, :remote_collaboration,
                   :join_at, :other_information, :labour_situation_id, :occupation_id, 
                   :student_previous_degrees, :student, :student_place, :student_level_id, :student_degree, :student_year_id, :student_more_info, 
                   :data_protection_agreement, :informed_through_id, :informed_through_other, :collabtopic_ids, :language_ids, :skill_ids, :other_skills, :hobby_ids, :other_hobbies, :blogger,
@@ -182,7 +183,7 @@ class Activist < ActiveRecord::Base
 
   def self.hideable_fields
     [ 'sex_id', 'document_type', 'nif', 'different_residence_country', 'address', 'cp',  'province_id', 'city',
-      'phone', 'mobile_phone', 'email', 'join_at', 'other_information', 
+      'phone', 'mobile_phone', 'email', 'join_at', 'dedication_hours', 'in_person_collaboration', 'remote_collaboration', 'other_information', 
       'labour_situation_id', 'occupation_id', 'student_previous_degrees',  
       'student', 'student_place', 'student_level_id', 'student_degree', 'student_year_id', 'student_more_info', 
       'data_protection_agreement',  'informed_through_id', 'informed_through_other',
@@ -197,12 +198,12 @@ class Activist < ActiveRecord::Base
   def self.conditions_columns
     { :cont   => [ 'first_name', 'last_name', 'last_name2', 'nif', 'address', 'informed_through_other', 'student_place',
                     'student_previous_degrees', 'student_more_info', 'other_hobbies', 'leave_more_info', 'other_skills', 'blogger',
-                   'other_information', 'email' ],
+                    'dedication_hours', 'other_information', 'email' ],
       :eq => ['document_type', 'province_id', 'cp', 'availability_id', 'organization_id', 'collaboration_type', 
                   'activist_status_id', 'sex_id',  'labour_situation_id', 'student', 'phone', 'mobile_phone',
                    'student', 'data_protection_agreement', 'student_level_id', 'student_year_id', 'student_degree',
                   'city', 'leave_reason_id', 'occupation_id',  'informed_through_id', 'different_residence_country',
-                  'organization_type', 'collaboration_type' ],
+                  'organization_type', 'collaboration_type', 'in_person_collaboration', 'remote_collaboration' ],
       :date   => [ 'join_at', 'leave_at', 'birth_day' ] }
   end
 

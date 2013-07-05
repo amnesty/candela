@@ -150,6 +150,21 @@
     <td><%= form.date_select :join_at, { :include_blank => true } %></td>
   </tr>
 
+  <tr class="list_style_1">
+    <td><%= form.label :dedication_hours %></td>
+    <td><%= form.text_field :dedication_hours %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :in_person_collaboration %></td>
+    <td><%= form.check_box :in_person_collaboration %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :remote_collaboration %></td>
+    <td><%= form.check_box :remote_collaboration %></td>
+  </tr>
+
   <tr class="list_style_0">
     <td><%= form.label :other_information %></td>
     <td><%= form.text_area :other_information %></td>

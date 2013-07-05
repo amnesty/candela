@@ -1018,6 +1018,9 @@ es:
       activist:
         <<: *_activists_and_interesteds_attributes
         <<: *_join_date_attributes
+        dedication_hours: Horas de dedicación
+        in_person_collaboration: Colaboración presencial
+        remote_collaboration: Colaboración a distancia
         data_protection_agreement: Firma acuerdo de protección de datos
         leave_reason_id: Motivo de la baja
         leave_more_info: Más información sobre su baja
