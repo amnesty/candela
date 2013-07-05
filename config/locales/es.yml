@@ -110,10 +110,10 @@ es:
 
   __collaborations_sections: &_collaborations_sections
     all_collaborations: Todos los miembros y colaboradores
-    expertise_collaborations: Colaboraciones como experto
-    member_collaborations: Activistas miembros
-    support_collaborations: Colaboraciones de apoyo
-    casual_collaborations: Colaboraciones puntuales
+    expertise_collaborations: Colaboradores como experto
+    member_collaborations: Miembros regulares
+    support_collaborations: Miembros de apoyo
+    casual_collaborations: Colaboradores puntuales
 
   home:
     sections:
