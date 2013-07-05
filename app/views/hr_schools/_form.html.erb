@@ -1,5 +1,5 @@
 <% disabled ||= false %>
-<% removed_in_public = [:academic_year_ids, :hr_type, :type_other, :join_at, :leave_at, :hr_work_through ] %>
+<% removed_in_public = [:academic_year_ids, :hr_type, :type_other, :join_at, :leave_at ] %>
 <% required_in_public = [:address, :cp, :province_id, :city, :phone, :email, :contact_name, :contact_position, :contact_email, :direction_approval] %>
 <% hidden_in_public = [:status] %>
 
@@ -142,21 +142,6 @@
     <% end %>      
     <td><%= form.text_field :email %></td>
   </tr>
-
-<% unless params[:controller] == "public" %>
-
-  <tr class="list_style_0">
-    <td><%= form.label :hr_work_through %></td>
-    <td>
-      <% HrWorkThrough.orderby_name.each do |wt| %>
-        <% options = {:id => "hr_school_hr_school_hr_work_through_ids_#{wt.id}", :multiple => true, :style => "width:auto;"} %>
-        <p><%= form.check_box(:hr_work_through_ids, options, wt.id, nil) %> <%= wt.name %></p>
-      <% end %>
-
-    </td>
-  </tr>
-
-<% end %>
 
   <tr class="form_section contact_person">
     <td><%= form.label "sections.contact_person" %></td>
