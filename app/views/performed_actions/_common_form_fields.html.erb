@@ -31,12 +31,6 @@
     <td><%= form.check_box :mobilization, :onchange => "if (this.checked) { $('tr.mobilization').show() } else { $('tr.mobilization').hide() } ;" %></td>
   </tr>
 
-
-  <tr class="list_style_0 mobilization">
-    <td><%= form.label :mobilization_description %></td>
-    <td><%= form.text_area :mobilization_description %></td>
-  </tr>
-
   <tr class="list_style_0 mobilization">
     <td><%= form.label :mobilization_pre %></td>
     <td><%= form.check_box :mobilization_pre %></td>
@@ -51,6 +45,12 @@
     <td><%= form.label :mobilization_to_who %></td>
     <td><%= form.text_area :mobilization_to_who %></td>
   </tr>
+
+  <tr class="list_style_0 mobilization">
+    <td><%= form.label :mobilization_description %></td>
+    <td><%= form.text_area :mobilization_description %></td>
+  </tr>
+
 
   <tr class="list_style_0 mobilization">
     <td><%= form.label :mobilization_tour %></td>

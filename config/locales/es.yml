@@ -964,7 +964,7 @@ es:
         mobilization_pre: "¿Habéis realizado los talleres previos sugeridos en la circular?"
         mobilization_pre_description: "En caso afirmativo, detalla la actividad"
         mobilization_to_who: "¿Habéis convocado para apoyar en la actividad a activistas puntuales y/o activistas expertos y/o personas interesadas? En caso afirmativo, explica tu respuesta"
-        mobilization_tour: "En caso de que la propuesta de movilización haya incluído gira de titulares de derechos, víctimas y/o defensores y defensroas de Derechos Humanos, ¿habéis participado en ella?"
+        mobilization_tour: "En caso de que la propuesta de movilización haya incluído gira de titulares de derechos, víctimas y/o defensores y defensoras de Derechos Humanos, ¿habéis participado en ella?"
         mobilization_tour_description: "En caso afirmativo, detalla la actividad"
         used_material: "Materiales utilizados en el acto de movilización (folletos, trípticos, lona, globos, etc...)"
         used_material_evaluation: "¿Qué valoración realizáis sobre estos materiales? (Interés, novedad, adecuación, originalidad, utilidad, orientado a los objetivos, llamativos...)"

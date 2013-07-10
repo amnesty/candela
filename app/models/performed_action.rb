@@ -84,7 +84,7 @@ class PerformedAction < ActiveRecord::Base
       '/contact_params', 
       "contact_person", "contact_phone", "contact_email",
       '/performances_params', 
-      "mobilization", "mobilization_description", "mobilization_pre", "mobilization_pre_description", "mobilization_to_who", 
+      "mobilization", "mobilization_pre", "mobilization_pre_description", "mobilization_to_who", "mobilization_description", 
       "mobilization_tour", "mobilization_tour_description", "used_material", "used_material_evaluation", "used_material_others", "used_material_others_description",
       "interesteds_comments", "interesteds_signs", "media_urls",
       '/other_aspects_params', 
