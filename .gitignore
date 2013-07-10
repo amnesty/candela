@@ -23,6 +23,9 @@ config/application_settings.yml
 config/mailer.yml
 Capfile
 
+# Ignore application attachments
+/public/system
+
 # Ignore project files and initialization scripts for development
 .rvmrc
 
