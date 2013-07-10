@@ -18,7 +18,7 @@
     </tr>
     <tr>
       <td><%= label_tag( "body", Gx.t_attr("interested.mail.body") ) %></td>
-      <td><%= text_area_tag( "body", ApplicationMailer.contact_email(@resource, :message_type => :email).body, :class => 'big' ) %></td>
+      <td><%= text_area_tag( "body", @resource.contact_email_body(:email), :class => 'big' ) %></td>
       <script>new nicEditor({iconsPath : '/assets/nicEditorIcons.gif'}).panelInstance('body');</script>
     </tr>
     </table>

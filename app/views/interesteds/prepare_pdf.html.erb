@@ -10,7 +10,7 @@
   <TABLE>
   <TR>
     <TD><%= label_tag( "body", Gx.t_attr("interested.mail.body") ); %></TD>
-    <TD><%= text_area_tag("body", ApplicationMailer.contact_email(@resource, :message_type => :pdf).body, :style => 'width: 700px;') %></TD>
+    <td><%= text_area_tag( "body", @resource.contact_email_body(:pdf), :style => 'width: 700px;' ) %></td>
     <%= javascript_tag "new nicEditor({iconsPath : '/assets/nicEditorIcons.gif', buttonList: []}).panelInstance('body');" %>
   </TR>
   </TABLE>

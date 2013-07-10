@@ -633,6 +633,10 @@ es:
 #  local_organization_note:
 #    <<: *_notes_entity
 
+  mail_template:
+    errors:
+      missing_template_file: "La plantilla asignada no existe. Contacta con el administrador para resolver el problema."
+
   note:
     <<: *_notes_entity
     
