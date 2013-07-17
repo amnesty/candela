@@ -112,13 +112,27 @@
             <%= text_area_tag("#{klass}[#{ search_logic_field_name }]", ((params[klass.to_sym] && params[klass.to_sym]["#{ search_logic_field_name }"]) ? params[klass.to_sym]["#{ search_logic_field_name }"] : '')) %>
 
         <% elsif ff.field.type == :boolean %>
-          <% boolean_search_eq_name = "#{klass}[#{ ff.field.name }_eq]" %>
-          <% boolean_search_null_name = "#{klass}[#{ ff.field.name }_null]" %>
-          <%= select_tag(boolean_search_eq_name, options_for_select([["", ""],["Si","true"],["No","false"],["Sin valor","1"] ]),
+          <% boolean_search_eq_name = "#{ff.field.name}_eq" %>
+          <% boolean_search_null_name = "#{ff.field.name}_null" %>
+          <% 
+            if params[klass.to_sym] 
+              if params[klass.to_sym][boolean_search_null_name.to_sym]
+                cur_search_field_name = boolean_search_null_name
+                def_value = params[klass.to_sym][boolean_search_null_name.to_sym]
+              else
+                cur_search_field_name = boolean_search_eq_name
+                def_value = params[klass.to_sym][boolean_search_eq_name.to_sym]
+              end
+            else
+              cur_search_field_name = boolean_search_eq_name
+              def_value = nil
+            end
+          %>
+          <%= select_tag("#{klass}[#{cur_search_field_name}]", options_for_select([["", ""],["Si","true"],["No","false"],["Sin valor","1"]], def_value),
                 :onchange => "if (this.value == 1) 
-                                this.name = '#{boolean_search_null_name}'; 
+                                this.name = '#{klass}[#{boolean_search_null_name}]'; 
                               else
-                                this.name = '#{boolean_search_eq_name}'; 
+                                this.name = '#{klass}[#{boolean_search_eq_name}]'; 
                               ".html_safe
               ) 
           %>
