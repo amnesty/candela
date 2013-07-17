@@ -25,7 +25,8 @@
         <label><%= Gx.t_attr('activist.with_active_collaborations') %></label>
       </td>
       <td>
-        <%= select("activist", "with_active_collaborations", [["", ""],["Si","1"],["No","0"] ]) %>
+        <% cur_selected_value = (params[:activist] ? params[:activist][:with_active_collaborations] : '' ) %>
+        <%= select  "activist", "with_active_collaborations", [["", ""],["Si","1"],["No","0"] ], :selected => cur_selected_value %>
       </td>    
     </tr>
 
@@ -34,7 +35,8 @@
         <label><%= Gx.t_attr('activist.is_partner') %></label>
       </td>
       <td>
-        <%= select("activist", "is_partner", [["", ""],["Si","1"],["No","0"] ]) %>
+        <% cur_selected_value = (params[:activist] ? params[:activist][:is_partner] : '' ) %>
+        <%= select  "activist", "is_partner", [["", ""],["Si","1"],["No","0"] ], :selected => cur_selected_value %>
       </td>    
     </tr>
 

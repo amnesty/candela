@@ -69,7 +69,7 @@ class Activist < ActiveRecord::Base
   }                                                    
 
   scope :with_active_collaborations, lambda { |q|
-    if q.nil? || q.empty?
+    if q.blank?
       {}
     elsif Gx.to_boolean(q)
       { :include => "activists_collaborations", :conditions => ['activists.id = activists_collaborations.activist_id AND activists_collaborations.activist_status_id <> ?', ActivistStatus.leave_id ] }

@@ -13,7 +13,8 @@
       <label><%= Gx.t_attr('interested.is_minor') %></label>
     </td>
     <td>
-      <%= select("interested", "is_minor", [["", ""],["Si","1"],["No","0"] ]) %>
+      <% cur_selected_value = (params[:interested] ? params[:interested][:is_minor] : '' ) %>
+      <%= select "interested", "is_minor", [["", ""],["Si","1"],["No","0"]], :selected => cur_selected_value %>
     </td>   
   </tr> 
 
@@ -22,7 +23,8 @@
       <label><%= Gx.t_attr('interested.is_activist') %></label>
     </td>
     <td>
-      <%= select("interested", "is_activist", [["", ""],["Si","1"],["No","0"] ]) %>
+      <% cur_selected_value = (params[:interested] ? params[:interested][:is_activist] : '' ) %>
+      <%= select "interested", "is_activist", [["", ""],["Si","1"],["No","0"]], :selected => cur_selected_value %>
     </td>    
   </tr> 
 
