@@ -76,7 +76,7 @@
 
   <tr class="list_style_1 hideable" style="display: none;">
     <td>
-      <label><%= t('activerecord.attributes.activists_collaboration.collaboration_type') %>:</label><i class="help"><%= t("form.multiple_select_help") %></i>
+      <label><%= t('activerecord.attributes.activists_collaboration.collaboration_type') %>:</label><i class="help"><%= t("form.multiple_select_help").html_safe %></i>
     </td>
     <td>
       <%= select( 'activist', 'activists_collaborations_collaboration_type_in', 
@@ -105,12 +105,12 @@
   </tr>
 
   <tr class="list_style_0 hideable" style="display: none;">
-    <td><label><%= t('activerecord.attributes.activists_collaboration.responsibilities') %></label><i class="help"><%= t("form.multiple_checkbox_or_help") %></i></td>
+    <td><label><%= t('activerecord.attributes.activists_collaboration.responsibility_ids') %></label><i class="help"><%= t("form.multiple_checkbox_or_help") %></i></td>
     <td><% Responsibility.all.each do |responsibility| %>
       <div class="left small_margin small">
-	<%= check_box_tag("activist[activists_collaborations_responsibilities_id_eq_all][]",
+	<%= check_box_tag("activist[activists_collaborations_responsibilities_id_eq_any][]",
 			  responsibility.id,
-			  (params[:activist] && params[:activist]['activists_collaborations_responsibilities_id_eq_all'] && params[:activist]['activists_collaborations_responsibilities_id_eq_all'].include?(responsibility.id.to_s)),
+			  (params[:activist] && params[:activist]['activists_collaborations_responsibilities_id_eq_any'] && params[:activist]['activists_collaborations_responsibilities_id_eq_any'].include?(responsibility.id.to_s)),
         {:style => 'width: 20px' }) %> <%= responsibility.name %>
         
       </div>
@@ -121,9 +121,9 @@
     <td><label><%= t('activerecord.attributes.activists_collaboration.expertise_ids') %></label><i class="help"><%= t("form.multiple_checkbox_or_help") %></i></td>
     <td><% Expertise.all.sort_by{|e|[e.category, e.name]}.each do |expertise| %>
       <p class="left small_margin small">
-	<%= check_box_tag("activist[activists_collaborations_expertises_id_eq_all][]",
+	<%= check_box_tag("activist[activists_collaborations_expertises_id_eq_any][]",
 			  expertise.id,
-			  (params[:activist] && params[:activist]['activists_collaborations_expertises_id_eq_all'] && params[:activist]['activists_collaborations_expertises_id_eq_all'].include?(expertise.id.to_s))) %> <%= "#{expertise.category}: #{expertise.name}" %>
+			  (params[:activist] && params[:activist]['activists_collaborations_expertises_id_eq_any'] && params[:activist]['activists_collaborations_expertises_id_eq_any'].include?(expertise.id.to_s))) %> <%= "#{expertise.category}: #{expertise.name}" %>
       </p>
     <% end %></td>
   </tr>
