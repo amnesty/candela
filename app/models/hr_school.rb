@@ -180,7 +180,7 @@ class HrSchool < ActiveRecord::Base
   end
   
   def self.searcheable_fields
-    [unhideable_fields, hideable_fields, 'hr_school_organization_manager.organization_type', 'hr_school_organization_manager.organization_id' ].flatten
+    [unhideable_fields, hideable_fields, 'assigned_organization_type', 'assigned_organization_id' ].flatten
   end
 
   def self.unhideable_fields
@@ -188,17 +188,17 @@ class HrSchool < ActiveRecord::Base
   end
 
   def self.hideable_fields
-    [ 'years',  'hr_type', 'type_other',  'hr_school_level_other', 'join_at', 'leave_at',
-      'address', 'cp', 'province_id',  'city',  'phone',  'phone2', 'fax', 'web_page',   'email',  'contact_name', 
-      'contact_position', 'direction_approval', 'school_management', 'tutor', 'tutor_phone', 'pupils_count', 'ages',
-      'hr_work_throughs', 'hr_school_levels', 'academic_years'
+    [ 'hr_type', 'type_other', 'hr_school_levels', 'hr_school_level_other', 'join_at', 'leave_at',
+      'address', 'cp', 'province_id',  'city',  'phone',  'phone2', 'fax', 'web_page',   'email',  
+      '/contact_person', 'contact_name', 'contact_position', 'contact_email', 'contact_phone', 'contact_tweeter', 'is_partner', 'is_activist',
+      'direction_approval'
     ]
   end
 
   def self.conditions_columns
     { :cont   => [ 'name',  'address', 'contact_name', 'contact_position',
                              'tutor', 'type_other', 'hr_school_level_other', 'school_management'  ],
-      :eq => ['province_id', 'cp', 'city', 'email', 'phone', 'direction_approval', 'tutor_phone', 'pupils_count', 'years',
+      :eq => ['province_id', 'cp', 'city', 'email', 'phone', 'direction_approval', 'tutor_phone', 'pupils_count',
                   'fax', 'web_page', 'phone2', 'status', 'hr_type' ],
       :date   => [ 'join_at', 'leave_at' ] }
   end
@@ -213,6 +213,12 @@ class HrSchool < ActiveRecord::Base
   
   def self.sort_for_csv(items)
     items
+  end
+
+  def self.column_translations
+    { 
+      'assigned_organization_type' => { :prefix => "activerecord.attributes.activists_collaboration", :transformations => ["underscore"] }
+    }
   end
  
   def self.organizations_for(type)

@@ -15,6 +15,34 @@
     <% HrSchool.hideable_fields.each do |field_name| %>
       <%= render :partial => 'filters_field', :locals => { :klass => 'hr_school', :field_name => field_name } %>
     <% end %>
+  <tr class="important_row">
+    <td colspan="2"><%= Gx.t_attr('hr_school.sections.school_management') %></td>
+  </tr>
+
+  <tr class="list_style_0 school_management_only">
+    <td><label><%= Gx.t_attr('hr_school.assigned_organization_type') %>:</label></td>
+    <% assigned_organization_type_param  = (params[:hr_school] and params[:hr_school][:assigned_organization_type_eq]) ? sanitize(params[:hr_school][:assigned_organization_type_eq]) : '' %>
+    <% assigned_organization_type_values = [ 
+      [ Gx.t_attr("performance.choose_one_organization_type"), ""],
+      [ Gx.t_attr('activists_collaboration.localorganization'), 'LocalOrganization'],
+      [ Gx.t_attr('activists_collaboration.autonomy'), 'Autonomy'], 
+      [ Gx.t_attr('activists_collaboration.se_team'), 'SeTeam'] ] %>
+    <td>
+      <%= select "hr_school", "assigned_organization_type_eq", assigned_organization_type_values, :selected => assigned_organization_type_param %>
+      <% content_for(:head){ javascript_tag "addAutocompleteInputCallback('hr_school_assigned_organization_type_eq', '#{organizations_for_hr_schools_path}', 'assigned_organization_type', 'hr_school_assigned_organization_id_eq');" } %>
+    </td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td>
+      <label><%= Gx.t_attr('hr_school.assigned_organization_id') %>:</label>
+    </td>
+    <td>
+      <% assigned_organization_id_param  = (params[:hr_school] and params[:hr_school][:assigned_organization_id_eq]) ? params[:hr_school][:assigned_organization_id_eq] : nil %>
+      <% assigned_organization_id_values = HrSchool.organizations_for(assigned_organization_type_param).collect{|o|[o.full_name,o.id]} %>
+      <%= select( 'hr_school', 'assigned_organization_id_eq', assigned_organization_id_values, :selected => assigned_organization_id_param) %>
+    </td>
+  </tr>
 
   <tr class="important_row">
     <td colspan="2"><%= Gx.t_attr('hr_school.sections.organization_managers') %></td>
@@ -24,16 +52,13 @@
     <td>
       <label><%= Gx.t_attr('hr_school_organization_manager.organization_type') %>:</label>
     </td>
-    <% organization_type_param  = params[:hr_school] and params[:hr_school][:assigned_organization_type_equals] ? sanitize(params[:hr_school][:assigned_organization_type_equals]) : '' %>
+    <% organization_type_param  = (params[:hr_school] and params[:hr_school][:hr_school_organization_managers_organization_type_eq]) ? sanitize(params[:hr_school][:hr_school_organization_managers_organization_type_eq]) : '' %>
     <% organization_type_values = [ [ Gx.t_attr("performance.choose_one_organization_type"), ""],
                                     [ Gx.t_attr('activists_collaboration.localorganization'), 'LocalOrganization'], 
                                     [ Gx.t_attr('activists_collaboration.autonomy'), 'Autonomy'] ] %>
     <td>
-      <%= select "hr_school", "hr_school_organization_managers_organization_type_eq", organization_type_values,
-                 { :default_value => organization_type_param }
-      %>
+      <%= select "hr_school", "hr_school_organization_managers_organization_type_eq", organization_type_values, :selected => organization_type_param, :include_blank => true %>
       <% content_for(:head){ javascript_tag "addAutocompleteInputCallback('hr_school_hr_school_organization_managers_organization_type_eq', '#{organizations_for_search_path}', 'organization_type', 'hr_school_hr_school_organization_managers_organization_id_eq');" } %>
-
     </td>
   </tr>
   <tr class="list_style_1">
@@ -41,7 +66,9 @@
       <label><%= Gx.t_attr('hr_school_organization_manager.organization_id') %>:</label>
     </td>
     <td>
-      <%= select( 'hr_school', 'hr_school_organization_managers_organization_id_eq', [], { :include_blank => true }) %>
+      <% organization_id_param  = (params[:hr_school] and params[:hr_school][:hr_school_organization_managers_organization_id_eq]) ? params[:hr_school][:hr_school_organization_managers_organization_id_eq] : nil %>
+      <% organization_id_values = HrSchool.organizations_for(organization_type_param).collect{|o|[o.full_name,o.id]} %>
+      <%= select 'hr_school', 'hr_school_organization_managers_organization_id_eq', assigned_organization_id_values, :selected => assigned_organization_id_param, :include_blank => true %>
     </td>
   </tr>
 

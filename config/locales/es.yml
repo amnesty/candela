@@ -497,7 +497,6 @@ es:
     title: Comité/Comisión
     same_address: La misma que la postal
     search:
-    search:
       <<: *_organization_search
       search_params: 'Parámetros de la comisión'
     notes:
@@ -515,7 +514,6 @@ es:
     abrev: País
     title: País
     same_address: La misma que la postal
-    search:
     search:
       <<: *_organization_search
       search_params: 'Parámetros del país'
@@ -559,6 +557,7 @@ es:
     types: ['Público', 'Concertado', 'Privado', 'Otros' ]
     search:
       search_params: 'Parámetros de la escuela de DD.HH.'
+      contact_person: 'Datos de la persona de contacto'
       none_found_by_hr_academic_year: 'No hay escuelas con esos cursos académicos'
       none_found_by_hr_level: 'No hay escuelas con esos niveles educativos'
       none_found_by_hr_work_through: 'No hay escuelas que trabajen a través de esos criterios'
