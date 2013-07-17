@@ -4,7 +4,7 @@
   <table class="table_list">
 
     <tr>
-      <% [:province_id, :city, :name, :hr_type, :hr_school_levels, :web_page].each do |field| %>
+      <% [:province_id, :city, :name, :hr_school_levels, :web_page].each do |field| %>
         <th><%= Gx.t_attr("hr_school.#{field.to_s}") %></th>
       <% end %>
     </tr>
@@ -22,7 +22,6 @@
         <td><%= school.province.name %></td>
         <td><%= school.h_city %></td>
         <td><%= school.name %></td>
-        <td><%= school.hr_type %></td>
         <td>
           <ul><% school.hr_school_levels.each do |lvl| %>
             <li><%= lvl.name + (lvl.name == 'Otro' ? " (#{school.hr_school_level_other})" : '') %></li>
