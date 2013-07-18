@@ -23,6 +23,10 @@ AiVoluntariado::Application.routes.draw do
     get :delete, :on => :member
   end
 
+  resources :performances do 
+    get :delete, :on => :member
+  end
+
   resource :site, :only => [:show,:edit,:update]
 
   match '/monitoring' => "monitoring#index", :as => :monitoring
