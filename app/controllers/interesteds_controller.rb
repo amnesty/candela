@@ -64,13 +64,17 @@ class InterestedsController < ApplicationController
     
     body = params['body']
     pdf_string = HtmlToPdf.generate_pdf_string(body)
-    if pdf_string && send_data(pdf_string, :type => "application/pdf", :filename => "letter_#{ @resource.id }.pdf" , :disposition => 'attachment')
+    sending_success = pdf_string && send_data(pdf_string, :type => "application/pdf", :filename => "letter_#{ @resource.id }.pdf" , :disposition => 'attachment') 
+    if sending_success
       !@resource.is_minor? || @resource.minor_checked ? @resource.letter_sent = true : nil
       unless @resource.save 
         flash[:error] = t('interested.fail_at_updated')
       else
         flash[:notice] = t('interested.letter_sent_success')
       end
+    else
+      error_string = (pdf_string.nil? ? t('interested.fail_at_pdf_generation') : t('interested.fail_at_pdf_sending') )
+      redirect_to prepare_pdf_interested_path(@resource), :flash => { :error => error_string }
     end
   end
 
