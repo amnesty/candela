@@ -588,6 +588,8 @@ es:
     email_sent_success: 'El email se ha enviado correctamente'
     letter_sent_success: 'La carta se ha generado correctamente'
     fail_at_updated: 'No se ha podido añadir la información de envio para el/la interesado/a. Compruebe que la ficha es correcta'
+    fail_at_pdf_generation: 'No se ha podido generar el archivo PDF.'
+    fail_at_pdf_sending: 'No se ha podido enviar el archivo PDF.'
     fail_at_send_email: 'Fallo en el envío del email.'
     cant_be_activist_due_age: 'Falta autorización de los padres/tutores'
     fail_to_migrate:
