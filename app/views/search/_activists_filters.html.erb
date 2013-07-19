@@ -89,8 +89,17 @@
       <label><%= t('activerecord.attributes.activists_collaboration.join_at') %></label>
     </td>
     <td>
-      Entre <%= date_select("activist", "activists_collaborations_join_at_gteq", { :start_year => 1990, :include_blank => true }, {:class => ''}) %>
-      y     <%= date_select("activist", "activists_collaborations_join_at_lteq",    { :start_year => 1990, :include_blank => true }, {:class => ''}) %>
+          Entre <%= text_field_tag "activist[activists_collaborations_join_at_gteq]", 
+                                   (params[:activist] ? params[:activist][:activists_collaborations_join_at_gteq] : ''),
+                                   :size => '8', :maxlength => 10
+                %>
+          <%= javascript_tag("$('#activist_activists_collaborations_join_at_gteq').datepicker({ yearRange: '1990:#{Date.today.year}' });") %>
+
+          y <%= text_field_tag "activist[activists_collaborations_join_at_lteq]", 
+                                   (params[:activist] ? params[:activist][:activists_collaborations_join_at_lteq] : ''),
+                                   :size => '8', :maxlength => 10
+                %>
+          <%= javascript_tag("$('#activist_activists_collaborations_join_at_lteq').datepicker({ yearRange: '1990:#{Date.today.year}' });") %>
     </td>
   </tr>
 
@@ -99,8 +108,17 @@
       <label><%= t('activerecord.attributes.activists_collaboration.leave_at') %></label>
     </td>
     <td>
-      Entre <%= date_select("activist", "activists_collaborations_leave_at_gteq", { :start_year => 1990, :include_blank => true }, {:class => ''}) %>
-      y     <%= date_select("activist", "activists_collaborations_leave_at_lteq",    { :start_year => 1990, :include_blank => true }, {:class => ''}) %>
+          Entre <%= text_field_tag "activist[activists_collaborations_leave_at_gteq]", 
+                                   (params[:activist] ? params[:activist][:activists_collaborations_leave_at_gteq] : ''),
+                                   :size => '8', :maxlength => 10
+                %>
+          <%= javascript_tag("$('#activist_activists_collaborations_leave_at_gteq').datepicker({ yearRange: '1990:#{Date.today.year}' });") %>
+
+          y <%= text_field_tag "activist[activists_collaborations_leave_at_lteq]", 
+                                   (params[:activist] ? params[:activist][:activists_collaborations_leave_at_lteq] : ''),
+                                   :size => '8', :maxlength => 10
+                %>
+          <%= javascript_tag("$('#activist_activists_collaborations_leave_at_lteq').datepicker({ yearRange: '1990:#{Date.today.year}' });") %>
     </td>
   </tr>
 
