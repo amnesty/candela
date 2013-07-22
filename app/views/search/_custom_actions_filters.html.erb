@@ -9,13 +9,13 @@
     <td>
       <label><%= Gx.t_attr('custom_action.organization_type') %>:</label>
     </td>
-    <% organization_type_param  = params[:custom_action] and params[:custom_action][:organization_type_equals] ? sanitize(params[:custom_action][:assigned_organization_type_equals]) : '' %>
+    <% organization_type_param  = (params[:custom_action] and params[:custom_action][:organization_type_eq]) ? params[:custom_action][:organization_type_eq] : '' %>
     <% organization_type_values = [ [ Gx.t_attr("performance.choose_one_organization_type"), ""],
                                     [ Gx.t_attr('activists_collaboration.localorganization'), 'LocalOrganization'], 
                                     [ Gx.t_attr('activists_collaboration.autonomy'), 'Autonomy'] ] %>
 
     <td>
-        <%= select 'custom_action', 'organization_type_eq', organization_type_values, { :default_value => organization_type_param } %>
+        <%= select 'custom_action', 'organization_type_eq', organization_type_values, :selected => organization_type_param %>
         <% content_for(:head){ javascript_tag "addAutocompleteInputCallback('custom_action_organization_type_eq', '#{organizations_for_search_path}', 'organization_type', 'custom_action_organization_id_eq');" } %>
     </td>
   </tr>
@@ -23,12 +23,13 @@
     <td>
       <label><%= Gx.t_attr('custom_action.organization_id') %>:</label>
     </td>
+      <% organization_id_param  = (params[:custom_action] and params[:custom_action][:organization_id_eq]) ? params[:custom_action][:organization_id_eq] : nil %>
       <% if organization_type_param.present? %>
-        <% organizations_for_custom_actions = CustomAction.organizations_for(organization_type_param).collect{ |ao| [ao.name, ao.id] } %>
+        <% organizations_for_custom_actions = [['','']]+CustomAction.organizations_for(organization_type_param).collect{ |ao| [ao.name, ao.id] } %>
       <% else %>
         <% organizations_for_custom_actions = [ [ t("custom_action.choose_one_organization_type"), ''] ] %>
       <% end %>
-    <td><%= select( 'custom_action', 'organization_id_eq', organizations_for_custom_actions ) %>
+    <td><%= select 'custom_action', 'organization_id_eq', organizations_for_custom_actions, :selected => organization_id_param %>
   </tr>
 
     <% CustomAction.unhideable_fields.each do |field_name| %>

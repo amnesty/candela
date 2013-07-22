@@ -58,10 +58,9 @@
       <label><%= t('role.stage_type') %>:</label>
     </td>
     <td>
-      <%= select( "activist", "activists_collaborations_organization_type_eq", 
-                  ActivistsCollaboration.organization_types.collect{ |o| [ Gx.t_attr("activists_collaboration.#{ o.underscore }"), o ] }, 
-                  { :include_blank => true })  
-      %>
+      <% organization_type_param  = (params[:activist] ? params[:activist][:activists_collaborations_organization_type_eq] : '') %>
+      <% organization_type_values = [[ '', '']] + ActivistsCollaboration.organization_types.collect{ |o| [ Gx.t_attr("activists_collaboration.#{ o.underscore }"), o ] } %>
+      <%= select "activist", "activists_collaborations_organization_type_eq", organization_type_values, :selected => organization_type_param %>
       <% content_for(:head){ javascript_tag "addAutocompleteInputCallback('activist_activists_collaborations_organization_type_eq', '#{organizations_for_search_path}', 'organization_type', 'activist_activists_collaborations_organization_id_eq');" } %>
     </td>
   </tr>
@@ -70,7 +69,13 @@
       <label><%= t('activerecord.attributes.activists_collaboration.organization_id') %>:</label>
     </td>
     <td>
-      <%= select( 'activist', 'activists_collaborations_organization_id_eq', [], { :include_blank => true }) %>
+      <% organization_id_param  = (params[:activist] ? params[:activist][:activists_collaborations_organization_id_eq] : nil) %>
+      <% if organization_type_param.present? %>
+        <% options_for_organization_id = [['','']]+ActivistsCollaboration.organizations_by_type("Member"+organization_type_param).collect{ |o| [o.name, o.id] } %>
+      <% else %>
+        <% options_for_organization_id = [['','']] %>
+      <% end %>
+      <%= select 'activist', 'activists_collaborations_organization_id_eq', options_for_organization_id, :selected => organization_id_param %>
     </td>
   </tr>
 
@@ -79,8 +84,10 @@
       <label><%= t('activerecord.attributes.activists_collaboration.collaboration_type') %>:</label><i class="help"><%= t("form.multiple_select_help").html_safe %></i>
     </td>
     <td>
-      <%= select( 'activist', 'activists_collaborations_collaboration_type_in', 
-                   ActivistsCollaboration.collaboration_types.collect { |x| [t("activists_collaboration." + x),x] }, {}, { :multiple => true } ) %>
+      <% collaboration_type_param  = (params[:activist] ? params[:activist][:activists_collaborations_collaboration_type_in] : '') %>
+      <%= select 'activist', 'activists_collaborations_collaboration_type_in', 
+                 options_for_select(ActivistsCollaboration.collaboration_types.collect { |x| [t("activists_collaboration." + x),x] }, collaboration_type_param),
+                 {}, { :multiple => true } %>
     </td>
   </tr>
 

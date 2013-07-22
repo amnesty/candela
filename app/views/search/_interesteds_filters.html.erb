@@ -33,9 +33,11 @@
       <label><%= Gx.t_attr('interested.local_organization_id') %></label>
     </td>
     <td>
+      <% local_organization_id_param  = (params[:interested] ? params[:interested][:local_organization_id_eq] : nil) %>
       <%= select "interested", "local_organization_id_eq", 
                  LocalOrganization.orderby_name.only_to_interesteds.scoping_with_agent(current_agent).collect { |o| [o.name, o.id] },
-                 { :include_blank => true }
+                 :include_blank => true, 
+                 :selected => local_organization_id_param
       %>
       <% content_for(:head){ javascript_tag "addAutocompleteInputCallback('interested_local_organization_id_eq', '#{talks_as_options_for_search_talks_path}', 'local_organization_id', 'interested_talks_id_eq_any', function(){fitListSizeToContents('interested_talks_id_eq_any',5)});" } %>
 
@@ -47,10 +49,18 @@
       <label><%= Gx.t_attr('interested.talks') %>:</label><i class="help"><%= raw t("form.multiple_select_help") %></i>
     </td>
     <td>
-      <%= select 'interested', 'talks_id_eq_any', [t('talk.select_a_group')], {  }, 
-                 {:multiple => true, :size => "1",
-                  :onchange => "''"} 
+      <% talks_id_param  = (params[:interested] ? params[:interested][:talks_id_eq_any] : nil) %>
+      <% if local_organization_id_param.blank? %>
+        <% options_for_talks = [ [ t("talk.select_a_group"), ''] ] %>
+      <% else %>
+        <% options_for_talks = [['','']]+LocalOrganization.find(local_organization_id_param).talks.collect{|t| [t.name, t.id] } %>
+      <% end %>
+      <%= 
+          select 'interested', 'talks_id_eq_any', options_for_select(options_for_talks,talks_id_param), {},
+                 :multiple => true, :size => "1", 
+                 :onchange => "''"
       %>
+      <%= javascript_tag "fitListSizeToContents('interested_talks_id_eq_any',5);" %>
     </td>
   </tr> 
 
