@@ -52,7 +52,7 @@ es:
         se_teams: Equipos del SE
         countries: Paises
         committees: Comités/Comisiones
-        autonomies: Autonomías
+        autonomies: Entidades autonómicas
         alerts: Alertas
 
   monitoring:
@@ -217,7 +217,7 @@ es:
       communications: Comunicaciones
       prepare_mail: Enviar correo
       prepare_pdf: Crear carta
-      new_communication: Nueva comunicación
+      new_communication: Sgto. contacto
       update: Actualizar
       update_and_list: Actualizar y Listar
       print: Imprimir
@@ -1226,6 +1226,7 @@ es:
         is_activist: Pasado a activista
         is_minor: Menor de edad
         has_pending_communication: Pendiente de comunicación
+        with_talks: Apuntados a sesión
         sections:
           <<: *_activists_sections
           collaboration_organization: Grupo en el que quieres colaborar
