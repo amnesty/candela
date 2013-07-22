@@ -48,13 +48,13 @@ class Interested < ActiveRecord::Base
   validates_numericality_of :cp, :on => :save, :allow_blank => true
   validates_length_of :cp, :is => 5, :allow_blank => true
 
-  scope :is_minor, lambda { |q| (q.nil? || (q.instance_of?(String) && q.empty?)) ? {} : { :conditions => "birth_day" + (Gx.to_boolean(q) ? " > '" : " <= '") + self.minor_birth_date.to_s(:db) + "'" } }
+  scope :is_minor, lambda { |q| q.blank? ? {} : { :conditions => "birth_day" + (Gx.to_boolean(q) ? " > '" : " <= '") + self.minor_birth_date.to_s(:db) + "'" } }
   
-  scope :is_activist, lambda { |q| (q.nil? || (q.instance_of?(String) && q.empty?)) ? {} : { :conditions => (Gx.to_boolean(q) ? "activist_id IS NOT NULL" : "activist_id IS NULL") } }
+  scope :is_activist, lambda { |q| q.blank? ? {} : { :conditions => (Gx.to_boolean(q) ? "activist_id IS NOT NULL" : "activist_id IS NULL") } }
 
-  scope :has_pending_communication, lambda { |q| (q.nil? || (q.instance_of?(String) && q.empty?)) ? {} : { :conditions => (Gx.to_boolean(q) ? "(email_sent <> true OR email_sent IS NULL) AND (letter_sent <> true OR letter_sent IS NULL)" : "email_sent = true OR letter_sent = true") } }
+  scope :has_pending_communication, lambda { |q| q.blank? ? {} : { :conditions => (Gx.to_boolean(q) ? "(email_sent <> true OR email_sent IS NULL) AND (letter_sent <> true OR letter_sent IS NULL)" : "email_sent = true OR letter_sent = true") } }
 
-  scope :with_talks, {:joins => :talks}
+  scope :with_talks, lambda { |q| q.blank? ? {} : (Gx.to_boolean(q) ? {:joins => :talks} : {:conditions => 'interesteds.id NOT IN (SELECT DISTINCT(interested_id) FROM interesteds_talks)' }) }
 
   # Last authorization block. Interested can be CRUD by user if user has role on its local_organization
   authorizing do |user, permission|
