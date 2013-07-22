@@ -216,6 +216,7 @@ AiVoluntariado::Application.routes.draw do
   match '/stages_for_performances'        => "performances#stages_for_performances", :as => :stages_for_performances
   match '/organizations_for_hr_schools'   => "hr_schools#organizations_for",         :as => :organizations_for_hr_schools
   match '/organizations_for_search'       => "search#organizations_for",             :as => :organizations_for_search
+  match '/autonomic_teams_for_search'     => "search#autonomic_teams_for",           :as => :autonomic_teams_for_search
   match '/collaboration_types_for_search' => "search#collaboration_types_for",       :as => :collaboration_types_for_search
   match '/autonomic_teams_for_autonomy'   => "autonomies#autonomic_teams_for",       :as => :autonomic_teams_for_autonomy
   

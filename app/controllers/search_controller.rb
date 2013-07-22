@@ -32,6 +32,11 @@ class SearchController < ApplicationController
     end
   end
     
+  def autonomic_teams_for
+    autonomy = params[:organization_id].nil? || params[:organization_id].empty? ? nil : Autonomy.find(params[:organization_id])
+    render :partial => 'search/autonomic_teams_for_search', :layout => false, :locals => {:autonomy => autonomy}
+  end
+
   private
   def search_what
     searcheable_klasses = [ "activists", "activists_collaborations", "hr_schools", "campaignactions", "custom_actions", "interesteds", "talks", 

@@ -53,6 +53,7 @@
   <tr class="important_row hideable" style="display: none;">
     <td colspan="2"><%= t('activist.search.collaborations_params') %></td>
   </tr>
+
   <tr class="list_style_0 hideable" style="display: none;">
     <td>
       <label><%= t('role.stage_type') %>:</label>
@@ -64,6 +65,7 @@
       <% content_for(:head){ javascript_tag "addAutocompleteInputCallback('activist_activists_collaborations_organization_type_eq', '#{organizations_for_search_path}', 'organization_type', 'activist_activists_collaborations_organization_id_eq');" } %>
     </td>
   </tr>
+
   <tr class="list_style_1 hideable" style="display: none;">
     <td>
       <label><%= t('activerecord.attributes.activists_collaboration.organization_id') %>:</label>
@@ -76,6 +78,22 @@
         <% options_for_organization_id = [['','']] %>
       <% end %>
       <%= select 'activist', 'activists_collaborations_organization_id_eq', options_for_organization_id, :selected => organization_id_param %>
+      <% content_for(:head){ javascript_tag "addAutocompleteInputCallback('activist_activists_collaborations_organization_id_eq', '#{autonomic_teams_for_search_path}', 'organization_id', 'activist_activists_collaborations_autonomic_teams_id_eq');" } %>
+    </td>
+  </tr>
+
+  <tr class="list_style_0 hideable" style="display: none;">
+    <td>
+      <label><%= t('activerecord.attributes.activists_collaboration.autonomic_teams') %>:</label>
+    </td>
+    <td>
+      <% autonomic_team_id_param  = (params[:activist] ? params[:activist][:activists_collaborations_autonomic_teams_id_eq] : nil) %>
+      <% if organization_type_param == 'Autonomy' && !organization_id_param.blank? %>
+        <% options_for_autonomic_team_id = [['','']]+Autonomy.find(organization_id_param).autonomic_teams.collect{|t| [t.name, t.id] } %>
+      <% else %>
+        <% options_for_autonomic_team_id = [['','']] %>
+      <% end %>
+      <%= select 'activist', 'activists_collaborations_autonomic_teams_id_eq', options_for_autonomic_team_id, :selected => autonomic_team_id_param %>
     </td>
   </tr>
 
