@@ -93,8 +93,11 @@ class PublicController < ApplicationController
           @provinces = Province.orderby_name
         end
       end
+      render :template => 'countries/provinces_as_options', :layout => nil
+    else
+      render :text => '', :status => nil
+#      render :file => "#{ Rails.root }/public/404.html", :status => 404, :layout => nil
     end
-    render :template => 'countries/provinces_as_options', :layout => nil
   end
 
   def cp_for
@@ -102,7 +105,8 @@ class PublicController < ApplicationController
       city = City.find(params[:city_id])
       render :text => city.cp, :layout => nil
     rescue
-      render :file => "#{ Rails.root }/public/404.html", :status => 404
+      render :text => '', :status => nil
+#      render :file => "#{ Rails.root }/public/404.html", :status => 404, :layout => nil
     end
   end
 
@@ -121,8 +125,12 @@ class PublicController < ApplicationController
 
         render :template => 'provinces/cities_as_options', :layout => nil
       rescue
-        render :file => "#{ Rails.root }/public/404.html", :status => 404
+        render :text => '', :status => nil
+#        render :file => "#{ Rails.root }/public/404.html", :status => 404, :layout => nil
       end
+    else
+      render :text => '', :status => nil
+#      render :file => "#{ Rails.root }/public/404.html", :status => 404, :layout => nil
     end
   end
   
