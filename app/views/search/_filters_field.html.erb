@@ -156,13 +156,13 @@
                                    (params[klass.to_sym] ? params[klass.to_sym]["#{ ff.field.name }_gteq".to_sym] : ''),
                                    :size => '8', :maxlength => 10
                 %>
-          <%= javascript_tag("$('##{klass}_#{ff.field.name}_gteq').datepicker({ yearRange: '#{minimun_search_year}:#{Date.today.year}' });") %>
+          <%= javascript_tag("$('##{klass}_#{ff.field.name}_gteq').datepicker({ yearRange: '-100:+1' });") %>
 
           y <%= text_field_tag "#{klass}[#{ff.field.name}_lteq]", 
                                    (params[klass.to_sym] ? params[klass.to_sym]["#{ ff.field.name }_lteq".to_sym] : ''),
                                    :size => '8', :maxlength => 10
                 %>
-          <%= javascript_tag("$('##{klass}_#{ff.field.name}_lteq').datepicker({ yearRange: '#{minimun_search_year}:#{Date.today.year+5}' });") %>
+          <%= javascript_tag("$('##{klass}_#{ff.field.name}_lteq').datepicker({ yearRange: '-100:+5' });") %>
 
         <% else %>
           <%= ff.field.name %>, <%= ff.field.type %>
