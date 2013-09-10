@@ -233,7 +233,13 @@ module SummaryHelper
     summary_section(options) do 
     
       content_tag(:div, :class => "actions") do
-        (organization.enabled ? summary_action(:update, new_polymorphic_url( [ organization, new_on_off ], { :disable => true }), { :to => :leave,  :object => organization }) : "").html_safe <<
+
+        if organization.enabled
+          summary_action(:update, new_polymorphic_url( [ organization, new_on_off ], { :disable => true }), { :to => :leave,  :object => organization }).html_safe 
+        else
+          summary_action(:update, new_polymorphic_url( [ organization, new_on_off ], { :enable => true }), { :to => :enable,  :object => organization }).html_safe 
+        end <<
+
         summary_action(:update,   polymorphic_url([ organization, new_on_off ]), { :to => :edit, :object => organization })
       end <<
 
