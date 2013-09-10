@@ -377,24 +377,24 @@ es:
     unknown_status: El estado no se ha encontrado
     # collaboration_type values
     AutonomyAutonomy: Activista autonómico en Entidad Autonómica
-    AutonomyCommittee: Activista miembro en Entidad Autonómica Comité/Comisión
+    AutonomyCommittee: Activista regular en Entidad Autonómica Comité/Comisión
     CasualAutonomy: Activista puntual en Entidad Autonómica
     CasualCommittee: Activista puntual en Comité/Comisión
     CasualCountry: Activista puntual en país
     CasualLocalOrganization: Activista puntual en Grupo
     CasualSeTeam: Activista puntual en equipo S.E.
-    CountryCommittee: Activista miembro en País Comité/Comisión
-    CountryCountry: Activista miembro en País
+    CountryCommittee: Activista regular en País Comité/Comisión
+    CountryCountry: Activista regular en País
     ExpertiseAutonomy: Activista experto en Entidad Autonómica
     ExpertiseCommittee: Activista experto en Comité/Comisión
     ExpertiseCountry: Activista experto en país
     ExpertiseLocalOrganization: Activista experto en Grupo
     ExpertiseSeTeam: Activista experto en equipo S.E.
-    MemberAutonomy: Activista miembro en Entidad Autonómica
-    MemberCommittee: Activista miembro en Comité/Comisión
-    MemberCountry: Activista miembro en País
-    MemberLocalOrganization: Activista miembro en Grupo
-    MemberSeTeam: Activista miembro en equipo S.E.
+    MemberAutonomy: Activista regular en Entidad Autonómica
+    MemberCommittee: Activista regular en Comité/Comisión
+    MemberCountry: Activista regular en País
+    MemberLocalOrganization: Activista regular en Grupo
+    MemberSeTeam: Activista regular en equipo S.E.
     SupportAutonomy: Activista de apoyo en Entidad Autonómica
     SupportCommittee: Activista de apoyo en Comité/Comisión
     SupportCountry: Activista de apoyo en país
