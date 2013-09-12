@@ -73,6 +73,17 @@ class ApplicationMailer < ActionMailer::Base
          :subject =>  "Alerta de nuevos interesados: #{ local_organization.full_name }"
   end
 
+  # Sends weekly interested emails FOR THE WEEK THE PROVIDED DATE IS INTO
+  def send_weekly_interesteds_alerts_for(date)
+      get_new_interesteds_from_last_week = Interested.find(:all, :conditions => ['created_at >= ? AND created_at < ?', date.beginning_of_week, date.end_of_week ])
+      local_organizations = get_new_interesteds_from_last_week.map(&:local_organization).uniq
+
+      local_organizations.each do |lo|
+        interesteds = get_new_interesteds_from_last_week.select{|it| it.local_organization_id == lo.id }
+        ApplicationMailer.resume_alert_email(lo, interesteds).deliver if interesteds.any?
+      end
+  end
+
   #FIXME: Responsibilities for receiving mails and provinces with supervisor should be defined in settings file.
 
   def self.organization_recipients_for_alert(local_organization)
