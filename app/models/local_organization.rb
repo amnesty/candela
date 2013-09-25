@@ -28,7 +28,7 @@ class LocalOrganization < ActiveRecord::Base
   scope :scoping_with_agent, lambda { |agent|
     options = {}
     if not agent.nil? and agent.is_a?(User) and not agent.has_any_permission_to(:read, :local_organization, :on => Site.current)
-      lo_ids = agent.permissions.select{|p| p[:objective] == 'LocalOrganization' }
+      lo_ids = agent.permissions.select{|p| p[:stage_type] == 'LocalOrganization' }
       if lo_ids.any?
        options[:conditions] = "local_organizations.id IN (#{ lo_ids.map{|p| p[:stage_id]}.join(',') })"
       end
