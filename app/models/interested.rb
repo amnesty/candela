@@ -87,7 +87,7 @@ class Interested < ActiveRecord::Base
 #TODO: Move to helper
   def text_for_talk
     %( #{ self.talks.map(&:h).join('<br />') } <br />
-       #{ text_for_local_organization } )
+       #{ text_for_local_organization } ).html_safe
   end
 
   def clear_sensitive_data
