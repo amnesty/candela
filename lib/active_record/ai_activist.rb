@@ -16,7 +16,7 @@ module ActiveRecord
             
             # Uniquess
             validates_uniqueness_of :email, :allow_nil => true, :allow_blank => true
-            validates_uniqueness_of :first_name, :scope => [ :last_name, :last_name2 ]
+#            validates_uniqueness_of :first_name, :scope => [ :last_name, :last_name2 ]
             
             # Presence
             validates_presence_of :first_name, :last_name, :phone, :birth_day
