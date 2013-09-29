@@ -56,6 +56,13 @@ class Interested < ActiveRecord::Base
 
   scope :with_talks, lambda { |q| q.blank? ? {} : (Gx.to_boolean(q) ? {:joins => :talks} : {:conditions => 'interesteds.id NOT IN (SELECT DISTINCT(interested_id) FROM interesteds_talks)' }) }
 
+  # Permission to create interested if user has any permission to create
+  authorizing do |user, permission|
+    if user.is_a?(User) and permission == :create
+      user.has_any_permission_to(:create, :interested)
+    end || nil
+  end 
+
   # Last authorization block. Interested can be CRUD by user if user has role on its local_organization
   authorizing do |user, permission|
     if user.is_a?(User) and user.has_any_permission_to(permission, :interested)
