@@ -15,7 +15,7 @@ class Activist < ActiveRecord::Base
 #                  :only => [:data_protection_agreement, :leave_at, :leave_reason_id ]
   
   REMOVE_DATA_AFTER = 2.year
-  SET_TO_LEAVE_AFTER = 6.month
+  SET_TO_LEAVE_AFTER = 2.days
 
   before_destroy :check_collaborations
    

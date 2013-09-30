@@ -14,13 +14,13 @@ namespace :personal_information do
         # Clean activists with leave_at date minor than #{ I18n.localize(remove_time.to_date) }"
         if !activist.leave_at.nil? 
           if activist.mobile_phone == '999999999'
-            puts "Activist ##{ activist.id } -> Already cleaned (leave at #{activist.leave_at})"
+#            puts "Activist ##{ activist.id } -> Already cleaned (leave at #{activist.leave_at})"
           elsif activist.leave_at < remove_time
             puts "!!Activist ##{ activist.id } -> Cleaning activist (leave at #{activist.leave_at})"
             activist.clear_sensitive_data
             activist.save(:validate => false)
           else
-            puts "Activist ##{ activist.id } -> Not cleaning yet (leave at #{activist.leave_at})"
+#            puts "Activist ##{ activist.id } -> Not cleaning yet (leave at #{activist.leave_at})"
           end
 
         # Set leave to activists with no collaborations or no active collaborations and time has exceed
@@ -35,7 +35,7 @@ namespace :personal_information do
             puts "Activist ##{ activist.id } -> Inactive, but not leaving yet (last update at #{activist.reference_time_for_leave})"
           end
         else
-          puts "Activist ##{ activist.id } -> Nothing to do"
+#          puts "Activist ##{ activist.id } -> Nothing to do"
         end
       end
 
