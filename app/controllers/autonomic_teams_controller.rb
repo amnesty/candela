@@ -19,7 +19,7 @@ class AutonomicTeamsController < ApplicationController
 
   def set_resource_with_organization
     resource
-    set_organization
+    set_autonomy
   end
 
   def set_autonomy
