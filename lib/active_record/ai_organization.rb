@@ -167,6 +167,14 @@ module ActiveRecord
           items
         end
 
+        def column_translations
+          { 
+            'city' => { :command => lambda{|value| City.translate_bd_string_to_city_name(value) } }, 
+            'postal_city' => { :command => lambda{|value| City.translate_bd_string_to_city_name(value) } }, 
+            'delivery_city' => { :command => lambda{|value| City.translate_bd_string_to_city_name(value) } } 
+          }
+        end
+
       end
     end
   end

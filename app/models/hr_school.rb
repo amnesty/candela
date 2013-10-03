@@ -217,6 +217,7 @@ class HrSchool < ActiveRecord::Base
 
   def self.column_translations
     { 
+      'city' => { :command => lambda{|value| City.translate_bd_string_to_city_name(value) } },
       'assigned_organization_type' => { :prefix => "activerecord.attributes.activists_collaboration", :transformations => ["underscore"] }
     }
   end

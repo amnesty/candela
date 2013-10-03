@@ -80,9 +80,13 @@ class FormField
   end
 
   def translate_field_value(value)
-    if needs_translation?
-      @klass.column_translations[@field.name][:transformations].each {|command| value = eval("'#{value}'.#{command}") }
-      value.blank? ? '' : Gx.t("#{@klass.column_translations[@field.name][:prefix]}.#{value}") 
+    if needs_translation?      
+      if @klass.column_translations[@field.name].has_key?(:command)
+        @klass.column_translations[@field.name][:command].call(value)
+      else
+        @klass.column_translations[@field.name][:transformations].each {|command| value = eval("'#{value}'.#{command}") }
+        value.blank? ? '' : Gx.t("#{@klass.column_translations[@field.name][:prefix]}.#{value}") 
+      end
     else
       value
     end

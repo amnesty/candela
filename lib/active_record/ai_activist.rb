@@ -122,6 +122,10 @@ module ActiveRecord
           "#{ self.name.tableize }.last_name, #{ self.name.tableize }.last_name2"
         end
 
+        def column_translations
+          { 'city' => { :command => lambda{|value| City.translate_bd_string_to_city_name(value) } } }
+        end
+
 	      def calculate_nie_letter( _nie )
           str = ""
           case _nie.first.upcase
