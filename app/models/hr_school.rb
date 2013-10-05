@@ -70,7 +70,7 @@ class HrSchool < ActiveRecord::Base
                                )
        valid_conditions = ps.inject([]) do |valid_stages, performance|
                             valid_stages << "(hr_schools.assigned_organization_id = '#{ performance.stage_id }' AND hr_schools.assigned_organization_type = '#{ performance.stage_type }')"
-                            valid_stages << "(hr_school_organization_managers.organization_id = '#{ performance.stage_id }' AND hr_school_organization_managers.organization_type = '#{ performance.stage_type }')" 
+                            valid_stages << "(can_see_hr_school_organization_managers.organization_id = '#{ performance.stage_id }' AND can_see_hr_school_organization_managers.organization_type = '#{ performance.stage_type }')" 
                             valid_stages
                           end
                                
@@ -80,8 +80,7 @@ class HrSchool < ActiveRecord::Base
          options[:conditions] = [ valid_conditions.join('OR') ] 
        end  
         
-       options[:joins]     =  "INNER JOIN hr_school_organization_managers ON hr_school_organization_managers.hr_school_id = hr_schools.id"
- 
+       options[:joins]     =  "INNER JOIN hr_school_organization_managers AS can_see_hr_school_organization_managers ON can_see_hr_school_organization_managers.hr_school_id = hr_schools.id"
     end
     options
   }
