@@ -80,7 +80,8 @@ class HrSchool < ActiveRecord::Base
          options[:conditions] = [ valid_conditions.join('OR') ] 
        end  
         
-       options[:joins]     =  "INNER JOIN hr_school_organization_managers AS can_see_hr_school_organization_managers ON can_see_hr_school_organization_managers.hr_school_id = hr_schools.id"
+       options[:select] = "DISTINCT hr_schools.*"
+       options[:joins]  = "INNER JOIN hr_school_organization_managers AS can_see_hr_school_organization_managers ON can_see_hr_school_organization_managers.hr_school_id = hr_schools.id"
     end
     options
   }
