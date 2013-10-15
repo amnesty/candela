@@ -51,6 +51,14 @@ class PerformedAction < ActiveRecord::Base
   
   }
   
+  def self.default_order_field
+    "performed_actions.id"
+  end
+  
+  def self.default_order_direction
+    "DESC"
+  end
+
   def to_title
     "#{ organization.to_title }/#{ custom_name || campaign.name }"
   end
