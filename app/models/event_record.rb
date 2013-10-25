@@ -126,9 +126,8 @@ class EventRecord < ActiveRecord::Base
   }
 
   authorizing do |user, permission|
-    case event_object.class
-      when Interested
-        event_object.local_organization.authorize?([permission, :LocalOrganization], :to => user, :default => nil)
+    if event_object.class == Interested
+       event_object.local_organization.authorize?([permission, :Interested], :to => user, :default => nil)
     end
   end
   
