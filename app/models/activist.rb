@@ -120,7 +120,7 @@ class Activist < ActiveRecord::Base
   # Activist can be CRUD by user if activist belongs to an organization that user has role on.
   authorizing do |user, permission|
     # FIXME
-    ret = false
+    ret = nil
     unless permission.class.is_a?(Array)
       orgs = self.activists_collaborations.map(&:organization) & user.agent_performances.map(&:stage)
       ret = orgs.inject(false) do |valid, o|
@@ -149,6 +149,11 @@ class Activist < ActiveRecord::Base
     end || nil
   end 
     
+#  # allow see activist if activist has no collaborations and has one interested
+#  authorizing do |user, permission|
+#    permission == :read and self.activists_collaborations.empty?
+#  end
+
 #  # Check permissions based on related interested (disabled)
 #  authorizing do |user, permission|
 #    if related_int = self.related_interested) 

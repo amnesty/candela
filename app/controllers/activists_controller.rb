@@ -2,6 +2,8 @@ class ActivistsController < ApplicationController
   
   include ActionController::AIController
 
+  before_filter        :check_empty_collaborations_for_activist, :only => [ :show ]
+
   authorization_filter :create,  :activist, :only => [ :new, :create ]
   authorization_filter :read,    :activist, :only => [ :show ]
   authorization_filter :update,  :activist, :only => [ :edit, :update, :admin_request, :send_admin_request]
@@ -13,9 +15,6 @@ class ActivistsController < ApplicationController
   before_filter        :update_different_country_location, :only => [ :create, :update ]
   before_filter        :set_controller_only_validations, :only => [ :create, :update ]
 
-  def set_controller_only_validations
-    @resource.must_check_unlinked_interested = true
-  end
 
   # Definitions for filters on index action
   def filters_for_index
@@ -110,6 +109,22 @@ class ActivistsController < ApplicationController
   end
 
   private
+
+  def check_empty_collaborations_for_activist
+
+    return if !Activist.exists?(params[:id])
+
+    activist = Activist.find(params[:id])
+    if activist.activists_collaborations.empty? && activist.leave_at.nil? && 
+         current_user.has_any_permission_to(:create, :activists_collaboration) && !activist.authorizes?(:read, :to => current_user)
+      render :action => 'activist_without_collaborations'
+    end
+  end
+
+  def set_controller_only_validations
+    @resource.must_check_unlinked_interested = true
+  end
+
   def update_different_country_location
     if params[:different_residence_country]
       @activist.city        = params[:city_different_country]

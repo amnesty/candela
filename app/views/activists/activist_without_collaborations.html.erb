@@ -1,0 +1,10 @@
+    <div class="background_soft_red big_padding font_plus_three">
+      <%= raw t('activist.leave_status_text', :time_to_remove => activist.time_to_leave) %>
+
+    </div>
+
+    <div style="clear:both"></div>
+    <p style="margin: 20px; text-align:center;"><span style="padding: 10px; border: 1px solid; background-color:#FBFBFB; font-size:2.0em; ">
+      <%= link_to I18n.t("form.buttons.add_collaboration"), new_activist_activists_collaboration_path(activist) if !activist.leave_at.present? %>
+    </span></p>
+
