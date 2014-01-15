@@ -2,10 +2,10 @@ class AutonomicTeamsController < ApplicationController
   
   include ActionController::AIController
 
-  authorization_filter :create,  :container , :only => [ :new,    :create ]
-  authorization_filter :read,    :container , :only => [ :show,   :index ]
-  authorization_filter :update,  :container , :only => [ :edit,   :update ]
-  authorization_filter :destroy, :container , :only => [ :delete, :destroy ]
+  authorization_filter :create,  :resource , :only => [ :new,    :create ]
+  authorization_filter :read,    :resource , :only => [ :show,   :index ]
+  authorization_filter :update,  :resource , :only => [ :edit,   :update ]
+  authorization_filter :destroy, :resource , :only => [ :delete, :destroy ]
 
   before_filter :set_resource_with_organization, :only => [ :new, :create ]
 

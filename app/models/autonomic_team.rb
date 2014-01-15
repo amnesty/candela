@@ -14,6 +14,13 @@ class AutonomicTeam < ActiveRecord::Base
     "#{autonomy.name} - #{name}"    
   end
 
+  # Permissions over teams are always related to autonomy
+  authorizing do |user, permission|
+    if user.is_a?(User)
+      ret = user.has_any_permission_to(permission, self.class, :on => self.autonomy) || nil
+    end
+  end
+
   # Authorization delegated to autonomy
   authorizing do |user, permission|
     self.autonomy.authorize? permission, :to => user unless self.autonomy.nil?
