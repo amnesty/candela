@@ -851,7 +851,7 @@ es:
     attributes:
       __address_attributes: &_address_attributes
         address: Dirección
-        city: Localidad
+        city: Municipio/Localidad
         cp: Código postal
         country_id: País
         province_id: Provincia
