@@ -44,18 +44,18 @@
   </tr>
 
   <tr class="list_style_0">
-    <td><%= form.label :cp %></td>
-    <td><%= form.cp_field :cp %></td>
-  </tr>
-
-  <tr class="list_style_1">
     <td><%= form.label :province_id %></td>
     <td><%= form.select_province :province_id %></td>
   </tr>
 
-  <tr class="list_style_0">
+  <tr class="list_style_1">
     <td><%= form.label :city %></td>
     <td><%= form.select_city :city %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :cp %></td>
+    <td><%= form.cp_field :cp %></td>
   </tr>
 
   <% if form.object.is_a?(LocalOrganization) %> 
@@ -124,20 +124,19 @@
   </tr>
 
   <tr class="list_style_0">
-    <td><%= form.label :postal_cp %></td>
-    <td><%= form.cp_field :postal_cp, :name_prefix => '_postal' %></td>
-  </tr>
-
-  <tr class="list_style_1">
     <td><%= form.label :postal_province_id %></td>
     <td><%= form.select_province :postal_province_id, :name_prefix => '_postal' %></td>
   </tr>
 
-  <tr class="list_style_0">
+  <tr class="list_style_1">
     <td><%= form.label :postal_city %></td>
     <td><%= form.select_city :postal_city, :name_prefix => '_postal' %></td>
   </tr>
 
+  <tr class="list_style_0">
+    <td><%= form.label :postal_cp %></td>
+    <td><%= form.cp_field :postal_cp, :name_prefix => '_postal' %></td>
+  </tr>
 
   <tr class="form_section">
     <td><%= form.label "sections.delivery_address" %></td>
@@ -171,17 +170,17 @@
   </tr>
 
   <tr class="list_style_0">
-    <td><%= form.label :delivery_cp %></td>
-    <td><%= form.cp_field :delivery_cp, { :name_prefix => '_delivery' } %></td>
-  </tr>
-
-  <tr class="list_style_1">
     <td><%= form.label :delivery_province_id %></td>
     <td><%= form.select_province :delivery_province_id, { :name_prefix => '_delivery' } %></td>
   </tr>
 
-  <tr class="list_style_0">
+  <tr class="list_style_1">
     <td><%= form.label :delivery_city %></td>
     <td><%= form.select_city :delivery_city, :name_prefix => '_delivery' %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <td><%= form.label :delivery_cp %></td>
+    <td><%= form.cp_field :delivery_cp, { :name_prefix => '_delivery' } %></td>
   </tr>
 

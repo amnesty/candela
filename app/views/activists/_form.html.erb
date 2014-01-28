@@ -89,13 +89,11 @@
     <td><%= form.text_field :nif %></td>
   </tr>
 
-
   <tr class="list_style_0">
     <td><%= form.label :different_residence_country %></td>
     <td><%= form.check_box :different_residence_country, {
     :onchange => "if (this.checked) { $('tr.location_not_spain').show(); $('tr.location_spain').hide() } else { $('tr.location_not_spain').hide(); $('tr.location_spain').show() } ;"} %></td>
   </tr>
-
 
   <tr class="list_style_1">
     <td><%= form.label :address %> <%= link_to_function 'eliminar dirección', "$('activist_address').value = ''; $('activist_cp').value = ''; $('activist_province_id').options.length = 0; $('activist_province_id').options[0]= new Option('', '', true, false);  $('activist_city').options.length = 0; $('activist_city').options[0]= new Option('', '', true, false);", :class => 'blue block with_icon'  %></td>
@@ -103,32 +101,29 @@
   </tr>
 
   <tr class="list_style_0 location_not_spain">
-    <td><%= form.label :cp %></td>
-    <td><%= text_field_tag "cp_different_country", form.object.cp %></td>
-  </tr>
-
-  <tr class="list_style_0 location_not_spain">
     <td><%= form.label :city %></td>
     <td><%= text_field_tag "city_different_country", form.object.city %></td>
   </tr>
 
+  <tr class="list_style_1 location_not_spain">
+    <td><%= form.label :cp %></td>
+    <td><%= text_field_tag "cp_different_country", form.object.cp %></td>
+  </tr>
+
+  <tr class="list_style_0 location_spain">
+    <td><%= form.label :province_id %></td>
+    <td><%= form.select_province :province_id %></td>
+  </tr>
+
+  <tr class="list_style_1 location_spain">
+    <td><%= form.label :city %></td>
+    <td><%= form.select_city :city %></td>
+  </tr>
 
   <tr class="list_style_0 location_spain">
     <td><%= form.label :cp %></td>
     <td><%= form.cp_field :cp %></td>
   </tr>
-
-  <tr class="list_style_1 location_spain">
-    <td><%= form.label :province_id %></td>
-    <td><%= form.select_province :province_id %></td>
-  </tr>
-
-  <tr class="list_style_0 location_spain">
-    <td><%= form.label :city %></td>
-    <td><%= form.select_city :city %></td>
-  </tr>
-
-
 
   <tr class="list_style_1">
     <td><%= form.label_required :phone %></td>

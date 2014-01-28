@@ -85,15 +85,6 @@
 
   <tr class="list_style_0">
     <% if params[:controller] == "public" %>
-      <td><%= form.label_required :cp %></td>
-    <% else %>
-    <td><%= form.label :cp %></td>
-    <% end %>      
-    <td><%= form.cp_field :cp %></td>
-  </tr>
-
-  <tr class="list_style_1">
-    <% if params[:controller] == "public" %>
       <td><%= form.label_required :province_id %></td>
     <% else %>
     <td><%= form.label :province_id %></td>
@@ -101,13 +92,22 @@
     <td><%= form.select_province :province_id %></td>
   </tr>
 
-  <tr class="list_style_0">
+  <tr class="list_style_1">
     <% if params[:controller] == "public" %>
       <td><%= form.label_required :city %></td>
     <% else %>
     <td><%= form.label :city %></td>
     <% end %>      
     <td><%= form.select_city :city %></td>
+  </tr>
+
+  <tr class="list_style_0">
+    <% if params[:controller] == "public" %>
+      <td><%= form.label_required :cp %></td>
+    <% else %>
+    <td><%= form.label :cp %></td>
+    <% end %>      
+    <td><%= form.cp_field :cp %></td>
   </tr>
 
   <tr class="list_style_1">
