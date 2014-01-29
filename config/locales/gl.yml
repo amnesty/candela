@@ -16,7 +16,7 @@ gl:
       accept_privacy_policy: GL-Acepto la <a href="http://www.es.amnesty.org/politiGL-de-privacidad" target="_blank" title="Política de privacidad">política de privacidad</a> (por favor léela antes de enviar tus datos)
       submit: GL-Enviar el formulario
 
-    hr_school_confirm:
+    confirm_hr_school:
       title: GL-Adhesión a la Red de Escuelas por los Derechos Humanos
       confirm_message: GL-Gracias por interesarte en la red de escuelas. En breve nos pondremos en contacto contigo.
 

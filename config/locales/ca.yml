@@ -16,7 +16,7 @@ ca:
       accept_privacy_policy: CA-Acepto la <a href="http://www.es.amnesty.org/politica-de-privacidad" target="_blank" title="Política de privacidad">política de privacidad</a> (por favor léela antes de enviar tus datos)
       submit: CA-Enviar el formulario
 
-    hr_school_confirm:
+    confirm_hr_school:
       title: CA-Adhesión a la Red de Escuelas por los Derechos Humanos
       confirm_message: CA-Gracias por interesarte en la red de escuelas. En breve nos pondremos en contacto contigo.
 

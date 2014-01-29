@@ -1,5 +1,9 @@
 <% content_for :title, t('.title') %>
-<% content_for :heading_text, t('.heading_text') %>
+<% content_for :heading_toolbar, render(:partial => 'locale_selection') %>
+
+<div class="text_left">
+
+  <h2><%= t('.heading_text') %></h2>
 
   <table class="table_list">
 
@@ -35,16 +39,6 @@
 
   </table>
 
-<!-- Piwik -->
-    <script type="text/javascript">
-    var pkBaseURL = (("https:" == document.location.protocol) ? "https://estadisticas.es.amnesty.org/piwik/" : "http://estadisticas.es.amnesty.org/piwik/");
-    document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
-    </script><script type="text/javascript">
-    try {
-    var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
-    piwikTracker.trackPageView();
-    piwikTracker.enableLinkTracking();
-    } catch( err ) {}
-    </script><noscript><p><img src="http://estadisticas.es.amnesty.org/piwik/piwik.php?idsite=1" style="border:0" alt="" /></p></noscript>
-<!-- End Piwik Tracking Code -->
+</div>
+
 

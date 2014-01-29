@@ -146,7 +146,8 @@ class HrSchool < ActiveRecord::Base
   end
 
   def h_city
-    (City.find_by_name(city) || City.find_by_id(city)).name if self.city?
+    c = (City.find_by_name(city) || City.find_by_id(city)) if self.city?
+    c.nil? ? "" : c.name
   end
 
   def h_work_throughs

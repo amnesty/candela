@@ -1,0 +1,25 @@
+<% content_for :title, "Formulario de adhesión de activistas de Amnistía Internacional" %>
+
+  <div id="">
+    <div id="">
+      <h2>Gracias por interesarte en AI. En breve nos pondremos en contacto contigo.</h2>
+      <% if @interested.talks.any? %>
+
+        <p><b>Recuerda que estas apuntado en las siguientes charlas</b></p>
+        <ul>
+          <% @interested.talks.each do |talk| %>
+            <li><%= t('talk.texts.complete',
+                              :name => h(talk.name),
+                              :address => h(talk.address),
+                              :date => I18n.localize(talk.date.to_date),
+                              :hours => h(talk.hours),
+                              :seats => h(talk.seats),
+                              :organization => h(talk.organization.name)) %></li>
+          <% end %>
+        </ul>
+
+      <% end %>
+    </div>
+  </div>
+
+

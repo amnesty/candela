@@ -1,14 +1,10 @@
 class PublicController < ApplicationController
 
   skip_before_filter :authenticate_user!
+  layout 'public_layout'  
 
   def new_hr_school
     @hr_school         = HrSchool.new
-    
-    respond_to do |format|
-      format.html { render :template => 'public/new_hr_school', :layout => 'new_hr_school' }
-    end
-    
   end
 
   def create_hr_school
@@ -21,32 +17,21 @@ class PublicController < ApplicationController
       flash[:notice] = t('form.form_send', :scope => 'hr_school')
       redirect_to :action => 'confirm_hr_school', :hr_school => @hr_school.id
     else
-      render :action => "new_hr_school", :layout => 'new_hr_school'
+      render :action => "new_hr_school"
     end
   end
 
   def confirm_hr_school
     @hr_school = HrSchool.find(params[:hr_school])
-      render :template => "public/hr_school_confirm", :layout => false
   end
 
   def list_hr_schools
     @hr_schools = HrSchool.where(:status => I18n.t(:active, :scope => [:hr_school, :statuses])).
                           includes(:province).order('provinces.name,city,hr_schools.name')
-
-    respond_to do |format|
-      format.html { render :template => 'public/list_hr_schools', :layout => 'new_hr_school' }
-    end
-    
   end
 
   def new_interested
     @interested = Interested.new
-    
-    respond_to do |format|
-      format.html { render :template => 'public/new_interested', :layout => 'new_interested' }
-    end
-    
   end
 
   def create_interested
@@ -59,25 +44,24 @@ class PublicController < ApplicationController
       
         
     if @interested.different_residence_country
-      render :action => 'different_residence_country', :layout => false
+      render :action => 'different_residence_country'
     elsif params[:with_moar].present?
       @with_more_information = true
-      render :template => 'public/new_interested', :layout => 'new_interested'
+      render :template => 'public/new_interested'
     elsif @interested.save
       flash[:notice] = t('form.form_send', :scope => 'interested')
       redirect_to :action => 'confirm_interested', :interested => @interested.id
     else
-      render :action => "new_interested", :layout => 'new_interested'
+      render :action => "new_interested"
     end
   end
 
   def confirm_interested
     @interested = Interested.find(params[:interested])
-    render :template => "public/interested_confirm", :layout => false
   end
 
   def different_residence_country
-    
+    render 'different_residence_country'
   end
   
   # The following functions are for AJAX calls inside public forms
