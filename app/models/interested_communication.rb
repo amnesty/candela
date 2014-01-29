@@ -2,9 +2,16 @@ class InterestedCommunication < EventRecord
   
   belongs_to :interested
 
-  before_save :set_communication_description
+  before_validation :set_communication_description
+
+  validates_presence_of :timestamp
+  validate :can_build_communication_description?
 
   attr_accessor :communication_description
+  
+  after_initialize do |communication|
+    communication.event_definition = EventDefinition.find_by_klass('InterestedCommunication') if !communication.event_definition
+  end
 
   def mass_assignment_authorizer(role = nil)
     super + ([:timestamp, :communication_description])
@@ -33,13 +40,19 @@ class InterestedCommunication < EventRecord
   def communication_description
     if self.new_record?
       ''
-    elsif info['communication_description']
+    elsif !info['communication_description'].blank?
       info['communication_description']
-    else
+    elsif info['changes']
       watched_fields = event_definition.trigger_conditions[:change][:or].keys
       communication_fields = info["changes"].collect{|key,value| Gx.t_attr("interested.#{key}") if watched_fields.include? key.to_sym}.compact
       communication_fields.join(', ')
+    else
+      ""
     end
+  end
+
+  def can_build_communication_description?
+    errors.add :communication_description, I18n.t("errors.messages.blank") if (info['communication_description'].blank? && info['changes'].blank?)
   end
 
 #---------------------------------

@@ -1,7 +1,7 @@
 class InterestedCommunicationsController < ApplicationController
   include ActionController::AIController
 
-  before_filter :set_resource_with_interested, :only => [ :new, :create ]
+  prepend_before_filter :add_params_for_new_communication, :only => [ :new ]
 
   authorization_filter :create, :interested_communication, :only => [ :new, :create ]
   authorization_filter :read, :interested_communication, :only => [ :show, :index ]
@@ -13,8 +13,10 @@ class InterestedCommunicationsController < ApplicationController
     super(options)
   end
 
-  def set_resource_with_interested
-    @interested_communication = @resource = InterestedCommunication.new :event_definition => EventDefinition.find_by_klass('InterestedCommunication'), :item_id => params[:interested_id]
+  def add_params_for_new_communication
+    params[:interested_communication] ||= {}
+    params[:interested_communication][:event_definition_id] = EventDefinition.find_by_klass('InterestedCommunication').id
+    params[:interested_communication][:item_id] = params[:interested_id]
   end
 
 end
