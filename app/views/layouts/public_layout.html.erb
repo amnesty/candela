@@ -28,31 +28,7 @@ tr.separator_lvl1 td{border-top: dashed 1px black; }
 
   <%= yield %>
   
-  <div>
-    <!-- Piwik -->
-    <script type="text/javascript">
-    var pkBaseURL = (("https:" == document.location.protocol) ?
-    "https://estadisticas.es.amnesty.org/piwik/" :
-    "http://estadisticas.amnistia.es/piwik/");
-    document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js'
-    type='text/javascript'%3E%3C/script%3E"));
-    </script>
-    <script type="text/javascript">
-    try {
-    var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 1);
-    piwikTracker.setCookieDomain("*.es.amnesty.org");
-    piwikTracker.setDomains(["*.es.amnesty.org","*.amnistiacatalunya.org"]);
-    piwikTracker.setDocumentTitle(document.domain + "/" + document.title);
-
-    piwikTracker.trackPageView();
-    piwikTracker.enableLinkTracking();
-    } catch( err ) {}
-    </script>
-    <noscript><p><img
-    src="https://estadisticas.amnistia.es/piwik/piwik.php?idsite=1"
-    style="border:0" alt=""/></p></noscript>
-    <!-- End Piwik Tag --> 
-  </div>
+  <%= render :partial => 'customizable_views/public_footer' %>
 
 </body>
 </html>
