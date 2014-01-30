@@ -12,6 +12,8 @@ This application is in process of refactoring from a previous version. There wil
 
 1. Build your own mailing templates. They are located in folders app/views/application_mailer and app/mail_templates
 
+1. Build your own customizable views. They are located in folders app/views/customizable_views
+
 1. Run rebuild task and run the server
     ```
     rake db:rebuild
