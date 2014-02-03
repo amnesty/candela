@@ -19,6 +19,14 @@ class Campaign < ActiveRecord::Base
     name
   end
   
+  def self.default_order_field
+    "campaigns.starting_at"
+  end
+  
+  def self.default_order_direction
+    "DESC"
+  end
+
   # only to read permission
   authorizing do |user, permission|
     (user.is_a?(User) and permission == :read and user.has_any_permission_to(permission, :campaign)) || nil
