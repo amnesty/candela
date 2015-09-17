@@ -893,6 +893,36 @@ ActiveRecord::Schema.define(:version => 20130705105713) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "smartfocus_candela_members", :id => false, :force => true do |t|
+    t.datetime "datejoin",                                   :null => false
+    t.datetime "dateunjoin"
+    t.string   "email"
+    t.string   "firstname"
+    t.string   "lastname"
+    t.date     "dateofbirth"
+    t.string   "ai_country",    :limit => 6
+    t.string   "ai_country_id", :limit => 3
+    t.string   "ai_lastname2"
+    t.string   "ai_mobile",     :limit => 12
+    t.string   "ai_nif"
+    t.string   "ai_phone",      :limit => 12
+    t.integer  "ai_pvkey",      :limit => 8
+    t.string   "ai_state_id",   :limit => 2
+    t.string   "last_update",   :limit => 19
+    t.integer  "external_id",                 :default => 0, :null => false
+  end
+
+  create_table "smartfocus_candela_product", :id => false, :force => true do |t|
+    t.string "productcode", :limit => 13
+    t.string "name",        :limit => 60
+  end
+
+  create_table "smartfocus_candela_purchase", :id => false, :force => true do |t|
+    t.string   "emailaddress"
+    t.string   "productcode",  :limit => 13
+    t.datetime "date"
+  end
+
   create_table "student_levels", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
