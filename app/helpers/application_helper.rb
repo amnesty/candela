@@ -51,10 +51,6 @@ module ApplicationHelper
         end
       end
       
-      if klass.name.eql?('Interested')
-        html << interested_collection_action_buttons
-      end
-      
       klass_name = klass.name
       if klass_name == 'Note'
         klass_name = "#{ @container.class.name }Note"
@@ -64,6 +60,9 @@ module ApplicationHelper
       elsif klass < PerformedAction
         klass_name = "PerformedAction"
       end
+      
+      extra_collection_action_buttons_method = "#{klass.name.underscore}_collection_action_buttons".to_sym
+      html << send(extra_collection_action_buttons_method) if respond_to? extra_collection_action_buttons_method
       
       { :update => 'edit', :destroy => 'delete' }.each_pair do |action, action_label|
          html << collection_action_button(klass, action_label) if current_user.has_any_permission_to(action, klass_name)
@@ -87,12 +86,13 @@ module ApplicationHelper
   def collection_action_button(klass, action, options={})
 
     options[:wrapper_tag] ||= :div
+    options[:link_class] ||= "action_#{action} with_icon"
     link = link_to_function(t("form.buttons.#{ action }"),
                                 "if(document.indexForm.boxchecked.value == -1) { 
                                   alert('#{ t("form.messages.no_item_selected", :model => Gx.t_model(klass.name))}');
                                 } else {
                                   submitform('#{ action }'); }",
-                                :class => "action_#{ action } with_icon")
+                                :class => options[:link_class])
 
     options[:wrapper_tag].empty? ? link : content_tag(options[:wrapper_tag], link, :class => "actions right")
   end
@@ -109,6 +109,9 @@ module ApplicationHelper
         klass_name = "EventRecord"
       end
 
+      extra_show_action_buttons_method = "#{object.class.name.underscore}_show_action_buttons".to_sym
+      html << send(extra_show_action_buttons_method, object) if respond_to? extra_show_action_buttons_method
+      
       if klass_name.eql?('Activist')
         if object.authorize? :leave, :to => current_user
           html << object_action_button_to(object, 'leave') 
@@ -116,11 +119,7 @@ module ApplicationHelper
           html << object_action_button_to(object, 'admin_request') 
         end
       end
-      
-      if klass_name.eql?('Interested') 
-        html << interested_show_action_buttons(object)
-      end
-
+    
       if klass_name.eql?('Talk') 
         html << print_popup_action_button
       end
@@ -134,8 +133,9 @@ module ApplicationHelper
 
   def object_action_button_to(object, action, options={})
     options[:wrapper_tag] ||= :div
+    options[:link_class] ||= "action_#{action} with_icon"
     content_tag options[:wrapper_tag], :class => "actions right" do
-      link_to( t("form.buttons.#{action}"), [action, @container, object], :class => "action_#{action} with_icon")
+      link_to( t("form.buttons.#{action}"), [action, @container, object], :class => options[:link_class])
     end
   end
 
