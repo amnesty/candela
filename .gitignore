@@ -28,4 +28,5 @@ Capfile
 
 # Ignore project files and initialization scripts for development
 .rvmrc
-
+.ruby-version
+.ruby-gemset
