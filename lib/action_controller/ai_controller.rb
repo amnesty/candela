@@ -48,9 +48,27 @@ module ActionController
 
       @resources = query_to.include_in.can_see(current_agent)
       @resources = @resources.filter_with_definitions(filters_for_index, params[:index_filters]) if self.respond_to?(:filters_for_index)
-      # Resources must be counted apart to avoid bad counts in will_paginate. See http://archive.railsforum.com/viewtopic.php?id=15530
+      
+      # Sorting
+      options[:sort] ||= [:column_sort, order, direction]
+      # If a proc or lambda is provided, call it.
+      if options[:sort].respond_to?(:call)
+        @resources = options[:sort].call(@resources)
+      # If a scope is provided, call it.
+      elsif options[:sort].respond_to?(:to_sym) && @resources.respond_to?(options[:sort].to_sym)
+        @resources = @resources.send options[:sort].to_sym
+      # If an array containing an scope with parameters is provided, call it.
+      elsif options[:sort].is_a?(Array) && @resources.respond_to?(options[:sort].first)
+        @resources = @resources.send *options[:sort]
+      else
+        # If no sorting option is provided, or it can not be processed, use column_sort
+        @resources = @resources.column_sort(order, direction)
+      end
+      
+      # Pagination - resources must be counted apart to avoid bad counts in will_paginate. See http://archive.railsforum.com/viewtopic.php?id=15530
       num_resources = @resources.collect(&:id).count 
-      @resources = @resources.column_sort(order, direction).paginate(:page => params[:page], :per_page => per_page, :conditions => conditions.join(' AND '), :total_entries => num_resources)
+      @resources = @resources.paginate(:page => params[:page], :per_page => per_page, :conditions => conditions.join(' AND '), :total_entries => num_resources)
+      
       instance_variable_set "@#{ model_class.name.tableize }", @resources
  
       # Needed? FIXME
