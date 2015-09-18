@@ -75,6 +75,9 @@
     <%= t('.search.top') %>
     <ul class="nav_menu_group">
       <li>
+         <%= link_to t('.search.saved_searches'), saved_searches_path %>         
+      </li>
+      <li>
          <%= link_to t('.search.activists'), search_path(:what => :activists) if current_agent.has_any_permission_to(:read, :activists) %>         
       </li>
       <li>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130705105713) do
+ActiveRecord::Schema.define(:version => 20150914093525) do
 
   create_table "academic_years", :force => true do |t|
     t.string   "year"
@@ -820,6 +820,15 @@ ActiveRecord::Schema.define(:version => 20130705105713) do
     t.string "name"
     t.string "stage_type"
     t.text   "description"
+  end
+
+  create_table "saved_searches", :force => true do |t|
+    t.string   "name"
+    t.integer  "user_id"
+    t.text     "target"
+    t.text     "params"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "se_teams", :force => true do |t|

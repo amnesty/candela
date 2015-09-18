@@ -40,6 +40,7 @@ es:
         talks: Sesiones presentación
       search: 
         top: Búsquedas
+        saved_searches: Búsquedas guardadas
         activists: Activistas
         collaborations: Colaboraciones
         hr_schools: Escuelas DD.HH.
@@ -161,7 +162,15 @@ es:
     to_email: Enviar emails
     warn_at_text_fields: "Aseguráte de no dejar espacios o saltos de línea al final"
     fast_searched_fields_header: "Búsqueda realizada en los campos:"
-
+    saved_searches_block:
+      title: "Opciones de búsquedas guardadas"
+      load_label: Cargar búsqueda
+      load_prompt: Selecciona una búsqueda para cargarla
+      store_label: Guardar búsqueda
+      update_label: Selecciona existente... 
+      update_prompt: Selecciona una búsqueda para actualizarla
+      new_label: ... o introduce un nuevo nombre
+    
   record_not_found: "Registro no encontrado"
   session_expired: "Su sesión ha caducado. Más de %{max_time_inactive} de inactividad."
 
@@ -176,7 +185,10 @@ es:
       enable: Activando %{model}
       index: Listando %{model}
       new: Creando %{model}
+      loaded: "%{model} se ha cargado correctamente."
+      not_loaded: "%{model} no se ha cargado correctamente."
       not_created: "%{model} no se ha creado correctamente."
+      not_updated: "%{model} no se ha actualizado correctamente."
       not_deleted: "No se ha podido borrar %{model}."
       show: Mostrando %{model}
       toindex: Listar %{model}
@@ -207,6 +219,7 @@ es:
       join:   Unirse
       launch_query: Lanzar consulta
       leave: Gestionar estado
+      load: Cargar
       admin_request: Cambio de estado
       notes:  Seguimiento
       reply:  Contestar anotación seleccionada
@@ -829,6 +842,9 @@ es:
       role: 
         one: el rol
         other: los roles
+      saved_search:
+        one: la búsqueda
+        other: las búsquedas
       se_team: 
         one: el equipo del S.E.
         other: los equipos del S.E.
@@ -1289,6 +1305,13 @@ es:
         description: Descripción del rol
         stage_type: Tipo de organización
 
+      saved_search:
+        name: Nombre
+        target: Objetivo
+        params: Parámetros
+        user: Usuario
+        updated_at: Última modificación
+        
       se_team:
         <<: *_collaboration_place_attributes
         enabled: Activo
@@ -1486,6 +1509,11 @@ es:
             base:
               not_valid: Por favor, comprueba que has seleccionado tanto el tipo de organización, como la organización, como el rol a asignar.
 
+        saved_search:
+          attributes:
+            base:
+              name_or_id_required: Por favor, selecciona una búsqueda o escribe un nuevo nombre para guardar tu búsqueda
+            
         se_team:
           attributes:
             base:

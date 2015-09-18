@@ -1,0 +1,21 @@
+<% disabled ||= false %>
+
+<table id="<%= params[:action] %>_saved_search_form" class="table_form">
+
+  <tr class="<%= Gx.list_style %>">
+    <td><%= form.label :target %></td>
+    <td><%= Gx.proper(Gx.t_model form.object.target) %></td>
+  </tr>
+
+  <tr class="<%= Gx.list_style %>">
+    <td><%= form.label_required :name %></td>
+    <td><%= form.text_field :name %></td>
+  </tr>
+
+  <tr class="<%= Gx.list_style %>">
+    <td><%= form.label :updated_at %></td>
+    <td><%= form.object.updated_at %></td>
+  </tr>
+
+</table>
+

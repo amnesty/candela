@@ -193,6 +193,14 @@ AiVoluntariado::Application.routes.draw do
     end
   end
 
+  #ROUTES FOR SEARCH
+  match '/search'            => 'search#index',     :as => :search
+  match '/saved_searches/:load_saved_search/load' => 'search#index', :as => :load_saved_search
+  resources :saved_searches, :only => [:index, :show, :edit, :update, :destroy] do 
+    get :index_by_target, :on => :collection
+    get :delete, :on => :member
+  end
+  
   #ROUTES FOR EVENT RECORDS
   EventRecord.child_classes.prepend('EventRecord').each do |klass_name|
     resources klass_name.underscore.pluralize, :controller => 'event_records', :defaults => (klass_name != 'EventRecord' ? {:type => klass_name}:{}) do 
@@ -255,7 +263,6 @@ AiVoluntariado::Application.routes.draw do
 
   # Other static routes
   match '/gen_alerts'        => 'alerts#generate',  :as => :gen_alerts
-  match '/search'            => 'search#index',     :as => :search
   match '/admin'             => 'admin#index',      :as => :admin
 
   root :to => "activists#index"

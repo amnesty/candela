@@ -1,13 +1,20 @@
 class SearchController < ApplicationController
   
+  before_filter :check_load_saved_search, :only => :index
   before_filter :search_what, :only => :index
   
   
   def index
     @items = []
+
+    check_load_saved_search
+    
     if params[:commit]
       @items = @klass.advanced_search(params, current_agent) || []
       @search_results_count = @items.count
+      
+      check_store_saved_search
+      
     end
 
     respond_to do |format|
@@ -48,4 +55,53 @@ class SearchController < ApplicationController
       @klass = params[:what].camelize.singularize.constantize
     end
   end
+
+  ########################################################
+  # Methods to manage saved searches in index action
+  
+  EXCLUDED_PARAMS_IN_SAVED_SEARCH = [ :load_saved_search, :store_saved_search, :update_saved_search_id, :new_saved_search_name ]
+  
+  def check_load_saved_search
+    if !params[:load_saved_search].blank?
+      saved_search = SavedSearch.find_by_id params[:load_saved_search]      
+      if saved_search
+        return not_authorized unless saved_search.authorize?(:read, :to => current_agent)
+        params.merge! saved_search.params
+        flash[:notice] = I18n.t('form.actions.loaded', {:model => Gx.t_model('saved_search') + " '" + saved_search.name + "'" })
+      else
+        flash[:alert] = Gx.proper(I18n.t('form.actions.not_loaded', {:model => Gx.t_model('saved_search')}))
+      end
+    end
+  end
+  
+  def check_store_saved_search  
+    if params[:store_saved_search]
+    
+      if !params[:update_saved_search_id].blank?
+        saved_search = SavedSearch.find_by_id params[:update_saved_search_id]
+        if saved_search && saved_search.update_attribute(:params, params.except(*EXCLUDED_PARAMS_IN_SAVED_SEARCH))
+          flash[:notice] = I18n.t('form.actions.updated', {:model => Gx.t_model('saved_search') + " '" + saved_search.name + "'" })
+        else
+          flash[:alert] = I18n.t('form.actions.not_updated', {:model => Gx.t_model('saved_search')})
+        end
+        
+      elsif !params[:new_saved_search_name].blank?
+        saved_search = SavedSearch.new :name => params[:new_saved_search_name], 
+                                        :target => params[:what], 
+                                        :user => current_agent, 
+                                        :params => params.except(*EXCLUDED_PARAMS_IN_SAVED_SEARCH)
+        if saved_search.save
+          flash[:notice] = I18n.t('form.actions.created', {:model => Gx.t_model('saved_search') + " '" + saved_search.name + "'" })
+        else
+          flash[:alert] = I18n.t('form.actions.not_created', {:model => Gx.t_model('saved_search')})
+        end
+        
+      else
+        flash[:alert] = I18n.t('activerecord.errors.models.saved_search.attributes.base.name_or_id_required')
+      end
+      
+    end
+  end
+  
+  
 end

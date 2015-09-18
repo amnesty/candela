@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
 
   has_many :performances, :foreign_key => 'agent_id', :dependent => :destroy
   has_many :organizations_trackings, :dependent => :destroy
+  has_many :saved_searches, :dependent => :destroy
   
   alias_attribute :name, :login
     

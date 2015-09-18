@@ -1,0 +1,50 @@
+
+        <table class="table_list">
+        
+          <tbody><tr class="important_row"><td colspan="2">
+            <%= link_to_function(t('.title'), "$('#saved_searches_block').toggle()", :class => 'with_icon action_saved_search') %>
+          </td></tr></tbody>
+          
+          <tbody id="saved_searches_block" style="display: none;">
+
+            <tr class="list_style_0">
+              <td><%= label_tag '', t('.load_label') %></td>
+              <td>
+                <%= select_tag  '', 
+                                options_from_collection_for_select(current_agent.saved_searches.for_target(params[:what]), 'id', 'name', nil), 
+                                :prompt => t('.load_prompt'),
+                                :style => "width: 100%", 
+                                :onclick => "if ($(this).val()) { window.location.href = 'saved_searches/'+$(this).val()+'/load'; }"
+                                %>
+              </td>
+            </tr>
+
+            <tr class="list_style_1">
+              <td><%= label_tag 'store_saved_search', t('.store_label') %></td>
+              <td>
+                <%= check_box_tag  :store_saved_search, 1, false, 
+                                   :onclick => "if (this.checked) { $('tr.store_saved_search_field').show() } else { $('tr.store_saved_search_field').hide() };"
+                                   %>
+              </td>
+            </tr>
+            
+            <tr class="list_style_1 store_saved_search_field" style="display: none;">
+              <td><%= label_tag 'update_saved_search_id', t('.update_label') %></td>
+              <td>
+                <%= select_tag  :update_saved_search_id, 
+                                options_from_collection_for_select(current_agent.saved_searches.for_target(params[:what]), 'id', 'name', nil), 
+                                :prompt => t('.update_prompt'),
+                                :style => "width: 100%",
+                                :onclick => "if ($(this).val()) { $('#new_saved_search_name').val(''); $('#new_saved_search_name_row').hide(); } else { $('#new_saved_search_name_row').show(); };"
+                                %>
+              </td>
+            </tr>
+
+            <tr id="new_saved_search_name_row" class="list_style_1 store_saved_search_field" style="display: none;">
+              <td><%= label_tag 'new_saved_search_name', t('.new_label') %></td>
+              <td><%= text_field_tag :new_saved_search_name, nil, :style => "width: 100%" %></td>
+            </tr>
+            
+          </tbody>
+        </table>
+        
