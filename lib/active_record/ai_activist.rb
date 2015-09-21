@@ -123,6 +123,7 @@ module ActiveRecord
         end
 
         def column_translations
+          require "#{Rails.root}/app/models/city" #FIX: City class sometimes is not loaded in dev environment 
           { 'city' => { :command => lambda{|value| City.translate_bd_string_to_city_name(value) } } }
         end
 
