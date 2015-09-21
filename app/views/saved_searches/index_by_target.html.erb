@@ -1,0 +1,39 @@
+<%= round_div_box do %>
+  <h1>
+    <%= Gx.t_action("saved_search.index") %>
+  </h1>
+
+ <table class="table_list">
+
+  <tr>
+    <th><%= Gx.t_attr("saved_search.target") %></th>
+    <th><%= Gx.t_attr("saved_search.name") %></th>
+  </tr>
+
+  <% targets = @saved_searches.map(&:target).uniq %>
+  <% count = 0 %>
+  <% targets.each do |target| %>
+    <% unless targets.nil? %>
+      <% searches_for_target = @saved_searches.select{|s| s.target == target }.sort{|a,b| a.name <=> b.name } %>
+      <tr class="list_style_<%= cycle(0,1) %>">
+	<td><%= link_to Gx.proper(Gx.t_model target), search_path(:what => target) %></td>
+	<td>
+	  <ul>
+	  <% searches_for_target.each do |s| %>
+	    <li><%= s.name %> : 
+      <%= link_to(t("form.buttons.load"), load_saved_search_path(s)) if s.authorize?(:read, :to => current_agent) %> / 
+      <%= raw link_to(t("form.buttons.show"), saved_search_path(s)) if s.authorize?(:read, :to => current_agent) %> /
+      <%= raw link_to(t("form.buttons.edit"), edit_saved_search_path(s)) if s.authorize?(:update, :to => current_agent) %> /
+      <%= raw link_to(t("form.buttons.delete"), delete_saved_search_path(s)) if s.authorize?(:delete, :to => current_agent) %>
+      </li>
+	  <% end %>
+	  </ul>
+	</td>
+      </tr>
+      <% count += 1 %>
+    <% end %>
+  <% end %>
+
+</table>
+
+<% end  %>

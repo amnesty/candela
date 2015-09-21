@@ -1,0 +1,5 @@
+<%= hidden_inputs_for(saved_search, count, { :hide => ['notes' ], :more => [ :load => load_saved_search_url(saved_search) ] }) %>
+
+<td><%= Gx.proper Gx.t_model(saved_search.target) %></td>
+<td><%= link_to saved_search.name, saved_search %></td>
+<td><%= saved_search.updated_at %></td>
