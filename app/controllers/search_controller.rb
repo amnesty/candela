@@ -49,7 +49,7 @@ class SearchController < ApplicationController
     searcheable_klasses = [ "activists", "activists_collaborations", "hr_schools", "campaignactions", "custom_actions", "interesteds", "talks", 
                             "local_organizations", "se_teams", "countries", "autonomies", "committees", "alerts" ]
     unless searcheable_klasses.include?(params[:what])
-      flash[:error] = t('search.none')
+      flash.now[:error] = t('search.none')
       render(:file => "#{Rails.root}/public/404.html", :status => 404)
     else
       @klass = params[:what].camelize.singularize.constantize
@@ -67,9 +67,9 @@ class SearchController < ApplicationController
       if saved_search
         return not_authorized unless saved_search.authorize?(:read, :to => current_agent)
         params.merge! saved_search.params
-        flash[:notice] = I18n.t('form.actions.loaded', {:model => Gx.t_model('saved_search') + " '" + saved_search.name + "'" })
+        flash.now[:notice] = I18n.t('form.actions.loaded', {:model => Gx.t_model('saved_search') + " '" + saved_search.name + "'" })
       else
-        flash[:alert] = Gx.proper(I18n.t('form.actions.not_loaded', {:model => Gx.t_model('saved_search')}))
+        flash.now[:alert] = Gx.proper(I18n.t('form.actions.not_loaded', {:model => Gx.t_model('saved_search')}))
       end
     end
   end
@@ -80,9 +80,9 @@ class SearchController < ApplicationController
       if !params[:update_saved_search_id].blank?
         saved_search = SavedSearch.find_by_id params[:update_saved_search_id]
         if saved_search && saved_search.update_attribute(:params, params.except(*EXCLUDED_PARAMS_IN_SAVED_SEARCH))
-          flash[:notice] = I18n.t('form.actions.updated', {:model => Gx.t_model('saved_search') + " '" + saved_search.name + "'" })
+          flash.now[:notice] = I18n.t('form.actions.updated', {:model => Gx.t_model('saved_search') + " '" + saved_search.name + "'" })
         else
-          flash[:alert] = I18n.t('form.actions.not_updated', {:model => Gx.t_model('saved_search')})
+          flash.now[:alert] = I18n.t('form.actions.not_updated', {:model => Gx.t_model('saved_search')})
         end
         
       elsif !params[:new_saved_search_name].blank?
@@ -91,13 +91,13 @@ class SearchController < ApplicationController
                                         :user => current_agent, 
                                         :params => params.except(*EXCLUDED_PARAMS_IN_SAVED_SEARCH)
         if saved_search.save
-          flash[:notice] = I18n.t('form.actions.created', {:model => Gx.t_model('saved_search') + " '" + saved_search.name + "'" })
+          flash.now[:notice] = I18n.t('form.actions.created', {:model => Gx.t_model('saved_search') + " '" + saved_search.name + "'" })
         else
-          flash[:alert] = I18n.t('form.actions.not_created', {:model => Gx.t_model('saved_search')})
+          flash.now[:alert] = I18n.t('form.actions.not_created', {:model => Gx.t_model('saved_search')})
         end
         
       else
-        flash[:alert] = I18n.t('activerecord.errors.models.saved_search.attributes.base.name_or_id_required')
+        flash.now[:alert] = I18n.t('activerecord.errors.models.saved_search.attributes.base.name_or_id_required')
       end
       
     end
