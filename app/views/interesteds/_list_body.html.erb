@@ -14,6 +14,8 @@
                                        ]}) %>
 <% end %>
 
+<td><%= l(interested.created_at.to_date) %></td>
+
 <td>
   <ul>
   <% if interested.is_minor?  %>
