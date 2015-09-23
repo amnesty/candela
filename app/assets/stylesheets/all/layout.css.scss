@@ -500,3 +500,17 @@ font-weight: bold;
 .template_name_select.invalid_option, .template_name_select option.invalid_option  {
    background-color: #EF3D47;
 }
+
+/*** Collapsible sections: Showing/hiding elements associated to clicks on a DOM element ***/
+
+  .collapsable_section .collapsable_section_control::after {
+      content: " (Ocultar)";
+  } 
+
+  .collapsable_section.collapsed .collapsable_section_control::after {
+      content: " (Mostrar)";
+  } 
+
+  .collapsable_section.collapsed .collapsable_section_content {
+      display: none;
+  } 

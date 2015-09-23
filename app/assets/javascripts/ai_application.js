@@ -67,6 +67,12 @@ $.datepicker.setDefaults({
       box.size = numElems;
   }
 
+/*** Collapsible sections: Showing/hiding elements associated to clicks on a DOM element ***/
+  
+  $(document).on("click", ".collapsable_section_control", function() {
+    $(this).closest('.collapsable_section').toggleClass('collapsed');
+  });
+
 /*** Hideable groups: Showing/hiding elements associated to a form input ***/
 
 function registerHideableGroup(chkBoxId, hideableGroupSelector, showValue, displayAttribute){
