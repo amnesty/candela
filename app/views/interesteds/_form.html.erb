@@ -186,103 +186,110 @@
 
 <% if @with_more_information or params[:controller] != 'public' %>
 
-  <tr class="form_section">
-    <td><%= form.label "sections.studies" %></td>
+<tbody class="collapsable_section">
+
+  <tr class="form_section collapsable_section_header">
+    <td><%= form.label "sections.studies", nil, :class => "collapsable_section_control" %></td>
     <td></td>
   </tr>
 
-  <tr class="list_style_1">
+  <tr class="list_style_1 collapsable_section_content">
     <td><%= form.label :labour_situation_id %></td>
     <td><%= form.select :labour_situation_id, LabourSituation.all.collect { |p| [p.name, p.id] }, { :include_blank => true } %></td>
   </tr>
 
-  <tr class="list_style_0">
+  <tr class="list_style_0 collapsable_section_content">
     <td><%= form.label :occupation_id %></td>
     <td><%= form.select :occupation_id, Occupation.orderby_name.collect { |p| [p.name, p.id] }, { :include_blank => true }  %></td>
   </tr>
 
-  <tr class="list_style_1">
+  <tr class="list_style_1 collapsable_section_content">
     <td><%= form.label :student_previous_degrees %></td>
     <td><%= form.text_area :student_previous_degrees %></td>
   </tr>
 
-  <tr class="list_style_0">
+  <tr class="list_style_0 collapsable_section_content">
     <td><%= form.label :student %></td>
     <% onchange_for_student = params[:controller] == 'public' ? '' : "if (this.checked) { $('tr.student_section').show() } else { $('tr.student_section').hide() }" %>
     <td><%= form.check_box :student, :onchange => onchange_for_student %></td>
   </tr>
 
-  <tr class="list_style_1 student_section" <%= 'style="display: none;"' unless form.object.student or params[:controller] == 'public' %>>
+  <tr class="list_style_1 collapsable_section_content student_section" <%= 'style="display: none;"' unless form.object.student or params[:controller] == 'public' %>>
     <td><%= form.label :student_place %></td>
     <td><%= form.text_field :student_place %></td>
   </tr>
 
-  <tr class="list_style_0 student_section" <%= 'style="display: none;"' unless form.object.student or params[:controller] == 'public'  %>>
+  <tr class="list_style_0 collapsable_section_content student_section" <%= 'style="display: none;"' unless form.object.student or params[:controller] == 'public'  %>>
     <td><%= form.label :student_level_id %></td>
     <td><%= form.select :student_level_id, StudentLevel.all.collect { |p| [p.name, p.id] }, { :include_blank => true } %></td>
   </tr>
 
-  <tr class="list_style_1 student_section" <%= 'style="display: none;"' unless form.object.student or params[:controller] == 'public'  %>>
+  <tr class="list_style_1 collapsable_section_content student_section" <%= 'style="display: none;"' unless form.object.student or params[:controller] == 'public'  %>>
     <td><%= form.label :student_degree %></td>
     <td><%= form.text_field :student_degree %></td>
   </tr>
 
-  <tr class="list_style_0 student_section" <%= 'style="display: none;"' unless form.object.student or params[:controller] == 'public'  %>>
+  <tr class="list_style_0 collapsable_section_content student_section" <%= 'style="display: none;"' unless form.object.student or params[:controller] == 'public'  %>>
     <td><%= form.label :student_year_id %></td>
     <td><%= form.select :student_year_id, StudentYear.all.collect { |p| [p.name, p.id] }, { :include_blank => true } %></td>
   </tr>
 
-  <tr class="list_style_1 student_section" <%= 'style="display: none;"' unless form.object.student or params[:controller] == 'public'  %>>
+  <tr class="list_style_1 collapsable_section_content student_section" <%= 'style="display: none;"' unless form.object.student or params[:controller] == 'public'  %>>
     <td><%= form.label :student_more_info %></td>
     <td><%= form.text_area :student_more_info %></td>
   </tr>
+  
+</tbody> 
 
-  <tr class="form_section">
-    <td><%= form.label "sections.skills_hobbies" %></td>
+<tbody class="collapsable_section">
+
+  <tr class="form_section collapsable_section_header">
+    <td><%= form.label "sections.skills_hobbies", nil, :class => "collapsable_section_control" %></td>
     <td></td>
   </tr>
 
-  <tr class="list_style_0">
+  <tr class="list_style_0 collapsable_section_content">
     <td><%= form.label :collabtopic_ids %><i class="help"><%= raw t("form.multiple_select_help") %></i></td>
     <td><%= form.select :collabtopic_ids, Collabtopic.orderby_name.collect { |p| [p.name, p.id] }, {}, {"multiple" => true } %></td>
   </tr>
 
-  <tr class="list_style_1">
+  <tr class="list_style_1 collapsable_section_content ">
     <td><%= form.label :language_ids %><i class="help"><%= raw t("form.multiple_select_help") %></i></td>
     <td><%= form.select :language_ids, Language.orderby_name.collect { |p| [p.name, p.id] }, {}, {"multiple" => true } %></td>
   </tr>
 
-  <tr class="list_style_0">
+  <tr class="list_style_0 collapsable_section_content ">
     <td><%= form.label :skill_ids %><i class="help"><%= raw t("form.multiple_select_help") %></i></td>
     <td><%= form.select :skill_ids, Skill.orderby_name.collect { |p| [p.name, p.id] }, {}, {"multiple" => true } %></td>
   </tr>
 
-  <tr class="list_style_1">
+  <tr class="list_style_1 collapsable_section_content ">
     <td><%= form.label :other_skills %></td>
     <td><%= form.text_area :other_skills %></td>
   </tr>
 
-  <tr class="list_style_0">
+  <tr class="list_style_0 collapsable_section_content ">
     <td><%= form.label :hobby_ids %><i class="help"><%= raw t("form.multiple_select_help") %></i></td>
     <% onchange_for_bloggers = params[:controller] == 'public' ? '' : "checkBloggerSelection(this);" %>
     <td><%= form.select :hobby_ids, Hobby.orderby_name.collect { |p| [p.name, p.id] }, {}, { "multiple" => true, :onchange => onchange_for_bloggers } %></td>
   </tr>
 
-  <tr class="list_style_1 blogger">
+  <tr class="list_style_1 collapsable_section_content blogger">
     <td><%= form.label :blogger %></td>
     <td><%= form.text_area :blogger %></td>
   </tr>
 
-  <tr class="list_style_0">
+  <tr class="list_style_0 collapsable_section_content">
     <td><%= form.label :other_hobbies %></td>
     <td><%= form.text_area :other_hobbies %></td>
   </tr>
 
-  <tr class="list_style_1">
+  <tr class="list_style_1 collapsable_section_content">
     <td><%= form.label :wants_todo %></td>
     <td><%= form.text_area :wants_todo %></td>
   </tr>
 
+</tbody> 
 
 <% end %>
 
