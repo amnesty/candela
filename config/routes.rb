@@ -265,7 +265,7 @@ AiVoluntariado::Application.routes.draw do
   match '/gen_alerts'        => 'alerts#generate',  :as => :gen_alerts
   match '/admin'             => 'admin#index',      :as => :admin
 
-  root :to => "activists#index"
+  root :to => "home#index"
 
   # Note: This route will make all actions in every controller accessible via GET requests.
   # This is a legacy wild controller route that's not recommended for RESTful applications.

@@ -29,6 +29,16 @@ class User < ActiveRecord::Base
   scope :orderby_name, { :order => 'login ASC' }
   scope :include_in,   { :include => { :performances => [ :role ] }}
 
+  def related_organizations
+    performances.collect do |p| 
+      if p.stage.is_a? ActiveRecord::AIOrganization
+        p.stage
+      elsif p.stage.is_a? AutonomicTeam
+        p.autonomy
+      end 
+    end.compact.uniq
+  end
+  
   def update_performances(attrs, performance_object)
     
     unless attrs.present? and attrs[:role_id].present? and attrs[:stage_type].present? and attrs[:stage_ids].present? and attrs[:stage_ids].any? 

@@ -1,0 +1,43 @@
+  <%= round_div_box do %>
+    <h1><%= raw t('.title', :agent => current_agent.name) %></h1>
+  <% end  %>
+
+  <%= summary_view do %>  
+    
+    <%= summary_section(:id => 'home_quick_actions', :title => t('.quick_actions_header')) do 
+        content_tag :ul do
+          @home_actions.collect do |action_key,action|
+            content_tag :li do
+              link_to t(".quick_actions.#{action_key.to_s}"), 
+                      action[:url], 
+                      :class => "font_plus_one with_icon action_#{action[:icon].to_s}",
+                      :id       => "action_link_to_#{ action_key.to_s }"
+            end if action[:allowed]
+          end.join('').html_safe
+        end
+      end %>
+      
+    <%= summary_section(:id => 'home_organizations_actions', :title => t('.organizations_actions_header')) do 
+        if @related_organizations.any?
+          content_tag :ul do
+            @related_organizations.collect do |organization|
+              content_tag :ul do
+                content_tag :li do
+                  link_to "#{ I18n.t("#{ organization.class.name.underscore }.abrev") } #{ organization.name }", 
+                          polymorphic_path(organization)
+                          #:class => "font_plus_one with_icon action_#{action[:icon].to_s}",                      
+                end
+              end
+            end.join('').html_safe
+          end
+        else
+          content_tag :p, t('.no_related_organizations')
+        end
+      end %>
+      
+      
+  <% end %>
+   
+   
+
+

@@ -56,6 +56,34 @@ es:
         autonomies: Entidades autonómicas
         alerts: Alertas
 
+  home:
+  
+    index:
+      title: Página de inicio para <i>%{agent}</i>
+      quick_actions_header: Acciones rápidas
+      organizations_actions_header: Tus grupos
+      no_related_organizations: No hay grupos directamente relacionados contigo
+      quick_actions:
+        new_activist: Crear nuevo activista
+        view_interesteds: Ver interesados
+        saved_searches: Búsquedas guardadas
+      
+    sections:
+      activists_notes: Seguimiento de las activistas
+      alerts: Últimas alertas
+      autonomy_notes: Seguimiento de mi entidad territorial
+      country_notes: Seguimiento de mi país
+      committee_notes: Seguimiento de mi comité/comisión
+      event_records: Últimos eventos
+      hr_schools: Escuelas por los DD.HH.
+      hr_school_notes: Seguimiento de mi Escuela de DD.HH.
+      interesteds: Personas interesadas
+      last_campaignactions: Últimas acciones realizadas
+      local_organizations: Grupos
+      local_organization_notes: Seguimiento de mi grupo
+      se_team_notes: Seguimiento de mi equipo
+      talks: Sesiones de presentación
+
   monitoring:
     index:
       title: Página de seguimiento para <i>%{agent}</i>
@@ -115,25 +143,6 @@ es:
     member_collaborations: Miembros regulares
     support_collaborations: Miembros de apoyo
     casual_collaborations: Colaboradores puntuales
-
-  home:
-    sections:
-      activists_notes: Seguimiento de las activistas
-      alerts: Últimas alertas
-      autonomy_notes: Seguimiento de mi entidad territorial
-      country_notes: Seguimiento de mi país
-      committee_notes: Seguimiento de mi comité/comisión
-      event_records: Últimos eventos
-      hr_schools: Escuelas por los DD.HH.
-      hr_school_notes: Seguimiento de mi Escuela de DD.HH.
-      interesteds: Personas interesadas
-      last_campaignactions: Últimas acciones realizadas
-      local_organizations: Grupos
-      local_organization_notes: Seguimiento de mi grupo
-      se_team_notes: Seguimiento de mi equipo
-      talks: Sesiones de presentación
-
-
 
   search:
     activists: "Búsqueda de activistas"
