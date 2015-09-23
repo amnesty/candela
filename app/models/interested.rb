@@ -74,6 +74,14 @@ class Interested < ActiveRecord::Base
   def h_local_organization; local_organization_id.nil? ? "" : local_organization.name; end
   def h_occupation;         occupation_id.nil?         ? "" : occupation.name; end
     
+  def self.default_order_field
+    "interesteds.created_at"
+  end
+  
+  def self.default_order_direction
+    "DESC"
+  end
+
 #TODO: Move to helper
   def sex_presentation
     case self.sex_id
