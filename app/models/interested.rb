@@ -82,6 +82,8 @@ class Interested < ActiveRecord::Base
     "DESC"
   end
 
+  has_many :talk_attendances, foreign_key: "interested_id", class_name: "InterestedsTalk"
+  
 #TODO: Move to helper
   def sex_presentation
     case self.sex_id

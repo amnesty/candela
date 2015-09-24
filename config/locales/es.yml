@@ -602,6 +602,7 @@ es:
     migrated: 'Pasado a activista'
     still_not_migrated: 'No pasado a activista'
 
+    registered_at: Registro el %{date} 
     email_sent: Email enviado 
     letter_sent: Carta enviada
     email_not_sent: Email todavía no enviado
@@ -609,6 +610,11 @@ es:
     no_email_for_sent: 'No se ha rellenado el campo de dirección de email'
     email_sent_success: 'El email se ha enviado correctamente'
     letter_sent_success: 'La carta se ha generado correctamente'
+    talk_at: Sesión el %{date}
+    talk_attendance_status:
+      pending: pendiente 
+      attended: asistió
+      not_attended: no asistió
     fail_at_updated: 'No se ha podido añadir la información de envio para el/la interesado/a. Compruebe que la ficha es correcta'
     fail_at_pdf_generation: 'No se ha podido generar el archivo PDF.'
     fail_at_pdf_sending: 'No se ha podido enviar el archivo PDF.'

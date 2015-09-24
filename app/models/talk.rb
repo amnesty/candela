@@ -68,6 +68,10 @@ class Talk < ActiveRecord::Base
     h
   end
   
+  def is_in_future?
+    date.future?
+  end
+  
   def has_place?
     seats.nil? or seats.to_i > interesteds.count 
   end

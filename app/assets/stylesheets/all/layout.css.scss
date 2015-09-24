@@ -458,6 +458,12 @@ font-weight: bold;
 .child_notes li    { border-left: 2px solid #f1f1f1; list-style: none; }
 .parent_note .meta { font-size: 0.9em; font-style: italic;  }
 
+/* Talk attendance status colors */
+
+  .talk_attendance_status_pending { color: #666666; }
+  .talk_attendance_status_attended { color: green; }
+  .talk_attendance_status_not_attended { color: red; }
+
 /* Locale selection bar */
 
 #locale_banner {

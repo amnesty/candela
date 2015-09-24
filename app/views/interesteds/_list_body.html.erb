@@ -14,10 +14,10 @@
                                        ]}) %>
 <% end %>
 
-<td><%= l(interested.created_at.to_date) %></td>
-
 <td>
   <ul>
+    <li><%= t('interested.registered_at', :date => l(interested.created_at.to_date)) %></li>
+    
   <% if interested.is_minor?  %>
     <% if interested.minor_checked.nil? || !interested.minor_checked %>
       <li class="red"><%= Gx.t_attr('interested.is_minor') %></li>
@@ -36,7 +36,11 @@
       <li><%= interested.letter_sent?      ?  t('interested.letter_sent')                            : t('interested.letter_not_sent') %></li>
     <% end %>
 
-  </ul>
+    <% interested.talk_attendances.each do |talk_attendace| %>
+      <li><%= link_to t('interested.talk_at', :date => l(talk_attendace.talk.date.to_date)), talk_path(talk_attendace.talk) %><br/>
+      <%= content_tag :span, "(#{talk_attendace.h_status})", :class => "talk_attendance_status_#{talk_attendace.status}" %></li>
+    <% end %>
+ </ul>
 </td>
 <td><%= link_to h(interested.full_name), interested %></td>
 <td><%= link_to( h(interested.email), "mailto:#{interested.email}") %></td>
