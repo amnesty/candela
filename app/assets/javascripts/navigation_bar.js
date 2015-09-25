@@ -1,6 +1,5 @@
 
 function onWindowResize() {
-//alert('onWindowResize');  
   var $nav = $('#main_nav_menu');
   var breakpoint = $nav.data('breakpoint');
   if ($(window).width() <= breakpoint) {
@@ -26,10 +25,13 @@ $(document).on('click', '#main_nav_menu_toggler', function(e) {
 });
 
 $(document).on('click', '#main_nav_menu li a, #main_nav_menu li .touch-button', function(e) {
-  e.preventDefault();
-  var $parent = $(this).closest('li');
-  $parent.siblings('li').removeClass('active');
-  $parent.toggleClass('active');
+  if($(this).siblings('ul').length > 0)
+  {
+    e.preventDefault();
+    var $parent = $(this).closest('li');
+    $parent.siblings('li').removeClass('active');
+    $parent.toggleClass('active');
+  }
 });
     
 $(window).on('resize', onWindowResize);
