@@ -59,6 +59,7 @@
 .nav_menu li.active > ul 
 {
   display: block;
+  left: 0;
 }
 
 /*******************************/
@@ -91,9 +92,7 @@
 @media all and (min-width: 800px) {
 
   #main_nav_menu_toggler {
-    /*display: none;*/
     width: auto;
-    /*display: inline;*/
     float: right;
   }
 
@@ -171,11 +170,11 @@
     position: absolute;
     z-index: 120;
   }
-
+ 
   .nav_menu li:hover ul {
     display: block;
     left: 0;
-    padding: 200px;
+    /*padding: 200px;*/
   }
 
   .nav_menu ul li { 
@@ -189,7 +188,7 @@
 
   }
 
-  .active, .nav_menu li:hover, .nav_menu ul li:hover, .nav_menu ul li a:hover { 
+  .nav_menu li:hover, .nav_menu ul li:hover, .nav_menu ul li a:hover { 
     position: relative;
   }
 
@@ -210,7 +209,7 @@
     left: 0;
     top: 3px;
   }
-  
+ 
 }
 
 /**********/
