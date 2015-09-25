@@ -28,6 +28,7 @@ module InterestedsHelper
           html << '</ul></li>'
           html << "</ul>"
           html << object_action_button_to(interested, 'to_activist') if interested.authorize?(:update, :to => current_user)
+          html << print_popup_action_button
       end
     end
   end
