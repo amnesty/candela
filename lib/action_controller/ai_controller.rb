@@ -48,6 +48,7 @@ module ActionController
 
       @resources = query_to.include_in.can_see(current_agent)
       @resources = @resources.filter_with_definitions(filters_for_index, params[:index_filters]) if self.respond_to?(:filters_for_index)
+      @resources = @resources.where conditions.join(' AND ')
       
       # Sorting
       options[:sort] ||= [:column_sort, order, direction]
@@ -67,7 +68,7 @@ module ActionController
       
       # Pagination - resources must be counted apart to avoid bad counts in will_paginate. See http://archive.railsforum.com/viewtopic.php?id=15530
       num_resources = @resources.collect(&:id).count 
-      @resources = @resources.paginate(:page => params[:page], :per_page => per_page, :conditions => conditions.join(' AND '), :total_entries => num_resources)
+      @resources = @resources.paginate(:page => params[:page], :per_page => per_page, :total_entries => num_resources)
       
       instance_variable_set "@#{ model_class.name.tableize }", @resources
  
