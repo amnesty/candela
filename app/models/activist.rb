@@ -106,6 +106,8 @@ class Activist < ActiveRecord::Base
     end
   }
 
+  scope :has_cleared_sensitive_data, lambda { |q| q.nil? ? {} : where("first_name #{Gx.to_boolean(q) ? '' : 'NOT'} LIKE ? AND last_name #{Gx.to_boolean(q) ? '=' : '<>'} ?", "id=%", "Borrado") }
+  
   scope :is_partner, lambda { |q| (q.nil? || (q.instance_of?(String) && q.empty?)) ? {} : { :conditions => (Gx.to_boolean(q) ? "partnership_id IS NOT NULL" : "partnership_id IS NULL") } }
 
   scope :is_leave, lambda { |q| (q.nil? || (q.instance_of?(String) && q.empty?)) ? {} : { :conditions => (Gx.to_boolean(q) ? "leave_at IS NOT NULL" : "leave_at IS NULL") } }
@@ -259,6 +261,10 @@ class Activist < ActiveRecord::Base
     self.nif           = ""
     self.address       = ""
     self.document_type = "Otros"
+  end
+
+  def cleared_sensitive_data?
+    !leave_at.nil? && self.first_name == "id=#{self.id}" && self.last_name == "Borrado"
   end
   
   def time_to_remove

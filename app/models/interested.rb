@@ -56,6 +56,8 @@ class Interested < ActiveRecord::Base
 
   scope :with_talks, lambda { |q| q.blank? ? {} : (Gx.to_boolean(q) ? {:joins => :talks} : {:conditions => 'interesteds.id NOT IN (SELECT DISTINCT(interested_id) FROM interesteds_talks)' }) }
 
+  scope :has_cleared_sensitive_data, lambda { |q| q.nil? ? {} : where("first_name #{Gx.to_boolean(q) ? '' : 'NOT'} LIKE ? AND last_name #{Gx.to_boolean(q) ? '=' : '<>'} ?", "id=%", "Borrado") }
+  
   # Permission to create interested if user has any permission to create
   authorizing do |user, permission|
     if user.is_a?(User) and permission == :create
@@ -119,6 +121,10 @@ class Interested < ActiveRecord::Base
     self.document_type = "Otros"
   end
 
+  def cleared_sensitive_data?
+    self.first_name == "id=#{self.id}" && self.last_name == "Borrado"
+  end
+  
   def valid_to_migrate?
     if activist.present?
       self.errors.add :base, :already_migrated
