@@ -115,7 +115,7 @@ class Activist < ActiveRecord::Base
   scope :include_in,  { :include => [ :activists_collaborations ] }
 
   # Searchs Authorization NamedScope
-  scope :can_see, lambda { |agent| {} }
+  scope :can_see, lambda { |agent| has_cleared_sensitive_data(false) }
   
   # Objects authorization blocks
   
