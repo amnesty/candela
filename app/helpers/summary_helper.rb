@@ -175,6 +175,8 @@ module SummaryHelper
               html << "<ul  id='organization_activists_list' >"
               collaborations.each do |collaboration|
 
+                next if collaboration.activist.cleared_sensitive_data?
+                
                 collaboration_classes = ["collaboration_state_#{collaboration.activist_status.name}", collaboration.guess_collaboration_type, "status_#{collaboration.activist_status_id}"]
                 collaboration_classes += collaboration.autonomic_teams.collect{|team| "autonomic_team_#{team.id}"} if organization.is_a?(Autonomy)
                 html << "<li class= '#{collaboration_classes.join(' ')}'>"
@@ -201,7 +203,7 @@ module SummaryHelper
           end
 
         end
-      end
+      end 
 
     end
   end
