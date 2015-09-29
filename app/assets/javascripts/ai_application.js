@@ -186,6 +186,9 @@ function updateActivistsList() {
       elem.hide();
     }
   });
+
+  var filteredItemsCount = $('#organization_activists_list li:visible').length;
+  $('#organization_activists_list_counter').text( $('#organization_activists_list_counter').data('base-text').replace("{count}", filteredItemsCount) );
 }
 
 /*** POSTAL STUFF ***/

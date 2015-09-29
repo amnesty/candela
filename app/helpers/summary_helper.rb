@@ -172,6 +172,7 @@ module SummaryHelper
               html << status_options_for_select
               html << type_options_for_select(uniq_name)
 
+              html << content_tag(:p, '', {'data-base-text' => t('activists_collaboration.filtered_collaborations_count_base_text'), :id => 'organization_activists_list_counter'})
               html << "<ul  id='organization_activists_list' >"
               collaborations.each do |collaboration|
 

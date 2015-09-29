@@ -426,6 +426,7 @@ es:
     select_an_autonomy: Seleccione una entidad autonómica
     # Select in activists_collaboration form
     none: Ninguna
+    filtered_collaborations_count_base_text: "{count} activistas filtrados"
 
     errors:
       already_exists: ": Ya tiene una colaboración de este tipo en esta organización"
