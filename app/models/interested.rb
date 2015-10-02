@@ -48,15 +48,15 @@ class Interested < ActiveRecord::Base
   validates_numericality_of :cp, :on => :save, :allow_blank => true
   validates_length_of :cp, :is => 5, :allow_blank => true
 
-  scope :is_minor, lambda { |q| q.blank? ? {} : { :conditions => "birth_day" + (Gx.to_boolean(q) ? " > '" : " <= '") + self.minor_birth_date.to_s(:db) + "'" } }
+  scope :is_minor, lambda { |q| q.to_s.blank? ? {} : { :conditions => "birth_day" + (Gx.to_boolean(q) ? " > '" : " <= '") + self.minor_birth_date.to_s(:db) + "'" } }
   
-  scope :is_activist, lambda { |q| q.blank? ? {} : { :conditions => (Gx.to_boolean(q) ? "activist_id IS NOT NULL" : "activist_id IS NULL") } }
+  scope :is_activist, lambda { |q| q.to_s.blank? ? {} : (Gx.to_boolean(q) ? where('activist_id IN (?)',Activist.pluck(:id)) : where('activist_id IS NULL OR activist_id NOT IN (?)',Activist.pluck(:id))) }
 
-  scope :has_pending_communication, lambda { |q| q.blank? ? {} : { :conditions => (Gx.to_boolean(q) ? "(email_sent <> true OR email_sent IS NULL) AND (letter_sent <> true OR letter_sent IS NULL)" : "email_sent = true OR letter_sent = true") } }
+  scope :has_pending_communication, lambda { |q| q.to_s.blank? ? {} : { :conditions => (Gx.to_boolean(q) ? "(email_sent <> true OR email_sent IS NULL) AND (letter_sent <> true OR letter_sent IS NULL)" : "email_sent = true OR letter_sent = true") } }
 
-  scope :with_talks, lambda { |q| q.blank? ? {} : (Gx.to_boolean(q) ? {:joins => :talks} : {:conditions => 'interesteds.id NOT IN (SELECT DISTINCT(interested_id) FROM interesteds_talks)' }) }
+  scope :with_talks, lambda { |q| q.to_s.blank? ? {} : (Gx.to_boolean(q) ? {:joins => :talks} : {:conditions => 'interesteds.id NOT IN (SELECT DISTINCT(interested_id) FROM interesteds_talks)' }) }
 
-  scope :has_cleared_sensitive_data, lambda { |q| q.nil? ? {} : where("first_name #{Gx.to_boolean(q) ? '' : 'NOT'} LIKE ? AND last_name #{Gx.to_boolean(q) ? '=' : '<>'} ?", "id=%", "Borrado") }
+  scope :has_cleared_sensitive_data, lambda { |q| q.to_s.blank? ? {} : where("first_name #{Gx.to_boolean(q) ? '' : 'NOT'} LIKE ? AND last_name #{Gx.to_boolean(q) ? '=' : '<>'} ?", "id=%", "Borrado") }
   
   # Permission to create interested if user has any permission to create
   authorizing do |user, permission|

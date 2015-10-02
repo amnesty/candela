@@ -69,7 +69,7 @@ class Activist < ActiveRecord::Base
   }                                                    
 
   scope :with_active_collaborations, lambda { |q|
-    if q.blank?
+    if q.to_s.blank?
       {}
     elsif Gx.to_boolean(q)
       { :include => "activists_collaborations", :conditions => ['activists.id = activists_collaborations.activist_id AND activists_collaborations.activist_status_id <> ?', ActivistStatus.leave_id ] }
@@ -106,11 +106,11 @@ class Activist < ActiveRecord::Base
     end
   }
 
-  scope :has_cleared_sensitive_data, lambda { |q| q.nil? ? {} : where("first_name #{Gx.to_boolean(q) ? '' : 'NOT'} LIKE ? AND last_name #{Gx.to_boolean(q) ? '=' : '<>'} ?", "id=%", "Borrado") }
+  scope :has_cleared_sensitive_data, lambda { |q| q.to_s.blank? ? {} : where("first_name #{Gx.to_boolean(q) ? '' : 'NOT'} LIKE ? AND last_name #{Gx.to_boolean(q) ? '=' : '<>'} ?", "id=%", "Borrado") }
   
-  scope :is_partner, lambda { |q| (q.nil? || (q.instance_of?(String) && q.empty?)) ? {} : { :conditions => (Gx.to_boolean(q) ? "partnership_id IS NOT NULL" : "partnership_id IS NULL") } }
+  scope :is_partner, lambda { |q| (q.to_s.blank? || (q.instance_of?(String) && q.empty?)) ? {} : { :conditions => (Gx.to_boolean(q) ? "partnership_id IS NOT NULL" : "partnership_id IS NULL") } }
 
-  scope :is_leave, lambda { |q| (q.nil? || (q.instance_of?(String) && q.empty?)) ? {} : { :conditions => (Gx.to_boolean(q) ? "leave_at IS NOT NULL" : "leave_at IS NULL") } }
+  scope :is_leave, lambda { |q| (q.to_s.blank? || (q.instance_of?(String) && q.empty?)) ? {} : { :conditions => (Gx.to_boolean(q) ? "leave_at IS NOT NULL" : "leave_at IS NULL") } }
 
   scope :include_in,  { :include => [ :activists_collaborations ] }
 
