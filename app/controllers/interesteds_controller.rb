@@ -22,7 +22,9 @@ class InterestedsController < ApplicationController
 
   # Default values for filters on index action
   def default_filters_for_index
-    {}
+    {
+      :is_activist => false,
+    }
   end
 
   def new
