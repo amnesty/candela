@@ -605,6 +605,7 @@ es:
     still_not_migrated: 'No pasado a activista'
 
     registered_at: Registro el %{date} 
+    not_interested: Persona no interesada
     email_sent: Email enviado 
     letter_sent: Carta enviada
     email_not_sent: Email todavía no enviado

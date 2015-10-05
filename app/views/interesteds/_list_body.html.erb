@@ -17,6 +17,8 @@
 <td>
   <ul>
     <li><%= t('interested.registered_at', :date => l(interested.created_at.to_date)) %></li>
+
+  <%= content_tag :li, t('interested.not_interested'), :class => 'red' if interested.not_interested? %>
     
   <% if interested.is_minor?  %>
     <% if interested.minor_checked.nil? || !interested.minor_checked %>
