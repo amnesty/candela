@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150914093525) do
+ActiveRecord::Schema.define(:version => 20151002124501) do
 
   create_table "academic_years", :force => true do |t|
     t.string   "year"
@@ -564,6 +564,8 @@ ActiveRecord::Schema.define(:version => 20150914093525) do
     t.integer  "informed_through_id"
     t.text     "informed_through_other"
     t.string   "email_2"
+    t.datetime "not_interested_at"
+    t.text     "not_interested_info"
   end
 
   create_table "interesteds_languages", :id => false, :force => true do |t|
