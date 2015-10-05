@@ -7,7 +7,7 @@ class InterestedsController < ApplicationController
   
   authorization_filter :create, :interested, :only => [ :new, :create ]
   authorization_filter :read,   :interested, :only => [ :show, :index ]
-  authorization_filter :update, :interested, :only => [ :edit, :update]
+  authorization_filter :update, :interested, :only => [ :edit, :update, :edit_not_interested, :update_not_interested]
   authorization_filter :destroy, :interested, :only => [ :delete, :destroy ]
   
   # Definitions for filters on index action
@@ -101,4 +101,25 @@ class InterestedsController < ApplicationController
       end
     end
   end
+  
+  def edit_not_interested
+    resource
+  end
+  
+  def update_not_interested
+    resource
+    
+    if params[:interested][:set_not_interested].nil?
+      flash[:error] = t('interested.no_action')
+      render :action => :edit_not_interested
+    else
+      if @resource.save
+        flash[:success] = t(:updated, :scope => @resource.class.to_s.underscore)
+        redirect_to update_with_success
+      else
+        render :action => :edit_not_interested
+      end
+    end  
+  end
+  
 end

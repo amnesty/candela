@@ -87,6 +87,8 @@ AiVoluntariado::Application.routes.draw do
     put :send_pdf, :on => :member
     get :prepare_mail, :on => :member
     put :send_mail, :on => :member
+    get :not_interested, :on => :member, :to => "interesteds#edit_not_interested"
+    put :not_interested, :on => :member, :to => "interesteds#update_not_interested"
 
     resources :interested_communications, :path => :communications do 
       get :delete, :on => :member

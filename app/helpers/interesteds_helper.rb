@@ -7,6 +7,7 @@ module InterestedsHelper
         html << "<ul>"
         html << collection_action_button(Interested, 'prepare_mail', :wrapper_tag => :li) #if current_user.has_any_permission_to(:create_email, :interesteds, :on => Site.current)
         html << collection_action_button(Interested, 'prepare_pdf', :wrapper_tag => :li) # if current_user.has_any_permission_to(:create_pdf,   :interesteds, :on => Site.current)
+        html << collection_action_button(Interested, 'not_interested', :wrapper_tag => :li) # if current_user.has_any_permission_to(:update,   :interesteds, :on => Site.current)
         html << collection_action_button(Interested, 'new_communication', :wrapper_tag => :li) # if current_user.has_any_permission_to(:update,   :interesteds, :on => Site.current)
         html << '</ul></li>'
         html << "</ul>"
@@ -24,6 +25,7 @@ module InterestedsHelper
           html << "<ul>"
           html << object_action_button_to(interested, 'prepare_mail', :wrapper_tag => :li) if interested.authorize?(:update, :to => current_user)
           html << object_action_button_to(interested, 'prepare_pdf', :wrapper_tag => :li) if interested.authorize?(:update, :to => current_user)
+          html << object_action_button_to(interested, 'not_interested', :wrapper_tag => :li) if interested.authorize?(:update, :to => current_user)
           html << button_to_new_communication(interested) if interested.authorize?(:update, :to => current_user)
           html << '</ul></li>'
           html << "</ul>"

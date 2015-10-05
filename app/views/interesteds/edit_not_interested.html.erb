@@ -1,0 +1,53 @@
+<div class="container_form">
+
+  <%= gx_form_for([@container, @resource], {:url => {:action => :update_not_interested}, :method => :put} ) do |f| %>
+
+    <%= round_div_box do %>
+      <div class="right form_actions">
+        <%= submit_tag( Gx.t("form.buttons.update"), :class => "action_apply" ) %>
+        <%= raw f.show_buttons request %>
+      </div>
+      <h1>
+          <%= Gx.t_action("#{ @resource.class.name.underscore }.edit") %> 
+          <%= link_to @resource.full_name, @resource %>
+      </h1>
+    <% end %>
+
+    <% unless params[:dont_show_errors].present? %>
+    	<%= f.errors_in_form %>
+    <% end %>
+
+    <%= round_div_box(:padding => false) do %>
+    
+<% form = f %>
+    
+<table id="<%= params[:action] %>_interested_form" class="table_form">
+
+  <tr class="form_section">
+    <td><%= form.label "sections.not_interested" %></td>
+    <td><%= form.check_box :set_not_interested, :checked => ("checked" if form.object.not_interested? || form.object.set_not_interested),:onchange => "if (this.checked) { $('tr.section_not_interested').show() } else { $('tr.section_not_interested').hide() } ;" %></td>
+  </tr>
+
+  <tr class="section_not_interested" <%= raw('style="display: none;"') unless form.object.not_interested? || form.object.set_not_interested %> >
+    <td><%= form.label_required :not_interested_at %></td>
+    <td><%= form.date_field :not_interested_at %></td>
+  </tr>
+
+  <tr class="section_not_interested" <%= raw('style="display: none;"') unless form.object.not_interested? || form.object.set_not_interested %> >
+    <td><%= form.label :not_interested_info %></td>
+    <td><%= form.text_area :not_interested_info %></td>
+  </tr>
+  
+</table>    
+
+    <% end %>
+
+    <%= round_div_box do %>
+      <div class='center form_actions'>
+        <%= submit_tag( Gx.t("form.buttons.update"), :class => "action_apply" ) %>
+        <%= raw f.show_buttons request %>
+      </div>
+    <% end %>
+
+  <% end %>
+</div>

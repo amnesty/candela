@@ -318,7 +318,6 @@
     <td><%= form.check_box :set_not_interested, :checked => ("checked" if form.object.not_interested? || form.object.set_not_interested),:onchange => "if (this.checked) { $('tr.section_not_interested').show() } else { $('tr.section_not_interested').hide() } ;" %></td>
   </tr>
 
-  <% style_str =  %>
   <tr class="section_not_interested" <%= raw('style="display: none;"') unless form.object.not_interested? || form.object.set_not_interested %> >
     <td><%= form.label_required :not_interested_at %></td>
     <td><%= form.date_field :not_interested_at %></td>

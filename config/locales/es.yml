@@ -239,6 +239,7 @@ es:
       communications: Comunicaciones
       prepare_mail: Enviar correo
       prepare_pdf: Crear carta
+      not_interested: No interesada
       new_communication: Sgto. contacto
       update: Actualizar
       update_and_list: Actualizar y Listar
