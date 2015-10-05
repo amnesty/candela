@@ -295,6 +295,11 @@
 
 <% if params[:controller] != 'public' %>
 
+  <tr class="form_section">
+    <td><%= form.label "sections.informed_through" %></td>
+    <td></td>
+  </tr>
+
   <tr class="list_style_0">
     <td><%= form.label :informed_through_id %><i class="help"><%= raw t("form.multiple_select_help") %></i></td>
     <td><%= form.select :informed_through_id, InformedThrough.orderby_name.collect { |p| [p.name, p.id] }, { :include_blank => true } %></td>

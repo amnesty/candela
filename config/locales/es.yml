@@ -1262,6 +1262,7 @@ es:
         sections:
           <<: *_activists_sections
           collaboration_organization: Grupo en el que quieres colaborar
+          informed_through: Información previa
         mail:
           body: Cuerpo
           mailto: Dirección email
