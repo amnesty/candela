@@ -125,6 +125,10 @@ class Interested < ActiveRecord::Base
     self.first_name == "id=#{self.id}" && self.last_name == "Borrado"
   end
   
+  def not_interested? 
+    not_interested_at?
+  end
+  
   def valid_to_migrate?
     if activist.present?
       self.errors.add :base, :already_migrated

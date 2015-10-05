@@ -1263,11 +1263,14 @@ es:
           <<: *_activists_sections
           collaboration_organization: Grupo en el que quieres colaborar
           informed_through: Información previa
+          not_interested: Persona no interesada
         mail:
           body: Cuerpo
           mailto: Dirección email
           subject: Colaborar con Amnistía Internacional
         accepted_privacity: Política de privacidad
+        not_interested_at: Fecha no interesado
+        not_interested_info: Comentarios
 
       interested_communication:
         <<: *_event_record_attributes
