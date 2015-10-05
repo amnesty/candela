@@ -16,6 +16,7 @@ class InterestedsController < ApplicationController
       :is_minor => [:is_minor, true],
       :has_pending_communication => [:has_pending_communication, true],
       :is_activist => [:is_activist, true],
+      :not_interested => [:filter_not_interested, true],      
       :with_talks => [:with_talks, true]
     }
   end
@@ -24,6 +25,7 @@ class InterestedsController < ApplicationController
   def default_filters_for_index
     {
       :is_activist => false,
+      :not_interested => false,
     }
   end
 

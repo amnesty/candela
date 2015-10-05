@@ -59,6 +59,8 @@ class Interested < ActiveRecord::Base
 
   scope :with_talks, lambda { |q| q.to_s.blank? ? {} : (Gx.to_boolean(q) ? {:joins => :talks} : {:conditions => 'interesteds.id NOT IN (SELECT DISTINCT(interested_id) FROM interesteds_talks)' }) }
 
+  scope :filter_not_interested, lambda { |q| q.to_s.blank? ? {} : where("interesteds.not_interested_at IS #{Gx.to_boolean(q) ? ' NOT ' : ''} NULL") }
+  
   scope :has_cleared_sensitive_data, lambda { |q| q.to_s.blank? ? {} : where("first_name #{Gx.to_boolean(q) ? '' : 'NOT'} LIKE ? AND last_name #{Gx.to_boolean(q) ? '=' : '<>'} ?", "id=%", "Borrado") }
   
   # Permission to create interested if user has any permission to create
