@@ -311,6 +311,25 @@
   </tr>
 <% end %>
 
+<% if params[:controller] != 'public' and !form.object.new_record?%>
+
+  <tr class="form_section">
+    <td><%= form.label "sections.not_interested" %></td>
+    <td><%= form.check_box :set_not_interested, :checked => ("checked" if form.object.not_interested? || form.object.set_not_interested),:onchange => "if (this.checked) { $('tr.section_not_interested').show() } else { $('tr.section_not_interested').hide() } ;" %></td>
+  </tr>
+
+  <% style_str =  %>
+  <tr class="section_not_interested" <%= raw('style="display: none;"') unless form.object.not_interested? || form.object.set_not_interested %> >
+    <td><%= form.label_required :not_interested_at %></td>
+    <td><%= form.date_field :not_interested_at %></td>
+  </tr>
+
+  <tr class="section_not_interested" <%= raw('style="display: none;"') unless form.object.not_interested? || form.object.set_not_interested %> >
+    <td><%= form.label :not_interested_info %></td>
+    <td><%= form.text_area :not_interested_info %></td>
+  </tr>
+<% end %>
+  
 <% unless params[:controller] == 'public' %>
 
   <script>

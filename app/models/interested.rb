@@ -12,6 +12,7 @@ class Interested < ActiveRecord::Base
                   :student_previous_degrees, :student, :student_place, :student_level_id, :student_degree, :student_year_id, :student_more_info, 
                   :collabtopic_ids, :language_ids, :skill_ids, :other_skills, :hobby_ids, :blogger, :other_hobbies, 
                   :wants_todo, :informed_through_id, :informed_through_other,
+                  :set_not_interested, :not_interested_at, :not_interested_info, 
                   :minor_checked, :accepted_privacity
 
   audited :on => [:create,:update,:destroy] 
@@ -21,13 +22,15 @@ class Interested < ActiveRecord::Base
   attr_accessor :verify_privacity
   attr_accessor :accepted_privacity
   attr_accessor :from_public
-  
+  attr_accessor :set_not_interested
   
   validates_presence_of :local_organization_id
   validates_presence_of :document_type, :if => Proc.new{|r| r.from_public }
   validates_presence_of :nif, :if => Proc.new{|r| r.from_public }
   validates_uniqueness_of :nif, :allow_nil => true, :allow_blank => true, :scope => [ :document_type ]  
   validates_format_of :email_2,   :with => ActiveRecord::Base::REGEXP_EMAIL, :allow_blank => true
+  validates_presence_of :not_interested_at, :if => Proc.new{|r| Gx.to_boolean(r.set_not_interested) }
+  before_validation :check_not_interested_status
   
   belongs_to :local_organization
   belongs_to :activist
@@ -302,6 +305,12 @@ class Interested < ActiveRecord::Base
     
     if not self.city or self.city == I18n.t("country.select_cp_or_province")
       self.errors.add(:city, :must_be_valid)
+    end
+  end
+  
+  def check_not_interested_status
+    if !self.set_not_interested.nil? && !Gx.to_boolean(self.set_not_interested)
+      self.not_interested_at = nil 
     end
   end
   
