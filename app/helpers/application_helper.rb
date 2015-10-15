@@ -70,10 +70,14 @@ module ApplicationHelper
 
       if current_user.has_any_permission_to(:create, klass_name) and klass_name != 'Alert' 
         html << '<div class="right">'
-        html << link_to( t("form.buttons.create"), new_polymorphic_path([ @container, klass.new ], :action => :new), :class => 'action_add with_icon')
+        if klass_name == 'LocalOrganization' && LocalOrganization.allowed_group_type?(params[:group_type])
+          html << link_to( t("form.buttons.create"), new_polymorphic_path([ @container, klass.new ], :action => :new, :local_organization => {:group_type => params[:group_type].to_s}), :class => 'action_add with_icon')
+        else
+          html << link_to( t("form.buttons.create"), new_polymorphic_path([ @container, klass.new ], :action => :new), :class => 'action_add with_icon')
+        end
         html << '</div>'
       end
-      
+
       if klass.has_fast_search? 
         html << '<div class="fast_search right">'
         html << '<input id="query" name="query" type="text" + value = "' + (params[:query]? params[:query] : '') + '" />'
