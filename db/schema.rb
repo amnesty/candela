@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151002124501) do
+ActiveRecord::Schema.define(:version => 20151013125441) do
 
   create_table "academic_years", :force => true do |t|
     t.string   "year"
@@ -623,8 +623,8 @@ ActiveRecord::Schema.define(:version => 20151002124501) do
     t.string   "phone",                  :limit => 12
     t.string   "email"
     t.string   "fax",                    :limit => 9
-    t.datetime "created_at",                                             :null => false
-    t.datetime "updated_at",                                             :null => false
+    t.datetime "created_at",                                                :null => false
+    t.datetime "updated_at",                                                :null => false
     t.string   "email_2"
     t.string   "city"
     t.string   "cp",                     :limit => 5
@@ -648,6 +648,7 @@ ActiveRecord::Schema.define(:version => 20151002124501) do
     t.text     "customer_service_time"
     t.boolean  "collaborations_enabled",               :default => true
     t.boolean  "show_to_interesteds"
+    t.string   "group_type",                           :default => "local", :null => false
   end
 
   create_table "logos", :force => true do |t|

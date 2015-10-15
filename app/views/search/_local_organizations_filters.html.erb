@@ -1,0 +1,31 @@
+<table class="table_list" >
+  <tr class="important_row">
+    <td colspan="2"><%= t('local_organization.search.search_params') %></td>
+  </tr>
+
+  <tbody class="unhideable">
+    <tr class="list_style_0">
+      <td>
+        <label><%= t('activerecord.attributes.local_organization.group_type') %>:</label>
+      </td>
+      <td>
+        <%= select("local_organization", "group_type_eq",
+                  LocalOrganization.available_group_types.collect{|k,v| [v[:one],k.to_s]},
+                  { :selected => (( params[:local_organization] && params[:local_organization]['group_type']) ? params[:local_organization]['group_type'] : ''),
+                  :include_blank => true }) %>
+      </td>
+    </tr>
+
+    <% LocalOrganization.unhideable_fields.each do |field_name| %>
+      <%= render :partial => 'filters_field', :locals => { :klass => 'local_organization', :field_name => field_name } %>
+    <% end %>
+  </tbody>
+
+  <%= render :partial => 'show_more_row' if !LocalOrganization.hideable_fields.empty? %>
+
+  <tbody id="alert_extra_fields" class="hideable" style="display: none;">
+    <% LocalOrganization.hideable_fields.each do |field_name| %>
+      <%= render :partial => 'filters_field', :locals => { :klass => 'local_organization', :field_name => field_name } %>
+    <% end %>
+  </tbody>
+</table>

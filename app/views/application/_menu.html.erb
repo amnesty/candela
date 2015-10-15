@@ -36,7 +36,12 @@
     <%= link_to t('.main_menu.collaboration_types'), '#' %>
     <ul>
       <li>
-        <%= link_to t('.main_menu.local_organizations'), local_organizations_path %>
+        <%= link_to t('.main_menu.local_organizations'), local_organizations_path, :class => "nav_submenu_trigger" %>
+        <ul>
+          <% LocalOrganization.available_group_types.each do |g_key,g_data| %>
+            <li><%= link_to g_data[:more], local_organizations_path(:group_type => g_key.to_s) %>
+          <% end %>
+        </ul>
       </li>
       <li>
         <%= link_to t('.main_menu.se_teams'), se_teams_path %>
@@ -113,7 +118,7 @@
       <% collab_places = [:local_organizations, :se_teams, :countries, :autonomies, :committees] %>
       <% if collab_places.collect{|org|current_agent.has_any_permission_to(:read, org)}.include?(true) %>
       <li>
-         <%=  link_to t('.main_menu.collaboration_types'), '#' %>         
+         <%=  link_to t('.main_menu.collaboration_types'), '#', :class => "nav_submenu_trigger" %>         
         <ul>
           <% collab_places.each do |org| %>
             <li><%= link_to t(".search.#{org.to_s}"), search_path(:what => org) if current_agent.has_any_permission_to(:read, org) %></li>         

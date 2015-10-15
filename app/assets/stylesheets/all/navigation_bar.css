@@ -77,6 +77,10 @@
   color: #FDFD00;
 }
 
+.nav_menu li a.nav_submenu_trigger::after {
+    content: "...";
+} 
+
 /* ======================= */
 /* = Primer Nivel        = */
 /* ======================= */

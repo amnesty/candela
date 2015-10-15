@@ -662,7 +662,17 @@ es:
     sections:
       <<: *_collaborations_sections
       <<: *_organization_sections
-
+    group_types:
+      local: 
+        one: Grupo local
+        more: Grupos locales
+      action:
+        one: Grupo de acción
+        more: Grupos de acción
+      universitary:
+        one: Grupo universitario
+        more: Grupos universitarios
+      
 #  local_organization_note:
 #    <<: *_notes_entity
 
@@ -1284,6 +1294,7 @@ es:
 
       local_organization:
         <<: *_collaboration_place_attributes
+        group_type: Tipo de grupo
 
       #local_organization_note:
       #  <<: *_notes_attributes

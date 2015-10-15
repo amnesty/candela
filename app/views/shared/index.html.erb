@@ -1,6 +1,7 @@
 <% singular_name_klass = klass.name.underscore %>
 <% plural_name_klass   = singular_name_klass.pluralize %>
 <% applying_fast_search = klass.has_fast_search? && defined?(:@search_terms) && !@search_terms.nil? && !@search_terms.empty? %>
+<% @header_label ||= Gx.t_action("#{ singular_name_klass }.index") %>
 
 <%= form_tag polymorphic_url([ @container, plural_name_klass ]), :method => :get do %>
 
@@ -9,7 +10,7 @@
     <%= raw index_actions_for(klass) %>
 
     <h1>
-      <%= Gx.t_action("#{ singular_name_klass }.index") %> (<%= collection.count %>)
+      <%= raw @header_label %> (<%= collection.count %>)
       <%= raw "#{ t("words.of") } #{ link_to( @container.full_name, eval("#{@container.class.name.underscore}_path(@container.id)")) }" if @container %>
     </h1>
 

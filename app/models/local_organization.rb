@@ -1,6 +1,6 @@
 class LocalOrganization < ActiveRecord::Base
 
-  attr_accessible :number, :name, :collaborations_enabled, :phone, :address, :cp, :province_id, :city, 
+  attr_accessible :number, :group_type, :name, :collaborations_enabled, :phone, :address, :cp, :province_id, :city, 
                   :show_to_interesteds, :email, :email_2, :fax, :customer_service_time, 
                   :meeting_weekday, :meeting_frequency, :meeting_hours, :meeting_venue, 
                   :postal_address, :postal_cp, :postal_province_id, :postal_city, 
@@ -10,7 +10,8 @@ class LocalOrganization < ActiveRecord::Base
   include ActiveRecord::AIOrganization
   include MailTemplateConsumer
   
-  validates_presence_of :number
+  validates_presence_of :number, :group_type
+  validate :validate_group_type
  
   validates_format_of :number, :with => REGEXP_ET_NUMBER, :on => :save, :allow_blank => false,
                       :message => I18n.t("activerecord.errors.models.local_organization.attributes.number")
@@ -35,6 +36,18 @@ class LocalOrganization < ActiveRecord::Base
     end
     options  
   }
+  
+  def self.available_group_types
+    I18n.t('local_organization.group_types')
+  end
+
+  def self.allowed_group_type?(group_type)
+    self.available_group_types.keys.collect{|k|k.to_s}.include? group_type.to_s
+  end
+  
+  def validate_group_type
+    self.errors.add(:group_type, :invalid) if !LocalOrganization.available_group_types.keys.collect{|k|k.to_s}.include? group_type
+  end
   
   def from_madrid
     self.province == Province.find_by_name('Madrid')

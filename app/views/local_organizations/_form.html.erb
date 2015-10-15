@@ -5,6 +5,12 @@
     <td><%= form.text_field :number  %></td>
   </tr>
 
+  <% options_for_group_type = LocalOrganization.available_group_types.collect{|k,v| [v[:one],k.to_s]} %>
+  <tr class="list_style_0">
+    <td><%= form.label_required :group_type %></td>
+    <td><%= form.select :group_type, options_for_group_type %></td>
+  </tr>
+  
   <%= render :partial => "form_common", :locals => { :organization_type => 'local_organization', :form => form } %>
 
 </table>
