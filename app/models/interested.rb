@@ -207,7 +207,7 @@ class Interested < ActiveRecord::Base
   end
 
   def self.searcheable_fields
-    [unhideable_fields, "local_organization_id", hideable_fields ].flatten
+    [unhideable_fields, "local_organization_id", hideable_fields, 'not_interested_at', 'not_interested_info' ].flatten
   end
 
   def self.unhideable_fields

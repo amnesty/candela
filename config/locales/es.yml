@@ -1283,7 +1283,7 @@ es:
           subject: Colaborar con Amnistía Internacional
         accepted_privacity: Política de privacidad
         not_interested_at: Fecha no interesado
-        not_interested_info: Comentarios
+        not_interested_info: Comentarios no interesado
 
       interested_communication:
         <<: *_event_record_attributes
