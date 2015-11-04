@@ -65,7 +65,11 @@ class ActivistsCollaboration < ActiveRecord::Base
     end
     ret
   }
-  
+
+  scope :with_group_type, lambda { |group_type| group_type.to_s.blank? ? {} : joins("INNER JOIN local_organizations ON activists_collaborations.organization_type = 'LocalOrganization' 
+                                                                                              AND activists_collaborations.organization_id = local_organizations.id")
+                                                                                              .where(["local_organizations.group_type = ?", group_type]) }
+                                                                                              
   # Authorization blocks.
   # User can operate over collaboration if has permission over organization collaboration belongs to 
   authorizing do |user, permission|

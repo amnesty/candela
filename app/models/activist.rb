@@ -114,6 +114,8 @@ class Activist < ActiveRecord::Base
 
   scope :include_in,  { :include => [ :activists_collaborations ] }
 
+  scope :with_collaborations_on_group_type, lambda { |group_type| group_type.to_s.blank? ? {} : joins(:activists_collaborations).where(["activists_collaborations.id IN (?)", ActivistsCollaboration.with_group_type(group_type)]) }
+
   # Searchs Authorization NamedScope
   scope :can_see, lambda { |agent| has_cleared_sensitive_data(false) }
   
