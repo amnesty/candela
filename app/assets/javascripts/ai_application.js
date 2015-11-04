@@ -454,8 +454,14 @@ function onActivistSearchCollaborationOrganizationTypeChange(ctrl,ev)
 {
   var organizationTypeInput = $('#activist_activists_collaborations_organization_type_eq');
   var groupTypeInput = $('#activist_with_collaborations_on_group_type');
+  var organizationIdInput = $('#activist_activists_collaborations_organization_id_eq');
   var groupTypeRow = groupTypeInput.closest('tr');
 
+  if (!organizationTypeInput.val())
+  {
+    organizationIdInput.find('option').remove().end().append('<option value=""></option>');
+  }  
+    
   if (organizationTypeInput.val() == 'LocalOrganization')
   {
     groupTypeRow.show();
