@@ -1,5 +1,23 @@
 /*
  * Examples: 
+ *  addCustomInputCallback('activist_activists_collaborations_organization_type_eq', function(ev) {alert(JSON.stringify(ev,null,2));});
+ *
+ */
+function addCustomInputCallback(triggerElementId, callback, executeOnLoad) {
+  executeOnLoad = typeof executeOnLoad !== 'undefined' ? executeOnLoad : true;  
+  $(document).ready(function() {
+    if (executeOnLoad) {
+      callback($('#'+triggerElementId), null);
+    }
+    
+    $('#'+triggerElementId).on("change", function(ev) {
+      callback($('#'+triggerElementId), ev);
+    });
+  });
+}
+
+/*
+ * Examples: 
  *  addAutocompleteInputCallback('interested_cp', '/city_for_cp', 'cp', 'interested_city');
  *  addAutocompleteInputCallback('interested_cp', '/provinces_for_cps', 'cp', 'interested_province_id');
  *  addAutocompleteInputCallback('interested_province_id', '/cities_for_province', 'province_id', 'interested_city');

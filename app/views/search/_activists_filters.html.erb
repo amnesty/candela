@@ -50,11 +50,13 @@
     <% end %>
   </tbody>
 
-  <tr class="important_row hideable" style="display: none;">
+  <tbody id="collaborations_params_fields" class="hideable" style="display: none;">
+  
+  <tr class="important_row">
     <td colspan="2"><%= t('activist.search.collaborations_params') %></td>
   </tr>
 
-  <tr class="list_style_0 hideable" style="display: none;">
+  <tr class="list_style_0">
     <td>
       <label><%= t('role.stage_type') %>:</label>
     </td>
@@ -63,10 +65,23 @@
       <% organization_type_values = [[ '', '']] + ActivistsCollaboration.organization_types.collect{ |o| [ Gx.t_attr("activists_collaboration.#{ o.underscore }"), o ] } %>
       <%= select "activist", "activists_collaborations_organization_type_eq", organization_type_values, :selected => organization_type_param %>
       <% content_for(:head){ javascript_tag "addAutocompleteInputCallback('activist_activists_collaborations_organization_type_eq', '#{organizations_for_search_path}', 'organization_type', 'activist_activists_collaborations_organization_id_eq');" } %>
+      <% content_for(:head){ javascript_tag "addCustomInputCallback('activist_activists_collaborations_organization_type_eq', onActivistSearchCollaborationOrganizationTypeChange);" } %>
     </td>
   </tr>
 
-  <tr class="list_style_1 hideable" style="display: none;">
+  <tr class="list_style_0">
+    <td>
+      <label><%= t('activerecord.attributes.local_organization.group_type') %>:</label>
+    </td>
+    <td>
+      <% group_type_param  = (params[:activist] ? params[:activist][:with_collaborations_on_group_type] : '') %>
+      <% group_type_values = [[ '', '']] + LocalOrganization.available_group_types.collect{|k,v| [v[:one],k.to_s]} %>
+      <%= select "activist", "with_collaborations_on_group_type", group_type_values, :selected => group_type_param %>
+      <% content_for(:head){ javascript_tag "addAutocompleteInputCallback('activist_with_collaborations_on_group_type', '#{organizations_for_search_path}', 'group_type', 'activist_activists_collaborations_organization_id_eq');" } %>
+    </td>
+  </tr>
+  
+  <tr class="list_style_1">
     <td>
       <label><%= t('activerecord.attributes.activists_collaboration.organization_id') %>:</label>
     </td>
@@ -82,7 +97,7 @@
     </td>
   </tr>
 
-  <tr class="list_style_0 hideable" style="display: none;">
+  <tr class="list_style_0">
     <td>
       <label><%= t('activerecord.attributes.activists_collaboration.autonomic_teams') %>:</label>
     </td>
@@ -97,7 +112,7 @@
     </td>
   </tr>
 
-  <tr class="list_style_1 hideable" style="display: none;">
+  <tr class="list_style_1">
     <td>
       <label><%= t('activerecord.attributes.activists_collaboration.collaboration_type') %>:</label><i class="help"><%= t("form.multiple_select_help").html_safe %></i>
     </td>
@@ -109,7 +124,7 @@
     </td>
   </tr>
 
-  <tr class="list_style_1 hideable" style="display: none;">
+  <tr class="list_style_1">
     <td>
       <label><%= t('activerecord.attributes.activists_collaboration.join_at') %></label>
     </td>
@@ -128,7 +143,7 @@
     </td>
   </tr>
 
-  <tr class="list_style_1 hideable" style="display: none;">
+  <tr class="list_style_1">
     <td>
       <label><%= t('activerecord.attributes.activists_collaboration.leave_at') %></label>
     </td>
@@ -147,7 +162,7 @@
     </td>
   </tr>
 
-  <tr class="list_style_0 hideable" style="display: none;">
+  <tr class="list_style_0">
     <td><label><%= t('activerecord.attributes.activists_collaboration.responsibility_ids') %></label><i class="help"><%= t("form.multiple_checkbox_or_help") %></i></td>
     <td><% Responsibility.all.each do |responsibility| %>
       <div class="left small_margin small">
@@ -160,7 +175,7 @@
     <% end %></td>
   </tr>
 
-  <tr class="list_style_1 hideable" style="display: none;">
+  <tr class="list_style_1">
     <td><label><%= t('activerecord.attributes.activists_collaboration.expertise_ids') %></label><i class="help"><%= t("form.multiple_checkbox_or_help") %></i></td>
     <td><% Expertise.all.sort_by{|e|[e.category, e.name]}.each do |expertise| %>
       <p class="left small_margin small">
@@ -171,7 +186,7 @@
     <% end %></td>
   </tr>
 
-  <tr class="list_style_1 hideable" style="display: none;">
+  <tr class="list_style_1">
     <td>
       <label><%= t('activerecord.attributes.activists_collaboration.availability_id') %>:</label>
     </td>
@@ -183,7 +198,7 @@
     </td>
   </tr>
 
-  <tr class="list_style_1 hideable" style="display: none;">
+  <tr class="list_style_1">
     <td>
       <label><%= t('activerecord.attributes.activists_collaboration.more_info') %>:</label>
     </td>
@@ -192,4 +207,7 @@
 
     </td>
   </tr>
+  
+  </tbody>
+  
 </table>

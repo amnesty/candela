@@ -448,4 +448,21 @@ function toggleCheckedOf(checked, klass) {
 //    return str;
 //}
 
+/*** SEARCH FORM STUFF ***/
 
+function onActivistSearchCollaborationOrganizationTypeChange(ctrl,ev)
+{
+  var organizationTypeInput = $('#activist_activists_collaborations_organization_type_eq');
+  var groupTypeInput = $('#activist_with_collaborations_on_group_type');
+  var groupTypeRow = groupTypeInput.closest('tr');
+
+  if (organizationTypeInput.val() == 'LocalOrganization')
+  {
+    groupTypeRow.show();
+  }
+  else
+  {
+    groupTypeInput.val('');
+    groupTypeRow.hide('');
+  }
+}

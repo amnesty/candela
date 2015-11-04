@@ -34,6 +34,9 @@ class SearchController < ApplicationController
     if params[:organization_type] and ActivistsCollaboration.organization_types.include?(params[:organization_type])
       @organizations = ActivistsCollaboration.organizations_by_type( "Member" + params[:organization_type])
       render :template => 'search/organizations_id_for_search', :layout => nil
+    elsif params[:group_type] and LocalOrganization.allowed_group_type?(params[:group_type])
+      @organizations = LocalOrganization.where(:group_type => params[:group_type]).orderby_name      
+      render :template => 'search/organizations_id_for_search', :layout => nil
     else
       render :text => 'fail', :status => 404
     end
