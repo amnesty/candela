@@ -679,6 +679,9 @@ es:
       universitary:
         one: Grupo universitario
         more: Grupos universitarios
+      autonomic:
+        one: Grupo EEAA
+        more: Grupos EEAA
       
 #  local_organization_note:
 #    <<: *_notes_entity
