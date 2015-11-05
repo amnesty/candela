@@ -64,9 +64,16 @@ es:
       organizations_actions_header: Tus grupos
       no_related_organizations: No hay grupos directamente relacionados contigo
       quick_actions:
-        new_activist: Crear nuevo activista
-        view_interesteds: Ver interesados
+        new_activist: Crear nuevo/nueva activista
+        new_hr_school: Crear nueva escuela
+        edit_activists: Modificar activistas
+        view_interesteds: Pasar personas interesadas a activistas
+        create_campaignaction: Evaluación acción prioritaria
         saved_searches: Búsquedas guardadas
+        view_activists: Consulta activistas
+        view_talks: Sesiones de presentación
+        manage_users: Gestionar usuarias
+        manage_roles: Gestionar roles
       
     sections:
       activists_notes: Seguimiento de las activistas
