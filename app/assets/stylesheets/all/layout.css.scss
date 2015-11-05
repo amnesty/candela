@@ -509,14 +509,21 @@ font-weight: bold;
 
 /*** Collapsible sections: Showing/hiding elements associated to clicks on a DOM element ***/
 
-  .collapsable_section .collapsable_section_control::after {
-      content: " (Ocultar)";
-  } 
-
-  .collapsable_section.collapsed .collapsable_section_control::after {
-      content: " (Mostrar)";
-  } 
-
+  .collapsable_section .collapsed_status_indicator {
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: contain;
+    background-image: url('/assets/css/collapsible_off.png');
+    
+    float: right;
+    height: 20px;width: 20px;
+    margin-top: 4px; margin-right: 5px;    
+  }  
+    
+  .collapsable_section.collapsed .collapsed_status_indicator {
+    background-image: url('/assets/css/collapsible_on.png');
+  }  
+  
   .collapsable_section.collapsed .collapsable_section_content {
       display: none;
   } 
