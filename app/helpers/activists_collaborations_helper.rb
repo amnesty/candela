@@ -5,10 +5,11 @@ module ActivistsCollaborationsHelper
     options_for_select(options, selected)
   end
  
-  def status_options_for_select(default_value = 'status_3')
+  def status_options_for_select(default_value = 'status_not_leave')
     option_list = ActivistStatus.all.collect{|elem| [elem.name, "status_#{ elem.id }", :class => "collaboration_status_#{ elem.id }"] } 
+    option_list.prepend ['Alta','status_not_leave', :class => '']
     option_list.prepend ['Todos los estados','', :class => '']
-    select_tag('collaboration_status[]', options_for_select(option_list), {:id => 'activist_filter_status', :onchange => "modifyActivistFilter('status',$(this))" } )
+    select_tag('collaboration_status[]', options_for_select(option_list, :selected => default_value), {:id => 'activist_filter_status', :onchange => "modifyActivistFilter('status',$(this))" } )
 
   end
 
