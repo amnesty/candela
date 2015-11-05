@@ -7,8 +7,8 @@ module ActivistsCollaborationsHelper
  
   def status_options_for_select(default_value = 'status_not_leave')
     option_list = ActivistStatus.all.collect{|elem| [elem.name, "status_#{ elem.id }", :class => "collaboration_status_#{ elem.id }"] } 
-    option_list.prepend ['Alta','status_not_leave', :class => '']
-    option_list.prepend ['Todos los estados','', :class => '']
+    option_list.prepend [Gx.proper(t 'activists_collaboration.texts.status_not_leave'),'status_not_leave', :class => '']
+    option_list.prepend [Gx.proper(t 'activists_collaboration.texts.all_statuses'),'', :class => '']
     select_tag('collaboration_status[]', options_for_select(option_list, :selected => default_value), {:id => 'activist_filter_status', :onchange => "modifyActivistFilter('status',$(this))" } )
 
   end
@@ -21,6 +21,12 @@ module ActivistsCollaborationsHelper
 
   end
 
+  def responsibility_options_for_select(default_value = '')
+    option_list = Responsibility.order(:name).collect{|elem| [elem.name, "responsibility_#{ elem.id }"] } 
+    option_list.prepend [Gx.proper(t 'activists_collaboration.texts.all_responsibilities'),'', :class => '']
+    select_tag('collaboration_responsibility[]', options_for_select(option_list), {:id => 'activist_filter_responsibility', :onchange => "modifyActivistFilter('responsibility',$(this))" } )
+  end
+  
   def autonomic_team_options_for_select(autonomy, default_value = '')
     default_value = "autonomic_team_#{default_value.id}" if default_value.is_a?(AutonomicTeam)
     option_list = autonomy.autonomic_teams.collect {|team| [team.name, "autonomic_team_#{team.id}", :class => "autonomic_team_#{ team.id }"] }

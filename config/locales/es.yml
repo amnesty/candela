@@ -440,6 +440,10 @@ es:
       already_exists: ": Ya tiene una colaboración de este tipo en esta organización"
 
     texts:
+      all_responsibilities: Todas las resposabilidades
+      all_statuses: Todos los estados
+      status_not_leave: Alta
+      
       casual_collaborations: '<p>%{activist}:</p>
                                <p><span class="nice_summary_label">Responsabilidades</span>: <span class="nice_summary_field">%{responsibility}</span>,
                                   <span class="nice_summary_label">Email</span>: <span class="nice_summary_field">%{email}</span>,

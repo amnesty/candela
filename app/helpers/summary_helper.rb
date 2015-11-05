@@ -171,6 +171,7 @@ module SummaryHelper
               end
               html << status_options_for_select
               html << type_options_for_select(uniq_name)
+              html << responsibility_options_for_select
 
               html << content_tag(:p, '', {'data-base-text' => t('activists_collaboration.filtered_collaborations_count_base_text'), :id => 'organization_activists_list_counter'})
               html << "<ul  id='organization_activists_list' >"
@@ -180,6 +181,7 @@ module SummaryHelper
                 
                 collaboration_classes = ["collaboration_state_#{collaboration.activist_status.name}", collaboration.guess_collaboration_type, "status_#{collaboration.activist_status_id}"]
                 collaboration_classes << 'status_not_leave' if !collaboration.is_leave
+                collaboration_classes += collaboration.responsibility_ids.collect{|rid| "responsibility_#{rid}"}
                 collaboration_classes += collaboration.autonomic_teams.collect{|team| "autonomic_team_#{team.id}"} if organization.is_a?(Autonomy)
                 html << "<li class= '#{collaboration_classes.join(' ')}'>"
 
