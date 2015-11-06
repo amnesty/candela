@@ -10,8 +10,9 @@
             content_tag :li do
               link_to t(".quick_actions.#{action_key.to_s}"), 
                       action[:url], 
-                      :class => "font_plus_one with_icon action_#{action[:icon].to_s}",
-                      :id       => "action_link_to_#{ action_key.to_s }"
+                      :class => "font_plus_one home_link",
+                      :id       => "action_link_to_#{ action_key.to_s }",
+                      :style => "background-image: url('/assets/home_icons/#{action_key.to_s}.png');"
             end if action[:allowed]
           end.join('').html_safe
         end
