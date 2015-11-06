@@ -1,5 +1,5 @@
 class LocalOrganizationsController < ApplicationController
-  include ActionController::AIController
+  include ActionController::AIOrganizationController
 
   authorization_filter :create, :local_organization, :only => [ :new, :create ]
   

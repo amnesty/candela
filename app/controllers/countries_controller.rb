@@ -1,5 +1,5 @@
 class CountriesController < ApplicationController
-  include ActionController::AIController
+  include ActionController::AIOrganizationController
 
   authorization_filter :create, :country, :only => [ :new, :create ]
   # Organizations can be listed for all.

@@ -1,6 +1,5 @@
 class CommitteesController < ApplicationController
-  
-  include ActionController::AIController
+  include ActionController::AIOrganizationController
 
   authorization_filter :create, :committee,  :only => [ :new, :create     ]
   # Organizations can be listed for all.

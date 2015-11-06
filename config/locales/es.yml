@@ -348,6 +348,9 @@ es:
       other_actions_params: Otras acciones
       valuation_params: Valoración de la acción
 
+  __collaboration_place_entity: &_collaboration_place_entity
+    filters:
+      enabled: Activos
 
   activist:
     cant_create_collaboration_due_status: 'No se pueden crear colaboraciones mientras el activista este de baja'
@@ -503,6 +506,7 @@ es:
       <<: *_organization_sections
 
   autonomy:
+    <<: *_collaboration_place_entity
     abrev: Auton.
     title: Entidad autonómica
     talks:
@@ -528,6 +532,7 @@ es:
     <<: *_performed_action_entity
 
   committee:
+    <<: *_collaboration_place_entity
     abrev: ""
     title: Comité/Comisión
     same_address: La misma que la postal
@@ -546,6 +551,7 @@ es:
 #    <<: *_notes_entity
 
   country:
+    <<: *_collaboration_place_entity
     abrev: País
     title: País
     same_address: La misma que la postal
@@ -656,6 +662,7 @@ es:
       for_activist: "%{date}: Estado cambiado a %{status_change_name} en la colaboracion con %{organization} como %{collaboration_type}"
 
   local_organization:
+    <<: *_collaboration_place_entity
     abrev: Grupo
     one: Grupo
     other: Grupos
@@ -740,6 +747,7 @@ es:
       none: Ninguna
 
   se_team:
+    <<: *_collaboration_place_entity
     abrev: S.E.
     full_name: "Equipo %{name} del SE"
     title: "%{full_name}"

@@ -67,6 +67,7 @@ module ActiveRecord
               {  :conditions => "#{ conditions }" }
             }
             scope :only_collaborations_enabled, { :conditions => [ 'collaborations_enabled = true' ] }
+            scope :filter_enabled, lambda { |q| q.to_s.blank? ? {} : where(:enabled => q) }
             
             base.class_eval do
               # Organization default authorization if user include permission in stage

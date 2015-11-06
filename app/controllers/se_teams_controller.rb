@@ -1,5 +1,5 @@
 class SeTeamsController < ApplicationController
-  include ActionController::AIController
+  include ActionController::AIOrganizationController
 
   authorization_filter :create, :se_team, :only => [ :new, :create ]
   # Organizations can be listed for all.
