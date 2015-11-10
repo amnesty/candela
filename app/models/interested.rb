@@ -256,9 +256,8 @@ class Interested < ActiveRecord::Base
   # Show only the interesteds of the group logged in
   scope :can_see, lambda { |agent|
     if agent.is_a?(User) and agent.has_any_permission_to(:read, :interested)
-      res_scope = has_cleared_sensitive_data(false)
       lloo_ids = agent.performances.where(:stage_type => 'LocalOrganization').pluck(:stage_id)
-      lloo_ids.any? ? res_scope.where(:local_organization_id => lloo_ids) : res_scope
+      lloo_ids.any? ? {:conditions => {:local_organization_id => lloo_ids}} : {}
     else
       where('1=0')
     end
