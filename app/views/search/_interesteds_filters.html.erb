@@ -99,8 +99,20 @@
   <%= render :partial => 'show_more_row' %>
 
   <tbody id="interested_extra_fields" class="hideable" style="display: none;">
+  
+    <tr class="list_style_1">
+      <td>
+        <label><%= t('interested.filters.has_cleared_sensitive_data') %></label>
+      </td>
+      <td>
+        <% cur_selected_value = (params[:interested] ? params[:interested][:has_cleared_sensitive_data] : '0' ) %>
+        <%= select  "interested", "has_cleared_sensitive_data", [["", ""],["Si","1"],["No","0"] ], :selected => cur_selected_value %>
+      </td>    
+    </tr>
+
     <% Interested.hideable_fields.each do |field_name| %>
       <%= render :partial => 'filters_field', :locals => { :klass => 'interested', :field_name => field_name } %>
     <% end %>
+    
   </tbody>
 </table>

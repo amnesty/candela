@@ -45,9 +45,21 @@
   <%= render :partial => 'show_more_row' %>
 
   <tbody id="activist_extra_fields" class="hideable" style="display: none;">
+  
+    <tr class="list_style_1">
+      <td>
+        <label><%= t('activist.filters.has_cleared_sensitive_data') %></label>
+      </td>
+      <td>
+        <% cur_selected_value = (params[:activist] ? params[:activist][:has_cleared_sensitive_data] : '0' ) %>
+        <%= select  "activist", "has_cleared_sensitive_data", [["", ""],["Si","1"],["No","0"] ], :selected => cur_selected_value %>
+      </td>    
+    </tr>
+  
     <% Activist.hideable_fields.each do |field_name| %>
       <%= render :partial => 'filters_field', :locals => { :klass => 'activist', :field_name => field_name } %>
     <% end %>
+    
   </tbody>
 
   <tbody id="collaborations_params_fields" class="hideable" style="display: none;">
