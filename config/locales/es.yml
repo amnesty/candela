@@ -657,6 +657,12 @@ es:
       has_pending_communication: Pendiente de comunicación
       not_interested: Personas no interesadas
       with_talks: Apuntados a sesión
+    previous_history_events:
+      registered: Registro como persona interesada
+      talk: Sesión de presentación
+      migrated: Paso a activista
+      created_as_activist: Activista registrado en la web
+      
 
   interested_communication:
     texts:
@@ -980,6 +986,7 @@ es:
         skills_hobbies: Habilidades y aficiones
         collab_organizations: Colaboraciones
         notes: Seguimiento
+        previous_history: Antecedentes
         status_changes: Histórico de cambios de estado
         studies: Estudios y trabajo
 
