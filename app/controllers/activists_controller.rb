@@ -19,6 +19,7 @@ class ActivistsController < ApplicationController
   # Definitions for filters on index action
   def filters_for_index
     {
+      :has_cleared_sensitive_data => [:has_cleared_sensitive_data, true],
       :is_leave => [:is_leave, true],
       :with_related_collaborations => [:with_related_collaborations_on, current_agent]
     }
@@ -27,6 +28,7 @@ class ActivistsController < ApplicationController
   # Default values for filters on index action
   def default_filters_for_index
     {
+      :has_cleared_sensitive_data => false,
       :is_leave => false,
       :with_related_collaborations => true
     }

@@ -399,6 +399,7 @@ es:
       skills_params: 'Parámetros relacionados con las habilidades'
 
     filters:
+      has_cleared_sensitive_data: Datos borrados
       is_leave: De baja
       with_related_collaborations: Relacionados con mi estructura
 
@@ -650,6 +651,7 @@ es:
       studies_params: Estudios y trabajo
       communication_params: Comunicación
     filters:
+      has_cleared_sensitive_data: Datos borrados
       is_activist: Pasado a activista
       is_minor: Menor de edad
       has_pending_communication: Pendiente de comunicación

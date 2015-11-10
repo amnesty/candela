@@ -13,6 +13,7 @@ class InterestedsController < ApplicationController
   # Definitions for filters on index action
   def filters_for_index
     {
+      :has_cleared_sensitive_data => [:has_cleared_sensitive_data, true],
       :is_minor => [:is_minor, true],
       :has_pending_communication => [:has_pending_communication, true],
       :is_activist => [:is_activist, true],
@@ -24,6 +25,7 @@ class InterestedsController < ApplicationController
   # Default values for filters on index action
   def default_filters_for_index
     {
+      :has_cleared_sensitive_data => false,
       :is_activist => false,
       :not_interested => false,
     }
