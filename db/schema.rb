@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151013125441) do
+ActiveRecord::Schema.define(:version => 20151110095803) do
 
   create_table "academic_years", :force => true do |t|
     t.string   "year"
@@ -26,8 +26,9 @@ ActiveRecord::Schema.define(:version => 20151013125441) do
 
   create_table "activist_statuses", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
+    t.boolean  "enabled",    :default => true
   end
 
   create_table "activists", :force => true do |t|

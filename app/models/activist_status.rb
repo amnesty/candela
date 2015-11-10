@@ -1,6 +1,8 @@
 # encoding: utf-8
 class ActivistStatus < ActiveRecord::Base
 
+  default_scope where(:enabled => true) if self.column_names.include? 'enabled'
+
   def self.internship_id
     internship = find(:first, :conditions => "name = 'Prácticas'")
     if internship.nil?
