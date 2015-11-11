@@ -47,6 +47,7 @@ module InterestedsHelper
   def previous_history_events_for(interested)
     events = []
     events << {:date => interested.created_at.to_date, :info => link_to(t('interested.previous_history_events.registered'), interested)}
+    events << {:date => interested.created_at.to_date, :info => t('interested.previous_history_events.informed_through', :value => interested.informed_through.name )} if interested.informed_through.present?
     interested.communications.each{|c| events << {:date => c.timestamp.to_date, :info => h(c.communication_description)} }
     interested.talk_attendances.each {|talk_attendace| events << {
       :date => talk_attendace.talk.date.to_date, 

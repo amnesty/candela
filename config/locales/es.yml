@@ -659,6 +659,7 @@ es:
       with_talks: Apuntados a sesión
     previous_history_events:
       registered: Registro como persona interesada
+      informed_through: Pidió información a través de %{value}
       talk: Sesión de presentación
       migrated: Paso a activista
       created_as_activist: Activista registrado en la web
