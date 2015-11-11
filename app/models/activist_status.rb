@@ -4,7 +4,7 @@ class ActivistStatus < ActiveRecord::Base
   default_scope where(:enabled => true) if self.column_names.include? 'enabled'
 
   def self.internship_id
-    internship = find(:first, :conditions => "name = 'Prácticas'")
+    internship = self.unscoped.find(:first, :conditions => "name = 'Prácticas'")
     if internship.nil?
       nil
     else
@@ -13,7 +13,7 @@ class ActivistStatus < ActiveRecord::Base
   end
 
   def self.active_id
-    active = find(:first, :conditions => "name = 'Activo'")
+    active = self.unscoped.find(:first, :conditions => "name = 'Activo'")
     if active.nil?
       nil
     else
@@ -22,7 +22,7 @@ class ActivistStatus < ActiveRecord::Base
   end
 
   def self.inactive_id
-    inactive = find(:first, :conditions => "name = 'Inactivo'")
+    inactive = self.unscoped.find(:first, :conditions => "name = 'Inactivo'")
     if inactive.nil?
       nil
     else
@@ -31,7 +31,7 @@ class ActivistStatus < ActiveRecord::Base
   end
 
   def self.leave_proposed_id
-    leave_proposed = find(:first, :conditions => "name = 'Propuesto a baja'")
+    leave_proposed = self.unscoped.find(:first, :conditions => "name = 'Propuesto a baja'")
     if leave_proposed.nil?
       nil
     else
@@ -40,7 +40,7 @@ class ActivistStatus < ActiveRecord::Base
   end
 
   def self.leave_id
-    leave = find(:first, :conditions => "name = 'Baja'")
+    leave = self.unscoped.find(:first, :conditions => "name = 'Baja'")
     if leave.nil?
       nil
     else

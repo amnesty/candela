@@ -22,7 +22,7 @@ class ActivistStatusChange < EventRecord
   end
 
   def activist_status
-    ActivistStatus.find(activist_status_id)
+    ActivistStatus.unscoped.find(activist_status_id)
   end
 
   def date 
