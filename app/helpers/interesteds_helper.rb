@@ -46,16 +46,16 @@ module InterestedsHelper
 
   def previous_history_events_for(interested)
     events = []
-    events << {:date => l(interested.created_at.to_date), :info => link_to(t('interested.previous_history_events.registered'), interested)}
-    interested.communications.each{|c| events << {:date => l(c.timestamp.to_date), :info => h(c.communication_description)} }
+    events << {:date => interested.created_at.to_date, :info => link_to(t('interested.previous_history_events.registered'), interested)}
+    interested.communications.each{|c| events << {:date => c.timestamp.to_date, :info => h(c.communication_description)} }
     interested.talk_attendances.each {|talk_attendace| events << {
-      :date => l(talk_attendace.talk.date.to_date), 
+      :date => talk_attendace.talk.date.to_date, 
       :info => link_to(t('interested.previous_history_events.talk'), talk_path(talk_attendace.talk)) + "  " +  content_tag(:span, "(#{talk_attendace.h_status})", :class => "talk_attendance_status_#{talk_attendace.status}")
       }}
-    events << {:date => l(interested.activist.created_at.to_date), :info => link_to(t('interested.previous_history_events.migrated'), interested.activist )} if interested.activist.present?
+    events << {:date => interested.activist.created_at.to_date, :info => link_to(t('interested.previous_history_events.migrated'), interested.activist )} if interested.activist.present?
 
-    events
-    #events.collect{|item| content_tag :li, "#{item[:date]}: #{item[:info]}".html_safe}.join.html_safe
+    events.sort_by{|e|e[:date]}
+    #events.collect{|item| content_tag :li, "#{l item[:date]}: #{item[:info]}".html_safe}.join.html_safe
   end
   
 end

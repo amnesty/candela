@@ -81,8 +81,8 @@
       <%= summary_section(:id => 'activist_previous_history', :colspan => 2, :title => "#{Gx.t_attr("activist.sections.previous_history")}")  do  %>
         <ul>      
           <% interested = activist.interested %>
-          <% events = interested.present? ? previous_history_events_for(interested) : [{:date => l(activist.created_at.to_date), :info => t('interested.previous_history_events.created_as_activist')}] %>
-          <%= raw events.collect{|item| content_tag :li, "#{item[:date]}: #{item[:info]}".html_safe}.join %>
+          <% events = interested.present? ? previous_history_events_for(interested) : [{:date => activist.created_at.to_date, :info => t('interested.previous_history_events.created_as_activist')}] %>
+          <%= raw events.collect{|item| content_tag :li, "#{l item[:date]}: #{item[:info]}".html_safe}.join %>
         </ul>
       <% end %>
     </tr>
