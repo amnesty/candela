@@ -88,7 +88,7 @@ class InterestedsController < ApplicationController
     resource
     
     if @resource.is_minor? and not @resource.minor_checked
-      flash[:error] = t('interested.cant_be_activist_due_age')
+      flash[:error] = t('interested.fail_to_migrate.cant_be_activist_due_age')
       redirect_to interesteds_path
     elsif request.get?
       if @resource.valid_to_migrate? and @resource.to_activist!

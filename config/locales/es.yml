@@ -642,6 +642,7 @@ es:
     fail_at_send_email: 'Fallo en el envío del email.'
     cant_be_activist_due_age: 'Falta autorización de los padres/tutores'
     fail_to_migrate:
+      cant_be_activist_due_age: 'Falta autorización de los padres/tutores. Envía un mensaje a activismo@es.amnesty.org para notificar la incidencia'
       local_organization_miss: "No se puede pasar a activista. Seleccione primero una organización local para el/la interesado/a"
     form:
       form_send: "El formulario se ha enviado correctamente."
