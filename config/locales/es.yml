@@ -1400,6 +1400,7 @@ es:
       user:
         created_at: Fecha de creación
         email: Email
+        last_sign_in_at: Último acceso
         login: Login
         password: Contraseña
         password_confirmation: Confirmar contraseña

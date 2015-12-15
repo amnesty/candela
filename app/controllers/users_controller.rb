@@ -8,6 +8,13 @@ class UsersController < ApplicationController
 
   prepend_before_filter :remove_password_if_blank, :only => [ :update ]
 
+  def index
+    options = {
+        :sort => lambda { |uu| uu.order('users.last_sign_in_at IS NULL, users.last_sign_in_at DESC') }
+      }
+    super(options)
+  end
+  
 private
 
   def remove_password_if_blank
