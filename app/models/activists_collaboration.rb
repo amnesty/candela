@@ -37,6 +37,8 @@ class ActivistsCollaboration < ActiveRecord::Base
   before_save       :record_leave_at
   before_validation :record_new_activist_status
 
+  validate :validate
+  
   # Don't include organization_type because usually it is hidden in the forms
   validates_presence_of :activist_id, :organization_id, :collaboration_type, :join_at, :activist_status_id, :activist_status_changed_at
 
