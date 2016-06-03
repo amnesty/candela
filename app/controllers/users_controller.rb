@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 
   def index
     options = {
-        :sort => lambda { |uu| uu.order('users.last_sign_in_at IS NULL, users.last_sign_in_at DESC') }
+        :sort => lambda { |uu| uu.order('users.current_sign_in_at IS NULL, users.current_sign_in_at DESC') }
       }
     super(options)
   end
