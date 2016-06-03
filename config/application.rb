@@ -36,6 +36,9 @@ module AiVoluntariado
     config.i18n.default_locale = :es
     config.i18n.fallbacks = true
 
+    config.time_zone = 'Madrid'
+    config.active_record.default_timezone = :local
+    
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
