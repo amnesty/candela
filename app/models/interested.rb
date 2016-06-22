@@ -235,6 +235,7 @@ class Interested < ActiveRecord::Base
       'labour_situation_id', 'occupation_id', 
       'student', 'student_previous_degrees', 'student_place', 'student_level_id', 'student_degree', 'student_year_id', 'student_more_info',
       'informed_through_id', 'informed_through_other',
+      'how_know_id', 'comments',
       '/skills_params',
       'other_hobbies', 'other_skills', 'other_languages', 'blogger', 'wants_todo', 
       'collabtopics', 'languages', 'skills', 'hobbies',
@@ -245,11 +246,11 @@ class Interested < ActiveRecord::Base
   
   def self.conditions_columns 
     { :cont   => [ 'first_name', 'last_name', 'last_name2', 'nif', 'address', 'email', 'student_previous_degrees', 'student_place', 'student_more_info',
-                    'informed_through_other', 'other_hobbies', 'other_skills', 'other_languages', 'blogger', 'wants_todo'
+                    'informed_through_other', 'other_hobbies', 'other_skills', 'other_languages', 'blogger', 'wants_todo', 'comments'
                  ],
       :eq => ['sex_id', 'document_type', 'different_residence_country', 'cp', 'province_id', 'city', 'phone', 'mobile_phone', 
                   'labour_situation_id', 'occupation_id', 'student', 'student_level_id', 'student_degree', 'student_year_id',
-                  'informed_through_id', 'local_organization_id', 'minor_checked', 'email_sent', 'letter_sent' 
+                  'informed_through_id', 'local_organization_id', 'minor_checked', 'email_sent', 'letter_sent', 'how_know_id'
                  ],
       :date   => [ 'birth_day', 'created_at' ] }
   end
