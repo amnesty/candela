@@ -1489,6 +1489,17 @@ es:
               empty: Debes especificar un tipo de organización.
           duplicated_action: Este lugar de colaboración no puede tener dos acciones realizadas idénticas. Puede editar y modificar la acción que ya está dada de alta
 
+        civicrm_interested:
+          attributes:
+            province_id:
+              does_not_exist: La provincia no existe
+            how_know_id:
+              does_not_exist: La forma de conocer AI no existe
+            local_organization_id:
+              does_not_exist: El grupo local no existe
+            talk_id:
+              does_not_exist: La sesión de presentación no existe
+          
         committee:
           attributes:
             base:
@@ -1533,6 +1544,7 @@ es:
               birth_day_future: La fecha de nacimiento está en el futuro
               more_interesteds_than_seats: No quedan plazas para la sesión de presentación %{talk}
               already_migrated: El Interesado ya ha sido migrado.
+              email_or_phone_required: Debes introducir email o teléfono
             accepted_privacity:
               privacity_must_be_accepted: Debe aceptar la política de privacidad
             address:
