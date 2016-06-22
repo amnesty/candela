@@ -1317,6 +1317,8 @@ es:
         accepted_privacity: Política de privacidad
         not_interested_at: Fecha no interesado
         not_interested_info: Comentarios no interesado
+        how_know_id: ¿Cómo nos has conocido?
+        comments: Comentarios
 
       interested_communication:
         <<: *_event_record_attributes

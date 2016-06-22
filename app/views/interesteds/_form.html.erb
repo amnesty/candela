@@ -309,6 +309,17 @@
     <td><%= form.label :informed_through_other %></td>
     <td><%= form.text_area :informed_through_other %></td>
   </tr>
+  
+  <tr class="list_style_0">
+    <td><%= form.label :how_know_id %></td>
+    <td><%= form.select :how_know_id, HowKnow.all.collect { |p| [p.name, p.id] }, { :include_blank => true } %></td>
+  </tr>
+
+  <tr class="list_style_1">
+    <td><%= form.label :comments %></td>
+    <td><%= form.text_area :comments %></td>
+  </tr>
+  
 <% end %>
 
 <% if params[:controller] != 'public' and !form.object.new_record?%>
