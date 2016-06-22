@@ -19,14 +19,14 @@ module ActiveRecord
 #            validates_uniqueness_of :first_name, :scope => [ :last_name, :last_name2 ]
             
             # Presence
-            validates_presence_of :first_name, :last_name, :phone, :birth_day
+            validates_presence_of :first_name, :last_name, :birth_day
             
             # Numericality
-            validates_numericality_of :phone,        :on => :save, :allow_blank => false
+            validates_numericality_of :phone,        :on => :save, :allow_blank => true
             validates_numericality_of :mobile_phone, :on => :save, :allow_blank => true
             
              # Length of
-            validates_length_of :phone,        :is => 9, :allow_blank => false
+            validates_length_of :phone,        :is => 9, :allow_blank => true
             validates_length_of :mobile_phone, :is => 9, :allow_blank => true
             validates_length_of :nif,          :in => 6..9, :allow_blank => true, :if => Proc.new{|a| a.document_type == 'NIF' }, :message => Gx.t_error('activist.nif.invalid_length')
 	    

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20151110095803) do
+ActiveRecord::Schema.define(:version => 20160620103129) do
 
   create_table "academic_years", :force => true do |t|
     t.string   "year"
@@ -315,6 +315,29 @@ ActiveRecord::Schema.define(:version => 20151110095803) do
     t.string   "cp",          :limit => 5
   end
 
+  create_table "civicrm_interesteds", :force => true do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "last_name2"
+    t.date     "birth_day"
+    t.integer  "province_id"
+    t.string   "cp",                    :limit => 5
+    t.string   "city"
+    t.string   "phone",                 :limit => 12
+    t.string   "mobile_phone",          :limit => 12
+    t.string   "email"
+    t.integer  "local_organization_id"
+    t.integer  "talk_id"
+    t.integer  "country_id"
+    t.string   "how_know_id"
+    t.text     "comments"
+    t.integer  "interested_id"
+    t.date     "exported_at"
+    t.text     "export_errors"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+  end
+
   create_table "collabtopics", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -453,6 +476,12 @@ ActiveRecord::Schema.define(:version => 20151110095803) do
     t.integer "hobby_id"
   end
 
+  create_table "how_knows", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "hr_school_levels", :force => true do |t|
     t.string   "name"
     t.datetime "created_at", :null => false
@@ -567,6 +596,8 @@ ActiveRecord::Schema.define(:version => 20151110095803) do
     t.string   "email_2"
     t.datetime "not_interested_at"
     t.text     "not_interested_info"
+    t.integer  "how_know_id"
+    t.text     "comments"
   end
 
   create_table "interesteds_languages", :id => false, :force => true do |t|

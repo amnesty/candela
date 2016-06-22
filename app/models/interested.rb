@@ -11,7 +11,7 @@ class Interested < ActiveRecord::Base
                   :labour_situation_id, :occupation_id, 
                   :student_previous_degrees, :student, :student_place, :student_level_id, :student_degree, :student_year_id, :student_more_info, 
                   :collabtopic_ids, :language_ids, :skill_ids, :other_skills, :hobby_ids, :blogger, :other_hobbies, 
-                  :wants_todo, :informed_through_id, :informed_through_other,
+                  :wants_todo, :informed_through_id, :informed_through_other, :how_know_id, :comments,
                   :set_not_interested, :not_interested_at, :not_interested_info, 
                   :minor_checked, :accepted_privacity
 
@@ -22,6 +22,7 @@ class Interested < ActiveRecord::Base
   attr_accessor :verify_privacity
   attr_accessor :accepted_privacity
   attr_accessor :from_public
+  attr_accessor :from_civicrm
   attr_accessor :set_not_interested
   
   validates_presence_of :local_organization_id
@@ -35,9 +36,13 @@ class Interested < ActiveRecord::Base
   belongs_to :local_organization
   belongs_to :activist
   
+  belongs_to :how_know
+  
   #validates_uniqueness_of :nif, :scope => [ :document_type ]
 
   before_create :sent_contact_email
+  
+  validates_presence_of :phone, :if => Proc.new{|r| !r.from_civicrm }
   
   validates_format_of :first_name, :last_name, :with => REGEXP_ONLY_ALPHA, :on => :save,
                       :message => I18n.t('activerecord.errors.messages.cant_contain_digits')
@@ -51,6 +56,8 @@ class Interested < ActiveRecord::Base
   validates_numericality_of :cp, :on => :save, :allow_blank => true
   validates_length_of :cp, :is => 5, :allow_blank => true
 
+  validate :validate_civicrm_record, :if => Proc.new{|r| r.from_civicrm }
+  
   scope :is_minor, lambda { |q| q.to_s.blank? ? {} : { :conditions => "birth_day" + (Gx.to_boolean(q) ? " > '" : " <= '") + self.minor_birth_date.to_s(:db) + "'" } }
   
   scope :is_activist, lambda { |q| q.to_s.blank? ? {} : (Gx.to_boolean(q) ? where('activist_id IN (?)',Activist.pluck(:id)) : where('activist_id IS NULL OR activist_id NOT IN (?)',Activist.pluck(:id))) }
@@ -198,6 +205,12 @@ class Interested < ActiveRecord::Base
     end
   end
 
+  def validate_civicrm_record
+    if email.blank? && phone.blank?
+      self.errors.add :base, Gx.t_error("interested.base.email_or_phone_required" )
+    end
+  end
+  
   def self.document_types
     I18n.t('activist.document_types')
   end
