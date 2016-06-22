@@ -206,7 +206,7 @@ class Interested < ActiveRecord::Base
   end
 
   def validate_civicrm_record
-    if email.blank? && phone.blank?
+    if email.blank? && phone.blank? && mobile_phone.blank?
       self.errors.add :base, Gx.t_error("interested.base.email_or_phone_required" )
     end
   end
