@@ -115,10 +115,11 @@ class ActivistsController < ApplicationController
 
   def image
     set_resource
-    if @activist.image.file?
+    if @activist.image.file?  && File.exists?(@activist.image.path)
       send_file @activist.image.path, :type => @activist.image.content_type
     else
-      redirect_to @activist.image.url
+      #redirect_to @activist.image.url
+      send_file Rails.application.assets['original/missing.png']
     end
   end
       
