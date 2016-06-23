@@ -11,6 +11,8 @@ class ActivistsController < ApplicationController
   
   authorization_filter :leave,   :activist, :only => [ :rejoin, :leave ]
   authorization_filter :clear,   :activist, :only => [ :clear ]
+
+  # authorization_filter :view_image,   :activist, :only => [ :images ]
   
   before_filter        :update_different_country_location, :only => [ :create, :update ]
   before_filter        :set_controller_only_validations, :only => [ :create, :update ]
@@ -111,6 +113,15 @@ class ActivistsController < ApplicationController
     end
   end
 
+  def image
+    set_resource
+    if @activist.image.file?
+      send_file @activist.image.path, :type => @activist.image.content_type
+    else
+      redirect_to @activist.image.url
+    end
+  end
+      
   private
 
   def check_empty_collaborations_for_activist

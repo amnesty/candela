@@ -54,6 +54,16 @@
     <td></td>
   </tr>
 
+
+  <tr class="list_style_0">
+    <td><%= form.label :image %></td>
+    <td>
+      <%= image_tag(form.object.image.url, :alt => 'Imagen', :style => "width:300px;") if form.object.image.file? %>
+      <%= content_tag(:div, 'Sin imagen') unless form.object.image.file? %>
+      <%= form.file_field(:image, accept:'image/*') unless form.options[:disabled] %>
+    </td>
+  </tr>
+
   <tr class="list_style_1">
     <td><%= form.label_required :first_name %></td>
     <td><%= form.text_field :first_name %></td>

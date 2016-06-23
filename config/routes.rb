@@ -40,6 +40,7 @@ AiVoluntariado::Application.routes.draw do
       get :rejoin
       get :admin_request
       put :send_admin_request
+      get :image
     end
 
     resources :activists_collaborations do 

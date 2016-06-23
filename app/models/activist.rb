@@ -9,6 +9,7 @@ class Activist < ActiveRecord::Base
                   :join_at, :other_information, :labour_situation_id, :occupation_id, 
                   :student_previous_degrees, :student, :student_place, :student_level_id, :student_degree, :student_year_id, :student_more_info, 
                   :data_protection_agreement, :informed_through_id, :informed_through_other, :collabtopic_ids, :language_ids, :skill_ids, :other_skills, :hobby_ids, :other_hobbies, :blogger,
+                  :image,
                   :leave_at, :leave_reason_id, :leave_more_info
 
   audited :on => [:create,:update,:destroy]
@@ -18,7 +19,17 @@ class Activist < ActiveRecord::Base
   SET_TO_LEAVE_AFTER = 2.days
 
   before_destroy :check_collaborations
-   
+
+  has_attached_file :image, 
+    styles: { original: "400x400>", thumb: "100x100>" }, 
+    path: ':rails_root/system-private/:class/:attachment/:id/:style/:basename.:extension',
+    url: '/:class/:id/image',
+    default_url: "/assets/:style/missing.png"
+    
+  validates_attachment :image, presence: true, 
+    size: { in: 0..5.megabytes },
+    content_type: { content_type: /\Aimage\/.*\Z/ }
+  
   belongs_to :leave_reason
   
   has_one :interested

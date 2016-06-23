@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160623095234) do
+ActiveRecord::Schema.define(:version => 20160623154225) do
 
   create_table "academic_years", :force => true do |t|
     t.string   "year"
@@ -75,6 +75,10 @@ ActiveRecord::Schema.define(:version => 20160623095234) do
     t.string   "dedication_hours"
     t.boolean  "in_person_collaboration"
     t.boolean  "remote_collaboration"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   create_table "activists_collaborations", :force => true do |t|

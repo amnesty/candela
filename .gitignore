@@ -25,6 +25,7 @@ Capfile
 
 # Ignore application attachments
 /public/system
+/system-private
 
 # Ignore project files and initialization scripts for development
 .rvmrc

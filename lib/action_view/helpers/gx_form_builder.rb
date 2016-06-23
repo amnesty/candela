@@ -115,6 +115,10 @@ module ActionView
         text_field(method, options.merge(html_options))
       end
       
+      def file_field(method, options = {})
+        super(method, self.options.merge(options) )
+      end
+      
       def select_province(method, options = {}, html_options = {})
         prefix           = "#{ options.delete(:name_prefix) }" || ''
         collection       = Province.orderby_name.collect { |p| [p.name, p.id] }

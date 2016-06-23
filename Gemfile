@@ -18,6 +18,8 @@ gem 'ransack'
 gem 'settingslogic'
 gem 'exception_notification'
 
+gem 'paperclip', '~> 4.3'
+
 # Uncomment to profile controller actions.  
 #gem 'rack-mini-profiler'
 
