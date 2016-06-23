@@ -54,15 +54,16 @@
     <td></td>
   </tr>
 
-
+<% if form.object.authorize?(:view_image, :to => current_agent) %>
   <tr class="list_style_0">
     <td><%= form.label :image %></td>
     <td>
       <%= image_tag(form.object.image.url, :alt => 'Imagen', :style => "width:300px;") if form.object.image.file? %>
       <%= content_tag(:div, 'Sin imagen') unless form.object.image.file? %>
-      <%= form.file_field(:image, accept:'image/*') unless form.options[:disabled] %>
+      <%= form.file_field(:image, accept:'image/*') if !form.options[:disabled] && form.object.authorize?(:update_image, :to => current_agent) %>
     </td>
   </tr>
+<% end %>
 
   <tr class="list_style_1">
     <td><%= form.label_required :first_name %></td>

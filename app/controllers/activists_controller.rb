@@ -12,7 +12,7 @@ class ActivistsController < ApplicationController
   authorization_filter :leave,   :activist, :only => [ :rejoin, :leave ]
   authorization_filter :clear,   :activist, :only => [ :clear ]
 
-  # authorization_filter :view_image,   :activist, :only => [ :images ]
+  authorization_filter :view_image, :activist, :only => [ :image ]
   
   before_filter        :update_different_country_location, :only => [ :create, :update ]
   before_filter        :set_controller_only_validations, :only => [ :create, :update ]

@@ -274,7 +274,8 @@ es:
       create_email: Enviar email a
       leave: Dar de alta / baja
       clear: Limpiar información personal de
-      
+      view_image: Ver la imagen de
+      update_image: Modificar la imagen de
 
     confirm_delete: ¿Estas seguro/a de que quieres borrar %{model}?
     fast_search: Búsqueda rápida
