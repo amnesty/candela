@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160620103129) do
+ActiveRecord::Schema.define(:version => 20160623094117) do
 
   create_table "academic_years", :force => true do |t|
     t.string   "year"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(:version => 20160620103129) do
     t.string   "dedication_hours"
     t.boolean  "in_person_collaboration"
     t.boolean  "remote_collaboration"
+    t.integer  "id_civicrm"
   end
 
   create_table "activists_collaborations", :force => true do |t|
