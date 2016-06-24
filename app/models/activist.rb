@@ -9,7 +9,7 @@ class Activist < ActiveRecord::Base
                   :join_at, :other_information, :labour_situation_id, :occupation_id, 
                   :student_previous_degrees, :student, :student_place, :student_level_id, :student_degree, :student_year_id, :student_more_info, 
                   :data_protection_agreement, :informed_through_id, :informed_through_other, :collabtopic_ids, :language_ids, :skill_ids, :other_skills, :hobby_ids, :other_hobbies, :blogger,
-                  :image,
+                  :image, :delete_image,
                   :leave_at, :leave_reason_id, :leave_more_info
 
   audited :on => [:create,:update,:destroy]
@@ -29,6 +29,13 @@ class Activist < ActiveRecord::Base
   validates_attachment :image, presence: true, 
     size: { in: 0..5.megabytes },
     content_type: { content_type: /\Aimage\/.*\Z/ }
+    
+  attr_accessor :delete_image
+  before_save :delete_image?
+  def delete_image?
+    image.clear if delete_image
+  end
+    
   
   belongs_to :leave_reason
   
