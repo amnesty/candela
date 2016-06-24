@@ -1,5 +1,32 @@
 /*TODO: Uncomment each function when needed, to have some control over what code is used and how... */
 
+/*** Attached image preview on forms ***/
+
+  function defineImageAttachmentPreview(fileFormElemId, imgElemId) {
+    $('#'+fileFormElemId).on('change', function() {
+      var files = document.getElementById(fileFormElemId).files;
+      var f = files[0];
+      updateImagePreview(f,imgElemId);
+    });
+    //document.getElementById(fileFormElemId).addEventListener('change', onImageAttachmentFileChanged, false);
+  }
+
+  function updateImagePreview(file,imgElemId) {
+    // Only process image files.
+    if (file.type.match('image.*')) {
+      var reader = new FileReader();
+      reader.onload = (function(theFile) {
+        return function(e) {
+          // alert(e.target.result);
+          document.getElementById(imgElemId).src=e.target.result;
+        };
+      })(file);
+
+    // Read in the image file as a data URL.
+    reader.readAsDataURL(file);
+    }    
+  }
+  
 /*** Default configuration for jQuery datepicker ***/
 
 $.datepicker.setDefaults($.datepicker.regional["es"]);

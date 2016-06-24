@@ -59,12 +59,14 @@
     <td><%= form.label :image %></td>
     <td>
       <div>
-        <%= form.object.image.file? ? image_tag(form.object.image.url, :alt => 'Imagen', :style => "height:200px;") : 'Sin imagen' %>
+        <%= form.object.image.file? ? image_tag(form.object.image.url, :id => 'activist_image_preview', :alt => 'Imagen', :style => "height:200px;") : 'Sin imagen' %>
       </div>
-      <%= form.file_field(:image, accept:'image/*') if !form.options[:disabled] && form.object.authorize?(:update_image, :to => current_agent) %>
+      <%= form.file_field(:image, id: 'activist_image_upload', accept:'image/*') if !form.options[:disabled] && form.object.authorize?(:update_image, :to => current_agent) %>
+      <script>defineImageAttachmentPreview('activist_image_upload', 'activist_image_preview');</script>
     </td>
   </tr>
 <% end %>
+
 
   <tr class="list_style_1">
     <td><%= form.label_required :first_name %></td>
