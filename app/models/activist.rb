@@ -33,7 +33,7 @@ class Activist < ActiveRecord::Base
   attr_accessor :delete_image
   before_save :delete_image?
   def delete_image?
-    image.clear if delete_image
+    image.clear if Gx.to_boolean(delete_image)
   end
     
   
