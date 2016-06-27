@@ -2,31 +2,32 @@
 
 /*** Attached image preview on forms ***/
 
-  function defineImageAttachmentPreview(fileFormElemId, imgElemId) {
-    $('#'+fileFormElemId).on('change', function() {
-      var files = document.getElementById(fileFormElemId).files;
-      var f = files[0];
-      updateImagePreview(f,imgElemId);
+  function initializeImageAttachmentFormElement(containerSelector) {
+    var fileInput = $(containerSelector + ' input[type="file"]');
+    fileInput.on('change', function() {
+      var files = this.files;
+      var file = files[0];
+      var previewContainer = $(containerSelector + ' .image-preview-container');
+      var imgElem = $(containerSelector + ' .image-preview-container img');
+
+      // Only process image files.
+      if (file.type.match('image.*')) {
+        var reader = new FileReader();
+        reader.onload = (function(theFile) {
+          return function(e) {
+            imgElem[0].src=e.target.result;
+            previewContainer.removeClass('no-image');
+            previewContainer.addClass('with-image');
+          };
+        })(file);
+
+      // Read in the image file as a data URL.
+      reader.readAsDataURL(file);
+      }  
+    
     });
-    //document.getElementById(fileFormElemId).addEventListener('change', onImageAttachmentFileChanged, false);
   }
 
-  function updateImagePreview(file,imgElemId) {
-    // Only process image files.
-    if (file.type.match('image.*')) {
-      var reader = new FileReader();
-      reader.onload = (function(theFile) {
-        return function(e) {
-          // alert(e.target.result);
-          document.getElementById(imgElemId).src=e.target.result;
-        };
-      })(file);
-
-    // Read in the image file as a data URL.
-    reader.readAsDataURL(file);
-    }    
-  }
-  
 /*** Default configuration for jQuery datepicker ***/
 
 $.datepicker.setDefaults($.datepicker.regional["es"]);

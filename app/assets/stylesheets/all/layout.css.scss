@@ -541,3 +541,29 @@ font-weight: bold;
     background-size: 22px 22px;
   }
   
+/*** ACTIVIST IMAGES ***/
+
+#image-attachment-form-element-container {
+  
+  .image-preview-container {
+    img {
+      height: 200px;
+    }
+  }
+
+  .image-preview-container.no-image:before {
+    content: 'Sin imagen';
+  }
+
+  .image-preview-container.no-image img {
+    display: none;
+  }
+
+  .image-delete-container input {
+    width: 20px; 
+    margin-top: 3px;
+  }
+}
+
+
+  

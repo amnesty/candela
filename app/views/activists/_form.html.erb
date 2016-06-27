@@ -57,21 +57,23 @@
 <% if form.object.authorize?(:view_image, :to => current_agent) %>
   <tr class="list_style_0">
     <td><%= form.label :image %></td>
-    <td>
-      <div>
-        <%= form.object.image.file? ? image_tag(form.object.image.url, :id => 'activist_image_preview', :alt => 'Imagen', :style => "height:200px;") : 'Sin imagen' %>
+    <td id='image-attachment-form-element-container'>
+      <div class='image-preview-container <%= form.object.image.file? ? 'with-image' : 'no-image' %>'>
+        <%= image_tag(form.object.image.url, :id => 'activist_image_preview', :alt => 'Imagen') %>
       </div>
       <% if !form.options[:disabled] && form.object.authorize?(:update_image, :to => current_agent) %>
-        <div>
+        <div class="image-modify-container">
           <%= form.file_field(:image, id: 'activist_image_upload', accept:'image/*') %>
-          <script>defineImageAttachmentPreview('activist_image_upload', 'activist_image_preview');</script>
+          <script>initializeImageAttachmentFormElement('#image-attachment-form-element-container');</script>
         </div>
+
         <% if form.object.image.file? %>
-          <div>
-            <%= form.check_box :delete_image, :style => "width: 20px; margin-top: 3px;", :onclick => "$('#activist_image_preview, #activist_image_upload').toggle()" %>
+          <div class="image-delete-container">
+            <%= form.check_box :delete_image, :onclick => "$('.image-preview-container, .image-modify-container').toggle()" %>
             <span>Eliminar imagen</span>
           </div>
-        <% end %>    
+        <% end %>   
+
       <% end %>    
     </td>
   </tr>
