@@ -42,8 +42,11 @@ class CivicrmInterested < ActiveRecord::Base
     interested.from_civicrm = true
      
     if interested.save  
-      update_attributes :exported_at => Time.now, :export_errors => nil, :interested_id => interested.id
-      puts "Interested ##{interested.id} created from CiviCRM record ##{self.id}" if options[:verbose]
+      if update_attributes(:exported_at => Time.now, :export_errors => nil, :interested_id => interested.id)
+        puts "Interested ##{interested.id} created from CiviCRM record ##{self.id}" if options[:verbose]
+      else 
+        "ERROR: Interested ##{interested.id} created from CiviCRM record ##{self.id}, but the CiviCRM Record could not be updated!!" if options[:verbose]
+      end
       
     else    
       update_attribute :export_errors, interested.errors.as_json
@@ -64,6 +67,7 @@ class CivicrmInterested < ActiveRecord::Base
   
   def self.export_pending(options = {})
     options[:verbose] ||= false
+    puts "No pending records to export" if options[:verbose] && CivicrmInterested.pending.empty?
     CivicrmInterested.pending.each{|ci| ci.export(options) }
   end
   
