@@ -26,7 +26,7 @@ class Activist < ActiveRecord::Base
     url: '/:class/:id/image',
     default_url: "/assets/:style/missing.png"
     
-  validates_attachment :image, presence: true, 
+  validates_attachment :image, 
     size: { in: 0..5.megabytes },
     content_type: { content_type: /\Aimage\/.*\Z/ }
     
