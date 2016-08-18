@@ -17,14 +17,14 @@ module ActiveRecord
             validates_uniqueness_of :name
             
             # Presence
-            validates_presence_of :phone, :address, :cp, :province_id, :city, :email
+            validates_presence_of :address, :cp, :province_id, :city, :email
     
             # Numericality
             validates_numericality_of :phone, :cp, :fax, :postal_cp, :delivery_cp, :delivery_phone, :on => :save, :allow_blank => true
             
     
             # Length of
-            validates_length_of :phone,          :is => 9, :allow_blank => false
+            validates_length_of :phone,          :is => 9, :allow_blank => true
             validates_length_of :delivery_phone, :is => 9, :allow_blank => true
             validates_length_of :cp,             :is => 5, :allow_blank => false
             validates_length_of :fax,            :is => 9, :allow_blank => true

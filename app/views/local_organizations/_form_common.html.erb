@@ -34,7 +34,7 @@
   </tr>
 
   <tr class="list_style_0">
-    <td><%= form.label_required :phone %></td>
+    <td><%= form.label :phone %></td>
     <td><%= form.text_field :phone, :maxlength => 12  %></td>
   </tr>
 
@@ -44,17 +44,17 @@
   </tr>
 
   <tr class="list_style_0">
-    <td><%= form.label :province_id %></td>
+    <td><%= form.label_required :province_id %></td>
     <td><%= form.select_province :province_id %></td>
   </tr>
 
   <tr class="list_style_1">
-    <td><%= form.label :city %></td>
+    <td><%= form.label_required :city %></td>
     <td><%= form.select_city :city %></td>
   </tr>
 
   <tr class="list_style_0">
-    <td><%= form.label :cp %></td>
+    <td><%= form.label_required :cp %></td>
     <td><%= form.cp_field :cp %></td>
   </tr>
 
