@@ -21,7 +21,7 @@ class CivicrmInterested < ActiveRecord::Base
   def export(options = {})
     options[:verbose] ||= false
     
-    if !valid_data?
+    if !check_duplicated_interested || !valid_data?
       update_attribute :export_errors, self.errors.as_json
       puts "Input data validation errors creating interested from CiviCRM record ##{self.id}: #{export_errors.inspect}" if options[:verbose]
       return false
@@ -55,6 +55,19 @@ class CivicrmInterested < ActiveRecord::Base
     
     interested.valid?
   end
+
+  def check_duplicated_interested
+    if self.email && Interested.find_by_email(self.email)
+      self.errors.add(:email, :taken )
+      begin
+        ApplicationMailer.civicrm_duplicated_interested_email(self).deliver 
+        update_attribute :duplicated_warning_sent_at, Time.now
+      rescue Exception => e       
+        self.errors.add(:email, :error_sending_duplicated_interested_email )
+      end if duplicated_warning_sent_at.nil?
+    end     
+  end
+  
   
   def valid_data?
     errors.add(:province_id, :does_not_exist) if province_id.present? && !Province.find_by_id(province_id)

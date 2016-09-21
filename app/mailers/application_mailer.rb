@@ -73,6 +73,13 @@ class ApplicationMailer < ActionMailer::Base
          :subject =>  "Alerta de nuevos interesados: #{ local_organization.full_name }"
   end
 
+  def civicrm_duplicated_interested_email(civicrm_interested)
+    @civicrm_interested = civicrm_interested
+    mail :to => @civicrm_interested.email, 
+         :bcc => Settings.application_mailer.bcc,
+         :subject =>  "Tu email ya está registrado como interesado en colaborar con nosotros"
+  end
+  
   # Sends weekly interested emails FOR THE WEEK THE PROVIDED DATE IS INTO
   def send_weekly_interesteds_alerts_for(date)
       get_new_interesteds_from_last_week = Interested.find(:all, :conditions => ['created_at >= ? AND created_at < ?', date.beginning_of_week, date.end_of_week ])

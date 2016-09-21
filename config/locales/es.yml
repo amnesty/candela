@@ -1493,6 +1493,8 @@ es:
 
         civicrm_interested:
           attributes:
+            email:
+              error_sending_duplicated_interested_email: Error enviando email de interesado duplicado
             province_id:
               does_not_exist: La provincia no existe
             how_know_id:

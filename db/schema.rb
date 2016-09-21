@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20160623154225) do
+ActiveRecord::Schema.define(:version => 20160921080319) do
 
   create_table "academic_years", :force => true do |t|
     t.string   "year"
@@ -325,10 +325,10 @@ ActiveRecord::Schema.define(:version => 20160623154225) do
     t.string   "last_name2"
     t.date     "birth_day"
     t.integer  "province_id"
-    t.string   "cp",                    :limit => 5
+    t.string   "cp",                         :limit => 5
     t.string   "city"
-    t.string   "phone",                 :limit => 12
-    t.string   "mobile_phone",          :limit => 12
+    t.string   "phone",                      :limit => 12
+    t.string   "mobile_phone",               :limit => 12
     t.string   "email"
     t.integer  "local_organization_id"
     t.integer  "talk_id"
@@ -338,9 +338,10 @@ ActiveRecord::Schema.define(:version => 20160623154225) do
     t.integer  "interested_id"
     t.date     "exported_at"
     t.text     "export_errors"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
     t.integer  "civicrm_contact_id"
+    t.datetime "duplicated_warning_sent_at"
   end
 
   create_table "collabtopics", :force => true do |t|
