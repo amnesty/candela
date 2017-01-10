@@ -112,7 +112,7 @@ module ActiveRecord
           end
         end
         def same_address_for_deliver_and_postal?
-          self.postal_cp.eql?(self.delivery_cp) and self.postal_city.eql?(self.delivery_city) and self.postal_province_id.eql?(self.delivery_province_id)
+          self.postal_cp.eql?(self.delivery_cp) and self.postal_city.eql?(self.delivery_city) and self.postal_province_id.eql?(self.delivery_province_id) and self.postal_address.eql?(self.delivery_address)
         end
 
         def email_addresses
