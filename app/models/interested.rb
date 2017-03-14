@@ -42,8 +42,6 @@ class Interested < ActiveRecord::Base
 
   before_create :sent_contact_email
   
-  validates_presence_of :phone, :if => Proc.new{|r| !r.from_civicrm }
-  
   validates_format_of :first_name, :last_name, :with => REGEXP_ONLY_ALPHA, :on => :save,
                       :message => I18n.t('activerecord.errors.messages.cant_contain_digits')
   validates_format_of :last_name2, :with => REGEXP_ONLY_ALPHA,
