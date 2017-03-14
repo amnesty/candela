@@ -202,7 +202,7 @@ class Activist < ActiveRecord::Base
   end
 
   def self.searcheable_fields
-    [unhideable_fields, hideable_fields, 'activists_collaboration.organization_type' , 'activists_collaboration.collaboration_type', 
+    [unhideable_fields, hideable_fields, 'is_partner?',  'activists_collaboration.organization_type' , 'activists_collaboration.collaboration_type', 
       'activists_collaboration.activist_status_id', 'activists_collaboration.organization_id', 'activists_collaboration.responsibilities', 'activists_collaboration.expertises' ].flatten
   end
 
@@ -269,6 +269,10 @@ class Activist < ActiveRecord::Base
    occupation_id.nil? ? "" : occupation.name
   end
 
+  def is_partner? 
+    partnership_id.present?
+  end
+  
   def has_no_active_collaborations
     activists_collaborations.empty? or activists_collaborations.count == activists_collaborations.select{|ac| ac.is_leave }.count
   end
