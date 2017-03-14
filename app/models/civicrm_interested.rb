@@ -32,6 +32,7 @@ class CivicrmInterested < ActiveRecord::Base
       :province_id, :local_organization_id, :how_know_id, :comments,
       ]
     interested_data = self.serializable_hash :only => straightforward_fields      
+    interested_data[:last_name2] = '' if interested_data[:last_name2].nil?
     interested_data[:talk_ids] = self.talk_id if self.talk_id
 
     interested = Interested.new(interested_data)
