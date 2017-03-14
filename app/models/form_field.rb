@@ -6,7 +6,7 @@ class FormField
     @klass = klass
     @field_name = convert_field_name_id_to_relation(klass,field_name)
 
-    @field = self.class.cascaded_association_from_name(klass,@field_name) || self.class.column_from_name(klass,@field_name) || self.class.association_from_name(klass,@field_name) || self.class.phrase_translation_from_name(klass,@field_name)
+    @field = self.class.cascaded_association_from_name(klass,@field_name) || self.class.column_from_name(klass,@field_name) || self.class.association_from_name(klass,@field_name) || self.class.phrase_translation_from_name(klass,@field_name) || self.class.instance_method_from_name(klass,@field_name)
   end
 
   def klass
@@ -46,6 +46,10 @@ class FormField
 #    !(is_cascaded_association?(@field) || is_direct_association?(@field))
   end
 
+  def is_instance_method?
+    @field.is_a?(Symbol) && @klass.instance_methods.include?(@field)
+  end
+  
   def needs_translation?
     @klass.respond_to?('column_translations') && @klass.column_translations.has_key?(@field_name)
   end
@@ -61,6 +65,8 @@ class FormField
       @field.collection? ? "#{ @field.name.to_s.singularize }_ids" : "#{ @field.name.to_s }_id"
     elsif is_column?
       @field.name
+    elsif is_instance_method?
+      @field.to_s
     else
       Rails.logger.error "FormField.form_field_name : Unknown field type for field named '#{field_name}'"
     end
@@ -73,6 +79,8 @@ class FormField
     elsif is_direct_association?
       Gx.t_attr("#{@klass.name.underscore}.#{ form_field_name }")
     elsif is_column?
+      Gx.t_attr("#{@klass.name.underscore}.#{ form_field_name }")
+    elsif is_instance_method?
       Gx.t_attr("#{@klass.name.underscore}.#{ form_field_name }")
     else
       Rails.logger.error "FormField.translated_field_name : Unknown field type for field named '#{field_name}'"
@@ -128,6 +136,9 @@ class FormField
         ret = resource.send(ff.field_name)
 #      end
 
+    elsif ff.is_instance_method?
+      ret = resource.send(ff.field_name)
+
     else
       Rails.logger.error "FormField.evaluate_field : Unknown class or field type for field named '#{field_name}'"
       ret = "FormField.evaluate_field : Unknown class or field type for field named '#{field_name}'"
@@ -162,6 +173,9 @@ class FormField
           html << "Field '#{ @field_name }' can't be rendered: Association '#{ @field.macro.to_s }' not yet implemented."
         end
 
+      elsif is_instance_method?
+        html << "Instance method form controls: ToDo"
+        
       # Column (column attribute from this table)
       else
         search_logic_field_name = "#{ @field.name }_#{ @klass.condition_type_for_column(@field.name) }"
@@ -204,4 +218,9 @@ private
     elems = field_name.split('.')
     elems.length > 1 ? [ elems[0], FormField.new(elems[0].camelize.constantize,elems[1]) ] : nil
   end
+  
+  def self.instance_method_from_name(klass,field_name)
+    klass.instance_methods.include?(field_name.to_sym) ? field_name.to_sym : nil
+  end
+  
 end
