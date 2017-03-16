@@ -499,4 +499,16 @@ function onActivistSearchCollaborationOrganizationTypeChange(ctrl,ev)
     groupTypeInput.val('');
     groupTypeRow.hide('');
   }
+  
+  var autonomicTeamsInput = $('#activist_activists_collaborations_autonomic_teams_id_eq'); 
+  var autonomicTeamsRow = autonomicTeamsInput.closest('tr');
+  if (organizationTypeInput.val() == 'Autonomy')
+  {
+    autonomicTeamsRow.show();
+  }
+  else
+  {
+    autonomicTeamsInput.val('');
+    autonomicTeamsRow.hide('');
+  }  
 }
