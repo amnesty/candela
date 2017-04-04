@@ -64,8 +64,7 @@ class ActivistsController < ApplicationController
   
   def clear
     set_resource
-    @activist.clear_sensitive_data
-    unless @activist.save(:validate => false)
+    unless @activist.clear_sensitive_data!
       flash[:error] = @activist.errors.to_xml
     end
     redirect_to url_for(:action => "show")
@@ -93,11 +92,13 @@ class ActivistsController < ApplicationController
       else
         resource
         if params[:clear_activist] and @resource.authorize?(:clear, :to => current_agent)
-          @resource.clear_sensitive_data
+          op_success = @resource.clear_sensitive_data!
+        else
+          op_success = @resource.save
         end
         respond_to do |format|
           format.html {
-            if @resource.save(:validate => false)
+            if op_success
               flash[:success] = t(:updated, :scope => @resource.class.to_s.underscore)
               redirect_to :action => :show, :referer => params[:referer]
             else

@@ -289,6 +289,19 @@ class Activist < ActiveRecord::Base
     self.document_type = "Otros"
   end
 
+  def clear_sensitive_data!(options = {})
+    options[:clear_interested_data] = true if options[:clear_interested_data].nil?
+    clear_sensitive_data
+    if save(:validate => false)
+      if options[:clear_interested_data] && self.interested
+        self.interested.clear_sensitive_data
+        return self.interested.save
+      end
+      return true
+    else return false
+    end
+  end
+  
   def cleared_sensitive_data?
     !leave_at.nil? && self.first_name == "id=#{self.id}" && self.last_name == "Borrado"
   end
