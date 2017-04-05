@@ -229,6 +229,7 @@ es:
       destroy: Borrar
       disable: Desactivar
       edit:   Editar
+      edit_status: Cambiar estado
       enable: Activar
       fast_search: Buscar
       index:  Listado
@@ -1456,8 +1457,12 @@ es:
               conflicting_dates: La fecha de inicio de la colaboración no puede ser anterior a la fecha de alta del activista.
               join_date_future: La fecha de alta está en el futuro
               status_change_date_future: La fecha de cambio de estado está en el futuro
+              status_change_date_before_previous: La fecha de cambio de estado es anterior al inicio del último cambio de estado
               organization_disabled: La organización elegida no está activa.
 
+            activist_status_id:
+              unchanged: No se ha cambiado el estado de la colaboración
+              
         alert:
           attributes:
             base:

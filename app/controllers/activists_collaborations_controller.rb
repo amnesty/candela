@@ -7,7 +7,7 @@ class ActivistsCollaborationsController < ApplicationController
 
   authorization_filter :create, :activists_collaboration, :only => [ :new, :create ]
   authorization_filter :read,   :activists_collaboration, :only => [ :show, :index ]
-  authorization_filter :update, :activists_collaboration, :only => [ :edit, :update]
+  authorization_filter :update, :activists_collaboration, :only => [ :edit, :update, :edit_status, :update_status]
   authorization_filter :destroy, :activists_collaboration, :only => [ :delete, :destroy ]
   
   before_filter :set_organization, :only => [ :create ]
@@ -21,6 +21,23 @@ class ActivistsCollaborationsController < ApplicationController
     super(options)
   end
 
+  def edit_status
+      resource
+  end
+
+  def update_status  
+    resource
+    @resource.set_activist_status_change = true
+    
+    if @resource.save
+      flash[:success] = t(:updated, :scope => @resource.class.to_s.underscore)
+      redirect_to update_with_success
+    else
+      render :action => :edit_status
+    end
+
+  end
+  
   def autocomplete_activist_search
     activists = Activist.fast_search(params[:term])
     render :json => activists.collect{|item| {'id' => item.id.to_s, 'label' => item.full_name, "value" => item.full_name} }

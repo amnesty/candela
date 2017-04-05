@@ -45,6 +45,8 @@ AiVoluntariado::Application.routes.draw do
 
     resources :activists_collaborations do 
       get :delete, :on => :member
+      get :edit_status, :on => :member
+      put :update_status, :on => :member
     end
 
     resources :notes do
@@ -112,6 +114,8 @@ AiVoluntariado::Application.routes.draw do
     end
     resources :activists_collaborations do
       get :delete, :on => :member 
+      get :edit_status, :on => :member
+      put :update_status, :on => :member
       get :autocomplete_activist_search, :on => :collection
     end
     resources :talks do
@@ -135,6 +139,8 @@ AiVoluntariado::Application.routes.draw do
     end
     resources :activists_collaborations do
       get :delete, :on => :member 
+      get :edit_status, :on => :member
+      put :update_status, :on => :member
       get :autocomplete_activist_search, :on => :collection
     end
     resources :organization_on_offs do
@@ -149,6 +155,8 @@ AiVoluntariado::Application.routes.draw do
     end
     resources :activists_collaborations do
       get :delete, :on => :member 
+      get :edit_status, :on => :member
+      put :update_status, :on => :member
       get :autocomplete_activist_search, :on => :collection
     end
     resources :organization_on_offs do
@@ -166,6 +174,8 @@ AiVoluntariado::Application.routes.draw do
     end
     resources :activists_collaborations do
       get :delete, :on => :member 
+      get :edit_status, :on => :member
+      put :update_status, :on => :member
       get :autocomplete_activist_search, :on => :collection
     end
     resources :talks do
@@ -189,6 +199,8 @@ AiVoluntariado::Application.routes.draw do
     end
     resources :activists_collaborations do
       get :delete, :on => :member 
+      get :edit_status, :on => :member
+      put :update_status, :on => :member
       get :autocomplete_activist_search, :on => :collection
     end
     resources :organization_on_offs do

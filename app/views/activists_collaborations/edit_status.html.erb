@@ -1,0 +1,55 @@
+<div class="container_form">
+  <%= gx_form_for([@container, @resource], {:url => {:action => :update_status}, :method => :put} ) do |f| %>
+
+    <%= round_div_box do %>
+      <div class="right form_actions">
+        <%= submit_tag( Gx.t("form.buttons.update"), :class => "action_apply" ) %>
+        <%= raw f.show_buttons request %>
+      </div>
+      <h1>
+          <%= Gx.t_action("#{ @resource.class.name.underscore }.edit") %> 
+          <%= raw "#{ t("words.of") } #{ link_to(@container.full_name, @container) }" if @container %>
+      </h1>
+    <% end %>
+
+    <% unless params[:dont_show_errors].present? %>
+    	<%= f.errors_in_form %>
+    <% end %>
+
+    <%= round_div_box(:padding => false) do %>
+    
+      <% form = f %>
+          
+      <table id="<%= params[:action] %>_activists_collaboration_form" class="table_form">
+          
+        <tr class="form_section section_status">
+          <td><%= form.label "sections.status" %></td>
+          <td></td>
+        </tr>
+
+        <tr class="<%= Gx.list_style %>">
+          <td><%= form.label :activist_status_id %></td>
+          <td><%= form.select :activist_status_id, ActivistStatus.all.collect { |c| [c.name, c.id] }, { } %></td>
+        </tr>
+
+        <tr class="<%= Gx.list_style %>">
+          <td><%= form.label :activist_status_changed_at %></td>    
+          <td>
+            <% form.object.activist_status_changed_at = Time.now if !form.object.activist_status_changed_at_changed? %>
+            <%= form.date_field :activist_status_changed_at %>
+          </td>
+        </tr>
+
+      </table>
+
+    <% end %>
+
+    <%= round_div_box do %>
+      <div class='center form_actions'>
+        <%= submit_tag( Gx.t("form.buttons.update"), :class => "action_apply" ) %>
+        <%= raw f.show_buttons request %>
+      </div>
+    <% end %>
+
+  <% end %>
+</div>

@@ -127,6 +127,12 @@ module ApplicationHelper
       if klass_name.eql?('Talk') 
         html << print_popup_action_button
       end
+
+      if klass_name.eql?('ActivistsCollaboration')
+        if object.authorize? :update, :to => current_user
+          html << object_action_button_to(object, 'edit_status') 
+        end
+      end
       
       { :update => 'edit', :destroy => 'delete' }.each_pair do |action, action_label|
          html << object_action_button_to(object, action_label) if object.authorize? action, :to => current_user

@@ -7,7 +7,7 @@ class ActivistsCollaboration < ActiveRecord::Base
   attr_accessible :activist_id, :collaboration_type, :organization_type, :organization_id, 
                   :autonomy_type, :autonomic_team_ids,
                   :join_at, :more_info, :activist_status_id, :activist_status_changed_at,
-                  :responsibility_ids, :availability_id
+                  :responsibility_ids, :expertise_ids, :availability_id
  
   audited
  
@@ -28,6 +28,8 @@ class ActivistsCollaboration < ActiveRecord::Base
   acts_as_content :reflection => :organization
 
   after_destroy :clear_hbtm
+  
+  attr_accessor :set_activist_status_change
 
   def clear_hbtm
     responsibilities.destroy_all
@@ -40,7 +42,7 @@ class ActivistsCollaboration < ActiveRecord::Base
   validate :validate
   
   # Don't include organization_type because usually it is hidden in the forms
-  validates_presence_of :activist_id, :organization_id, :collaboration_type, :join_at, :activist_status_id, :activist_status_changed_at
+  validates_presence_of :activist_id, :organization_id, :collaboration_type, :join_at, :activist_status_id#, :activist_status_changed_at
 
   validates_uniqueness_of :activist_id, :scope => [:organization_id, :organization_type, :collaboration_type], :message => I18n.t('activists_collaboration.errors.already_exists')
 
@@ -406,9 +408,16 @@ class ActivistsCollaboration < ActiveRecord::Base
 
   def validate
     return true if activist.nil? # While creating this object with prepare_create
-    if activist_status_changed_at.nil? == false
-      if activist_status_changed_at > Date.today
+    if set_activist_status_change
+      if !activist_status_id_changed?
+        self.errors.add :activist_status_id, :unchanged
+      end
+      if activist_status_changed_at.nil?
+        self.errors.add :activist_status_changed_at, :required
+      elsif activist_status_changed_at > Date.today
         self.errors.add :base, :status_change_date_future
+      elsif activist_status_changed_at < activist_status_changes.last.date
+        self.errors.add :base, :status_change_date_before_previous
       end
     end
     if join_at.nil? == false
@@ -420,6 +429,10 @@ class ActivistsCollaboration < ActiveRecord::Base
       unless activist.join_at.to_date <= join_at.to_date
         self.errors.add :base, :conflicting_dates
       end
+    end
+
+    if new_record?
+      self.activist_status_changed_at = self.join_at
     end
 
   end

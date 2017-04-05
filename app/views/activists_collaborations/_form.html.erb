@@ -73,15 +73,11 @@
       <td><%= form.label_required :activist_id %></td>
       <td>
         <span class="loading" id="activist_search_loading_indicator" style="display: none;"></span>
-        <%= form.autocomplete_field :activist, url_for([:autocomplete_activist_search, @container.class.name.underscore.to_sym, :activists_collaborations]), :update_elements => {:id => '#activists_collaboration_activist_id'} %>
-        <%= "" || (form.autocomplete_field :activist, autocomplete_activist_search_local_organization_activists_collaborations_path, :update_elements => {:id => '#activists_collaboration_activist_id'}) %>
-
-        <%= "" || "TODO: remove this field" || text_field_with_auto_complete( :activist,
-            :search, { :size => 30, :value => activist_save, :disabled => disabled },
-            { :after_update_element => "setActivistIdValue",
-              :indicator => "activist_search_loading_indicator",
-              :method => :get,
-              :with => "'search_query=' + $('activist_search').value + '&authenticity_token=' + encodeURIComponent(#{ form_authenticity_token.inspect })" }) %>
+        <% if form.object.new_record? %>
+          <%= autocomplete_field_tag 'activist_autocomplete', '', url_for([:autocomplete_activist_search, @container.class.name.underscore.to_sym, :activists_collaborations]), :update_elements => {:id => '#activists_collaboration_activist_id'} %>
+        <% else %>
+          <%= form.text_field nil, { :value => form.object.activist.full_name, :disabled => true } %>
+        <% end %>
       </td>
     </tr>
 
@@ -148,21 +144,29 @@
 
   <tr class="form_section section_status">
     <td><%= form.label "sections.status" %></td>
-    <td></td>
+    <td><%= object_action_button_to(form.object, 'edit_status') if !form.object.new_record? && form.object.authorize?(:update, :to => current_user) %></td>
   </tr>
 
   <tr class="<%= Gx.list_style %>">
     <td><%= form.label :activist_status_id %></td>
-    <td><%= form.select :activist_status_id, ActivistStatus.all.collect { |c| [c.name, c.id] }, { :include_blank => true } %></td>
+    <td>
+      <% if form.object.new_record? %>
+        <%= form.select :activist_status_id, ActivistStatus.all.collect { |c| [c.name, c.id] }, { } %>     
+      <% else %>
+        <%= form.object.activist_status.name %>
+      <% end %>
+    </td>
   </tr>
 
-  <tr class="<%= Gx.list_style %>">
-    <td><%= form.label :activist_status_changed_at %></td>
-    <td><%= form.date_select :activist_status_changed_at, { :include_blank => true } %></td>
-  </tr>
-
-
-
+  <% if !form.object.new_record? %>
+    <tr class="<%= Gx.list_style %>">
+      <td><%= form.label :activist_status_changed_at %></td>
+      <td>
+        <%= l(form.object.activist_status_changes.last.date.to_date) %>
+      </td>
+    </tr>
+  <% end %>
+  
   <% end %>
 
 
