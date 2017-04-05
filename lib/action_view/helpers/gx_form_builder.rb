@@ -95,9 +95,8 @@ module ActionView
       def date_field(method, options = {})
         thedate = eval( "self.object.#{method}" )
         field = @object_name + "_" + method.to_s
-        options.merge! :size => 8,
-          :maxlength => 10, :readonly => true,
-          :value => thedate.nil? ? "" : I18n.localize(thedate.to_date, :format => '%d-%m-%Y')
+        options.merge! :size => 8, :maxlength => 10, :readonly => true
+        options[:value] ||= thedate.nil? ? "" : I18n.localize(thedate.to_date, :format => '%d-%m-%Y')
         self.text_field(method, options) <<
         javascript_tag("$('##{field}').datepicker();")
       end
