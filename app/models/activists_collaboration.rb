@@ -413,7 +413,7 @@ class ActivistsCollaboration < ActiveRecord::Base
         self.errors.add :activist_status_id, :unchanged
       end
       if activist_status_changed_at.nil?
-        self.errors.add :activist_status_changed_at, :required
+        self.errors.add :activist_status_changed_at, :blank
       elsif activist_status_changed_at > Date.today
         self.errors.add :base, :status_change_date_future
       elsif activist_status_changed_at < activist_status_changes.last.date
