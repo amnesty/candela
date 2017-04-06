@@ -131,7 +131,9 @@ class ActivistsCollaboration < ActiveRecord::Base
 
   def record_leave_at
     if self.changes.include?("activist_status_id") and self.activist_status_id == ActivistStatus.leave_id
-      self.leave_at = Time.now
+      self.leave_at = self.activist_status_changed_at
+    elsif self.changes.include?("activist_status_id") and self.activist_status_id != ActivistStatus.leave_id
+      self.leave_at = nil
     end
   end
   
