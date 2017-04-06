@@ -22,18 +22,19 @@
           
       <table id="<%= params[:action] %>_activists_collaboration_form" class="table_form">
           
+        <div><%= t 'activists_collaboration.texts.current_status', :status_name => @resource.activist_status.name, :status_date => l(form.object.activist_status_changes.last.date.to_date) %></div>
         <tr class="form_section section_status">
           <td><%= form.label "sections.status" %></td>
           <td></td>
         </tr>
 
         <tr class="<%= Gx.list_style %>">
-          <td><%= form.label :activist_status_id %></td>
+          <td><%= form.label_required :activist_status_id %></td>
           <td><%= form.select :activist_status_id, ActivistStatus.all.collect { |c| [c.name, c.id] }, { } %></td>
         </tr>
 
         <tr class="<%= Gx.list_style %>">
-          <td><%= form.label :activist_status_changed_at %></td>    
+          <td><%= form.label_required :activist_status_changed_at %></td>    
           <td>
             <% form.object.activist_status_changed_at = Time.now if !form.object.activist_status_changed_at_changed? %>
             <%= form.date_field :activist_status_changed_at %>

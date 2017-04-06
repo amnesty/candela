@@ -449,6 +449,7 @@ es:
       all_responsibilities: Todas las resposabilidades
       all_statuses: Todos los estados
       status_not_leave: Alta
+      current_status: "Estado actual: %{status_name} (desde el %{status_date})"
       
       casual_collaborations: '<p>%{activist}:</p>
                                <p><span class="nice_summary_label">Responsabilidades</span>: <span class="nice_summary_field">%{responsibility}</span>,
