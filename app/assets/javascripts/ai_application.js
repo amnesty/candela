@@ -484,6 +484,8 @@ function onActivistSearchCollaborationOrganizationTypeChange(ctrl,ev)
   var groupTypeInput = $('#activist_with_collaborations_on_group_type');
   var organizationIdInput = $('#activist_activists_collaborations_organization_id_eq');
   var groupTypeRow = groupTypeInput.closest('tr');
+  var organizationProvinceIdInput = $('#activist_activists_collaborations_organization_of_LocalOrganization_type_province_id_in');  
+  var organizationProvinceIdRow = organizationProvinceIdInput.closest('tr');
 
   if (!organizationTypeInput.val())
   {
@@ -493,11 +495,14 @@ function onActivistSearchCollaborationOrganizationTypeChange(ctrl,ev)
   if (organizationTypeInput.val() == 'LocalOrganization')
   {
     groupTypeRow.show();
+    organizationProvinceIdRow.show();
   }
   else
   {
     groupTypeInput.val('');
     groupTypeRow.hide('');
+    organizationProvinceIdInput.val('');
+    organizationProvinceIdRow.hide('');    
   }
   
   var autonomicTeamsInput = $('#activist_activists_collaborations_autonomic_teams_id_eq'); 
