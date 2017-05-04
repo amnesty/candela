@@ -10,7 +10,7 @@ class CivicrmInterested < ActiveRecord::Base
   belongs_to :interested
   
   scope :exported, where('exported_at IS NOT NULL')
-  scope :pending, where('exported_at IS NULL')
+  scope :pending, where('exported_at IS NULL').where('duplicated_warning_sent_at IS NULL')
   scope :with_export_errors, where('export_errors IS NOT NULL')
   
   def self.get_attributes_from_db
