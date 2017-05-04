@@ -5,7 +5,7 @@ gem 'rails', '3.2.12'
 gem 'thin'
 
 gem 'sqlite3'
-gem 'mysql2'
+gem 'mysql2', '= 0.3.20'
 
 gem 'devise'
 
