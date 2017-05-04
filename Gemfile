@@ -48,10 +48,15 @@ gem 'rails3-jquery-autocomplete'
 # Use unicorn as the app server
 # gem 'unicorn'
 
-# Deploy with Capistrano
-# gem 'capistrano'
+group :development do
 
-# To use debugger
-# gem 'debugger'
+  # Deploy with Capistrano
+  gem 'capistrano', "~> 2.15.4"
+
+  # To use debugger
+  # gem 'debugger'
+
+end
+
 
 
