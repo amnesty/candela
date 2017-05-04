@@ -52,6 +52,7 @@ group :development do
 
   # Deploy with Capistrano
   gem 'capistrano', "~> 2.15.4"
+  gem 'rvm-capistrano', "~> 1.5.6"
 
   # To use debugger
   # gem 'debugger'

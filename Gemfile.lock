@@ -138,6 +138,8 @@ GEM
     rdoc (3.12.2)
       json (~> 1.4)
     ref (1.0.2)
+    rvm-capistrano (1.5.6)
+      capistrano (~> 2.15.4)
     sass (3.2.6)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -186,6 +188,7 @@ DEPENDENCIES
   rails (= 3.2.12)
   rails3-jquery-autocomplete
   ransack
+  rvm-capistrano (~> 1.5.6)
   sass-rails (~> 3.2.3)
   settingslogic
   sqlite3
