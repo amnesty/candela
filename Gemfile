@@ -51,8 +51,8 @@ gem 'rails3-jquery-autocomplete'
 group :development do
 
   # Deploy with Capistrano
-  gem 'capistrano', "~> 2.15.4"
   gem 'rvm-capistrano', "~> 1.5.6"
+  gem 'capistrano', "~> 2.15.4"
 
   # To use debugger
   # gem 'debugger'
