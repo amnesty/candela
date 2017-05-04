@@ -66,7 +66,9 @@ class CivicrmInterested < ActiveRecord::Base
       rescue Exception => e       
         self.errors.add(:email, :error_sending_duplicated_interested_email )
       end if duplicated_warning_sent_at.nil?
-    end     
+      return false
+    end 
+    return true    
   end
   
   
